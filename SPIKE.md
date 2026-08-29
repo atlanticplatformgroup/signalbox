@@ -188,7 +188,7 @@ Phase 1 can start on schedule with no open stack question:
 
 ## Next
 
-1. Build the Phase 2 authenticated REST + MCP host over the complete 14-entity tenant model.
+1. Build Phase 3 connectors for GitHub, static-site deployment, and PostgreSQL migrations.
 2. Read the full Nebius official rules for a concurrent-submission clause before planning the Galuxium double-submit.
 
 ## Published compiler state

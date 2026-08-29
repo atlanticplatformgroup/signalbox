@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "compiler": "@atlanticplatformgroup/modellang",
+  "languageVersion": "0.50",
+  "model": "signalbox.model",
+  "output": "generated/signalbox"
+}

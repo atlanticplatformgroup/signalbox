@@ -6,16 +6,28 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "model:check": "modelc check signalbox.model --strict",
-    "model:generate": "modelc build signalbox.model --out generated/signalbox",
+    "model:check": "npm run modellang:check",
+    "model:generate": "npm run modellang:build",
     "generated:build": "cd generated/signalbox && npm install --omit=dev --no-package-lock && npx tsc -p tsconfig.build.json",
-    "test": "vitest run"
+    "host:build": "tsc -p tsconfig.host.json",
+    "modellang:check": "modelc check signalbox.model --strict",
+    "modellang:build": "modelc build signalbox.model --out generated/signalbox",
+    "modellang:typecheck": "npm run modellang:build && npm run generated:build && npx tsc --noEmit -p tsconfig.json && npm run host:build",
+    "modellang:smoke": "node scripts/modellang-smoke.mjs",
+    "start": "npm run generated:build && npm run host:build && node dist/server.mjs",
+    "test": "npm run generated:build && vitest run",
+    "verify": "npm run modellang:smoke && vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "jose": "^6.2.10",
+    "pg": "^8.23.0"
   },
   "devDependencies": {
     "@atlanticplatformgroup/modellang": "0.51.0",
+    "@modelcontextprotocol/client": "^2.0.0",
     "@types/node": "^26.4.0",
     "@types/pg": "^8.23.1",
-    "pg": "^8.23.0",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   }
