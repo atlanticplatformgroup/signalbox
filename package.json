@@ -15,6 +15,7 @@
     "modellang:typecheck": "npm run modellang:build && npm run generated:build && npx tsc --noEmit -p tsconfig.json && npm run host:build",
     "modellang:smoke": "node scripts/modellang-smoke.mjs",
     "start": "npm run generated:build && npm run host:build && node dist/server.mjs",
+    "worker": "npm run generated:build && npm run host:build && node dist/worker-main.mjs",
     "test": "npm run generated:build && vitest run",
     "verify": "npm run modellang:smoke && vitest run"
   },

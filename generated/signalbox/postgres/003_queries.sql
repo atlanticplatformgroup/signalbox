@@ -70,8 +70,8 @@ BEGIN
     END;
 
     IF v_cursor_json ->> 'modelId' IS DISTINCT FROM 'model:Signalbox'
-      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.51.0'
-      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'
+      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.52.0'
+      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'
       OR v_cursor_json ->> 'queryId' IS DISTINCT FROM 'query:qry_22f082ad9148490eb301e04fdc6e2ce3'
       OR v_cursor_json ->> 'revision' IS DISTINCT FROM 'sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17'
       OR v_cursor_json ->> 'orderFieldId' IS DISTINCT FROM 'field:fld_1eea72bb397746d5a3cb2d5d9b7bef83'
@@ -102,7 +102,7 @@ BEGIN
       FROM visible_rows
     ), '[]'::jsonb),
     'nextCursor', CASE WHEN (SELECT pg_catalog.count(*) FROM page_rows) > 50 THEN (
-      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'queryId', 'query:qry_22f082ad9148490eb301e04fdc6e2ce3', 'revision', 'sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17', 'orderFieldId', 'field:fld_1eea72bb397746d5a3cb2d5d9b7bef83', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
+      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'queryId', 'query:qry_22f082ad9148490eb301e04fdc6e2ce3', 'revision', 'sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17', 'orderFieldId', 'field:fld_1eea72bb397746d5a3cb2d5d9b7bef83', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
       FROM visible_rows
       ORDER BY "sort_value" DESC, "identity" DESC
       LIMIT 1
@@ -110,7 +110,7 @@ BEGIN
   ) INTO v_result;
 
   INSERT INTO "model_signalbox_internal"."query_audit" ("query_id", "database_principal", "principal_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "query_revision", "request_hash", "response_hash", "result_count", "sort_profile", "continued")
-  VALUES ('query:qry_22f082ad9148490eb301e04fdc6e2ce3', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_22f082ad9148490eb301e04fdc6e2ce3', 'revision', 'sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
+  VALUES ('query:qry_22f082ad9148490eb301e04fdc6e2ce3', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_22f082ad9148490eb301e04fdc6e2ce3', 'revision', 'sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
 
   RETURN v_result;
 END
@@ -187,8 +187,8 @@ BEGIN
     END;
 
     IF v_cursor_json ->> 'modelId' IS DISTINCT FROM 'model:Signalbox'
-      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.51.0'
-      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'
+      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.52.0'
+      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'
       OR v_cursor_json ->> 'queryId' IS DISTINCT FROM 'query:qry_a96d198b028c45f2b0ec43471cb5ba09'
       OR v_cursor_json ->> 'revision' IS DISTINCT FROM 'sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942'
       OR v_cursor_json ->> 'orderFieldId' IS DISTINCT FROM 'field:fld_281160087c1a4a60abd81642ec528828'
@@ -219,7 +219,7 @@ BEGIN
       FROM visible_rows
     ), '[]'::jsonb),
     'nextCursor', CASE WHEN (SELECT pg_catalog.count(*) FROM page_rows) > 50 THEN (
-      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'queryId', 'query:qry_a96d198b028c45f2b0ec43471cb5ba09', 'revision', 'sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942', 'orderFieldId', 'field:fld_281160087c1a4a60abd81642ec528828', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
+      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'queryId', 'query:qry_a96d198b028c45f2b0ec43471cb5ba09', 'revision', 'sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942', 'orderFieldId', 'field:fld_281160087c1a4a60abd81642ec528828', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
       FROM visible_rows
       ORDER BY "sort_value" DESC, "identity" DESC
       LIMIT 1
@@ -227,7 +227,7 @@ BEGIN
   ) INTO v_result;
 
   INSERT INTO "model_signalbox_internal"."query_audit" ("query_id", "database_principal", "principal_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "query_revision", "request_hash", "response_hash", "result_count", "sort_profile", "continued")
-  VALUES ('query:qry_a96d198b028c45f2b0ec43471cb5ba09', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_a96d198b028c45f2b0ec43471cb5ba09', 'revision', 'sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
+  VALUES ('query:qry_a96d198b028c45f2b0ec43471cb5ba09', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_a96d198b028c45f2b0ec43471cb5ba09', 'revision', 'sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
 
   RETURN v_result;
 END
@@ -304,8 +304,8 @@ BEGIN
     END;
 
     IF v_cursor_json ->> 'modelId' IS DISTINCT FROM 'model:Signalbox'
-      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.51.0'
-      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'
+      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.52.0'
+      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'
       OR v_cursor_json ->> 'queryId' IS DISTINCT FROM 'query:qry_60d1c5d416eb428caa385db274edcb4b'
       OR v_cursor_json ->> 'revision' IS DISTINCT FROM 'sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b'
       OR v_cursor_json ->> 'orderFieldId' IS DISTINCT FROM 'field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5'
@@ -336,7 +336,7 @@ BEGIN
       FROM visible_rows
     ), '[]'::jsonb),
     'nextCursor', CASE WHEN (SELECT pg_catalog.count(*) FROM page_rows) > 50 THEN (
-      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'queryId', 'query:qry_60d1c5d416eb428caa385db274edcb4b', 'revision', 'sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b', 'orderFieldId', 'field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
+      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'queryId', 'query:qry_60d1c5d416eb428caa385db274edcb4b', 'revision', 'sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b', 'orderFieldId', 'field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
       FROM visible_rows
       ORDER BY "sort_value" DESC, "identity" DESC
       LIMIT 1
@@ -344,7 +344,7 @@ BEGIN
   ) INTO v_result;
 
   INSERT INTO "model_signalbox_internal"."query_audit" ("query_id", "database_principal", "principal_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "query_revision", "request_hash", "response_hash", "result_count", "sort_profile", "continued")
-  VALUES ('query:qry_60d1c5d416eb428caa385db274edcb4b', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_60d1c5d416eb428caa385db274edcb4b', 'revision', 'sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
+  VALUES ('query:qry_60d1c5d416eb428caa385db274edcb4b', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_60d1c5d416eb428caa385db274edcb4b', 'revision', 'sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
 
   RETURN v_result;
 END
@@ -421,8 +421,8 @@ BEGIN
     END;
 
     IF v_cursor_json ->> 'modelId' IS DISTINCT FROM 'model:Signalbox'
-      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.51.0'
-      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'
+      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.52.0'
+      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'
       OR v_cursor_json ->> 'queryId' IS DISTINCT FROM 'query:qry_21f24f72d72c4bb98df539477f0e81f2'
       OR v_cursor_json ->> 'revision' IS DISTINCT FROM 'sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781'
       OR v_cursor_json ->> 'orderFieldId' IS DISTINCT FROM 'field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5'
@@ -453,7 +453,7 @@ BEGIN
       FROM visible_rows
     ), '[]'::jsonb),
     'nextCursor', CASE WHEN (SELECT pg_catalog.count(*) FROM page_rows) > 50 THEN (
-      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'queryId', 'query:qry_21f24f72d72c4bb98df539477f0e81f2', 'revision', 'sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781', 'orderFieldId', 'field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
+      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'queryId', 'query:qry_21f24f72d72c4bb98df539477f0e81f2', 'revision', 'sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781', 'orderFieldId', 'field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
       FROM visible_rows
       ORDER BY "sort_value" DESC, "identity" DESC
       LIMIT 1
@@ -461,7 +461,7 @@ BEGIN
   ) INTO v_result;
 
   INSERT INTO "model_signalbox_internal"."query_audit" ("query_id", "database_principal", "principal_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "query_revision", "request_hash", "response_hash", "result_count", "sort_profile", "continued")
-  VALUES ('query:qry_21f24f72d72c4bb98df539477f0e81f2', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_21f24f72d72c4bb98df539477f0e81f2', 'revision', 'sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
+  VALUES ('query:qry_21f24f72d72c4bb98df539477f0e81f2', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_21f24f72d72c4bb98df539477f0e81f2', 'revision', 'sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
 
   RETURN v_result;
 END
@@ -538,8 +538,8 @@ BEGIN
     END;
 
     IF v_cursor_json ->> 'modelId' IS DISTINCT FROM 'model:Signalbox'
-      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.51.0'
-      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'
+      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.52.0'
+      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'
       OR v_cursor_json ->> 'queryId' IS DISTINCT FROM 'query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9'
       OR v_cursor_json ->> 'revision' IS DISTINCT FROM 'sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3'
       OR v_cursor_json ->> 'orderFieldId' IS DISTINCT FROM 'field:fld_6220c184797043188c546747a102e097'
@@ -570,7 +570,7 @@ BEGIN
       FROM visible_rows
     ), '[]'::jsonb),
     'nextCursor', CASE WHEN (SELECT pg_catalog.count(*) FROM page_rows) > 50 THEN (
-      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'queryId', 'query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9', 'revision', 'sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3', 'orderFieldId', 'field:fld_6220c184797043188c546747a102e097', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
+      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'queryId', 'query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9', 'revision', 'sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3', 'orderFieldId', 'field:fld_6220c184797043188c546747a102e097', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
       FROM visible_rows
       ORDER BY "sort_value" DESC, "identity" DESC
       LIMIT 1
@@ -578,7 +578,7 @@ BEGIN
   ) INTO v_result;
 
   INSERT INTO "model_signalbox_internal"."query_audit" ("query_id", "database_principal", "principal_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "query_revision", "request_hash", "response_hash", "result_count", "sort_profile", "continued")
-  VALUES ('query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9', 'revision', 'sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
+  VALUES ('query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9', 'revision', 'sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
 
   RETURN v_result;
 END
@@ -655,8 +655,8 @@ BEGIN
     END;
 
     IF v_cursor_json ->> 'modelId' IS DISTINCT FROM 'model:Signalbox'
-      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.51.0'
-      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'
+      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.52.0'
+      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'
       OR v_cursor_json ->> 'queryId' IS DISTINCT FROM 'query:qry_8a136078ed3b4ee6893410b631ac5a04'
       OR v_cursor_json ->> 'revision' IS DISTINCT FROM 'sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24'
       OR v_cursor_json ->> 'orderFieldId' IS DISTINCT FROM 'field:fld_6220c184797043188c546747a102e097'
@@ -687,7 +687,7 @@ BEGIN
       FROM visible_rows
     ), '[]'::jsonb),
     'nextCursor', CASE WHEN (SELECT pg_catalog.count(*) FROM page_rows) > 50 THEN (
-      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'queryId', 'query:qry_8a136078ed3b4ee6893410b631ac5a04', 'revision', 'sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24', 'orderFieldId', 'field:fld_6220c184797043188c546747a102e097', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
+      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'queryId', 'query:qry_8a136078ed3b4ee6893410b631ac5a04', 'revision', 'sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24', 'orderFieldId', 'field:fld_6220c184797043188c546747a102e097', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
       FROM visible_rows
       ORDER BY "sort_value" DESC, "identity" DESC
       LIMIT 1
@@ -695,7 +695,7 @@ BEGIN
   ) INTO v_result;
 
   INSERT INTO "model_signalbox_internal"."query_audit" ("query_id", "database_principal", "principal_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "query_revision", "request_hash", "response_hash", "result_count", "sort_profile", "continued")
-  VALUES ('query:qry_8a136078ed3b4ee6893410b631ac5a04', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_8a136078ed3b4ee6893410b631ac5a04', 'revision', 'sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
+  VALUES ('query:qry_8a136078ed3b4ee6893410b631ac5a04', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_8a136078ed3b4ee6893410b631ac5a04', 'revision', 'sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
 
   RETURN v_result;
 END
@@ -772,8 +772,8 @@ BEGIN
     END;
 
     IF v_cursor_json ->> 'modelId' IS DISTINCT FROM 'model:Signalbox'
-      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.51.0'
-      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'
+      OR v_cursor_json ->> 'modelVersion' IS DISTINCT FROM '0.52.0'
+      OR v_cursor_json ->> 'sourceHash' IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'
       OR v_cursor_json ->> 'queryId' IS DISTINCT FROM 'query:qry_e608c643d17c4a908f26e6a538630a51'
       OR v_cursor_json ->> 'revision' IS DISTINCT FROM 'sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac'
       OR v_cursor_json ->> 'orderFieldId' IS DISTINCT FROM 'field:fld_054965adb4f143f5a51c51d9449265b5'
@@ -804,7 +804,7 @@ BEGIN
       FROM visible_rows
     ), '[]'::jsonb),
     'nextCursor', CASE WHEN (SELECT pg_catalog.count(*) FROM page_rows) > 50 THEN (
-      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'queryId', 'query:qry_e608c643d17c4a908f26e6a538630a51', 'revision', 'sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac', 'orderFieldId', 'field:fld_054965adb4f143f5a51c51d9449265b5', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
+      SELECT pg_catalog.rtrim(pg_catalog.translate(pg_catalog.replace(pg_catalog.encode(pg_catalog.convert_to((pg_catalog.jsonb_build_object('v', 1, 'modelId', 'model:Signalbox', 'modelVersion', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'queryId', 'query:qry_e608c643d17c4a908f26e6a538630a51', 'revision', 'sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac', 'orderFieldId', 'field:fld_054965adb4f143f5a51c51d9449265b5', 'direction', 'asc', 'inputHash', v_input_hash, 'sort', ("sort_value")::text, 'identity', ("identity")::text))::text, 'UTF8'), 'base64'), E'\n', ''), '+/', '-_'), '=')
       FROM visible_rows
       ORDER BY "sort_value" DESC, "identity" DESC
       LIMIT 1
@@ -812,7 +812,7 @@ BEGIN
   ) INTO v_result;
 
   INSERT INTO "model_signalbox_internal"."query_audit" ("query_id", "database_principal", "principal_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "query_revision", "request_hash", "response_hash", "result_count", "sort_profile", "continued")
-  VALUES ('query:qry_e608c643d17c4a908f26e6a538630a51', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_e608c643d17c4a908f26e6a538630a51', 'revision', 'sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
+  VALUES ('query:qry_e608c643d17c4a908f26e6a538630a51', session_user, v_principal_id, v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac', 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('queryId', 'query:qry_e608c643d17c4a908f26e6a538630a51', 'revision', 'sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac', 'inputs', pg_catalog.jsonb_build_object(), 'sortProfile', pg_catalog.to_jsonb('default'::text), 'cursor', pg_catalog.to_jsonb(p_cursor)))::text, 'UTF8')), 'hex'), 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((v_result)::text, 'UTF8')), 'hex'), pg_catalog.jsonb_array_length(v_result -> 'items'), 'default', p_cursor IS NOT NULL);
 
   RETURN v_result;
 END

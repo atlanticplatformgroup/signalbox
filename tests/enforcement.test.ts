@@ -283,7 +283,7 @@ describe("directly delegated operations", () => {
     const request = await requestIssue();
     const execution = (await connectorWorker.execute(
       OP.dispatchIssue,
-      { request, allowance: ALLOWANCES[0] },
+      { request, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
       { idempotencyKey: key() },
     )) as { id: string; status: string; requestKind: string };
 
@@ -318,7 +318,7 @@ describe("directly delegated operations", () => {
 
     const execution = (await connectorWorker.execute(
       OP.dispatchPull,
-      { request: request.id, allowance: ALLOWANCES[0] },
+      { request: request.id, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
       { idempotencyKey: key() },
     )) as { id: string };
     const failed = (await connectorWorker.execute(
@@ -348,7 +348,7 @@ describe("directly delegated operations", () => {
 
     await connectorWorker.execute(
       OP.dispatchStaging,
-      { request: request.id, allowance: ALLOWANCES[0] },
+      { request: request.id, allowance: ALLOWANCES[0], connector: CONNECTOR_DEPLOY },
       { idempotencyKey: key() },
     );
     expect(
@@ -397,7 +397,7 @@ describe("production approval and separation of duties", () => {
     await expect(
       connectorWorker.execute(
         OP.dispatchProduction,
-        { request, allowance: ALLOWANCES[0] },
+        { request, allowance: ALLOWANCES[0], connector: CONNECTOR_DEPLOY },
         { idempotencyKey: key() },
       ),
     ).rejects.toBeInstanceOf(PreconditionError);
@@ -411,7 +411,7 @@ describe("production approval and separation of duties", () => {
 
     await connectorWorker.execute(
       OP.dispatchProduction,
-      { request, allowance: ALLOWANCES[0] },
+      { request, allowance: ALLOWANCES[0], connector: CONNECTOR_DEPLOY },
       { idempotencyKey: key() },
     );
     expect(
@@ -425,7 +425,7 @@ describe("production approval and separation of duties", () => {
     await expect(
       connectorWorker.execute(
         OP.dispatchProduction,
-        { request, allowance: ALLOWANCES[0] },
+        { request, allowance: ALLOWANCES[0], connector: CONNECTOR_DEPLOY },
         { idempotencyKey: key() },
       ),
     ).rejects.toBeInstanceOf(PreconditionError);
@@ -441,7 +441,7 @@ describe("schema migration governance", () => {
     await expect(
       connectorWorker.execute(
         OP.dispatchMigration,
-        { request, allowance: ALLOWANCES[0] },
+        { request, allowance: ALLOWANCES[0], connector: CONNECTOR_DATABASE },
         { idempotencyKey: key() },
       ),
     ).rejects.toBeInstanceOf(PreconditionError);
@@ -455,7 +455,7 @@ describe("schema migration governance", () => {
 
     await connectorWorker.execute(
       OP.dispatchMigration,
-      { request, allowance: ALLOWANCES[0] },
+      { request, allowance: ALLOWANCES[0], connector: CONNECTOR_DATABASE },
       { idempotencyKey: key() },
     );
     expect(
@@ -472,7 +472,7 @@ describe("schema migration governance", () => {
     await expect(
       connectorWorker.execute(
         OP.dispatchMigration,
-        { request, allowance: ALLOWANCES[0] },
+        { request, allowance: ALLOWANCES[0], connector: CONNECTOR_DATABASE },
         { idempotencyKey: key() },
       ),
     ).rejects.toBeInstanceOf(PreconditionError);
@@ -484,13 +484,13 @@ describe("exactly-once dispatch and allowance consumption", () => {
     const request = await requestIssue();
     await connectorWorker.execute(
       OP.dispatchIssue,
-      { request, allowance: ALLOWANCES[0] },
+      { request, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
       { idempotencyKey: key() },
     );
     await expect(
       connectorWorker.execute(
         OP.dispatchIssue,
-        { request, allowance: ALLOWANCES[1] },
+        { request, allowance: ALLOWANCES[1], connector: CONNECTOR_GITHUB },
         { idempotencyKey: key() },
       ),
     ).rejects.toBeInstanceOf(PreconditionError);
@@ -504,13 +504,13 @@ describe("exactly-once dispatch and allowance consumption", () => {
     const second = await requestIssue("Second");
     await connectorWorker.execute(
       OP.dispatchIssue,
-      { request: first, allowance: ALLOWANCES[0] },
+      { request: first, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
       { idempotencyKey: key() },
     );
     await expect(
       connectorWorker.execute(
         OP.dispatchIssue,
-        { request: second, allowance: ALLOWANCES[0] },
+        { request: second, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
         { idempotencyKey: key() },
       ),
     ).rejects.toBeInstanceOf(InvariantError);
@@ -526,7 +526,7 @@ describe("exactly-once dispatch and allowance consumption", () => {
     await expect(
       connectorWorker.execute(
         OP.dispatchIssue,
-        { request, allowance: ALLOWANCES[0] },
+        { request, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
         { idempotencyKey: key() },
       ),
     ).rejects.toBeInstanceOf(PreconditionError);
@@ -593,12 +593,12 @@ describe("concurrency", () => {
     const results = await Promise.allSettled([
       connectorWorker.execute(
         OP.dispatchIssue,
-        { request: first, allowance: ALLOWANCES[0] },
+        { request: first, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
         { idempotencyKey: key() },
       ),
       connectorWorker.execute(
         OP.dispatchIssue,
-        { request: second, allowance: ALLOWANCES[0] },
+        { request: second, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
         { idempotencyKey: key() },
       ),
     ]);
@@ -614,7 +614,7 @@ describe("tenant-scoped queries", () => {
     await requestMigration();
     await connectorWorker.execute(
       OP.dispatchIssue,
-      { request: issue, allowance: ALLOWANCES[0] },
+      { request: issue, allowance: ALLOWANCES[0], connector: CONNECTOR_GITHUB },
       { idempotencyKey: key() },
     );
 
@@ -639,9 +639,9 @@ describe("audit provenance", () => {
       sql(`SELECT count(*) FROM model_signalbox_internal.action_audit
            WHERE decision_outcome='executed'
              AND model_id='model:Signalbox'
-             AND model_version='0.51.0'
+             AND model_version='0.52.0'
              AND source_hash LIKE 'sha256:%'
-             AND decision_evidence->'model'->>'version'='0.51.0'
+             AND decision_evidence->'model'->>'version'='0.52.0'
              AND decision_evidence->'model'->>'sourceHash'=source_hash;`),
     );
     expect(stamped).toBeGreaterThanOrEqual(2);

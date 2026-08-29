@@ -399,26 +399,31 @@ export interface RejectSchemaMigrationInput {
 export interface DispatchIssueCreationInput {
   request: string;
   allowance: string;
+  connector: string;
 }
 
 export interface DispatchPullRequestInput {
   request: string;
   allowance: string;
+  connector: string;
 }
 
 export interface DispatchStagingDeploymentInput {
   request: string;
   allowance: string;
+  connector: string;
 }
 
 export interface DispatchApprovedDeploymentInput {
   request: string;
   allowance: string;
+  connector: string;
 }
 
 export interface DispatchApprovedSchemaMigrationInput {
   request: string;
   allowance: string;
+  connector: string;
 }
 
 export interface CompleteExecutionInput {

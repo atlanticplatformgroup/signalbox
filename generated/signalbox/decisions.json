@@ -7,8 +7,8 @@
   "irVersion": 2,
   "model": {
     "id": "model:Signalbox",
-    "version": "0.51.0",
-    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+    "version": "0.52.0",
+    "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
   },
   "policies": [
     {
@@ -3055,7 +3055,8 @@
       "operationId": "action:act_cbb72fd307704ab3927aa4bea8112fbf",
       "callableParameterIds": [
         "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
-        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance"
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance",
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector"
       ],
       "callerParameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.actor",
       "entityLoads": [
@@ -3079,6 +3080,13 @@
           "source": "operationInput",
           "executionLock": "update",
           "order": 2
+        },
+        {
+          "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "source": "operationInput",
+          "executionLock": "share",
+          "order": 3
         }
       ],
       "authorization": {
@@ -3285,6 +3293,94 @@
             "nullable": false
           },
           "policyIds": []
+        },
+        {
+          "id": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_3fa9d020d7914602a2fe039d078564e6",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_9cbabb6af742448e967a399cb770e8a3",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "policyIds": []
         }
       ],
       "revision": {
@@ -3293,7 +3389,8 @@
         "componentParameterIds": [
           "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.actor",
           "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
-          "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance"
+          "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance",
+          "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector"
         ],
         "grantsAuthority": false
       },
@@ -3306,7 +3403,8 @@
       "operationId": "action:act_3e99da927be642efac3d1bee026ef00a",
       "callableParameterIds": [
         "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
-        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance"
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance",
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector"
       ],
       "callerParameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.actor",
       "entityLoads": [
@@ -3330,6 +3428,13 @@
           "source": "operationInput",
           "executionLock": "share",
           "order": 2
+        },
+        {
+          "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "source": "operationInput",
+          "executionLock": "share",
+          "order": 3
         }
       ],
       "authorization": {
@@ -3536,6 +3641,94 @@
             "nullable": false
           },
           "policyIds": []
+        },
+        {
+          "id": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_119200b4be784b949bcb3e9e052740cf",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_2dca9ffcf1754ff8a8ecaa99f31b2f40",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "policyIds": []
         }
       ],
       "revision": {
@@ -3544,7 +3737,8 @@
         "componentParameterIds": [
           "parameter:action:act_3e99da927be642efac3d1bee026ef00a.actor",
           "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
-          "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance"
+          "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance",
+          "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector"
         ],
         "grantsAuthority": false
       },
@@ -3557,7 +3751,8 @@
       "operationId": "action:act_3e26a4d454634bf3a2058204146d7c45",
       "callableParameterIds": [
         "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
-        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance"
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance",
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector"
       ],
       "callerParameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.actor",
       "entityLoads": [
@@ -3576,11 +3771,18 @@
           "order": 1
         },
         {
+          "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "source": "operationInput",
+          "executionLock": "share",
+          "order": 2
+        },
+        {
           "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
           "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
           "source": "operationInput",
           "executionLock": "update",
-          "order": 2
+          "order": 3
         }
       ],
       "authorization": {
@@ -3816,6 +4018,94 @@
             "nullable": false
           },
           "policyIds": []
+        },
+        {
+          "id": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "policyIds": []
         }
       ],
       "revision": {
@@ -3824,7 +4114,8 @@
         "componentParameterIds": [
           "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.actor",
           "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
-          "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance"
+          "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance",
+          "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector"
         ],
         "grantsAuthority": false
       },
@@ -3837,7 +4128,8 @@
       "operationId": "action:act_4a9421bfc2e744969b9f73109e6cda54",
       "callableParameterIds": [
         "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance"
+        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector"
       ],
       "callerParameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
       "entityLoads": [
@@ -3856,11 +4148,18 @@
           "order": 1
         },
         {
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "source": "operationInput",
+          "executionLock": "share",
+          "order": 2
+        },
+        {
           "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
           "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
           "source": "operationInput",
           "executionLock": "update",
-          "order": 2
+          "order": 3
         }
       ],
       "authorization": {
@@ -4096,6 +4395,94 @@
             "nullable": false
           },
           "policyIds": []
+        },
+        {
+          "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "policyIds": []
         }
       ],
       "revision": {
@@ -4104,7 +4491,8 @@
         "componentParameterIds": [
           "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
           "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-          "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance"
+          "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+          "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector"
         ],
         "grantsAuthority": false
       },
@@ -4117,7 +4505,8 @@
       "operationId": "action:act_70d3862584094631aca61e9db664d991",
       "callableParameterIds": [
         "parameter:action:act_70d3862584094631aca61e9db664d991.request",
-        "parameter:action:act_70d3862584094631aca61e9db664d991.allowance"
+        "parameter:action:act_70d3862584094631aca61e9db664d991.allowance",
+        "parameter:action:act_70d3862584094631aca61e9db664d991.connector"
       ],
       "callerParameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.actor",
       "entityLoads": [
@@ -4141,6 +4530,13 @@
           "source": "operationInput",
           "executionLock": "update",
           "order": 2
+        },
+        {
+          "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "source": "operationInput",
+          "executionLock": "share",
+          "order": 3
         }
       ],
       "authorization": {
@@ -4347,6 +4743,94 @@
             "nullable": false
           },
           "policyIds": []
+        },
+        {
+          "id": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_3b91f96763da4611a09ec9774b3fde7b",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c7eac19396da4475916b33163d6ecd9f",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "policyIds": []
         }
       ],
       "revision": {
@@ -4355,7 +4839,8 @@
         "componentParameterIds": [
           "parameter:action:act_70d3862584094631aca61e9db664d991.actor",
           "parameter:action:act_70d3862584094631aca61e9db664d991.request",
-          "parameter:action:act_70d3862584094631aca61e9db664d991.allowance"
+          "parameter:action:act_70d3862584094631aca61e9db664d991.allowance",
+          "parameter:action:act_70d3862584094631aca61e9db664d991.connector"
         ],
         "grantsAuthority": false
       },

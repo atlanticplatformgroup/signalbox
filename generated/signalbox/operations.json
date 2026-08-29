@@ -4,8 +4,8 @@
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.51.0",
-    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+    "version": "0.52.0",
+    "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
   },
   "authentication": {
     "required": true,
@@ -2534,6 +2534,14 @@
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
           }
+        },
+        {
+          "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
         }
       ],
       "caller": {
@@ -2580,6 +2588,14 @@
           "type": {
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        },
+        {
+          "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           }
         }
       ],
@@ -2628,6 +2644,14 @@
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
           }
+        },
+        {
+          "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
         }
       ],
       "caller": {
@@ -2675,6 +2699,14 @@
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
           }
+        },
+        {
+          "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
         }
       ],
       "caller": {
@@ -2721,6 +2753,14 @@
           "type": {
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        },
+        {
+          "id": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           }
         }
       ],

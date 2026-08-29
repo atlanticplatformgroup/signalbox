@@ -64,7 +64,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_ea693a4d658449fbab5741b8369bc276', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_ea693a4d658449fbab5741b8369bc276.delegation', pg_catalog.to_jsonb("p_delegation"), 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.repository', pg_catalog.to_jsonb("p_repository"), 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.connector', pg_catalog.to_jsonb("p_connector"), 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.title', pg_catalog.to_jsonb("p_title"), 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.body', pg_catalog.to_jsonb("p_body")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_ea693a4d658449fbab5741b8369bc276', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_ea693a4d658449fbab5741b8369bc276', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -73,7 +73,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_ea693a4d658449fbab5741b8369bc276' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_ea693a4d658449fbab5741b8369bc276';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -150,7 +150,7 @@ BEGIN
   FROM "model_signalbox"."connector" AS row_value
   WHERE row_value."id" = "p_connector";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_ea693a4d658449fbab5741b8369bc276', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.repository', 'value', pg_catalog.to_jsonb("p_repository"), 'rowVersion', pg_catalog.to_jsonb(v_repository_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.title', 'value', pg_catalog.to_jsonb("p_title")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.body', 'value', pg_catalog.to_jsonb("p_body"))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_ea693a4d658449fbab5741b8369bc276', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.repository', 'value', pg_catalog.to_jsonb("p_repository"), 'rowVersion', pg_catalog.to_jsonb(v_repository_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.title', 'value', pg_catalog.to_jsonb("p_title")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_ea693a4d658449fbab5741b8369bc276.body', 'value', pg_catalog.to_jsonb("p_body"))))::text);
 
   IF NOT (((((CASE WHEN (((((((((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND (v_delegation."agent_id" = (v_actor."id"))) AND (v_delegation."status" = 'ACTIVE')) AND (v_delegation."capability" = 'CREATE_ISSUE')) AND (v_delegation."repository_id" = (v_repository."id"))) AND (v_delegation."connector_id" = (v_connector."id"))) AND (v_repository."connector_id" = (v_connector."id"))) AND (v_delegation."org_id" = v_actor."org_id")) AND (v_repository."org_id" = v_actor."org_id")) AND (v_connector."org_id" = v_actor."org_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_ea693a4d658449fbab5741b8369bc276';
@@ -170,7 +170,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'createdAt', v_result."created_at", 'org', v_result."org_id", 'requestedBy', v_result."requested_by_id", 'delegation', v_result."delegation_id", 'repository', v_result."repository_id", 'connector', v_result."connector_id", 'title', v_result."title", 'body', v_result."body", 'status', v_result."status");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_ea693a4d658449fbab5741b8369bc276', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_ea693a4d658449fbab5741b8369bc276', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_ea693a4d658449fbab5741b8369bc276', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_ea693a4d658449fbab5741b8369bc276', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array()), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_ea693a4d658449fbab5741b8369bc276', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_ea693a4d658449fbab5741b8369bc276', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_ea693a4d658449fbab5741b8369bc276', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_ea693a4d658449fbab5741b8369bc276', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array()), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -250,7 +250,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_c4bb8af190dd48efb9784efb9ff9030c', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.delegation', pg_catalog.to_jsonb("p_delegation"), 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.repository', pg_catalog.to_jsonb("p_repository"), 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.connector', pg_catalog.to_jsonb("p_connector"), 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.headBranch', pg_catalog.to_jsonb("p_head_branch"), 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.baseBranch', pg_catalog.to_jsonb("p_base_branch"), 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.title', pg_catalog.to_jsonb("p_title")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_c4bb8af190dd48efb9784efb9ff9030c', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_c4bb8af190dd48efb9784efb9ff9030c', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -259,7 +259,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_c4bb8af190dd48efb9784efb9ff9030c' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_c4bb8af190dd48efb9784efb9ff9030c';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -336,7 +336,7 @@ BEGIN
   FROM "model_signalbox"."connector" AS row_value
   WHERE row_value."id" = "p_connector";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_c4bb8af190dd48efb9784efb9ff9030c', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.repository', 'value', pg_catalog.to_jsonb("p_repository"), 'rowVersion', pg_catalog.to_jsonb(v_repository_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.headBranch', 'value', pg_catalog.to_jsonb("p_head_branch")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.baseBranch', 'value', pg_catalog.to_jsonb("p_base_branch")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.title', 'value', pg_catalog.to_jsonb("p_title"))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_c4bb8af190dd48efb9784efb9ff9030c', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.repository', 'value', pg_catalog.to_jsonb("p_repository"), 'rowVersion', pg_catalog.to_jsonb(v_repository_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.headBranch', 'value', pg_catalog.to_jsonb("p_head_branch")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.baseBranch', 'value', pg_catalog.to_jsonb("p_base_branch")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.title', 'value', pg_catalog.to_jsonb("p_title"))))::text);
 
   IF NOT (((((CASE WHEN (((((((((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND (v_delegation."agent_id" = (v_actor."id"))) AND (v_delegation."status" = 'ACTIVE')) AND (v_delegation."capability" = 'OPEN_PULL_REQUEST')) AND (v_delegation."repository_id" = (v_repository."id"))) AND (v_delegation."connector_id" = (v_connector."id"))) AND (v_repository."connector_id" = (v_connector."id"))) AND (v_delegation."org_id" = v_actor."org_id")) AND (v_repository."org_id" = v_actor."org_id")) AND (v_connector."org_id" = v_actor."org_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c';
@@ -356,7 +356,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'createdAt', v_result."created_at", 'org', v_result."org_id", 'requestedBy', v_result."requested_by_id", 'delegation', v_result."delegation_id", 'repository', v_result."repository_id", 'connector', v_result."connector_id", 'headBranch', v_result."head_branch", 'baseBranch', v_result."base_branch", 'title', v_result."title", 'status', v_result."status");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_c4bb8af190dd48efb9784efb9ff9030c', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_c4bb8af190dd48efb9784efb9ff9030c', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array()), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_c4bb8af190dd48efb9784efb9ff9030c', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_c4bb8af190dd48efb9784efb9ff9030c', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array()), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -436,7 +436,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_1388eb9f38684fa0830f60156cdba497', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_1388eb9f38684fa0830f60156cdba497.delegation', pg_catalog.to_jsonb("p_delegation"), 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.environment', pg_catalog.to_jsonb("p_environment"), 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.connector', pg_catalog.to_jsonb("p_connector"), 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.commitSha', pg_catalog.to_jsonb("p_commit_sha")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_1388eb9f38684fa0830f60156cdba497', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_1388eb9f38684fa0830f60156cdba497', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -445,7 +445,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_1388eb9f38684fa0830f60156cdba497' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_1388eb9f38684fa0830f60156cdba497';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -522,7 +522,7 @@ BEGIN
   FROM "model_signalbox"."connector" AS row_value
   WHERE row_value."id" = "p_connector";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_1388eb9f38684fa0830f60156cdba497', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.environment', 'value', pg_catalog.to_jsonb("p_environment"), 'rowVersion', pg_catalog.to_jsonb(v_environment_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.commitSha', 'value', pg_catalog.to_jsonb("p_commit_sha"))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_1388eb9f38684fa0830f60156cdba497', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.environment', 'value', pg_catalog.to_jsonb("p_environment"), 'rowVersion', pg_catalog.to_jsonb(v_environment_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_1388eb9f38684fa0830f60156cdba497.commitSha', 'value', pg_catalog.to_jsonb("p_commit_sha"))))::text);
 
   IF NOT (((((CASE WHEN (((((((((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND (v_delegation."agent_id" = (v_actor."id"))) AND (v_delegation."status" = 'ACTIVE')) AND (v_delegation."capability" = 'DEPLOY_STAGING')) AND (v_delegation."environment_id" = (v_environment."id"))) AND (v_delegation."connector_id" = (v_connector."id"))) AND (v_environment."connector_id" = (v_connector."id"))) AND (v_delegation."org_id" = v_actor."org_id")) AND (v_environment."org_id" = v_actor."org_id")) AND (v_connector."org_id" = v_actor."org_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_1388eb9f38684fa0830f60156cdba497';
@@ -546,7 +546,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'createdAt', v_result."created_at", 'org', v_result."org_id", 'requestedBy', v_result."requested_by_id", 'delegation', v_result."delegation_id", 'environment', v_result."environment_id", 'environmentTier', v_result."environment_tier", 'connector', v_result."connector_id", 'commitSha', v_result."commit_sha", 'status', v_result."status", 'approvedBy', v_result."approved_by_id", 'approvedByRoles', v_result."approved_by_roles");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_1388eb9f38684fa0830f60156cdba497', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_1388eb9f38684fa0830f60156cdba497', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_1388eb9f38684fa0830f60156cdba497', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_1388eb9f38684fa0830f60156cdba497', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_1388eb9f38684fa0830f60156cdba497', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_1388eb9f38684fa0830f60156cdba497', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_1388eb9f38684fa0830f60156cdba497', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_1388eb9f38684fa0830f60156cdba497', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -626,7 +626,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_d10d1618ed4045f396b64fc3745ce3dd', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation', pg_catalog.to_jsonb("p_delegation"), 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment', pg_catalog.to_jsonb("p_environment"), 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.connector', pg_catalog.to_jsonb("p_connector"), 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.commitSha', pg_catalog.to_jsonb("p_commit_sha")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_d10d1618ed4045f396b64fc3745ce3dd', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_d10d1618ed4045f396b64fc3745ce3dd', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -635,7 +635,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_d10d1618ed4045f396b64fc3745ce3dd' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_d10d1618ed4045f396b64fc3745ce3dd';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -712,7 +712,7 @@ BEGIN
   FROM "model_signalbox"."connector" AS row_value
   WHERE row_value."id" = "p_connector";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_d10d1618ed4045f396b64fc3745ce3dd', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment', 'value', pg_catalog.to_jsonb("p_environment"), 'rowVersion', pg_catalog.to_jsonb(v_environment_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.commitSha', 'value', pg_catalog.to_jsonb("p_commit_sha"))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_d10d1618ed4045f396b64fc3745ce3dd', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment', 'value', pg_catalog.to_jsonb("p_environment"), 'rowVersion', pg_catalog.to_jsonb(v_environment_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.commitSha', 'value', pg_catalog.to_jsonb("p_commit_sha"))))::text);
 
   IF NOT (((((CASE WHEN (((((((((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND (v_delegation."agent_id" = (v_actor."id"))) AND (v_delegation."status" = 'ACTIVE')) AND (v_delegation."capability" = 'REQUEST_PRODUCTION_DEPLOY')) AND (v_delegation."environment_id" = (v_environment."id"))) AND (v_delegation."connector_id" = (v_connector."id"))) AND (v_environment."connector_id" = (v_connector."id"))) AND (v_delegation."org_id" = v_actor."org_id")) AND (v_environment."org_id" = v_actor."org_id")) AND (v_connector."org_id" = v_actor."org_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd';
@@ -736,7 +736,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'createdAt', v_result."created_at", 'org', v_result."org_id", 'requestedBy', v_result."requested_by_id", 'delegation', v_result."delegation_id", 'environment', v_result."environment_id", 'environmentTier', v_result."environment_tier", 'connector', v_result."connector_id", 'commitSha', v_result."commit_sha", 'status', v_result."status", 'approvedBy', v_result."approved_by_id", 'approvedByRoles', v_result."approved_by_roles");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_d10d1618ed4045f396b64fc3745ce3dd', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_d10d1618ed4045f396b64fc3745ce3dd', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_d10d1618ed4045f396b64fc3745ce3dd.production_target', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_d10d1618ed4045f396b64fc3745ce3dd', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_d10d1618ed4045f396b64fc3745ce3dd', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_d10d1618ed4045f396b64fc3745ce3dd.production_target', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -816,7 +816,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_411bfff32560406186bd2d442f1ecf3b', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_411bfff32560406186bd2d442f1ecf3b.delegation', pg_catalog.to_jsonb("p_delegation"), 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.environment', pg_catalog.to_jsonb("p_environment"), 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.connector', pg_catalog.to_jsonb("p_connector"), 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationName', pg_catalog.to_jsonb("p_migration_name"), 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationSha', pg_catalog.to_jsonb("p_migration_sha")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_411bfff32560406186bd2d442f1ecf3b', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_411bfff32560406186bd2d442f1ecf3b', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -825,7 +825,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_411bfff32560406186bd2d442f1ecf3b' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_411bfff32560406186bd2d442f1ecf3b';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -902,7 +902,7 @@ BEGIN
   FROM "model_signalbox"."connector" AS row_value
   WHERE row_value."id" = "p_connector";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_411bfff32560406186bd2d442f1ecf3b', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.environment', 'value', pg_catalog.to_jsonb("p_environment"), 'rowVersion', pg_catalog.to_jsonb(v_environment_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationName', 'value', pg_catalog.to_jsonb("p_migration_name")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationSha', 'value', pg_catalog.to_jsonb("p_migration_sha"))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_411bfff32560406186bd2d442f1ecf3b', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.delegation', 'value', pg_catalog.to_jsonb("p_delegation"), 'rowVersion', pg_catalog.to_jsonb(v_delegation_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.environment', 'value', pg_catalog.to_jsonb("p_environment"), 'rowVersion', pg_catalog.to_jsonb(v_environment_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationName', 'value', pg_catalog.to_jsonb("p_migration_name")), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationSha', 'value', pg_catalog.to_jsonb("p_migration_sha"))))::text);
 
   IF NOT (((((CASE WHEN (((((((((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND (v_delegation."agent_id" = (v_actor."id"))) AND (v_delegation."status" = 'ACTIVE')) AND (v_delegation."capability" = 'REQUEST_SCHEMA_MIGRATION')) AND (v_delegation."environment_id" = (v_environment."id"))) AND (v_delegation."connector_id" = (v_connector."id"))) AND (v_environment."connector_id" = (v_connector."id"))) AND (v_delegation."org_id" = v_actor."org_id")) AND (v_environment."org_id" = v_actor."org_id")) AND (v_connector."org_id" = v_actor."org_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_411bfff32560406186bd2d442f1ecf3b';
@@ -922,7 +922,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'createdAt', v_result."created_at", 'org', v_result."org_id", 'requestedBy', v_result."requested_by_id", 'delegation', v_result."delegation_id", 'environment', v_result."environment_id", 'connector', v_result."connector_id", 'migrationName', v_result."migration_name", 'migrationSha', v_result."migration_sha", 'status', v_result."status", 'approvedBy', v_result."approved_by_id", 'approvedByRoles', v_result."approved_by_roles");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_411bfff32560406186bd2d442f1ecf3b', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_411bfff32560406186bd2d442f1ecf3b', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_411bfff32560406186bd2d442f1ecf3b', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_411bfff32560406186bd2d442f1ecf3b', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array()), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_411bfff32560406186bd2d442f1ecf3b', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_411bfff32560406186bd2d442f1ecf3b', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_411bfff32560406186bd2d442f1ecf3b', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_411bfff32560406186bd2d442f1ecf3b', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array()), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -999,7 +999,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_047a601f15384b5ea4bfa05b5ef72676', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request', pg_catalog.to_jsonb("p_request")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_047a601f15384b5ea4bfa05b5ef72676', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_047a601f15384b5ea4bfa05b5ef72676', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -1008,7 +1008,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_047a601f15384b5ea4bfa05b5ef72676' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_047a601f15384b5ea4bfa05b5ef72676';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -1051,7 +1051,7 @@ BEGIN
   FROM "model_signalbox"."deployment_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_047a601f15384b5ea4bfa05b5ef72676', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_047a601f15384b5ea4bfa05b5ef72676', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
 
   IF NOT (((((CASE WHEN (((((((v_actor."kind" = 'HUMAN') AND (v_actor."status" = 'ACTIVE')) AND ('APPROVER' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id")) AND ((v_actor."id") <> v_request."requested_by_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_047a601f15384b5ea4bfa05b5ef72676';
@@ -1086,7 +1086,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'decidedAt', v_result."decided_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'approver', v_result."approver_id", 'approverRoles', v_result."approver_roles");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_047a601f15384b5ea4bfa05b5ef72676', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_047a601f15384b5ea4bfa05b5ef72676', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_047a601f15384b5ea4bfa05b5ef72676', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_047a601f15384b5ea4bfa05b5ef72676', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_047a601f15384b5ea4bfa05b5ef72676', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_047a601f15384b5ea4bfa05b5ef72676', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_047a601f15384b5ea4bfa05b5ef72676', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_047a601f15384b5ea4bfa05b5ef72676', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -1165,7 +1165,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_18ab026d358144dfa4d1729e40dd832e', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request', pg_catalog.to_jsonb("p_request")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_18ab026d358144dfa4d1729e40dd832e', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_18ab026d358144dfa4d1729e40dd832e', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -1174,7 +1174,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_18ab026d358144dfa4d1729e40dd832e' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_18ab026d358144dfa4d1729e40dd832e';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -1217,7 +1217,7 @@ BEGIN
   FROM "model_signalbox"."deployment_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_18ab026d358144dfa4d1729e40dd832e', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_18ab026d358144dfa4d1729e40dd832e.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_18ab026d358144dfa4d1729e40dd832e', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_18ab026d358144dfa4d1729e40dd832e.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
 
   IF NOT (((((CASE WHEN (((((((v_actor."kind" = 'HUMAN') AND (v_actor."status" = 'ACTIVE')) AND ('APPROVER' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id")) AND ((v_actor."id") <> v_request."requested_by_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_18ab026d358144dfa4d1729e40dd832e';
@@ -1246,7 +1246,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'createdAt', v_result."created_at", 'org', v_result."org_id", 'requestedBy', v_result."requested_by_id", 'delegation', v_result."delegation_id", 'environment', v_result."environment_id", 'environmentTier', v_result."environment_tier", 'connector', v_result."connector_id", 'commitSha', v_result."commit_sha", 'status', v_result."status", 'approvedBy', v_result."approved_by_id", 'approvedByRoles', v_result."approved_by_roles");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_18ab026d358144dfa4d1729e40dd832e', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_18ab026d358144dfa4d1729e40dd832e', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_18ab026d358144dfa4d1729e40dd832e', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_18ab026d358144dfa4d1729e40dd832e', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_18ab026d358144dfa4d1729e40dd832e', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_18ab026d358144dfa4d1729e40dd832e', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_18ab026d358144dfa4d1729e40dd832e', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_18ab026d358144dfa4d1729e40dd832e', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -1323,7 +1323,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.request', pg_catalog.to_jsonb("p_request")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -1332,7 +1332,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -1375,7 +1375,7 @@ BEGIN
   FROM "model_signalbox"."schema_migration_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
 
   IF NOT (((((CASE WHEN (((((((v_actor."kind" = 'HUMAN') AND (v_actor."status" = 'ACTIVE')) AND ('APPROVER' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id")) AND ((v_actor."id") <> v_request."requested_by_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d';
@@ -1406,7 +1406,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'decidedAt', v_result."decided_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'approver', v_result."approver_id", 'approverRoles', v_result."approver_roles");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -1485,7 +1485,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_d3a1935e42f24e4d84d25bc05ee690ad.request', pg_catalog.to_jsonb("p_request")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_d3a1935e42f24e4d84d25bc05ee690ad', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_d3a1935e42f24e4d84d25bc05ee690ad', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -1494,7 +1494,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_d3a1935e42f24e4d84d25bc05ee690ad' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_d3a1935e42f24e4d84d25bc05ee690ad';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -1537,7 +1537,7 @@ BEGIN
   FROM "model_signalbox"."schema_migration_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d3a1935e42f24e4d84d25bc05ee690ad.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d3a1935e42f24e4d84d25bc05ee690ad.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d3a1935e42f24e4d84d25bc05ee690ad.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_d3a1935e42f24e4d84d25bc05ee690ad.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin))))::text);
 
   IF NOT (((((CASE WHEN (((((((v_actor."kind" = 'HUMAN') AND (v_actor."status" = 'ACTIVE')) AND ('APPROVER' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id")) AND ((v_actor."id") <> v_request."requested_by_id"))) IS TRUE) THEN 1 ELSE 0 END)) = 1)) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad';
@@ -1562,7 +1562,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'createdAt', v_result."created_at", 'org', v_result."org_id", 'requestedBy', v_result."requested_by_id", 'delegation', v_result."delegation_id", 'environment', v_result."environment_id", 'connector', v_result."connector_id", 'migrationName', v_result."migration_name", 'migrationSha', v_result."migration_sha", 'status', v_result."status", 'approvedBy', v_result."approved_by_id", 'approvedByRoles', v_result."approved_by_roles");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_d3a1935e42f24e4d84d25bc05ee690ad', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_d3a1935e42f24e4d84d25bc05ee690ad', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -1579,7 +1579,7 @@ $modellang$;
 
 REVOKE ALL ON FUNCTION "model_signalbox"."reject_schema_migration"(uuid) FROM PUBLIC;
 
-CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_issue_creation"("p_request" uuid, "p_allowance" uuid)
+CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_issue_creation"("p_request" uuid, "p_allowance" uuid, "p_connector" uuid)
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
@@ -1613,6 +1613,8 @@ DECLARE
   v_request_xmin text;
   v_allowance "model_signalbox"."allowance"%ROWTYPE;
   v_allowance_xmin text;
+  v_connector "model_signalbox"."connector"%ROWTYPE;
+  v_connector_xmin text;
 BEGIN
   SELECT identity."principal_id", identity."identity_issuer", identity."identity_subject"
   INTO v_principal_id, v_identity_issuer, v_identity_subject
@@ -1639,9 +1641,9 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = '22023', MESSAGE = 'ML_VALIDATION:idempotency:action:act_cbb72fd307704ab3927aa4bea8112fbf';
   END IF;
 
-  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance', pg_catalog.to_jsonb("p_allowance")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
+  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance', pg_catalog.to_jsonb("p_allowance"), 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector', pg_catalog.to_jsonb("p_connector")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -1650,7 +1652,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_cbb72fd307704ab3927aa4bea8112fbf' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_cbb72fd307704ab3927aa4bea8112fbf';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -1670,6 +1672,10 @@ BEGIN
   PERFORM "id" FROM "model_signalbox"."issue_request"
   WHERE "id" = ANY (ARRAY["p_request"]::uuid[])
   ORDER BY "id" FOR UPDATE;
+
+  PERFORM "id" FROM "model_signalbox"."connector"
+  WHERE "id" = ANY (ARRAY["p_connector"]::uuid[])
+  ORDER BY "id" FOR SHARE;
 
   SELECT * INTO v_actor
   FROM "model_signalbox"."principal" AS row_value
@@ -1710,7 +1716,20 @@ BEGIN
   FROM "model_signalbox"."issue_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin))))::text);
+  SELECT * INTO v_connector
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector"
+;
+
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf';
+  END IF;
+
+  SELECT row_value.xmin::text INTO v_connector_xmin
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector";
+
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin))))::text);
 
   IF NOT ((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND ('EXECUTOR' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id"))) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf';
@@ -1728,19 +1747,23 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope';
   END IF;
 
+  IF NOT (((((v_request."connector_id" = v_connector."id") AND (v_connector."org_id" = v_request."org_id")) AND (v_connector."status" = 'ACTIVE'))) IS TRUE) THEN
+    RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active';
+  END IF;
+
   UPDATE "model_signalbox"."issue_request"
   SET "status" = 'DISPATCHED'
   WHERE "id" = v_request."id"
   RETURNING "id" INTO v_effect_target_0;
 
   INSERT INTO "model_signalbox"."execution" ("org_id", "request_id", "request_kind", "requested_by_id", "connector_id", "allowance_id", "status", "external_reference", "failure_message")
-  VALUES (v_request."org_id", v_request."id", 'ISSUE', v_request."requested_by_id", v_request."connector_id", v_allowance."id", 'PENDING', NULL, NULL)
+  VALUES (v_request."org_id", v_request."id", 'ISSUE', v_request."requested_by_id", v_connector."id", v_allowance."id", 'PENDING', NULL, NULL)
   RETURNING * INTO v_result;
   v_effect_target_1 := v_result."id";
 
   v_response := jsonb_build_object('id', v_result."id", 'startedAt', v_result."started_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'connector', v_result."connector_id", 'allowance', v_result."allowance_id", 'status', v_result."status", 'externalReference', v_result."external_reference", 'failureMessage', v_result."failure_message");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_cbb72fd307704ab3927aa4bea8112fbf', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_cbb72fd307704ab3927aa4bea8112fbf', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_cbb72fd307704ab3927aa4bea8112fbf', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -1758,9 +1781,9 @@ BEGIN
 END
 $modellang$;
 
-REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_issue_creation"(uuid, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_issue_creation"(uuid, uuid, uuid) FROM PUBLIC;
 
-CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_pull_request"("p_request" uuid, "p_allowance" uuid)
+CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_pull_request"("p_request" uuid, "p_allowance" uuid, "p_connector" uuid)
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
@@ -1794,6 +1817,8 @@ DECLARE
   v_request_xmin text;
   v_allowance "model_signalbox"."allowance"%ROWTYPE;
   v_allowance_xmin text;
+  v_connector "model_signalbox"."connector"%ROWTYPE;
+  v_connector_xmin text;
 BEGIN
   SELECT identity."principal_id", identity."identity_issuer", identity."identity_subject"
   INTO v_principal_id, v_identity_issuer, v_identity_subject
@@ -1820,9 +1845,9 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = '22023', MESSAGE = 'ML_VALIDATION:idempotency:action:act_3e99da927be642efac3d1bee026ef00a';
   END IF;
 
-  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_3e99da927be642efac3d1bee026ef00a', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_3e99da927be642efac3d1bee026ef00a.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance', pg_catalog.to_jsonb("p_allowance")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
+  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_3e99da927be642efac3d1bee026ef00a', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_3e99da927be642efac3d1bee026ef00a.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance', pg_catalog.to_jsonb("p_allowance"), 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector', pg_catalog.to_jsonb("p_connector")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_3e99da927be642efac3d1bee026ef00a', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_3e99da927be642efac3d1bee026ef00a', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -1831,7 +1856,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_3e99da927be642efac3d1bee026ef00a' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_3e99da927be642efac3d1bee026ef00a';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -1850,6 +1875,10 @@ BEGIN
 
   PERFORM "id" FROM "model_signalbox"."allowance"
   WHERE "id" = ANY (ARRAY["p_allowance"]::uuid[])
+  ORDER BY "id" FOR SHARE;
+
+  PERFORM "id" FROM "model_signalbox"."connector"
+  WHERE "id" = ANY (ARRAY["p_connector"]::uuid[])
   ORDER BY "id" FOR SHARE;
 
   SELECT * INTO v_actor
@@ -1891,7 +1920,20 @@ BEGIN
   FROM "model_signalbox"."allowance" AS row_value
   WHERE row_value."id" = "p_allowance";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_3e99da927be642efac3d1bee026ef00a', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin))))::text);
+  SELECT * INTO v_connector
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector"
+;
+
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_3e99da927be642efac3d1bee026ef00a';
+  END IF;
+
+  SELECT row_value.xmin::text INTO v_connector_xmin
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector";
+
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_3e99da927be642efac3d1bee026ef00a', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin))))::text);
 
   IF NOT ((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND ('EXECUTOR' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id"))) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_3e99da927be642efac3d1bee026ef00a';
@@ -1909,19 +1951,23 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope';
   END IF;
 
+  IF NOT (((((v_request."connector_id" = v_connector."id") AND (v_connector."org_id" = v_request."org_id")) AND (v_connector."status" = 'ACTIVE'))) IS TRUE) THEN
+    RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active';
+  END IF;
+
   UPDATE "model_signalbox"."pull_request"
   SET "status" = 'DISPATCHED'
   WHERE "id" = v_request."id"
   RETURNING "id" INTO v_effect_target_0;
 
   INSERT INTO "model_signalbox"."execution" ("org_id", "request_id", "request_kind", "requested_by_id", "connector_id", "allowance_id", "status", "external_reference", "failure_message")
-  VALUES (v_request."org_id", v_request."id", 'PULL_REQUEST', v_request."requested_by_id", v_request."connector_id", v_allowance."id", 'PENDING', NULL, NULL)
+  VALUES (v_request."org_id", v_request."id", 'PULL_REQUEST', v_request."requested_by_id", v_connector."id", v_allowance."id", 'PENDING', NULL, NULL)
   RETURNING * INTO v_result;
   v_effect_target_1 := v_result."id";
 
   v_response := jsonb_build_object('id', v_result."id", 'startedAt', v_result."started_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'connector', v_result."connector_id", 'allowance', v_result."allowance_id", 'status', v_result."status", 'externalReference', v_result."external_reference", 'failureMessage', v_result."failure_message");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_3e99da927be642efac3d1bee026ef00a', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_3e99da927be642efac3d1bee026ef00a', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_3e99da927be642efac3d1bee026ef00a', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_3e99da927be642efac3d1bee026ef00a', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e99da927be642efac3d1bee026ef00a.ready', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_3e99da927be642efac3d1bee026ef00a', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_3e99da927be642efac3d1bee026ef00a', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_3e99da927be642efac3d1bee026ef00a', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_3e99da927be642efac3d1bee026ef00a', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e99da927be642efac3d1bee026ef00a.ready', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -1939,9 +1985,9 @@ BEGIN
 END
 $modellang$;
 
-REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_pull_request"(uuid, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_pull_request"(uuid, uuid, uuid) FROM PUBLIC;
 
-CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_staging_deployment"("p_request" uuid, "p_allowance" uuid)
+CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_staging_deployment"("p_request" uuid, "p_allowance" uuid, "p_connector" uuid)
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
@@ -1975,6 +2021,8 @@ DECLARE
   v_request_xmin text;
   v_allowance "model_signalbox"."allowance"%ROWTYPE;
   v_allowance_xmin text;
+  v_connector "model_signalbox"."connector"%ROWTYPE;
+  v_connector_xmin text;
 BEGIN
   SELECT identity."principal_id", identity."identity_issuer", identity."identity_subject"
   INTO v_principal_id, v_identity_issuer, v_identity_subject
@@ -2001,9 +2049,9 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = '22023', MESSAGE = 'ML_VALIDATION:idempotency:action:act_3e26a4d454634bf3a2058204146d7c45';
   END IF;
 
-  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_3e26a4d454634bf3a2058204146d7c45', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance', pg_catalog.to_jsonb("p_allowance")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
+  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_3e26a4d454634bf3a2058204146d7c45', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance', pg_catalog.to_jsonb("p_allowance"), 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector', pg_catalog.to_jsonb("p_connector")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_3e26a4d454634bf3a2058204146d7c45', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_3e26a4d454634bf3a2058204146d7c45', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -2012,7 +2060,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_3e26a4d454634bf3a2058204146d7c45' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_3e26a4d454634bf3a2058204146d7c45';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -2027,6 +2075,10 @@ BEGIN
 
   PERFORM "id" FROM "model_signalbox"."allowance"
   WHERE "id" = ANY (ARRAY["p_allowance"]::uuid[])
+  ORDER BY "id" FOR SHARE;
+
+  PERFORM "id" FROM "model_signalbox"."connector"
+  WHERE "id" = ANY (ARRAY["p_connector"]::uuid[])
   ORDER BY "id" FOR SHARE;
 
   PERFORM "id" FROM "model_signalbox"."deployment_request"
@@ -2059,6 +2111,19 @@ BEGIN
   FROM "model_signalbox"."allowance" AS row_value
   WHERE row_value."id" = "p_allowance";
 
+  SELECT * INTO v_connector
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector"
+;
+
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_3e26a4d454634bf3a2058204146d7c45';
+  END IF;
+
+  SELECT row_value.xmin::text INTO v_connector_xmin
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector";
+
   SELECT * INTO v_request
   FROM "model_signalbox"."deployment_request" AS row_value
   WHERE row_value."id" = "p_request"
@@ -2072,7 +2137,7 @@ BEGIN
   FROM "model_signalbox"."deployment_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_3e26a4d454634bf3a2058204146d7c45', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_3e26a4d454634bf3a2058204146d7c45', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin))))::text);
 
   IF NOT ((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND ('EXECUTOR' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id"))) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_3e26a4d454634bf3a2058204146d7c45';
@@ -2090,19 +2155,23 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope';
   END IF;
 
+  IF NOT (((((v_request."connector_id" = v_connector."id") AND (v_connector."org_id" = v_request."org_id")) AND (v_connector."status" = 'ACTIVE'))) IS TRUE) THEN
+    RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active';
+  END IF;
+
   UPDATE "model_signalbox"."deployment_request"
   SET "status" = 'DISPATCHED'
   WHERE "id" = v_request."id"
   RETURNING "id" INTO v_effect_target_0;
 
   INSERT INTO "model_signalbox"."execution" ("org_id", "request_id", "request_kind", "requested_by_id", "connector_id", "allowance_id", "status", "external_reference", "failure_message")
-  VALUES (v_request."org_id", v_request."id", 'DEPLOYMENT', v_request."requested_by_id", v_request."connector_id", v_allowance."id", 'PENDING', NULL, NULL)
+  VALUES (v_request."org_id", v_request."id", 'DEPLOYMENT', v_request."requested_by_id", v_connector."id", v_allowance."id", 'PENDING', NULL, NULL)
   RETURNING * INTO v_result;
   v_effect_target_1 := v_result."id";
 
   v_response := jsonb_build_object('id', v_result."id", 'startedAt', v_result."started_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'connector', v_result."connector_id", 'allowance', v_result."allowance_id", 'status', v_result."status", 'externalReference', v_result."external_reference", 'failureMessage', v_result."failure_message");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_3e26a4d454634bf3a2058204146d7c45', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_3e26a4d454634bf3a2058204146d7c45', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_3e26a4d454634bf3a2058204146d7c45', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_3e26a4d454634bf3a2058204146d7c45', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_3e26a4d454634bf3a2058204146d7c45', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_3e26a4d454634bf3a2058204146d7c45', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_3e26a4d454634bf3a2058204146d7c45', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_3e26a4d454634bf3a2058204146d7c45', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -2120,9 +2189,9 @@ BEGIN
 END
 $modellang$;
 
-REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_staging_deployment"(uuid, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_staging_deployment"(uuid, uuid, uuid) FROM PUBLIC;
 
-CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_approved_deployment"("p_request" uuid, "p_allowance" uuid)
+CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_approved_deployment"("p_request" uuid, "p_allowance" uuid, "p_connector" uuid)
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
@@ -2156,6 +2225,8 @@ DECLARE
   v_request_xmin text;
   v_allowance "model_signalbox"."allowance"%ROWTYPE;
   v_allowance_xmin text;
+  v_connector "model_signalbox"."connector"%ROWTYPE;
+  v_connector_xmin text;
 BEGIN
   SELECT identity."principal_id", identity."identity_issuer", identity."identity_subject"
   INTO v_principal_id, v_identity_issuer, v_identity_subject
@@ -2182,9 +2253,9 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = '22023', MESSAGE = 'ML_VALIDATION:idempotency:action:act_4a9421bfc2e744969b9f73109e6cda54';
   END IF;
 
-  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_4a9421bfc2e744969b9f73109e6cda54', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance', pg_catalog.to_jsonb("p_allowance")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
+  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_4a9421bfc2e744969b9f73109e6cda54', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance', pg_catalog.to_jsonb("p_allowance"), 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector', pg_catalog.to_jsonb("p_connector")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_4a9421bfc2e744969b9f73109e6cda54', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_4a9421bfc2e744969b9f73109e6cda54', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -2193,7 +2264,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_4a9421bfc2e744969b9f73109e6cda54' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_4a9421bfc2e744969b9f73109e6cda54';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -2208,6 +2279,10 @@ BEGIN
 
   PERFORM "id" FROM "model_signalbox"."allowance"
   WHERE "id" = ANY (ARRAY["p_allowance"]::uuid[])
+  ORDER BY "id" FOR SHARE;
+
+  PERFORM "id" FROM "model_signalbox"."connector"
+  WHERE "id" = ANY (ARRAY["p_connector"]::uuid[])
   ORDER BY "id" FOR SHARE;
 
   PERFORM "id" FROM "model_signalbox"."deployment_request"
@@ -2240,6 +2315,19 @@ BEGIN
   FROM "model_signalbox"."allowance" AS row_value
   WHERE row_value."id" = "p_allowance";
 
+  SELECT * INTO v_connector
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector"
+;
+
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_4a9421bfc2e744969b9f73109e6cda54';
+  END IF;
+
+  SELECT row_value.xmin::text INTO v_connector_xmin
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector";
+
   SELECT * INTO v_request
   FROM "model_signalbox"."deployment_request" AS row_value
   WHERE row_value."id" = "p_request"
@@ -2253,7 +2341,7 @@ BEGIN
   FROM "model_signalbox"."deployment_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_4a9421bfc2e744969b9f73109e6cda54', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_4a9421bfc2e744969b9f73109e6cda54', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin))))::text);
 
   IF NOT ((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND ('EXECUTOR' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id"))) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_4a9421bfc2e744969b9f73109e6cda54';
@@ -2271,19 +2359,23 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope';
   END IF;
 
+  IF NOT (((((v_request."connector_id" = v_connector."id") AND (v_connector."org_id" = v_request."org_id")) AND (v_connector."status" = 'ACTIVE'))) IS TRUE) THEN
+    RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active';
+  END IF;
+
   UPDATE "model_signalbox"."deployment_request"
   SET "status" = 'DISPATCHED'
   WHERE "id" = v_request."id"
   RETURNING "id" INTO v_effect_target_0;
 
   INSERT INTO "model_signalbox"."execution" ("org_id", "request_id", "request_kind", "requested_by_id", "connector_id", "allowance_id", "status", "external_reference", "failure_message")
-  VALUES (v_request."org_id", v_request."id", 'DEPLOYMENT', v_request."requested_by_id", v_request."connector_id", v_allowance."id", 'PENDING', NULL, NULL)
+  VALUES (v_request."org_id", v_request."id", 'DEPLOYMENT', v_request."requested_by_id", v_connector."id", v_allowance."id", 'PENDING', NULL, NULL)
   RETURNING * INTO v_result;
   v_effect_target_1 := v_result."id";
 
   v_response := jsonb_build_object('id', v_result."id", 'startedAt', v_result."started_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'connector', v_result."connector_id", 'allowance', v_result."allowance_id", 'status', v_result."status", 'externalReference', v_result."external_reference", 'failureMessage', v_result."failure_message");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_4a9421bfc2e744969b9f73109e6cda54', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_4a9421bfc2e744969b9f73109e6cda54', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_4a9421bfc2e744969b9f73109e6cda54', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_4a9421bfc2e744969b9f73109e6cda54', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_4a9421bfc2e744969b9f73109e6cda54', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_4a9421bfc2e744969b9f73109e6cda54', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_4a9421bfc2e744969b9f73109e6cda54', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_4a9421bfc2e744969b9f73109e6cda54', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -2301,9 +2393,9 @@ BEGIN
 END
 $modellang$;
 
-REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_approved_deployment"(uuid, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_approved_deployment"(uuid, uuid, uuid) FROM PUBLIC;
 
-CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_approved_schema_migration"("p_request" uuid, "p_allowance" uuid)
+CREATE OR REPLACE FUNCTION "model_signalbox"."dispatch_approved_schema_migration"("p_request" uuid, "p_allowance" uuid, "p_connector" uuid)
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
@@ -2337,6 +2429,8 @@ DECLARE
   v_request_xmin text;
   v_allowance "model_signalbox"."allowance"%ROWTYPE;
   v_allowance_xmin text;
+  v_connector "model_signalbox"."connector"%ROWTYPE;
+  v_connector_xmin text;
 BEGIN
   SELECT identity."principal_id", identity."identity_issuer", identity."identity_subject"
   INTO v_principal_id, v_identity_issuer, v_identity_subject
@@ -2363,9 +2457,9 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = '22023', MESSAGE = 'ML_VALIDATION:idempotency:action:act_70d3862584094631aca61e9db664d991';
   END IF;
 
-  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_70d3862584094631aca61e9db664d991', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_70d3862584094631aca61e9db664d991.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_70d3862584094631aca61e9db664d991.allowance', pg_catalog.to_jsonb("p_allowance")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
+  v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_70d3862584094631aca61e9db664d991', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_70d3862584094631aca61e9db664d991.request', pg_catalog.to_jsonb("p_request"), 'parameter:action:act_70d3862584094631aca61e9db664d991.allowance', pg_catalog.to_jsonb("p_allowance"), 'parameter:action:act_70d3862584094631aca61e9db664d991.connector', pg_catalog.to_jsonb("p_connector")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_70d3862584094631aca61e9db664d991', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_70d3862584094631aca61e9db664d991', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -2374,7 +2468,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_70d3862584094631aca61e9db664d991' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_70d3862584094631aca61e9db664d991';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -2394,6 +2488,10 @@ BEGIN
   PERFORM "id" FROM "model_signalbox"."schema_migration_request"
   WHERE "id" = ANY (ARRAY["p_request"]::uuid[])
   ORDER BY "id" FOR UPDATE;
+
+  PERFORM "id" FROM "model_signalbox"."connector"
+  WHERE "id" = ANY (ARRAY["p_connector"]::uuid[])
+  ORDER BY "id" FOR SHARE;
 
   SELECT * INTO v_actor
   FROM "model_signalbox"."principal" AS row_value
@@ -2434,7 +2532,20 @@ BEGIN
   FROM "model_signalbox"."schema_migration_request" AS row_value
   WHERE row_value."id" = "p_request";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_70d3862584094631aca61e9db664d991', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_70d3862584094631aca61e9db664d991.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_70d3862584094631aca61e9db664d991.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_70d3862584094631aca61e9db664d991.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin))))::text);
+  SELECT * INTO v_connector
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector"
+;
+
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_70d3862584094631aca61e9db664d991';
+  END IF;
+
+  SELECT row_value.xmin::text INTO v_connector_xmin
+  FROM "model_signalbox"."connector" AS row_value
+  WHERE row_value."id" = "p_connector";
+
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_70d3862584094631aca61e9db664d991', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_70d3862584094631aca61e9db664d991.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_70d3862584094631aca61e9db664d991.request', 'value', pg_catalog.to_jsonb("p_request"), 'rowVersion', pg_catalog.to_jsonb(v_request_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_70d3862584094631aca61e9db664d991.allowance', 'value', pg_catalog.to_jsonb("p_allowance"), 'rowVersion', pg_catalog.to_jsonb(v_allowance_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_70d3862584094631aca61e9db664d991.connector', 'value', pg_catalog.to_jsonb("p_connector"), 'rowVersion', pg_catalog.to_jsonb(v_connector_xmin))))::text);
 
   IF NOT ((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND ('EXECUTOR' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_request."org_id"))) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_70d3862584094631aca61e9db664d991';
@@ -2452,19 +2563,23 @@ BEGIN
     RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_70d3862584094631aca61e9db664d991.allowance_scope';
   END IF;
 
+  IF NOT (((((v_request."connector_id" = v_connector."id") AND (v_connector."org_id" = v_request."org_id")) AND (v_connector."status" = 'ACTIVE'))) IS TRUE) THEN
+    RAISE EXCEPTION USING ERRCODE = 'P0001', MESSAGE = 'ML_PRECONDITION:require:action:act_70d3862584094631aca61e9db664d991.connector_active';
+  END IF;
+
   UPDATE "model_signalbox"."schema_migration_request"
   SET "status" = 'DISPATCHED'
   WHERE "id" = v_request."id"
   RETURNING "id" INTO v_effect_target_0;
 
   INSERT INTO "model_signalbox"."execution" ("org_id", "request_id", "request_kind", "requested_by_id", "connector_id", "allowance_id", "status", "external_reference", "failure_message")
-  VALUES (v_request."org_id", v_request."id", 'SCHEMA_MIGRATION', v_request."requested_by_id", v_request."connector_id", v_allowance."id", 'PENDING', NULL, NULL)
+  VALUES (v_request."org_id", v_request."id", 'SCHEMA_MIGRATION', v_request."requested_by_id", v_connector."id", v_allowance."id", 'PENDING', NULL, NULL)
   RETURNING * INTO v_result;
   v_effect_target_1 := v_result."id";
 
   v_response := jsonb_build_object('id', v_result."id", 'startedAt', v_result."started_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'connector', v_result."connector_id", 'allowance', v_result."allowance_id", 'status', v_result."status", 'externalReference', v_result."external_reference", 'failureMessage', v_result."failure_message");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_70d3862584094631aca61e9db664d991', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_70d3862584094631aca61e9db664d991', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_70d3862584094631aca61e9db664d991', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_70d3862584094631aca61e9db664d991', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_70d3862584094631aca61e9db664d991.approved', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_70d3862584094631aca61e9db664d991.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_70d3862584094631aca61e9db664d991', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_70d3862584094631aca61e9db664d991', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_70d3862584094631aca61e9db664d991', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_70d3862584094631aca61e9db664d991', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_70d3862584094631aca61e9db664d991.approved', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_70d3862584094631aca61e9db664d991.allowance_scope', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()), pg_catalog.jsonb_build_object('ruleId', 'require:action:act_70d3862584094631aca61e9db664d991.connector_active', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -2482,7 +2597,7 @@ BEGIN
 END
 $modellang$;
 
-REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_approved_schema_migration"(uuid, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION "model_signalbox"."dispatch_approved_schema_migration"(uuid, uuid, uuid) FROM PUBLIC;
 
 CREATE OR REPLACE FUNCTION "model_signalbox"."complete_execution"("p_execution" uuid, "p_external_reference" text)
 RETURNS jsonb
@@ -2543,7 +2658,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_5be24324b68d4c2eb334732b36e1b16c', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.execution', pg_catalog.to_jsonb("p_execution"), 'parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.externalReference', pg_catalog.to_jsonb("p_external_reference")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_5be24324b68d4c2eb334732b36e1b16c', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_5be24324b68d4c2eb334732b36e1b16c', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -2552,7 +2667,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_5be24324b68d4c2eb334732b36e1b16c' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_5be24324b68d4c2eb334732b36e1b16c';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -2595,7 +2710,7 @@ BEGIN
   FROM "model_signalbox"."execution" AS row_value
   WHERE row_value."id" = "p_execution";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_5be24324b68d4c2eb334732b36e1b16c', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.execution', 'value', pg_catalog.to_jsonb("p_execution"), 'rowVersion', pg_catalog.to_jsonb(v_execution_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.externalReference', 'value', pg_catalog.to_jsonb("p_external_reference"))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_5be24324b68d4c2eb334732b36e1b16c', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.execution', 'value', pg_catalog.to_jsonb("p_execution"), 'rowVersion', pg_catalog.to_jsonb(v_execution_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.externalReference', 'value', pg_catalog.to_jsonb("p_external_reference"))))::text);
 
   IF NOT ((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND ('EXECUTOR' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_execution."org_id"))) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_5be24324b68d4c2eb334732b36e1b16c';
@@ -2619,7 +2734,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'startedAt', v_result."started_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'connector', v_result."connector_id", 'allowance', v_result."allowance_id", 'status', v_result."status", 'externalReference', v_result."external_reference", 'failureMessage', v_result."failure_message");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_5be24324b68d4c2eb334732b36e1b16c', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_5be24324b68d4c2eb334732b36e1b16c', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_5be24324b68d4c2eb334732b36e1b16c', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_5be24324b68d4c2eb334732b36e1b16c', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_5be24324b68d4c2eb334732b36e1b16c', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_5be24324b68d4c2eb334732b36e1b16c', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_5be24324b68d4c2eb334732b36e1b16c', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_5be24324b68d4c2eb334732b36e1b16c', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")
@@ -2695,7 +2810,7 @@ BEGIN
 
   v_request_hash := 'sha256:' || pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to((pg_catalog.jsonb_build_object('actionId', 'action:act_926686163a6544e79d44dea9336d2c88', 'inputs', pg_catalog.jsonb_build_object('parameter:action:act_926686163a6544e79d44dea9336d2c88.execution', pg_catalog.to_jsonb("p_execution"), 'parameter:action:act_926686163a6544e79d44dea9336d2c88.failureMessage', pg_catalog.to_jsonb("p_failure_message")), 'expectedRevision', v_expected_revision, 'correlationId', v_correlation_id, 'causationId', v_causation_id))::text, 'UTF8')), 'hex');
   INSERT INTO "model_signalbox_internal"."command_receipt" ("model_id", "model_version", "source_hash", "action_id", "principal_id", "idempotency_key", "request_hash", "correlation_id", "causation_id")
-  VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'action:act_926686163a6544e79d44dea9336d2c88', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
+  VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'action:act_926686163a6544e79d44dea9336d2c88', v_principal_id, v_idempotency_key, v_request_hash, v_correlation_id, v_causation_id)
   ON CONFLICT ("principal_id", "action_id", "idempotency_key") DO NOTHING
   RETURNING "id" INTO v_receipt_id;
 
@@ -2704,7 +2819,7 @@ BEGIN
     INTO v_receipt_id, v_receipt_source_hash, v_receipt_request_hash, v_receipt_status, v_receipt_response
     FROM "model_signalbox_internal"."command_receipt"
     WHERE "principal_id" = v_principal_id AND "action_id" = 'action:act_926686163a6544e79d44dea9336d2c88' AND "idempotency_key" = v_idempotency_key;
-    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
+    IF v_receipt_source_hash IS DISTINCT FROM 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9' OR v_receipt_request_hash IS DISTINCT FROM v_request_hash THEN
       RAISE EXCEPTION USING ERRCODE = '40001', MESSAGE = 'ML_IDEMPOTENCY_CONFLICT:idempotency:action:act_926686163a6544e79d44dea9336d2c88';
     END IF;
     IF v_receipt_status IS DISTINCT FROM 'executed' OR v_receipt_response IS NULL THEN
@@ -2747,7 +2862,7 @@ BEGIN
   FROM "model_signalbox"."execution" AS row_value
   WHERE row_value."id" = "p_execution";
 
-  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'operationId', 'action:act_926686163a6544e79d44dea9336d2c88', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_926686163a6544e79d44dea9336d2c88.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_926686163a6544e79d44dea9336d2c88.execution', 'value', pg_catalog.to_jsonb("p_execution"), 'rowVersion', pg_catalog.to_jsonb(v_execution_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_926686163a6544e79d44dea9336d2c88.failureMessage', 'value', pg_catalog.to_jsonb("p_failure_message"))))::text);
+  v_revision := 'rev:1:' || pg_catalog.md5(pg_catalog.jsonb_build_object('sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'operationId', 'action:act_926686163a6544e79d44dea9336d2c88', 'components', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_926686163a6544e79d44dea9336d2c88.actor', 'value', pg_catalog.to_jsonb(v_principal_id), 'rowVersion', pg_catalog.to_jsonb(v_actor_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_926686163a6544e79d44dea9336d2c88.execution', 'value', pg_catalog.to_jsonb("p_execution"), 'rowVersion', pg_catalog.to_jsonb(v_execution_xmin)), pg_catalog.jsonb_build_object('parameterId', 'parameter:action:act_926686163a6544e79d44dea9336d2c88.failureMessage', 'value', pg_catalog.to_jsonb("p_failure_message"))))::text);
 
   IF NOT ((((((v_actor."kind" = 'AGENT') AND (v_actor."status" = 'ACTIVE')) AND ('EXECUTOR' = ANY(v_actor."roles"))) AND (v_actor."org_id" = v_execution."org_id"))) IS TRUE) THEN
     RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'ML_AUTHORIZATION:authorize:action:act_926686163a6544e79d44dea9336d2c88';
@@ -2771,7 +2886,7 @@ BEGIN
 
   v_response := jsonb_build_object('id', v_result."id", 'startedAt', v_result."started_at", 'org', v_result."org_id", 'requestId', v_result."request_id", 'requestKind', v_result."request_kind", 'requestedBy', v_result."requested_by_id", 'connector', v_result."connector_id", 'allowance', v_result."allowance_id", 'status', v_result."status", 'externalReference', v_result."external_reference", 'failureMessage', v_result."failure_message");
   INSERT INTO "model_signalbox_internal"."action_audit" ("action_id", "database_principal", "principal_id", "target_id", "identity_issuer", "identity_subject", "model_id", "model_version", "source_hash", "authorization_rule_id", "decision_outcome", "policy_id", "authority_id", "decision_evidence", "correlation_id", "causation_id", "command_receipt_id")
-  VALUES ('action:act_926686163a6544e79d44dea9336d2c88', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'authorize:action:act_926686163a6544e79d44dea9336d2c88', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.51.0', 'sourceHash', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608'), 'actionId', 'action:act_926686163a6544e79d44dea9336d2c88', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_926686163a6544e79d44dea9336d2c88', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_926686163a6544e79d44dea9336d2c88.pending', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
+  VALUES ('action:act_926686163a6544e79d44dea9336d2c88', session_user, v_principal_id, v_result."id", v_identity_issuer, v_identity_subject, 'model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'authorize:action:act_926686163a6544e79d44dea9336d2c88', 'executed', v_authority_policy_id, v_authority_id, pg_catalog.jsonb_build_object('version', 2, 'outcome', 'executed', 'model', pg_catalog.jsonb_build_object('id', 'model:Signalbox', 'version', '0.52.0', 'sourceHash', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9'), 'actionId', 'action:act_926686163a6544e79d44dea9336d2c88', 'command', pg_catalog.jsonb_build_object('correlationId', v_correlation_id, 'causationId', v_causation_id, 'receiptId', v_receipt_id), 'authorization', pg_catalog.jsonb_build_object('ruleId', 'authorize:action:act_926686163a6544e79d44dea9336d2c88', 'outcome', 'passed', 'policyId', v_authority_policy_id, 'authorityId', v_authority_id), 'requirements', pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object('ruleId', 'require:action:act_926686163a6544e79d44dea9336d2c88.pending', 'outcome', 'passed', 'policyIds', pg_catalog.jsonb_build_array()))), v_correlation_id, v_causation_id, v_receipt_id)
   RETURNING "id" INTO v_action_audit_id;
 
   INSERT INTO "model_signalbox_internal"."action_effect_audit" ("action_audit_id", "effect_id", "effect_ordinal", "effect_kind", "entity_id", "target_id")

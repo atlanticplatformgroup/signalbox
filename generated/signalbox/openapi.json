@@ -3,8 +3,8 @@
   "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
   "info": {
     "title": "Signalbox ModelLang API",
-    "version": "0.51.0",
-    "description": "Generated from ModelLang operation manifest v11 (sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608)."
+    "version": "0.52.0",
+    "description": "Generated from ModelLang operation manifest v11 (sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9)."
   },
   "paths": {
     "/operations/actions/act_ea693a4d658449fbab5741b8369bc276": {
@@ -1650,7 +1650,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -1658,6 +1659,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -1823,7 +1828,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -1831,6 +1837,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -1996,7 +2006,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -2004,6 +2015,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -2169,7 +2184,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -2177,6 +2193,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -2342,7 +2362,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -2350,6 +2371,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -5158,7 +5183,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -5166,6 +5192,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -5284,7 +5314,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -5292,6 +5323,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -5410,7 +5445,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -5418,6 +5454,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -5536,7 +5576,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -5544,6 +5585,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -5662,7 +5707,8 @@
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -5670,6 +5716,10 @@
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -6104,10 +6154,10 @@
                           "const": "Signalbox"
                         },
                         "version": {
-                          "const": "0.51.0"
+                          "const": "0.52.0"
                         },
                         "sourceHash": {
-                          "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                          "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                         }
                       }
                     },
@@ -6391,10 +6441,10 @@
                           "const": "Signalbox"
                         },
                         "version": {
-                          "const": "0.51.0"
+                          "const": "0.52.0"
                         },
                         "sourceHash": {
-                          "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                          "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                         }
                       }
                     },
@@ -6678,10 +6728,10 @@
                           "const": "Signalbox"
                         },
                         "version": {
-                          "const": "0.51.0"
+                          "const": "0.52.0"
                         },
                         "sourceHash": {
-                          "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                          "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                         }
                       }
                     },
@@ -6965,10 +7015,10 @@
                           "const": "Signalbox"
                         },
                         "version": {
-                          "const": "0.51.0"
+                          "const": "0.52.0"
                         },
                         "sourceHash": {
-                          "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                          "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                         }
                       }
                     },
@@ -7252,10 +7302,10 @@
                           "const": "Signalbox"
                         },
                         "version": {
-                          "const": "0.51.0"
+                          "const": "0.52.0"
                         },
                         "sourceHash": {
-                          "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                          "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                         }
                       }
                     },
@@ -7539,10 +7589,10 @@
                           "const": "Signalbox"
                         },
                         "version": {
-                          "const": "0.51.0"
+                          "const": "0.52.0"
                         },
                         "sourceHash": {
-                          "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                          "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                         }
                       }
                     },
@@ -7826,10 +7876,10 @@
                           "const": "Signalbox"
                         },
                         "version": {
-                          "const": "0.51.0"
+                          "const": "0.52.0"
                         },
                         "sourceHash": {
-                          "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                          "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                         }
                       }
                     },
@@ -8423,7 +8473,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -8431,6 +8482,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -8458,7 +8513,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -8466,6 +8522,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -8493,7 +8553,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -8501,6 +8562,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -8528,7 +8593,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -8536,6 +8602,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -8563,7 +8633,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -8571,6 +8642,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -9157,7 +9232,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -9165,6 +9241,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -9193,7 +9273,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -9201,6 +9282,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -9229,7 +9314,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -9237,6 +9323,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -9265,7 +9355,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -9273,6 +9364,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -9301,7 +9396,8 @@
                               "additionalProperties": false,
                               "required": [
                                 "request",
-                                "allowance"
+                                "allowance",
+                                "connector"
                               ],
                               "properties": {
                                 "request": {
@@ -9309,6 +9405,10 @@
                                   "format": "uuid"
                                 },
                                 "allowance": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "connector": {
                                   "type": "string",
                                   "format": "uuid"
                                 }
@@ -10112,7 +10212,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -10120,6 +10221,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -10144,7 +10249,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -10152,6 +10258,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -10176,7 +10286,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -10184,6 +10295,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -10208,7 +10323,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -10216,6 +10332,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -10240,7 +10360,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -10248,6 +10369,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -11026,7 +11151,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -11034,6 +11160,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -11062,7 +11192,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -11070,6 +11201,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -11098,7 +11233,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -11106,6 +11242,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -11134,7 +11274,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -11142,6 +11283,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -11170,7 +11315,8 @@
                             "additionalProperties": false,
                             "required": [
                               "request",
-                              "allowance"
+                              "allowance",
+                              "connector"
                             ],
                             "properties": {
                               "request": {
@@ -11178,6 +11324,10 @@
                                 "format": "uuid"
                               },
                               "allowance": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "connector": {
                                 "type": "string",
                                 "format": "uuid"
                               }
@@ -12604,22 +12754,27 @@
                   "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
                   "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
                   "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                  "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
                   "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
                   "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
                   "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
                   "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                  "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
                   "revision:action:act_3e99da927be642efac3d1bee026ef00a",
                   "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
                   "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
                   "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                  "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
                   "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
                   "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
                   "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
                   "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                  "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
                   "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
                   "authorize:action:act_70d3862584094631aca61e9db664d991",
                   "require:action:act_70d3862584094631aca61e9db664d991.approved",
                   "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                  "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
                   "revision:action:act_70d3862584094631aca61e9db664d991",
                   "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
                   "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending",
@@ -12793,8 +12948,8 @@
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "packetId": {
@@ -16043,7 +16198,8 @@
                         "additionalProperties": false,
                         "required": [
                           "request",
-                          "allowance"
+                          "allowance",
+                          "connector"
                         ],
                         "properties": {
                           "request": {
@@ -16051,6 +16207,10 @@
                             "format": "uuid"
                           },
                           "allowance": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "connector": {
                             "type": "string",
                             "format": "uuid"
                           }
@@ -16388,7 +16548,8 @@
                         "additionalProperties": false,
                         "required": [
                           "request",
-                          "allowance"
+                          "allowance",
+                          "connector"
                         ],
                         "properties": {
                           "request": {
@@ -16396,6 +16557,10 @@
                             "format": "uuid"
                           },
                           "allowance": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "connector": {
                             "type": "string",
                             "format": "uuid"
                           }
@@ -16733,7 +16898,8 @@
                         "additionalProperties": false,
                         "required": [
                           "request",
-                          "allowance"
+                          "allowance",
+                          "connector"
                         ],
                         "properties": {
                           "request": {
@@ -16741,6 +16907,10 @@
                             "format": "uuid"
                           },
                           "allowance": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "connector": {
                             "type": "string",
                             "format": "uuid"
                           }
@@ -17078,7 +17248,8 @@
                         "additionalProperties": false,
                         "required": [
                           "request",
-                          "allowance"
+                          "allowance",
+                          "connector"
                         ],
                         "properties": {
                           "request": {
@@ -17086,6 +17257,10 @@
                             "format": "uuid"
                           },
                           "allowance": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "connector": {
                             "type": "string",
                             "format": "uuid"
                           }
@@ -17423,7 +17598,8 @@
                         "additionalProperties": false,
                         "required": [
                           "request",
-                          "allowance"
+                          "allowance",
+                          "connector"
                         ],
                         "properties": {
                           "request": {
@@ -17431,6 +17607,10 @@
                             "format": "uuid"
                           },
                           "allowance": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "connector": {
                             "type": "string",
                             "format": "uuid"
                           }
@@ -18477,8 +18657,8 @@
                           "const": {
                             "id": "model:Signalbox",
                             "name": "Signalbox",
-                            "version": "0.51.0",
-                            "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                            "version": "0.52.0",
+                            "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                           }
                         },
                         "operationId": {
@@ -18664,8 +18844,8 @@
                           "const": {
                             "id": "model:Signalbox",
                             "name": "Signalbox",
-                            "version": "0.51.0",
-                            "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                            "version": "0.52.0",
+                            "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                           }
                         },
                         "operationId": {
@@ -18859,8 +19039,8 @@
                           "const": {
                             "id": "model:Signalbox",
                             "name": "Signalbox",
-                            "version": "0.51.0",
-                            "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                            "version": "0.52.0",
+                            "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                           }
                         },
                         "operationId": {
@@ -19087,8 +19267,8 @@
                           "const": {
                             "id": "model:Signalbox",
                             "name": "Signalbox",
-                            "version": "0.51.0",
-                            "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                            "version": "0.52.0",
+                            "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                           }
                         },
                         "operationId": {
@@ -19315,8 +19495,8 @@
                           "const": {
                             "id": "model:Signalbox",
                             "name": "Signalbox",
-                            "version": "0.51.0",
-                            "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                            "version": "0.52.0",
+                            "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                           }
                         },
                         "operationId": {
@@ -19539,8 +19719,8 @@
                           "const": {
                             "id": "model:Signalbox",
                             "name": "Signalbox",
-                            "version": "0.51.0",
-                            "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                            "version": "0.52.0",
+                            "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                           }
                         },
                         "operationId": {
@@ -19763,8 +19943,8 @@
                           "const": {
                             "id": "model:Signalbox",
                             "name": "Signalbox",
-                            "version": "0.51.0",
-                            "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                            "version": "0.52.0",
+                            "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                           }
                         },
                         "operationId": {
@@ -19951,8 +20131,8 @@
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "grantId": {
@@ -20094,8 +20274,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -20420,8 +20600,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -20746,8 +20926,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -21192,8 +21372,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -21638,8 +21818,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -21964,8 +22144,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -22487,8 +22667,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -23010,8 +23190,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -23456,8 +23636,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -23902,8 +24082,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -24066,7 +24246,8 @@
                           "ruleId": {
                             "enum": [
                               "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
-                              "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+                              "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                              "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active"
                             ]
                           }
                         }
@@ -24158,6 +24339,10 @@
                           {
                             "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -24201,6 +24386,10 @@
                           },
                           {
                             "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
                             "outcome": "passed"
                           }
                         ],
@@ -24247,6 +24436,10 @@
                             {
                               "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                               "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                              "outcome": "passed"
                             }
                           ],
                           "revision": {
@@ -24266,6 +24459,10 @@
                             },
                             {
                               "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                              "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
                               "outcome": "passed"
                             }
                           ],
@@ -24324,6 +24521,10 @@
                           {
                             "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -24380,6 +24581,70 @@
                           {
                             "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                             "outcome": "failed"
+                          },
+                          {
+                            "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                            "outcome": "notEvaluated"
+                          }
+                        ],
+                        "revision": {
+                          "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                          "outcome": "notEvaluated"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "decision": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "notApplicable"
+                        },
+                        "explanation": {
+                          "type": "object",
+                          "properties": {
+                            "ruleId": {
+                              "const": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active"
+                            }
+                          },
+                          "required": [
+                            "ruleId"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "explanation"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "stages": {
+                      "const": {
+                        "authorization": {
+                          "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                          "outcome": "passed"
+                        },
+                        "requirements": [
+                          {
+                            "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                            "outcome": "failed"
                           }
                         ],
                         "revision": {
@@ -24425,8 +24690,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -24589,7 +24854,8 @@
                           "ruleId": {
                             "enum": [
                               "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
-                              "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+                              "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                              "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active"
                             ]
                           }
                         }
@@ -24681,6 +24947,10 @@
                           {
                             "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -24724,6 +24994,10 @@
                           },
                           {
                             "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
                             "outcome": "passed"
                           }
                         ],
@@ -24770,6 +25044,10 @@
                             {
                               "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                               "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                              "outcome": "passed"
                             }
                           ],
                           "revision": {
@@ -24789,6 +25067,10 @@
                             },
                             {
                               "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                              "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
                               "outcome": "passed"
                             }
                           ],
@@ -24847,6 +25129,10 @@
                           {
                             "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -24903,6 +25189,70 @@
                           {
                             "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                             "outcome": "failed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                            "outcome": "notEvaluated"
+                          }
+                        ],
+                        "revision": {
+                          "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                          "outcome": "notEvaluated"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "decision": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "notApplicable"
+                        },
+                        "explanation": {
+                          "type": "object",
+                          "properties": {
+                            "ruleId": {
+                              "const": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active"
+                            }
+                          },
+                          "required": [
+                            "ruleId"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "explanation"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "stages": {
+                      "const": {
+                        "authorization": {
+                          "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                          "outcome": "passed"
+                        },
+                        "requirements": [
+                          {
+                            "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                            "outcome": "failed"
                           }
                         ],
                         "revision": {
@@ -24948,8 +25298,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -25112,7 +25462,8 @@
                           "ruleId": {
                             "enum": [
                               "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
-                              "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+                              "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                              "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active"
                             ]
                           }
                         }
@@ -25204,6 +25555,10 @@
                           {
                             "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -25247,6 +25602,10 @@
                           },
                           {
                             "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
                             "outcome": "passed"
                           }
                         ],
@@ -25293,6 +25652,10 @@
                             {
                               "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                               "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                              "outcome": "passed"
                             }
                           ],
                           "revision": {
@@ -25312,6 +25675,10 @@
                             },
                             {
                               "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                              "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
                               "outcome": "passed"
                             }
                           ],
@@ -25370,6 +25737,10 @@
                           {
                             "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -25426,6 +25797,70 @@
                           {
                             "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                             "outcome": "failed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                            "outcome": "notEvaluated"
+                          }
+                        ],
+                        "revision": {
+                          "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                          "outcome": "notEvaluated"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "decision": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "notApplicable"
+                        },
+                        "explanation": {
+                          "type": "object",
+                          "properties": {
+                            "ruleId": {
+                              "const": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active"
+                            }
+                          },
+                          "required": [
+                            "ruleId"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "explanation"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "stages": {
+                      "const": {
+                        "authorization": {
+                          "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                          "outcome": "passed"
+                        },
+                        "requirements": [
+                          {
+                            "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                            "outcome": "failed"
                           }
                         ],
                         "revision": {
@@ -25471,8 +25906,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -25635,7 +26070,8 @@
                           "ruleId": {
                             "enum": [
                               "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
-                              "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
+                              "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                              "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active"
                             ]
                           }
                         }
@@ -25727,6 +26163,10 @@
                           {
                             "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -25770,6 +26210,10 @@
                           },
                           {
                             "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
                             "outcome": "passed"
                           }
                         ],
@@ -25816,6 +26260,10 @@
                             {
                               "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                               "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                              "outcome": "passed"
                             }
                           ],
                           "revision": {
@@ -25835,6 +26283,10 @@
                             },
                             {
                               "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                              "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
                               "outcome": "passed"
                             }
                           ],
@@ -25893,6 +26345,10 @@
                           {
                             "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -25949,6 +26405,70 @@
                           {
                             "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                             "outcome": "failed"
+                          },
+                          {
+                            "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                            "outcome": "notEvaluated"
+                          }
+                        ],
+                        "revision": {
+                          "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                          "outcome": "notEvaluated"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "decision": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "notApplicable"
+                        },
+                        "explanation": {
+                          "type": "object",
+                          "properties": {
+                            "ruleId": {
+                              "const": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active"
+                            }
+                          },
+                          "required": [
+                            "ruleId"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "explanation"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "stages": {
+                      "const": {
+                        "authorization": {
+                          "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                          "outcome": "passed"
+                        },
+                        "requirements": [
+                          {
+                            "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                            "outcome": "failed"
                           }
                         ],
                         "revision": {
@@ -25994,8 +26514,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -26158,7 +26678,8 @@
                           "ruleId": {
                             "enum": [
                               "require:action:act_70d3862584094631aca61e9db664d991.approved",
-                              "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
+                              "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                              "require:action:act_70d3862584094631aca61e9db664d991.connector_active"
                             ]
                           }
                         }
@@ -26250,6 +26771,10 @@
                           {
                             "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -26293,6 +26818,10 @@
                           },
                           {
                             "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
                             "outcome": "passed"
                           }
                         ],
@@ -26339,6 +26868,10 @@
                             {
                               "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                               "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                              "outcome": "passed"
                             }
                           ],
                           "revision": {
@@ -26358,6 +26891,10 @@
                             },
                             {
                               "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                              "outcome": "passed"
+                            },
+                            {
+                              "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
                               "outcome": "passed"
                             }
                           ],
@@ -26416,6 +26953,10 @@
                           {
                             "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                             "outcome": "notEvaluated"
+                          },
+                          {
+                            "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                            "outcome": "notEvaluated"
                           }
                         ],
                         "revision": {
@@ -26472,6 +27013,70 @@
                           {
                             "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                             "outcome": "failed"
+                          },
+                          {
+                            "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                            "outcome": "notEvaluated"
+                          }
+                        ],
+                        "revision": {
+                          "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                          "outcome": "notEvaluated"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "decision": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "const": "notApplicable"
+                        },
+                        "explanation": {
+                          "type": "object",
+                          "properties": {
+                            "ruleId": {
+                              "const": "require:action:act_70d3862584094631aca61e9db664d991.connector_active"
+                            }
+                          },
+                          "required": [
+                            "ruleId"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "explanation"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "stages": {
+                      "const": {
+                        "authorization": {
+                          "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                          "outcome": "passed"
+                        },
+                        "requirements": [
+                          {
+                            "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                            "outcome": "passed"
+                          },
+                          {
+                            "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                            "outcome": "failed"
                           }
                         ],
                         "revision": {
@@ -26517,8 +27122,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -26963,8 +27568,8 @@
                 "const": {
                   "id": "model:Signalbox",
                   "name": "Signalbox",
-                  "version": "0.51.0",
-                  "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                  "version": "0.52.0",
+                  "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                 }
               },
               "traceId": {
@@ -27419,10 +28024,10 @@
                 "const": "Signalbox"
               },
               "version": {
-                "const": "0.51.0"
+                "const": "0.52.0"
               },
               "sourceHash": {
-                "const": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                "const": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
               }
             }
           },
@@ -27619,22 +28224,27 @@
                         "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
                         "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
                         "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                        "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
                         "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
                         "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
                         "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
                         "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                        "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
                         "revision:action:act_3e99da927be642efac3d1bee026ef00a",
                         "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
                         "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
                         "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                        "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
                         "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
                         "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
                         "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
                         "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                        "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
                         "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
                         "authorize:action:act_70d3862584094631aca61e9db664d991",
                         "require:action:act_70d3862584094631aca61e9db664d991.approved",
                         "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                        "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
                         "revision:action:act_70d3862584094631aca61e9db664d991",
                         "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
                         "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending",

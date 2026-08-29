@@ -2,8 +2,8 @@
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.51.0",
-    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608",
+    "version": "0.52.0",
+    "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9",
     "sourceFile": "signalbox.model",
     "naming": {
       "sqlSchema": "model_signalbox",
@@ -6293,7 +6293,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -6307,7 +6307,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -6321,7 +6321,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -6333,9 +6333,9 @@
       "objectName": "model_signalbox.dispatch_issue_creation",
       "source": {
         "file": "signalbox.model",
-        "line": 674,
+        "line": 675,
         "column": 5,
-        "endLine": 677,
+        "endLine": 678,
         "endColumn": 33
       }
     },
@@ -6347,9 +6347,9 @@
       "objectName": "model_signalbox.dispatch_issue_creation",
       "source": {
         "file": "signalbox.model",
-        "line": 678,
+        "line": 679,
         "column": 3,
-        "endLine": 678,
+        "endLine": 679,
         "endColumn": 56
       }
     },
@@ -6361,10 +6361,24 @@
       "objectName": "model_signalbox.dispatch_issue_creation",
       "source": {
         "file": "signalbox.model",
-        "line": 679,
+        "line": 680,
         "column": 3,
-        "endLine": 680,
+        "endLine": 681,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_issue_creation",
+      "source": {
+        "file": "signalbox.model",
+        "line": 682,
+        "column": 3,
+        "endLine": 685,
+        "endColumn": 52
       }
     },
     {
@@ -6377,7 +6391,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -6391,7 +6405,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -6417,6 +6431,13 @@
       "objectName": "FOR UPDATE in model_signalbox.dispatch_issue_creation"
     },
     {
+      "id": "lock:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+      "purpose": "Stabilize parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_issue_creation"
+    },
+    {
       "id": "caller:action:act_3e99da927be642efac3d1bee026ef00a.actor",
       "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
       "layer": "PostgreSQL authenticated identity",
@@ -6424,9 +6445,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 698,
+        "line": 703,
         "column": 3,
-        "endLine": 698,
+        "endLine": 703,
         "endColumn": 26
       }
     },
@@ -6445,9 +6466,9 @@
       "objectName": "model_signalbox.decide_act_3e99da927be642efac3d1bee026ef00a",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -6459,9 +6480,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -6473,9 +6494,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -6487,9 +6508,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 703,
+        "line": 709,
         "column": 5,
-        "endLine": 706,
+        "endLine": 712,
         "endColumn": 33
       }
     },
@@ -6501,9 +6522,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 707,
+        "line": 713,
         "column": 3,
-        "endLine": 707,
+        "endLine": 713,
         "endColumn": 56
       }
     },
@@ -6515,10 +6536,24 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 708,
+        "line": 714,
         "column": 3,
-        "endLine": 709,
+        "endLine": 715,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_pull_request",
+      "source": {
+        "file": "signalbox.model",
+        "line": 716,
+        "column": 3,
+        "endLine": 719,
+        "endColumn": 52
       }
     },
     {
@@ -6529,9 +6564,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -6543,9 +6578,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -6571,6 +6606,13 @@
       "objectName": "FOR SHARE in model_signalbox.dispatch_pull_request"
     },
     {
+      "id": "lock:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+      "purpose": "Stabilize parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_pull_request"
+    },
+    {
       "id": "caller:action:act_3e26a4d454634bf3a2058204146d7c45.actor",
       "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
       "layer": "PostgreSQL authenticated identity",
@@ -6578,9 +6620,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 727,
+        "line": 737,
         "column": 3,
-        "endLine": 727,
+        "endLine": 737,
         "endColumn": 26
       }
     },
@@ -6599,9 +6641,9 @@
       "objectName": "model_signalbox.decide_act_3e26a4d454634bf3a2058204146d7c45",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -6613,9 +6655,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -6627,9 +6669,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -6641,9 +6683,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 732,
+        "line": 743,
         "column": 5,
-        "endLine": 735,
+        "endLine": 746,
         "endColumn": 33
       }
     },
@@ -6655,9 +6697,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 736,
+        "line": 747,
         "column": 3,
-        "endLine": 738,
+        "endLine": 749,
         "endColumn": 47
       }
     },
@@ -6669,10 +6711,24 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 739,
+        "line": 750,
         "column": 3,
-        "endLine": 740,
+        "endLine": 751,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_staging_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 752,
+        "column": 3,
+        "endLine": 755,
+        "endColumn": 52
       }
     },
     {
@@ -6683,9 +6739,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -6697,9 +6753,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -6713,6 +6769,13 @@
     {
       "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.allowance",
       "purpose": "Stabilize parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_staging_deployment"
+    },
+    {
+      "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+      "purpose": "Stabilize parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector before evaluating guards and effects.",
       "layer": "PostgreSQL row lock",
       "artifact": "postgres/003_actions.sql",
       "objectName": "FOR SHARE in model_signalbox.dispatch_staging_deployment"
@@ -6732,9 +6795,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 758,
+        "line": 773,
         "column": 3,
-        "endLine": 758,
+        "endLine": 773,
         "endColumn": 26
       }
     },
@@ -6753,9 +6816,9 @@
       "objectName": "model_signalbox.decide_act_4a9421bfc2e744969b9f73109e6cda54",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -6767,9 +6830,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -6781,9 +6844,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -6795,9 +6858,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 763,
+        "line": 779,
         "column": 5,
-        "endLine": 766,
+        "endLine": 782,
         "endColumn": 33
       }
     },
@@ -6809,9 +6872,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 767,
+        "line": 783,
         "column": 3,
-        "endLine": 769,
+        "endLine": 785,
         "endColumn": 50
       }
     },
@@ -6823,10 +6886,24 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 770,
+        "line": 786,
         "column": 3,
-        "endLine": 771,
+        "endLine": 787,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 788,
+        "column": 3,
+        "endLine": 791,
+        "endColumn": 52
       }
     },
     {
@@ -6837,9 +6914,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -6851,9 +6928,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -6867,6 +6944,13 @@
     {
       "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
       "purpose": "Stabilize parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_approved_deployment"
+    },
+    {
+      "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+      "purpose": "Stabilize parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector before evaluating guards and effects.",
       "layer": "PostgreSQL row lock",
       "artifact": "postgres/003_actions.sql",
       "objectName": "FOR SHARE in model_signalbox.dispatch_approved_deployment"
@@ -6886,9 +6970,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 789,
+        "line": 809,
         "column": 3,
-        "endLine": 789,
+        "endLine": 809,
         "endColumn": 26
       }
     },
@@ -6907,9 +6991,9 @@
       "objectName": "model_signalbox.decide_act_70d3862584094631aca61e9db664d991",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -6921,9 +7005,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -6935,9 +7019,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -6949,9 +7033,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 794,
+        "line": 815,
         "column": 5,
-        "endLine": 797,
+        "endLine": 818,
         "endColumn": 33
       }
     },
@@ -6963,9 +7047,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 798,
+        "line": 819,
         "column": 3,
-        "endLine": 798,
+        "endLine": 819,
         "endColumn": 62
       }
     },
@@ -6977,10 +7061,24 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 799,
+        "line": 820,
         "column": 3,
-        "endLine": 800,
+        "endLine": 821,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_approved_schema_migration",
+      "source": {
+        "file": "signalbox.model",
+        "line": 822,
+        "column": 3,
+        "endLine": 825,
+        "endColumn": 52
       }
     },
     {
@@ -6991,9 +7089,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -7005,9 +7103,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -7033,6 +7131,13 @@
       "objectName": "FOR UPDATE in model_signalbox.dispatch_approved_schema_migration"
     },
     {
+      "id": "lock:action:act_70d3862584094631aca61e9db664d991.connector",
+      "purpose": "Stabilize parameter:action:act_70d3862584094631aca61e9db664d991.connector before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_approved_schema_migration"
+    },
+    {
       "id": "caller:action:act_5be24324b68d4c2eb334732b36e1b16c.actor",
       "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
       "layer": "PostgreSQL authenticated identity",
@@ -7040,9 +7145,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 818,
+        "line": 843,
         "column": 3,
-        "endLine": 818,
+        "endLine": 843,
         "endColumn": 26
       }
     },
@@ -7061,9 +7166,9 @@
       "objectName": "model_signalbox.decide_act_5be24324b68d4c2eb334732b36e1b16c",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -7075,9 +7180,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -7089,9 +7194,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -7103,9 +7208,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 823,
+        "line": 848,
         "column": 5,
-        "endLine": 826,
+        "endLine": 851,
         "endColumn": 35
       }
     },
@@ -7117,9 +7222,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 827,
+        "line": 852,
         "column": 3,
-        "endLine": 827,
+        "endLine": 852,
         "endColumn": 64
       }
     },
@@ -7131,9 +7236,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -7159,9 +7264,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 838,
+        "line": 863,
         "column": 3,
-        "endLine": 838,
+        "endLine": 863,
         "endColumn": 26
       }
     },
@@ -7180,9 +7285,9 @@
       "objectName": "model_signalbox.decide_act_926686163a6544e79d44dea9336d2c88",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -7194,9 +7299,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -7208,9 +7313,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -7222,9 +7327,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 843,
+        "line": 868,
         "column": 5,
-        "endLine": 846,
+        "endLine": 871,
         "endColumn": 35
       }
     },
@@ -7236,9 +7341,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 847,
+        "line": 872,
         "column": 3,
-        "endLine": 847,
+        "endLine": 872,
         "endColumn": 64
       }
     },
@@ -7250,9 +7355,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -7278,9 +7383,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 73,
-        "endLine": 911,
+        "endLine": 936,
         "endColumn": 96
       }
     },
@@ -7299,9 +7404,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 912,
+        "line": 937,
         "column": 13,
-        "endLine": 912,
+        "endLine": 937,
         "endColumn": 17
       }
     },
@@ -7313,9 +7418,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 913,
+        "line": 938,
         "column": 9,
-        "endLine": 913,
+        "endLine": 938,
         "endColumn": 33
       }
     },
@@ -7327,9 +7432,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -7341,9 +7446,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -7355,9 +7460,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -7369,9 +7474,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -7383,9 +7488,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -7397,9 +7502,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -7411,9 +7516,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 72,
-        "endLine": 920,
+        "endLine": 945,
         "endColumn": 95
       }
     },
@@ -7432,9 +7537,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 921,
+        "line": 946,
         "column": 13,
-        "endLine": 921,
+        "endLine": 946,
         "endColumn": 17
       }
     },
@@ -7446,9 +7551,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 922,
+        "line": 947,
         "column": 9,
-        "endLine": 922,
+        "endLine": 947,
         "endColumn": 33
       }
     },
@@ -7460,9 +7565,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -7474,9 +7579,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -7488,9 +7593,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -7502,9 +7607,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -7516,9 +7621,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -7530,9 +7635,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -7544,9 +7649,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 930,
+        "line": 955,
         "column": 3,
-        "endLine": 930,
+        "endLine": 955,
         "endColumn": 26
       }
     },
@@ -7565,9 +7670,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 932,
+        "line": 957,
         "column": 13,
-        "endLine": 932,
+        "endLine": 957,
         "endColumn": 17
       }
     },
@@ -7579,9 +7684,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 933,
+        "line": 958,
         "column": 9,
-        "endLine": 933,
+        "endLine": 958,
         "endColumn": 33
       }
     },
@@ -7593,9 +7698,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -7607,9 +7712,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -7621,9 +7726,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -7635,9 +7740,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -7649,9 +7754,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -7663,9 +7768,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -7677,9 +7782,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 941,
+        "line": 966,
         "column": 3,
-        "endLine": 941,
+        "endLine": 966,
         "endColumn": 26
       }
     },
@@ -7698,9 +7803,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 944,
+        "line": 969,
         "column": 5,
-        "endLine": 945,
+        "endLine": 970,
         "endColumn": 37
       }
     },
@@ -7712,9 +7817,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 946,
+        "line": 971,
         "column": 9,
-        "endLine": 949,
+        "endLine": 974,
         "endColumn": 37
       }
     },
@@ -7726,9 +7831,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -7740,9 +7845,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -7754,9 +7859,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -7768,9 +7873,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -7782,9 +7887,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -7796,9 +7901,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -7810,9 +7915,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 957,
+        "line": 982,
         "column": 3,
-        "endLine": 957,
+        "endLine": 982,
         "endColumn": 26
       }
     },
@@ -7831,9 +7936,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 959,
+        "line": 984,
         "column": 13,
-        "endLine": 959,
+        "endLine": 984,
         "endColumn": 17
       }
     },
@@ -7845,9 +7950,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 960,
+        "line": 985,
         "column": 9,
-        "endLine": 960,
+        "endLine": 985,
         "endColumn": 33
       }
     },
@@ -7859,9 +7964,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -7873,9 +7978,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -7887,9 +7992,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -7901,9 +8006,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -7915,9 +8020,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -7929,9 +8034,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -7943,9 +8048,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 968,
+        "line": 993,
         "column": 3,
-        "endLine": 968,
+        "endLine": 993,
         "endColumn": 26
       }
     },
@@ -7964,9 +8069,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 971,
+        "line": 996,
         "column": 5,
-        "endLine": 972,
+        "endLine": 997,
         "endColumn": 37
       }
     },
@@ -7978,9 +8083,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 973,
+        "line": 998,
         "column": 9,
-        "endLine": 975,
+        "endLine": 1000,
         "endColumn": 37
       }
     },
@@ -7992,9 +8097,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -8006,9 +8111,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -8020,9 +8125,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -8034,9 +8139,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -8048,9 +8153,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -8062,9 +8167,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -8076,9 +8181,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 70,
-        "endLine": 982,
+        "endLine": 1007,
         "endColumn": 93
       }
     },
@@ -8097,9 +8202,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 983,
+        "line": 1008,
         "column": 13,
-        "endLine": 983,
+        "endLine": 1008,
         "endColumn": 17
       }
     },
@@ -8111,9 +8216,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 984,
+        "line": 1009,
         "column": 9,
-        "endLine": 984,
+        "endLine": 1009,
         "endColumn": 35
       }
     },
@@ -8125,9 +8230,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -8139,9 +8244,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -8153,9 +8258,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -8167,9 +8272,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -8181,9 +8286,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -8195,9 +8300,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },

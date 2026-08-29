@@ -6,8 +6,8 @@ export const capabilityManifest = {
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.51.0",
-    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+    "version": "0.52.0",
+    "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
   },
   "view": {
     "audience": "application",
@@ -319,7 +319,8 @@ export const capabilityManifest = {
       "operationId": "action:act_cbb72fd307704ab3927aa4bea8112fbf",
       "inputParameterIds": [
         "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
-        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance"
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance",
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector"
       ],
       "outcomes": [
         "applicable",
@@ -332,7 +333,8 @@ export const capabilityManifest = {
         "authorizationRuleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
         "preconditionRuleIds": [
           "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
-          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active"
         ],
         "revisionRuleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf"
       },
@@ -352,7 +354,8 @@ export const capabilityManifest = {
       "operationId": "action:act_3e99da927be642efac3d1bee026ef00a",
       "inputParameterIds": [
         "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
-        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance"
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance",
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector"
       ],
       "outcomes": [
         "applicable",
@@ -365,7 +368,8 @@ export const capabilityManifest = {
         "authorizationRuleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
         "preconditionRuleIds": [
           "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
-          "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+          "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+          "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active"
         ],
         "revisionRuleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a"
       },
@@ -385,7 +389,8 @@ export const capabilityManifest = {
       "operationId": "action:act_3e26a4d454634bf3a2058204146d7c45",
       "inputParameterIds": [
         "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
-        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance"
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance",
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector"
       ],
       "outcomes": [
         "applicable",
@@ -398,7 +403,8 @@ export const capabilityManifest = {
         "authorizationRuleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
         "preconditionRuleIds": [
           "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
-          "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+          "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+          "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active"
         ],
         "revisionRuleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45"
       },
@@ -418,7 +424,8 @@ export const capabilityManifest = {
       "operationId": "action:act_4a9421bfc2e744969b9f73109e6cda54",
       "inputParameterIds": [
         "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance"
+        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector"
       ],
       "outcomes": [
         "applicable",
@@ -431,7 +438,8 @@ export const capabilityManifest = {
         "authorizationRuleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
         "preconditionRuleIds": [
           "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
-          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
+          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active"
         ],
         "revisionRuleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54"
       },
@@ -451,7 +459,8 @@ export const capabilityManifest = {
       "operationId": "action:act_70d3862584094631aca61e9db664d991",
       "inputParameterIds": [
         "parameter:action:act_70d3862584094631aca61e9db664d991.request",
-        "parameter:action:act_70d3862584094631aca61e9db664d991.allowance"
+        "parameter:action:act_70d3862584094631aca61e9db664d991.allowance",
+        "parameter:action:act_70d3862584094631aca61e9db664d991.connector"
       ],
       "outcomes": [
         "applicable",
@@ -464,7 +473,8 @@ export const capabilityManifest = {
         "authorizationRuleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
         "preconditionRuleIds": [
           "require:action:act_70d3862584094631aca61e9db664d991.approved",
-          "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
+          "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+          "require:action:act_70d3862584094631aca61e9db664d991.connector_active"
         ],
         "revisionRuleId": "revision:action:act_70d3862584094631aca61e9db664d991"
       },

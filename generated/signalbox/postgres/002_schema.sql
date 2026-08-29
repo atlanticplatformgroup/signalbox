@@ -1,4 +1,4 @@
--- source sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608
+-- source sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9
 CREATE SCHEMA "model_signalbox" AUTHORIZATION modellang_owner;
 CREATE SCHEMA "model_signalbox_internal" AUTHORIZATION modellang_owner;
 SET ROLE modellang_owner;
@@ -1411,6 +1411,6 @@ CREATE TABLE "model_signalbox_internal"."schema_migrations" (
   "applied_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp()
 );
 INSERT INTO "model_signalbox_internal"."schema_migrations" ("model_id", "version", "source_hash", "migration_kind")
-VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'installation');
+VALUES ('model:Signalbox', '0.52.0', 'sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9', 'installation');
 RESET ROLE;
 

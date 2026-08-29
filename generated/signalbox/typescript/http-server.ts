@@ -439,6 +439,14 @@ const operationDefinitions = [
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
         }
+      },
+      {
+        "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+        }
       }
     ],
     "output": {
@@ -467,6 +475,14 @@ const operationDefinitions = [
         "type": {
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+        }
+      },
+      {
+        "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
         }
       }
     ],
@@ -497,6 +513,14 @@ const operationDefinitions = [
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
         }
+      },
+      {
+        "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+        }
       }
     ],
     "output": {
@@ -526,6 +550,14 @@ const operationDefinitions = [
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
         }
+      },
+      {
+        "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+        }
       }
     ],
     "output": {
@@ -554,6 +586,14 @@ const operationDefinitions = [
         "type": {
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+        }
+      },
+      {
+        "id": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
         }
       }
     ],
@@ -1116,6 +1156,14 @@ const operationDefinitions = [
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
         }
+      },
+      {
+        "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+        }
       }
     ],
     "output": {
@@ -1144,6 +1192,14 @@ const operationDefinitions = [
         "type": {
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+        }
+      },
+      {
+        "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
         }
       }
     ],
@@ -1174,6 +1230,14 @@ const operationDefinitions = [
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
         }
+      },
+      {
+        "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+        }
       }
     ],
     "output": {
@@ -1203,6 +1267,14 @@ const operationDefinitions = [
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
         }
+      },
+      {
+        "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+        }
       }
     ],
     "output": {
@@ -1231,6 +1303,14 @@ const operationDefinitions = [
         "type": {
           "kind": "entity",
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+        }
+      },
+      {
+        "id": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+        "name": "connector",
+        "type": {
+          "kind": "entity",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
         }
       }
     ],
@@ -2795,7 +2875,8 @@ const safeExplanations = {
     "authorization": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
     "requirements": [
       "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
-      "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+      "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+      "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active"
     ],
     "revision": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf"
   },
@@ -2803,7 +2884,8 @@ const safeExplanations = {
     "authorization": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
     "requirements": [
       "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
-      "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+      "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+      "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active"
     ],
     "revision": "revision:action:act_3e99da927be642efac3d1bee026ef00a"
   },
@@ -2811,7 +2893,8 @@ const safeExplanations = {
     "authorization": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
     "requirements": [
       "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
-      "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+      "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+      "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active"
     ],
     "revision": "revision:action:act_3e26a4d454634bf3a2058204146d7c45"
   },
@@ -2819,7 +2902,8 @@ const safeExplanations = {
     "authorization": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
     "requirements": [
       "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
-      "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
+      "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+      "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active"
     ],
     "revision": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54"
   },
@@ -2827,7 +2911,8 @@ const safeExplanations = {
     "authorization": "authorize:action:act_70d3862584094631aca61e9db664d991",
     "requirements": [
       "require:action:act_70d3862584094631aca61e9db664d991.approved",
-      "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
+      "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+      "require:action:act_70d3862584094631aca61e9db664d991.connector_active"
     ],
     "revision": "revision:action:act_70d3862584094631aca61e9db664d991"
   },
@@ -3997,7 +4082,8 @@ const taskActionContracts = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -4005,6 +4091,10 @@ const taskActionContracts = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -4121,7 +4211,8 @@ const taskActionContracts = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -4129,6 +4220,10 @@ const taskActionContracts = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -4245,7 +4340,8 @@ const taskActionContracts = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -4253,6 +4349,10 @@ const taskActionContracts = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -4369,7 +4469,8 @@ const taskActionContracts = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -4377,6 +4478,10 @@ const taskActionContracts = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -4493,7 +4598,8 @@ const taskActionContracts = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -4501,6 +4607,10 @@ const taskActionContracts = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -4928,7 +5038,8 @@ const publicDecisionTraceActionContracts = [
     "authorizationRuleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
     "preconditionRuleIds": [
       "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
-      "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+      "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+      "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active"
     ],
     "revisionRuleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf"
   },
@@ -4937,7 +5048,8 @@ const publicDecisionTraceActionContracts = [
     "authorizationRuleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
     "preconditionRuleIds": [
       "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
-      "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+      "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+      "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active"
     ],
     "revisionRuleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a"
   },
@@ -4946,7 +5058,8 @@ const publicDecisionTraceActionContracts = [
     "authorizationRuleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
     "preconditionRuleIds": [
       "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
-      "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+      "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+      "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active"
     ],
     "revisionRuleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45"
   },
@@ -4955,7 +5068,8 @@ const publicDecisionTraceActionContracts = [
     "authorizationRuleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
     "preconditionRuleIds": [
       "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
-      "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
+      "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+      "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active"
     ],
     "revisionRuleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54"
   },
@@ -4964,7 +5078,8 @@ const publicDecisionTraceActionContracts = [
     "authorizationRuleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
     "preconditionRuleIds": [
       "require:action:act_70d3862584094631aca61e9db664d991.approved",
-      "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
+      "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+      "require:action:act_70d3862584094631aca61e9db664d991.connector_active"
     ],
     "revisionRuleId": "revision:action:act_70d3862584094631aca61e9db664d991"
   },
@@ -5562,8 +5677,8 @@ function validateDelegatedClaim(
     && claim.delegatedCapabilityVersion === 1 && claim.catalogVersion === 7
     && model?.id === "model:Signalbox"
     && model?.name === "Signalbox"
-    && model?.version === "0.51.0"
-    && model?.sourceHash === "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+    && model?.version === "0.52.0"
+    && model?.sourceHash === "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
     && Object.keys(model).length === 4
     && validGrantId(claim.grantId)
     && operationDefinitions.some((item) => item.endpoint === "execution" && item.action && item.id === claim.operationId)
@@ -5654,7 +5769,7 @@ export async function invokeSignalboxExtension(
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/extension-tool-result.schema.json",
     extensionToolResultVersion: 1,
     catalogVersion: 7,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.52.0","sourceHash":"sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"},
     extensionId: definition.id,
     contractRevision: definition.contractRevision,
     kind: "hostExtensionResult",
@@ -5675,7 +5790,7 @@ function currentStateResource(definition: OperationDefinition, data: unknown, re
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json" as const,
     resourceVersion: 1 as const,
     catalogVersion: 7 as const,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.52.0","sourceHash":"sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"},
     operationId: definition.id,
     kind: "queryResult" as const,
     authority: "none" as const,
@@ -5728,7 +5843,7 @@ export async function assembleSignalboxPublicDecisionTrace(
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json",
     traceVersion: 1,
     catalogVersion: 7,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.52.0","sourceHash":"sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"},
     traceId: globalThis.crypto.randomUUID(),
     kind: "applicabilityDecisionTrace",
     operationId: candidate.operationId,
@@ -5808,7 +5923,7 @@ export async function assembleSignalboxTaskPacket(
     packetVersion: 1,
     catalogVersion: 7,
     resourceVersion: 1,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.52.0","sourceHash":"sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"},
     packetId: globalThis.crypto.randomUUID(),
     kind: "boundedTaskContext",
     authority: "none",
@@ -6012,7 +6127,7 @@ export function createSignalboxHttpHandler(
           $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/delegated-capability.schema.json",
           delegatedCapabilityVersion: 1,
           catalogVersion: 7,
-          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
+          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.52.0","sourceHash":"sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"},
           grantId: issued.grantId,
           operationId: issueRequest.action.operationId,
           inputHash,
@@ -6159,7 +6274,7 @@ export function createSignalboxHttpHandler(
           $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/subject-capability-view.schema.json",
           viewVersion: 1,
           catalogVersion: 7,
-          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
+          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.52.0","sourceHash":"sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"},
           view: {
             audience: "agent",
             subjectSpecific: true,

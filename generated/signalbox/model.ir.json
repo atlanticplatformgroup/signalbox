@@ -3,8 +3,8 @@
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.51.0",
-    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608",
+    "version": "0.52.0",
+    "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9",
     "sourceFile": "signalbox.model",
     "naming": {
       "sqlSchema": "model_signalbox",
@@ -6383,9 +6383,9 @@
           "sourceFieldId": "field:fld_0f4346fb82a7470baa889475e5480797",
           "span": {
             "file": "signalbox.model",
-            "line": 858,
+            "line": 883,
             "column": 3,
-            "endLine": 858,
+            "endLine": 883,
             "endColumn": 56
           }
         },
@@ -6399,9 +6399,9 @@
           "sourceFieldId": "field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
           "span": {
             "file": "signalbox.model",
-            "line": 859,
+            "line": 884,
             "column": 3,
-            "endLine": 859,
+            "endLine": 884,
             "endColumn": 65
           }
         },
@@ -6415,18 +6415,18 @@
           "sourceFieldId": "field:fld_4494f33148d746dcb887d73be133b248",
           "span": {
             "file": "signalbox.model",
-            "line": 860,
+            "line": 885,
             "column": 3,
-            "endLine": 860,
+            "endLine": 885,
             "endColumn": 58
           }
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 857,
+        "line": 882,
         "column": 1,
-        "endLine": 861,
+        "endLine": 886,
         "endColumn": 2
       },
       "naming": {
@@ -6452,9 +6452,9 @@
           "sourceFieldId": "field:fld_1eea72bb397746d5a3cb2d5d9b7bef83",
           "span": {
             "file": "signalbox.model",
-            "line": 864,
+            "line": 889,
             "column": 3,
-            "endLine": 864,
+            "endLine": 889,
             "endColumn": 56
           }
         },
@@ -6468,9 +6468,9 @@
           "sourceFieldId": "field:fld_21446eda364f48bd836217199c1b1297",
           "span": {
             "file": "signalbox.model",
-            "line": 865,
+            "line": 890,
             "column": 3,
-            "endLine": 865,
+            "endLine": 890,
             "endColumn": 63
           }
         },
@@ -6484,9 +6484,9 @@
           "sourceFieldId": "field:fld_4422f07a408d4551b3ce0726c1c3d892",
           "span": {
             "file": "signalbox.model",
-            "line": 866,
+            "line": 891,
             "column": 3,
-            "endLine": 866,
+            "endLine": 891,
             "endColumn": 59
           }
         },
@@ -6500,9 +6500,9 @@
           "sourceFieldId": "field:fld_5d88e5c44ca54aef83cac25756645919",
           "span": {
             "file": "signalbox.model",
-            "line": 867,
+            "line": 892,
             "column": 3,
-            "endLine": 867,
+            "endLine": 892,
             "endColumn": 60
           }
         },
@@ -6517,18 +6517,18 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "span": {
             "file": "signalbox.model",
-            "line": 868,
+            "line": 893,
             "column": 3,
-            "endLine": 868,
+            "endLine": 893,
             "endColumn": 83
           }
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 863,
+        "line": 888,
         "column": 1,
-        "endLine": 869,
+        "endLine": 894,
         "endColumn": 2
       },
       "naming": {
@@ -6554,9 +6554,9 @@
           "sourceFieldId": "field:fld_281160087c1a4a60abd81642ec528828",
           "span": {
             "file": "signalbox.model",
-            "line": 872,
+            "line": 897,
             "column": 3,
-            "endLine": 872,
+            "endLine": 897,
             "endColumn": 56
           }
         },
@@ -6570,9 +6570,9 @@
           "sourceFieldId": "field:fld_2f78328226a54731bc6feadcc11028db",
           "span": {
             "file": "signalbox.model",
-            "line": 873,
+            "line": 898,
             "column": 3,
-            "endLine": 873,
+            "endLine": 898,
             "endColumn": 63
           }
         },
@@ -6586,9 +6586,9 @@
           "sourceFieldId": "field:fld_3eba77db78fe4ebab54a63ad9567e3b5",
           "span": {
             "file": "signalbox.model",
-            "line": 874,
+            "line": 899,
             "column": 3,
-            "endLine": 874,
+            "endLine": 899,
             "endColumn": 64
           }
         },
@@ -6602,9 +6602,9 @@
           "sourceFieldId": "field:fld_7c1085492a45441fb4cb3c332cd137b2",
           "span": {
             "file": "signalbox.model",
-            "line": 875,
+            "line": 900,
             "column": 3,
-            "endLine": 875,
+            "endLine": 900,
             "endColumn": 64
           }
         },
@@ -6618,9 +6618,9 @@
           "sourceFieldId": "field:fld_ebc39ab7424e4255b5ba1541b3b4fa83",
           "span": {
             "file": "signalbox.model",
-            "line": 876,
+            "line": 901,
             "column": 3,
-            "endLine": 876,
+            "endLine": 901,
             "endColumn": 59
           }
         },
@@ -6634,9 +6634,9 @@
           "sourceFieldId": "field:fld_658bfd33302b4a6e996a88d746572ec2",
           "span": {
             "file": "signalbox.model",
-            "line": 877,
+            "line": 902,
             "column": 3,
-            "endLine": 877,
+            "endLine": 902,
             "endColumn": 60
           }
         },
@@ -6651,18 +6651,18 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "span": {
             "file": "signalbox.model",
-            "line": 878,
+            "line": 903,
             "column": 3,
-            "endLine": 878,
+            "endLine": 903,
             "endColumn": 83
           }
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 871,
+        "line": 896,
         "column": 1,
-        "endLine": 879,
+        "endLine": 904,
         "endColumn": 2
       },
       "naming": {
@@ -6688,9 +6688,9 @@
           "sourceFieldId": "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
           "span": {
             "file": "signalbox.model",
-            "line": 882,
+            "line": 907,
             "column": 3,
-            "endLine": 882,
+            "endLine": 907,
             "endColumn": 56
           }
         },
@@ -6704,9 +6704,9 @@
           "sourceFieldId": "field:fld_90575438c6e94deab4c8e6948e68345b",
           "span": {
             "file": "signalbox.model",
-            "line": 883,
+            "line": 908,
             "column": 3,
-            "endLine": 883,
+            "endLine": 908,
             "endColumn": 63
           }
         },
@@ -6720,9 +6720,9 @@
           "sourceFieldId": "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
           "span": {
             "file": "signalbox.model",
-            "line": 884,
+            "line": 909,
             "column": 3,
-            "endLine": 884,
+            "endLine": 909,
             "endColumn": 63
           }
         },
@@ -6736,9 +6736,9 @@
           "sourceFieldId": "field:fld_0be25eb7ee834d4e845535e6d3c9d0fe",
           "span": {
             "file": "signalbox.model",
-            "line": 885,
+            "line": 910,
             "column": 3,
-            "endLine": 885,
+            "endLine": 910,
             "endColumn": 69
           }
         },
@@ -6752,9 +6752,9 @@
           "sourceFieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
           "span": {
             "file": "signalbox.model",
-            "line": 886,
+            "line": 911,
             "column": 3,
-            "endLine": 886,
+            "endLine": 911,
             "endColumn": 60
           }
         },
@@ -6769,9 +6769,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "span": {
             "file": "signalbox.model",
-            "line": 887,
+            "line": 912,
             "column": 3,
-            "endLine": 887,
+            "endLine": 912,
             "endColumn": 83
           }
         },
@@ -6786,18 +6786,18 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "span": {
             "file": "signalbox.model",
-            "line": 888,
+            "line": 913,
             "column": 3,
-            "endLine": 888,
+            "endLine": 913,
             "endColumn": 82
           }
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 881,
+        "line": 906,
         "column": 1,
-        "endLine": 889,
+        "endLine": 914,
         "endColumn": 2
       },
       "naming": {
@@ -6823,9 +6823,9 @@
           "sourceFieldId": "field:fld_6220c184797043188c546747a102e097",
           "span": {
             "file": "signalbox.model",
-            "line": 892,
+            "line": 917,
             "column": 3,
-            "endLine": 892,
+            "endLine": 917,
             "endColumn": 56
           }
         },
@@ -6839,9 +6839,9 @@
           "sourceFieldId": "field:fld_001992183e08454d9235ad39cc6a4f56",
           "span": {
             "file": "signalbox.model",
-            "line": 893,
+            "line": 918,
             "column": 3,
-            "endLine": 893,
+            "endLine": 918,
             "endColumn": 63
           }
         },
@@ -6855,9 +6855,9 @@
           "sourceFieldId": "field:fld_2a58885ca7404655a635e2bca9379202",
           "span": {
             "file": "signalbox.model",
-            "line": 894,
+            "line": 919,
             "column": 3,
-            "endLine": 894,
+            "endLine": 919,
             "endColumn": 67
           }
         },
@@ -6871,9 +6871,9 @@
           "sourceFieldId": "field:fld_9d6644545b0d47fbbe8d2699f202160b",
           "span": {
             "file": "signalbox.model",
-            "line": 895,
+            "line": 920,
             "column": 3,
-            "endLine": 895,
+            "endLine": 920,
             "endColumn": 66
           }
         },
@@ -6887,9 +6887,9 @@
           "sourceFieldId": "field:fld_9652d13eff5e44a59f102d58156ed82d",
           "span": {
             "file": "signalbox.model",
-            "line": 896,
+            "line": 921,
             "column": 3,
-            "endLine": 896,
+            "endLine": 921,
             "endColumn": 60
           }
         },
@@ -6904,9 +6904,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "span": {
             "file": "signalbox.model",
-            "line": 897,
+            "line": 922,
             "column": 3,
-            "endLine": 897,
+            "endLine": 922,
             "endColumn": 83
           }
         },
@@ -6921,18 +6921,18 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "span": {
             "file": "signalbox.model",
-            "line": 898,
+            "line": 923,
             "column": 3,
-            "endLine": 898,
+            "endLine": 923,
             "endColumn": 82
           }
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 891,
+        "line": 916,
         "column": 1,
-        "endLine": 899,
+        "endLine": 924,
         "endColumn": 2
       },
       "naming": {
@@ -6958,9 +6958,9 @@
           "sourceFieldId": "field:fld_054965adb4f143f5a51c51d9449265b5",
           "span": {
             "file": "signalbox.model",
-            "line": 902,
+            "line": 927,
             "column": 3,
-            "endLine": 902,
+            "endLine": 927,
             "endColumn": 56
           }
         },
@@ -6974,9 +6974,9 @@
           "sourceFieldId": "field:fld_21c95bb344a2454680073627dfd4a830",
           "span": {
             "file": "signalbox.model",
-            "line": 903,
+            "line": 928,
             "column": 3,
-            "endLine": 903,
+            "endLine": 928,
             "endColumn": 63
           }
         },
@@ -6990,9 +6990,9 @@
           "sourceFieldId": "field:fld_3bc7534978b84f1b81aad0e4cd9e629e",
           "span": {
             "file": "signalbox.model",
-            "line": 904,
+            "line": 929,
             "column": 3,
-            "endLine": 904,
+            "endLine": 929,
             "endColumn": 63
           }
         },
@@ -7006,9 +7006,9 @@
           "sourceFieldId": "field:fld_425a2eb8a4694f98a1d6b8b3271733f1",
           "span": {
             "file": "signalbox.model",
-            "line": 905,
+            "line": 930,
             "column": 3,
-            "endLine": 905,
+            "endLine": 930,
             "endColumn": 65
           }
         },
@@ -7022,9 +7022,9 @@
           "sourceFieldId": "field:fld_235cde6a26a7444582cce44bdb3e7524",
           "span": {
             "file": "signalbox.model",
-            "line": 906,
+            "line": 931,
             "column": 3,
-            "endLine": 906,
+            "endLine": 931,
             "endColumn": 60
           }
         },
@@ -7038,9 +7038,9 @@
           "sourceFieldId": "field:fld_34eddd44213045eda0988a0ebb8729f8",
           "span": {
             "file": "signalbox.model",
-            "line": 907,
+            "line": 932,
             "column": 3,
-            "endLine": 907,
+            "endLine": 932,
             "endColumn": 71
           }
         },
@@ -7054,18 +7054,18 @@
           "sourceFieldId": "field:fld_c31f988db83b4854a999c67c86c3aea1",
           "span": {
             "file": "signalbox.model",
-            "line": 908,
+            "line": 933,
             "column": 3,
-            "endLine": 908,
+            "endLine": 933,
             "endColumn": 68
           }
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 901,
+        "line": 926,
         "column": 1,
-        "endLine": 909,
+        "endLine": 934,
         "endColumn": 2
       },
       "naming": {
@@ -12496,12 +12496,30 @@
             "sqlParameter": "p_allowance",
             "typescriptProperty": "allowance"
           }
+        },
+        {
+          "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "name": "connector",
+          "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "caller": false,
+          "span": {
+            "file": "signalbox.model",
+            "line": 672,
+            "column": 3,
+            "endLine": 672,
+            "endColumn": 23
+          },
+          "naming": {
+            "sqlParameter": "p_connector",
+            "typescriptProperty": "connector"
+          }
         }
       ],
       "callerParameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.actor",
       "callableParameters": [
         "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
-        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance"
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance",
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector"
       ],
       "returnEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
       "authorization": {
@@ -12623,9 +12641,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "span": {
           "file": "signalbox.model",
-          "line": 674,
+          "line": 675,
           "column": 5,
-          "endLine": 677,
+          "endLine": 678,
           "endColumn": 33
         }
       },
@@ -12659,9 +12677,9 @@
           "sourceExpression": "(request.status == RequestStatus.READY)",
           "span": {
             "file": "signalbox.model",
-            "line": 678,
+            "line": 679,
             "column": 3,
-            "endLine": 678,
+            "endLine": 679,
             "endColumn": 56
           }
         },
@@ -12727,10 +12745,106 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "span": {
             "file": "signalbox.model",
-            "line": 679,
+            "line": 680,
             "column": 3,
-            "endLine": 680,
+            "endLine": 681,
             "endColumn": 77
+          }
+        },
+        {
+          "id": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_3fa9d020d7914602a2fe039d078564e6",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_9cbabb6af742448e967a399cb770e8a3",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "span": {
+            "file": "signalbox.model",
+            "line": 682,
+            "column": 3,
+            "endLine": 685,
+            "endColumn": 52
           }
         }
       ],
@@ -12824,11 +12938,10 @@
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "fieldName": "connector",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
-                "parameter": "request",
-                "fieldId": "field:fld_3fa9d020d7914602a2fe039d078564e6",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -12903,13 +13016,21 @@
           "entityId": "entity:ent_d66226c7efc345ba9853df0d4abb879a",
           "mode": "update",
           "order": 2
+        },
+        {
+          "id": "lock:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "mode": "share",
+          "order": 3
         }
       ],
       "span": {
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       },
       "naming": {
@@ -12933,9 +13054,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 698,
+            "line": 703,
             "column": 3,
-            "endLine": 698,
+            "endLine": 703,
             "endColumn": 26
           },
           "naming": {
@@ -12950,9 +13071,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 699,
+            "line": 704,
             "column": 3,
-            "endLine": 699,
+            "endLine": 704,
             "endColumn": 23
           },
           "naming": {
@@ -12967,21 +13088,39 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 700,
+            "line": 705,
             "column": 3,
-            "endLine": 700,
+            "endLine": 705,
             "endColumn": 23
           },
           "naming": {
             "sqlParameter": "p_allowance",
             "typescriptProperty": "allowance"
           }
+        },
+        {
+          "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "name": "connector",
+          "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "caller": false,
+          "span": {
+            "file": "signalbox.model",
+            "line": 706,
+            "column": 3,
+            "endLine": 706,
+            "endColumn": 23
+          },
+          "naming": {
+            "sqlParameter": "p_connector",
+            "typescriptProperty": "connector"
+          }
         }
       ],
       "callerParameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.actor",
       "callableParameters": [
         "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
-        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance"
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance",
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector"
       ],
       "returnEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
       "authorization": {
@@ -13103,9 +13242,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "span": {
           "file": "signalbox.model",
-          "line": 703,
+          "line": 709,
           "column": 5,
-          "endLine": 706,
+          "endLine": 712,
           "endColumn": 33
         }
       },
@@ -13139,9 +13278,9 @@
           "sourceExpression": "(request.status == RequestStatus.READY)",
           "span": {
             "file": "signalbox.model",
-            "line": 707,
+            "line": 713,
             "column": 3,
-            "endLine": 707,
+            "endLine": 713,
             "endColumn": 56
           }
         },
@@ -13207,10 +13346,106 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "span": {
             "file": "signalbox.model",
-            "line": 708,
+            "line": 714,
             "column": 3,
-            "endLine": 709,
+            "endLine": 715,
             "endColumn": 77
+          }
+        },
+        {
+          "id": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_119200b4be784b949bcb3e9e052740cf",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_2dca9ffcf1754ff8a8ecaa99f31b2f40",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "span": {
+            "file": "signalbox.model",
+            "line": 716,
+            "column": 3,
+            "endLine": 719,
+            "endColumn": 52
           }
         }
       ],
@@ -13304,11 +13539,10 @@
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "fieldName": "connector",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
-                "parameter": "request",
-                "fieldId": "field:fld_119200b4be784b949bcb3e9e052740cf",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -13383,13 +13617,21 @@
           "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
           "mode": "share",
           "order": 2
+        },
+        {
+          "id": "lock:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "mode": "share",
+          "order": 3
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       },
       "naming": {
@@ -13413,9 +13655,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 727,
+            "line": 737,
             "column": 3,
-            "endLine": 727,
+            "endLine": 737,
             "endColumn": 26
           },
           "naming": {
@@ -13430,9 +13672,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 728,
+            "line": 738,
             "column": 3,
-            "endLine": 728,
+            "endLine": 738,
             "endColumn": 29
           },
           "naming": {
@@ -13447,21 +13689,39 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 729,
+            "line": 739,
             "column": 3,
-            "endLine": 729,
+            "endLine": 739,
             "endColumn": 23
           },
           "naming": {
             "sqlParameter": "p_allowance",
             "typescriptProperty": "allowance"
           }
+        },
+        {
+          "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "name": "connector",
+          "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "caller": false,
+          "span": {
+            "file": "signalbox.model",
+            "line": 740,
+            "column": 3,
+            "endLine": 740,
+            "endColumn": 23
+          },
+          "naming": {
+            "sqlParameter": "p_connector",
+            "typescriptProperty": "connector"
+          }
         }
       ],
       "callerParameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.actor",
       "callableParameters": [
         "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
-        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance"
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance",
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector"
       ],
       "returnEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
       "authorization": {
@@ -13583,9 +13843,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "span": {
           "file": "signalbox.model",
-          "line": 732,
+          "line": 743,
           "column": 5,
-          "endLine": 735,
+          "endLine": 746,
           "endColumn": 33
         }
       },
@@ -13648,9 +13908,9 @@
           "sourceExpression": "((request.environmentTier == EnvironmentTier.STAGING) and (request.status == RequestStatus.READY))",
           "span": {
             "file": "signalbox.model",
-            "line": 736,
+            "line": 747,
             "column": 3,
-            "endLine": 738,
+            "endLine": 749,
             "endColumn": 47
           }
         },
@@ -13716,10 +13976,106 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "span": {
             "file": "signalbox.model",
-            "line": 739,
+            "line": 750,
             "column": 3,
-            "endLine": 740,
+            "endLine": 751,
             "endColumn": 77
+          }
+        },
+        {
+          "id": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "span": {
+            "file": "signalbox.model",
+            "line": 752,
+            "column": 3,
+            "endLine": 755,
+            "endColumn": 52
           }
         }
       ],
@@ -13813,11 +14169,10 @@
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "fieldName": "connector",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
-                "parameter": "request",
-                "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -13886,19 +14241,27 @@
           "order": 1
         },
         {
+          "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "mode": "share",
+          "order": 2
+        },
+        {
           "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.request",
           "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
           "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
           "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
           "mode": "update",
-          "order": 2
+          "order": 3
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       },
       "naming": {
@@ -13922,9 +14285,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 758,
+            "line": 773,
             "column": 3,
-            "endLine": 758,
+            "endLine": 773,
             "endColumn": 26
           },
           "naming": {
@@ -13939,9 +14302,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 759,
+            "line": 774,
             "column": 3,
-            "endLine": 759,
+            "endLine": 774,
             "endColumn": 29
           },
           "naming": {
@@ -13956,21 +14319,39 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 760,
+            "line": 775,
             "column": 3,
-            "endLine": 760,
+            "endLine": 775,
             "endColumn": 23
           },
           "naming": {
             "sqlParameter": "p_allowance",
             "typescriptProperty": "allowance"
           }
+        },
+        {
+          "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "name": "connector",
+          "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "caller": false,
+          "span": {
+            "file": "signalbox.model",
+            "line": 776,
+            "column": 3,
+            "endLine": 776,
+            "endColumn": 23
+          },
+          "naming": {
+            "sqlParameter": "p_connector",
+            "typescriptProperty": "connector"
+          }
         }
       ],
       "callerParameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
       "callableParameters": [
         "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance"
+        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+        "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector"
       ],
       "returnEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
       "authorization": {
@@ -14092,9 +14473,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "span": {
           "file": "signalbox.model",
-          "line": 763,
+          "line": 779,
           "column": 5,
-          "endLine": 766,
+          "endLine": 782,
           "endColumn": 33
         }
       },
@@ -14157,9 +14538,9 @@
           "sourceExpression": "((request.environmentTier == EnvironmentTier.PRODUCTION) and (request.status == RequestStatus.APPROVED))",
           "span": {
             "file": "signalbox.model",
-            "line": 767,
+            "line": 783,
             "column": 3,
-            "endLine": 769,
+            "endLine": 785,
             "endColumn": 50
           }
         },
@@ -14225,10 +14606,106 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "span": {
             "file": "signalbox.model",
-            "line": 770,
+            "line": 786,
             "column": 3,
-            "endLine": 771,
+            "endLine": 787,
             "endColumn": 77
+          }
+        },
+        {
+          "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "span": {
+            "file": "signalbox.model",
+            "line": 788,
+            "column": 3,
+            "endLine": 791,
+            "endColumn": 52
           }
         }
       ],
@@ -14322,11 +14799,10 @@
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "fieldName": "connector",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-                "parameter": "request",
-                "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -14395,19 +14871,27 @@
           "order": 1
         },
         {
+          "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "mode": "share",
+          "order": 2
+        },
+        {
           "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
           "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
           "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
           "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
           "mode": "update",
-          "order": 2
+          "order": 3
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       },
       "naming": {
@@ -14431,9 +14915,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 789,
+            "line": 809,
             "column": 3,
-            "endLine": 789,
+            "endLine": 809,
             "endColumn": 26
           },
           "naming": {
@@ -14448,9 +14932,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 790,
+            "line": 810,
             "column": 3,
-            "endLine": 790,
+            "endLine": 810,
             "endColumn": 34
           },
           "naming": {
@@ -14465,21 +14949,39 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 791,
+            "line": 811,
             "column": 3,
-            "endLine": 791,
+            "endLine": 811,
             "endColumn": 23
           },
           "naming": {
             "sqlParameter": "p_allowance",
             "typescriptProperty": "allowance"
           }
+        },
+        {
+          "id": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+          "name": "connector",
+          "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "caller": false,
+          "span": {
+            "file": "signalbox.model",
+            "line": 812,
+            "column": 3,
+            "endLine": 812,
+            "endColumn": 23
+          },
+          "naming": {
+            "sqlParameter": "p_connector",
+            "typescriptProperty": "connector"
+          }
         }
       ],
       "callerParameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.actor",
       "callableParameters": [
         "parameter:action:act_70d3862584094631aca61e9db664d991.request",
-        "parameter:action:act_70d3862584094631aca61e9db664d991.allowance"
+        "parameter:action:act_70d3862584094631aca61e9db664d991.allowance",
+        "parameter:action:act_70d3862584094631aca61e9db664d991.connector"
       ],
       "returnEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
       "authorization": {
@@ -14601,9 +15103,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "span": {
           "file": "signalbox.model",
-          "line": 794,
+          "line": 815,
           "column": 5,
-          "endLine": 797,
+          "endLine": 818,
           "endColumn": 33
         }
       },
@@ -14637,9 +15139,9 @@
           "sourceExpression": "(request.status == RequestStatus.APPROVED)",
           "span": {
             "file": "signalbox.model",
-            "line": 798,
+            "line": 819,
             "column": 3,
-            "endLine": 798,
+            "endLine": 819,
             "endColumn": 62
           }
         },
@@ -14705,10 +15207,106 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "span": {
             "file": "signalbox.model",
-            "line": 799,
+            "line": 820,
             "column": 3,
-            "endLine": 800,
+            "endLine": 821,
             "endColumn": 77
+          }
+        },
+        {
+          "id": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_3b91f96763da4611a09ec9774b3fde7b",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c7eac19396da4475916b33163d6ecd9f",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "span": {
+            "file": "signalbox.model",
+            "line": 822,
+            "column": 3,
+            "endLine": 825,
+            "endColumn": 52
           }
         }
       ],
@@ -14802,11 +15400,10 @@
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "fieldName": "connector",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
-                "parameter": "request",
-                "fieldId": "field:fld_3b91f96763da4611a09ec9774b3fde7b",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -14881,13 +15478,21 @@
           "entityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef",
           "mode": "update",
           "order": 2
+        },
+        {
+          "id": "lock:action:act_70d3862584094631aca61e9db664d991.connector",
+          "source": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+          "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "mode": "share",
+          "order": 3
         }
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       },
       "naming": {
@@ -14911,9 +15516,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 818,
+            "line": 843,
             "column": 3,
-            "endLine": 818,
+            "endLine": 843,
             "endColumn": 26
           },
           "naming": {
@@ -14928,9 +15533,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 819,
+            "line": 844,
             "column": 3,
-            "endLine": 819,
+            "endLine": 844,
             "endColumn": 23
           },
           "naming": {
@@ -14945,9 +15550,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 820,
+            "line": 845,
             "column": 3,
-            "endLine": 820,
+            "endLine": 845,
             "endColumn": 28
           },
           "naming": {
@@ -15081,9 +15686,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == execution.org))",
         "span": {
           "file": "signalbox.model",
-          "line": 823,
+          "line": 848,
           "column": 5,
-          "endLine": 826,
+          "endLine": 851,
           "endColumn": 35
         }
       },
@@ -15117,9 +15722,9 @@
           "sourceExpression": "(execution.status == ExecutionStatus.PENDING)",
           "span": {
             "file": "signalbox.model",
-            "line": 827,
+            "line": 852,
             "column": 3,
-            "endLine": 827,
+            "endLine": 852,
             "endColumn": 64
           }
         }
@@ -15194,9 +15799,9 @@
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       },
       "naming": {
@@ -15220,9 +15825,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 838,
+            "line": 863,
             "column": 3,
-            "endLine": 838,
+            "endLine": 863,
             "endColumn": 26
           },
           "naming": {
@@ -15237,9 +15842,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 839,
+            "line": 864,
             "column": 3,
-            "endLine": 839,
+            "endLine": 864,
             "endColumn": 23
           },
           "naming": {
@@ -15254,9 +15859,9 @@
           "caller": false,
           "span": {
             "file": "signalbox.model",
-            "line": 840,
+            "line": 865,
             "column": 3,
-            "endLine": 840,
+            "endLine": 865,
             "endColumn": 25
           },
           "naming": {
@@ -15390,9 +15995,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == execution.org))",
         "span": {
           "file": "signalbox.model",
-          "line": 843,
+          "line": 868,
           "column": 5,
-          "endLine": 846,
+          "endLine": 871,
           "endColumn": 35
         }
       },
@@ -15426,9 +16031,9 @@
           "sourceExpression": "(execution.status == ExecutionStatus.PENDING)",
           "span": {
             "file": "signalbox.model",
-            "line": 847,
+            "line": 872,
             "column": 3,
-            "endLine": 847,
+            "endLine": 872,
             "endColumn": 64
           }
         }
@@ -15503,9 +16108,9 @@
       ],
       "span": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       },
       "naming": {
@@ -15532,9 +16137,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 911,
+            "line": 936,
             "column": 73,
-            "endLine": 911,
+            "endLine": 936,
             "endColumn": 96
           },
           "naming": {
@@ -15560,9 +16165,9 @@
         "sourceExpression": "true",
         "span": {
           "file": "signalbox.model",
-          "line": 912,
+          "line": 937,
           "column": 13,
-          "endLine": 912,
+          "endLine": 937,
           "endColumn": 17
         }
       },
@@ -15597,9 +16202,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "span": {
           "file": "signalbox.model",
-          "line": 913,
+          "line": 938,
           "column": 9,
-          "endLine": 913,
+          "endLine": 938,
           "endColumn": 33
         }
       },
@@ -15620,9 +16225,9 @@
       },
       "span": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       },
       "naming": {
@@ -15646,9 +16251,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 920,
+            "line": 945,
             "column": 72,
-            "endLine": 920,
+            "endLine": 945,
             "endColumn": 95
           },
           "naming": {
@@ -15674,9 +16279,9 @@
         "sourceExpression": "true",
         "span": {
           "file": "signalbox.model",
-          "line": 921,
+          "line": 946,
           "column": 13,
-          "endLine": 921,
+          "endLine": 946,
           "endColumn": 17
         }
       },
@@ -15711,9 +16316,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "span": {
           "file": "signalbox.model",
-          "line": 922,
+          "line": 947,
           "column": 9,
-          "endLine": 922,
+          "endLine": 947,
           "endColumn": 33
         }
       },
@@ -15734,9 +16339,9 @@
       },
       "span": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       },
       "naming": {
@@ -15760,9 +16365,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 930,
+            "line": 955,
             "column": 3,
-            "endLine": 930,
+            "endLine": 955,
             "endColumn": 26
           },
           "naming": {
@@ -15788,9 +16393,9 @@
         "sourceExpression": "true",
         "span": {
           "file": "signalbox.model",
-          "line": 932,
+          "line": 957,
           "column": 13,
-          "endLine": 932,
+          "endLine": 957,
           "endColumn": 17
         }
       },
@@ -15825,9 +16430,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "span": {
           "file": "signalbox.model",
-          "line": 933,
+          "line": 958,
           "column": 9,
-          "endLine": 933,
+          "endLine": 958,
           "endColumn": 33
         }
       },
@@ -15848,9 +16453,9 @@
       },
       "span": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       },
       "naming": {
@@ -15874,9 +16479,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 941,
+            "line": 966,
             "column": 3,
-            "endLine": 941,
+            "endLine": 966,
             "endColumn": 26
           },
           "naming": {
@@ -15949,9 +16554,9 @@
         "sourceExpression": "((actor.kind == PrincipalKind.HUMAN) and (Role.APPROVER in actor.roles))",
         "span": {
           "file": "signalbox.model",
-          "line": 944,
+          "line": 969,
           "column": 5,
-          "endLine": 945,
+          "endLine": 970,
           "endColumn": 37
         }
       },
@@ -16074,9 +16679,9 @@
         "sourceExpression": "((((request.org == actor.org) and (request.environmentTier == EnvironmentTier.PRODUCTION)) and (request.status == RequestStatus.PENDING_APPROVAL)) and (request.requestedBy != actor))",
         "span": {
           "file": "signalbox.model",
-          "line": 946,
+          "line": 971,
           "column": 9,
-          "endLine": 949,
+          "endLine": 974,
           "endColumn": 37
         }
       },
@@ -16097,9 +16702,9 @@
       },
       "span": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       },
       "naming": {
@@ -16123,9 +16728,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 957,
+            "line": 982,
             "column": 3,
-            "endLine": 957,
+            "endLine": 982,
             "endColumn": 26
           },
           "naming": {
@@ -16151,9 +16756,9 @@
         "sourceExpression": "true",
         "span": {
           "file": "signalbox.model",
-          "line": 959,
+          "line": 984,
           "column": 13,
-          "endLine": 959,
+          "endLine": 984,
           "endColumn": 17
         }
       },
@@ -16188,9 +16793,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "span": {
           "file": "signalbox.model",
-          "line": 960,
+          "line": 985,
           "column": 9,
-          "endLine": 960,
+          "endLine": 985,
           "endColumn": 33
         }
       },
@@ -16211,9 +16816,9 @@
       },
       "span": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       },
       "naming": {
@@ -16237,9 +16842,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 968,
+            "line": 993,
             "column": 3,
-            "endLine": 968,
+            "endLine": 993,
             "endColumn": 26
           },
           "naming": {
@@ -16312,9 +16917,9 @@
         "sourceExpression": "((actor.kind == PrincipalKind.HUMAN) and (Role.APPROVER in actor.roles))",
         "span": {
           "file": "signalbox.model",
-          "line": 971,
+          "line": 996,
           "column": 5,
-          "endLine": 972,
+          "endLine": 997,
           "endColumn": 37
         }
       },
@@ -16408,9 +17013,9 @@
         "sourceExpression": "(((request.org == actor.org) and (request.status == RequestStatus.PENDING_APPROVAL)) and (request.requestedBy != actor))",
         "span": {
           "file": "signalbox.model",
-          "line": 973,
+          "line": 998,
           "column": 9,
-          "endLine": 975,
+          "endLine": 1000,
           "endColumn": 37
         }
       },
@@ -16431,9 +17036,9 @@
       },
       "span": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       },
       "naming": {
@@ -16457,9 +17062,9 @@
           "binding": "session_user",
           "span": {
             "file": "signalbox.model",
-            "line": 982,
+            "line": 1007,
             "column": 70,
-            "endLine": 982,
+            "endLine": 1007,
             "endColumn": 93
           },
           "naming": {
@@ -16485,9 +17090,9 @@
         "sourceExpression": "true",
         "span": {
           "file": "signalbox.model",
-          "line": 983,
+          "line": 1008,
           "column": 13,
-          "endLine": 983,
+          "endLine": 1008,
           "endColumn": 17
         }
       },
@@ -16522,9 +17127,9 @@
         "sourceExpression": "(execution.org == actor.org)",
         "span": {
           "file": "signalbox.model",
-          "line": 984,
+          "line": 1009,
           "column": 9,
-          "endLine": 984,
+          "endLine": 1009,
           "endColumn": 35
         }
       },
@@ -16545,9 +17150,9 @@
       },
       "span": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       },
       "naming": {
@@ -22841,7 +23446,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -22855,7 +23460,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -22869,7 +23474,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -22881,9 +23486,9 @@
       "objectName": "model_signalbox.dispatch_issue_creation",
       "source": {
         "file": "signalbox.model",
-        "line": 674,
+        "line": 675,
         "column": 5,
-        "endLine": 677,
+        "endLine": 678,
         "endColumn": 33
       }
     },
@@ -22895,9 +23500,9 @@
       "objectName": "model_signalbox.dispatch_issue_creation",
       "source": {
         "file": "signalbox.model",
-        "line": 678,
+        "line": 679,
         "column": 3,
-        "endLine": 678,
+        "endLine": 679,
         "endColumn": 56
       }
     },
@@ -22909,10 +23514,24 @@
       "objectName": "model_signalbox.dispatch_issue_creation",
       "source": {
         "file": "signalbox.model",
-        "line": 679,
+        "line": 680,
         "column": 3,
-        "endLine": 680,
+        "endLine": 681,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_issue_creation",
+      "source": {
+        "file": "signalbox.model",
+        "line": 682,
+        "column": 3,
+        "endLine": 685,
+        "endColumn": 52
       }
     },
     {
@@ -22925,7 +23544,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -22939,7 +23558,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       }
     },
@@ -22965,6 +23584,13 @@
       "objectName": "FOR UPDATE in model_signalbox.dispatch_issue_creation"
     },
     {
+      "id": "lock:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+      "purpose": "Stabilize parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_issue_creation"
+    },
+    {
       "id": "caller:action:act_3e99da927be642efac3d1bee026ef00a.actor",
       "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
       "layer": "PostgreSQL authenticated identity",
@@ -22972,9 +23598,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 698,
+        "line": 703,
         "column": 3,
-        "endLine": 698,
+        "endLine": 703,
         "endColumn": 26
       }
     },
@@ -22993,9 +23619,9 @@
       "objectName": "model_signalbox.decide_act_3e99da927be642efac3d1bee026ef00a",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -23007,9 +23633,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -23021,9 +23647,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -23035,9 +23661,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 703,
+        "line": 709,
         "column": 5,
-        "endLine": 706,
+        "endLine": 712,
         "endColumn": 33
       }
     },
@@ -23049,9 +23675,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 707,
+        "line": 713,
         "column": 3,
-        "endLine": 707,
+        "endLine": 713,
         "endColumn": 56
       }
     },
@@ -23063,10 +23689,24 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 708,
+        "line": 714,
         "column": 3,
-        "endLine": 709,
+        "endLine": 715,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_pull_request",
+      "source": {
+        "file": "signalbox.model",
+        "line": 716,
+        "column": 3,
+        "endLine": 719,
+        "endColumn": 52
       }
     },
     {
@@ -23077,9 +23717,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -23091,9 +23731,9 @@
       "objectName": "model_signalbox.dispatch_pull_request",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       }
     },
@@ -23119,6 +23759,13 @@
       "objectName": "FOR SHARE in model_signalbox.dispatch_pull_request"
     },
     {
+      "id": "lock:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+      "purpose": "Stabilize parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_pull_request"
+    },
+    {
       "id": "caller:action:act_3e26a4d454634bf3a2058204146d7c45.actor",
       "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
       "layer": "PostgreSQL authenticated identity",
@@ -23126,9 +23773,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 727,
+        "line": 737,
         "column": 3,
-        "endLine": 727,
+        "endLine": 737,
         "endColumn": 26
       }
     },
@@ -23147,9 +23794,9 @@
       "objectName": "model_signalbox.decide_act_3e26a4d454634bf3a2058204146d7c45",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -23161,9 +23808,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -23175,9 +23822,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -23189,9 +23836,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 732,
+        "line": 743,
         "column": 5,
-        "endLine": 735,
+        "endLine": 746,
         "endColumn": 33
       }
     },
@@ -23203,9 +23850,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 736,
+        "line": 747,
         "column": 3,
-        "endLine": 738,
+        "endLine": 749,
         "endColumn": 47
       }
     },
@@ -23217,10 +23864,24 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 739,
+        "line": 750,
         "column": 3,
-        "endLine": 740,
+        "endLine": 751,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_staging_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 752,
+        "column": 3,
+        "endLine": 755,
+        "endColumn": 52
       }
     },
     {
@@ -23231,9 +23892,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -23245,9 +23906,9 @@
       "objectName": "model_signalbox.dispatch_staging_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       }
     },
@@ -23261,6 +23922,13 @@
     {
       "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.allowance",
       "purpose": "Stabilize parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_staging_deployment"
+    },
+    {
+      "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+      "purpose": "Stabilize parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector before evaluating guards and effects.",
       "layer": "PostgreSQL row lock",
       "artifact": "postgres/003_actions.sql",
       "objectName": "FOR SHARE in model_signalbox.dispatch_staging_deployment"
@@ -23280,9 +23948,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 758,
+        "line": 773,
         "column": 3,
-        "endLine": 758,
+        "endLine": 773,
         "endColumn": 26
       }
     },
@@ -23301,9 +23969,9 @@
       "objectName": "model_signalbox.decide_act_4a9421bfc2e744969b9f73109e6cda54",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -23315,9 +23983,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -23329,9 +23997,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -23343,9 +24011,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 763,
+        "line": 779,
         "column": 5,
-        "endLine": 766,
+        "endLine": 782,
         "endColumn": 33
       }
     },
@@ -23357,9 +24025,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 767,
+        "line": 783,
         "column": 3,
-        "endLine": 769,
+        "endLine": 785,
         "endColumn": 50
       }
     },
@@ -23371,10 +24039,24 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 770,
+        "line": 786,
         "column": 3,
-        "endLine": 771,
+        "endLine": 787,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 788,
+        "column": 3,
+        "endLine": 791,
+        "endColumn": 52
       }
     },
     {
@@ -23385,9 +24067,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -23399,9 +24081,9 @@
       "objectName": "model_signalbox.dispatch_approved_deployment",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       }
     },
@@ -23415,6 +24097,13 @@
     {
       "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
       "purpose": "Stabilize parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_approved_deployment"
+    },
+    {
+      "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+      "purpose": "Stabilize parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector before evaluating guards and effects.",
       "layer": "PostgreSQL row lock",
       "artifact": "postgres/003_actions.sql",
       "objectName": "FOR SHARE in model_signalbox.dispatch_approved_deployment"
@@ -23434,9 +24123,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 789,
+        "line": 809,
         "column": 3,
-        "endLine": 789,
+        "endLine": 809,
         "endColumn": 26
       }
     },
@@ -23455,9 +24144,9 @@
       "objectName": "model_signalbox.decide_act_70d3862584094631aca61e9db664d991",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -23469,9 +24158,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -23483,9 +24172,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -23497,9 +24186,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 794,
+        "line": 815,
         "column": 5,
-        "endLine": 797,
+        "endLine": 818,
         "endColumn": 33
       }
     },
@@ -23511,9 +24200,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 798,
+        "line": 819,
         "column": 3,
-        "endLine": 798,
+        "endLine": 819,
         "endColumn": 62
       }
     },
@@ -23525,10 +24214,24 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 799,
+        "line": 820,
         "column": 3,
-        "endLine": 800,
+        "endLine": 821,
         "endColumn": 77
+      }
+    },
+    {
+      "id": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+      "purpose": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.dispatch_approved_schema_migration",
+      "source": {
+        "file": "signalbox.model",
+        "line": 822,
+        "column": 3,
+        "endLine": 825,
+        "endColumn": 52
       }
     },
     {
@@ -23539,9 +24242,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -23553,9 +24256,9 @@
       "objectName": "model_signalbox.dispatch_approved_schema_migration",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       }
     },
@@ -23581,6 +24284,13 @@
       "objectName": "FOR UPDATE in model_signalbox.dispatch_approved_schema_migration"
     },
     {
+      "id": "lock:action:act_70d3862584094631aca61e9db664d991.connector",
+      "purpose": "Stabilize parameter:action:act_70d3862584094631aca61e9db664d991.connector before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.dispatch_approved_schema_migration"
+    },
+    {
       "id": "caller:action:act_5be24324b68d4c2eb334732b36e1b16c.actor",
       "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
       "layer": "PostgreSQL authenticated identity",
@@ -23588,9 +24298,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 818,
+        "line": 843,
         "column": 3,
-        "endLine": 818,
+        "endLine": 843,
         "endColumn": 26
       }
     },
@@ -23609,9 +24319,9 @@
       "objectName": "model_signalbox.decide_act_5be24324b68d4c2eb334732b36e1b16c",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -23623,9 +24333,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -23637,9 +24347,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -23651,9 +24361,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 823,
+        "line": 848,
         "column": 5,
-        "endLine": 826,
+        "endLine": 851,
         "endColumn": 35
       }
     },
@@ -23665,9 +24375,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 827,
+        "line": 852,
         "column": 3,
-        "endLine": 827,
+        "endLine": 852,
         "endColumn": 64
       }
     },
@@ -23679,9 +24389,9 @@
       "objectName": "model_signalbox.complete_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       }
     },
@@ -23707,9 +24417,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 838,
+        "line": 863,
         "column": 3,
-        "endLine": 838,
+        "endLine": 863,
         "endColumn": 26
       }
     },
@@ -23728,9 +24438,9 @@
       "objectName": "model_signalbox.decide_act_926686163a6544e79d44dea9336d2c88",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -23742,9 +24452,9 @@
       "objectName": "model_signalbox_internal.command_receipt",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -23756,9 +24466,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -23770,9 +24480,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 843,
+        "line": 868,
         "column": 5,
-        "endLine": 846,
+        "endLine": 871,
         "endColumn": 35
       }
     },
@@ -23784,9 +24494,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 847,
+        "line": 872,
         "column": 3,
-        "endLine": 847,
+        "endLine": 872,
         "endColumn": 64
       }
     },
@@ -23798,9 +24508,9 @@
       "objectName": "model_signalbox.fail_execution",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       }
     },
@@ -23826,9 +24536,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 73,
-        "endLine": 911,
+        "endLine": 936,
         "endColumn": 96
       }
     },
@@ -23847,9 +24557,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 912,
+        "line": 937,
         "column": 13,
-        "endLine": 912,
+        "endLine": 937,
         "endColumn": 17
       }
     },
@@ -23861,9 +24571,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 913,
+        "line": 938,
         "column": 9,
-        "endLine": 913,
+        "endLine": 938,
         "endColumn": 33
       }
     },
@@ -23875,9 +24585,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -23889,9 +24599,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -23903,9 +24613,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -23917,9 +24627,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -23931,9 +24641,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -23945,9 +24655,9 @@
       "objectName": "model_signalbox.my_issue_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       }
     },
@@ -23959,9 +24669,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 72,
-        "endLine": 920,
+        "endLine": 945,
         "endColumn": 95
       }
     },
@@ -23980,9 +24690,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 921,
+        "line": 946,
         "column": 13,
-        "endLine": 921,
+        "endLine": 946,
         "endColumn": 17
       }
     },
@@ -23994,9 +24704,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 922,
+        "line": 947,
         "column": 9,
-        "endLine": 922,
+        "endLine": 947,
         "endColumn": 33
       }
     },
@@ -24008,9 +24718,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -24022,9 +24732,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -24036,9 +24746,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -24050,9 +24760,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -24064,9 +24774,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -24078,9 +24788,9 @@
       "objectName": "model_signalbox.my_pull_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       }
     },
@@ -24092,9 +24802,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 930,
+        "line": 955,
         "column": 3,
-        "endLine": 930,
+        "endLine": 955,
         "endColumn": 26
       }
     },
@@ -24113,9 +24823,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 932,
+        "line": 957,
         "column": 13,
-        "endLine": 932,
+        "endLine": 957,
         "endColumn": 17
       }
     },
@@ -24127,9 +24837,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 933,
+        "line": 958,
         "column": 9,
-        "endLine": 933,
+        "endLine": 958,
         "endColumn": 33
       }
     },
@@ -24141,9 +24851,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -24155,9 +24865,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -24169,9 +24879,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -24183,9 +24893,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -24197,9 +24907,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -24211,9 +24921,9 @@
       "objectName": "model_signalbox.my_deployment_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       }
     },
@@ -24225,9 +24935,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 941,
+        "line": 966,
         "column": 3,
-        "endLine": 941,
+        "endLine": 966,
         "endColumn": 26
       }
     },
@@ -24246,9 +24956,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 944,
+        "line": 969,
         "column": 5,
-        "endLine": 945,
+        "endLine": 970,
         "endColumn": 37
       }
     },
@@ -24260,9 +24970,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 946,
+        "line": 971,
         "column": 9,
-        "endLine": 949,
+        "endLine": 974,
         "endColumn": 37
       }
     },
@@ -24274,9 +24984,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -24288,9 +24998,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -24302,9 +25012,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -24316,9 +25026,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -24330,9 +25040,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -24344,9 +25054,9 @@
       "objectName": "model_signalbox.deployment_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       }
     },
@@ -24358,9 +25068,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 957,
+        "line": 982,
         "column": 3,
-        "endLine": 957,
+        "endLine": 982,
         "endColumn": 26
       }
     },
@@ -24379,9 +25089,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 959,
+        "line": 984,
         "column": 13,
-        "endLine": 959,
+        "endLine": 984,
         "endColumn": 17
       }
     },
@@ -24393,9 +25103,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 960,
+        "line": 985,
         "column": 9,
-        "endLine": 960,
+        "endLine": 985,
         "endColumn": 33
       }
     },
@@ -24407,9 +25117,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -24421,9 +25131,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -24435,9 +25145,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -24449,9 +25159,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -24463,9 +25173,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -24477,9 +25187,9 @@
       "objectName": "model_signalbox.my_schema_migration_requests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       }
     },
@@ -24491,9 +25201,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 968,
+        "line": 993,
         "column": 3,
-        "endLine": 968,
+        "endLine": 993,
         "endColumn": 26
       }
     },
@@ -24512,9 +25222,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 971,
+        "line": 996,
         "column": 5,
-        "endLine": 972,
+        "endLine": 997,
         "endColumn": 37
       }
     },
@@ -24526,9 +25236,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 973,
+        "line": 998,
         "column": 9,
-        "endLine": 975,
+        "endLine": 1000,
         "endColumn": 37
       }
     },
@@ -24540,9 +25250,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -24554,9 +25264,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -24568,9 +25278,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -24582,9 +25292,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -24596,9 +25306,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -24610,9 +25320,9 @@
       "objectName": "model_signalbox.migration_approval_inbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       }
     },
@@ -24624,9 +25334,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 70,
-        "endLine": 982,
+        "endLine": 1007,
         "endColumn": 93
       }
     },
@@ -24645,9 +25355,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 983,
+        "line": 1008,
         "column": 13,
-        "endLine": 983,
+        "endLine": 1008,
         "endColumn": 17
       }
     },
@@ -24659,9 +25369,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 984,
+        "line": 1009,
         "column": 9,
-        "endLine": 984,
+        "endLine": 1009,
         "endColumn": 35
       }
     },
@@ -24673,9 +25383,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -24687,9 +25397,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -24701,9 +25411,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -24715,9 +25425,9 @@
       "objectName": "model_signalbox_internal.query_audit",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -24729,9 +25439,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },
@@ -24743,9 +25453,9 @@
       "objectName": "model_signalbox.my_executions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       }
     },

@@ -16,8 +16,8 @@
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.51.0",
-    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608",
+    "version": "0.52.0",
+    "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9",
     "sourceFile": "signalbox.model"
   },
   "principal": {
@@ -31,9 +31,9 @@
       "name": "PrincipalSummary",
       "source": {
         "file": "signalbox.model",
-        "line": 857,
+        "line": 882,
         "column": 1,
-        "endLine": 861,
+        "endLine": 886,
         "endColumn": 2
       },
       "sourceEntityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
@@ -44,9 +44,9 @@
           "sourceFieldId": "field:fld_0f4346fb82a7470baa889475e5480797",
           "source": {
             "file": "signalbox.model",
-            "line": 858,
+            "line": 883,
             "column": 3,
-            "endLine": 858,
+            "endLine": 883,
             "endColumn": 56
           }
         },
@@ -56,9 +56,9 @@
           "sourceFieldId": "field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
           "source": {
             "file": "signalbox.model",
-            "line": 859,
+            "line": 884,
             "column": 3,
-            "endLine": 859,
+            "endLine": 884,
             "endColumn": 65
           }
         },
@@ -68,9 +68,9 @@
           "sourceFieldId": "field:fld_4494f33148d746dcb887d73be133b248",
           "source": {
             "file": "signalbox.model",
-            "line": 860,
+            "line": 885,
             "column": 3,
-            "endLine": 860,
+            "endLine": 885,
             "endColumn": 58
           }
         }
@@ -81,9 +81,9 @@
       "name": "IssueRequestSummary",
       "source": {
         "file": "signalbox.model",
-        "line": 863,
+        "line": 888,
         "column": 1,
-        "endLine": 869,
+        "endLine": 894,
         "endColumn": 2
       },
       "sourceEntityId": "entity:ent_d66226c7efc345ba9853df0d4abb879a",
@@ -94,9 +94,9 @@
           "sourceFieldId": "field:fld_1eea72bb397746d5a3cb2d5d9b7bef83",
           "source": {
             "file": "signalbox.model",
-            "line": 864,
+            "line": 889,
             "column": 3,
-            "endLine": 864,
+            "endLine": 889,
             "endColumn": 56
           }
         },
@@ -106,9 +106,9 @@
           "sourceFieldId": "field:fld_21446eda364f48bd836217199c1b1297",
           "source": {
             "file": "signalbox.model",
-            "line": 865,
+            "line": 890,
             "column": 3,
-            "endLine": 865,
+            "endLine": 890,
             "endColumn": 63
           }
         },
@@ -118,9 +118,9 @@
           "sourceFieldId": "field:fld_4422f07a408d4551b3ce0726c1c3d892",
           "source": {
             "file": "signalbox.model",
-            "line": 866,
+            "line": 891,
             "column": 3,
-            "endLine": 866,
+            "endLine": 891,
             "endColumn": 59
           }
         },
@@ -130,9 +130,9 @@
           "sourceFieldId": "field:fld_5d88e5c44ca54aef83cac25756645919",
           "source": {
             "file": "signalbox.model",
-            "line": 867,
+            "line": 892,
             "column": 3,
-            "endLine": 867,
+            "endLine": 892,
             "endColumn": 60
           }
         },
@@ -143,9 +143,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "source": {
             "file": "signalbox.model",
-            "line": 868,
+            "line": 893,
             "column": 3,
-            "endLine": 868,
+            "endLine": 893,
             "endColumn": 83
           }
         }
@@ -156,9 +156,9 @@
       "name": "PullRequestSummary",
       "source": {
         "file": "signalbox.model",
-        "line": 871,
+        "line": 896,
         "column": 1,
-        "endLine": 879,
+        "endLine": 904,
         "endColumn": 2
       },
       "sourceEntityId": "entity:ent_44eefd913a6d40389e4b1baf02add8c4",
@@ -169,9 +169,9 @@
           "sourceFieldId": "field:fld_281160087c1a4a60abd81642ec528828",
           "source": {
             "file": "signalbox.model",
-            "line": 872,
+            "line": 897,
             "column": 3,
-            "endLine": 872,
+            "endLine": 897,
             "endColumn": 56
           }
         },
@@ -181,9 +181,9 @@
           "sourceFieldId": "field:fld_2f78328226a54731bc6feadcc11028db",
           "source": {
             "file": "signalbox.model",
-            "line": 873,
+            "line": 898,
             "column": 3,
-            "endLine": 873,
+            "endLine": 898,
             "endColumn": 63
           }
         },
@@ -193,9 +193,9 @@
           "sourceFieldId": "field:fld_3eba77db78fe4ebab54a63ad9567e3b5",
           "source": {
             "file": "signalbox.model",
-            "line": 874,
+            "line": 899,
             "column": 3,
-            "endLine": 874,
+            "endLine": 899,
             "endColumn": 64
           }
         },
@@ -205,9 +205,9 @@
           "sourceFieldId": "field:fld_7c1085492a45441fb4cb3c332cd137b2",
           "source": {
             "file": "signalbox.model",
-            "line": 875,
+            "line": 900,
             "column": 3,
-            "endLine": 875,
+            "endLine": 900,
             "endColumn": 64
           }
         },
@@ -217,9 +217,9 @@
           "sourceFieldId": "field:fld_ebc39ab7424e4255b5ba1541b3b4fa83",
           "source": {
             "file": "signalbox.model",
-            "line": 876,
+            "line": 901,
             "column": 3,
-            "endLine": 876,
+            "endLine": 901,
             "endColumn": 59
           }
         },
@@ -229,9 +229,9 @@
           "sourceFieldId": "field:fld_658bfd33302b4a6e996a88d746572ec2",
           "source": {
             "file": "signalbox.model",
-            "line": 877,
+            "line": 902,
             "column": 3,
-            "endLine": 877,
+            "endLine": 902,
             "endColumn": 60
           }
         },
@@ -242,9 +242,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "source": {
             "file": "signalbox.model",
-            "line": 878,
+            "line": 903,
             "column": 3,
-            "endLine": 878,
+            "endLine": 903,
             "endColumn": 83
           }
         }
@@ -255,9 +255,9 @@
       "name": "DeploymentRequestSummary",
       "source": {
         "file": "signalbox.model",
-        "line": 881,
+        "line": 906,
         "column": 1,
-        "endLine": 889,
+        "endLine": 914,
         "endColumn": 2
       },
       "sourceEntityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
@@ -268,9 +268,9 @@
           "sourceFieldId": "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
           "source": {
             "file": "signalbox.model",
-            "line": 882,
+            "line": 907,
             "column": 3,
-            "endLine": 882,
+            "endLine": 907,
             "endColumn": 56
           }
         },
@@ -280,9 +280,9 @@
           "sourceFieldId": "field:fld_90575438c6e94deab4c8e6948e68345b",
           "source": {
             "file": "signalbox.model",
-            "line": 883,
+            "line": 908,
             "column": 3,
-            "endLine": 883,
+            "endLine": 908,
             "endColumn": 63
           }
         },
@@ -292,9 +292,9 @@
           "sourceFieldId": "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
           "source": {
             "file": "signalbox.model",
-            "line": 884,
+            "line": 909,
             "column": 3,
-            "endLine": 884,
+            "endLine": 909,
             "endColumn": 63
           }
         },
@@ -304,9 +304,9 @@
           "sourceFieldId": "field:fld_0be25eb7ee834d4e845535e6d3c9d0fe",
           "source": {
             "file": "signalbox.model",
-            "line": 885,
+            "line": 910,
             "column": 3,
-            "endLine": 885,
+            "endLine": 910,
             "endColumn": 69
           }
         },
@@ -316,9 +316,9 @@
           "sourceFieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
           "source": {
             "file": "signalbox.model",
-            "line": 886,
+            "line": 911,
             "column": 3,
-            "endLine": 886,
+            "endLine": 911,
             "endColumn": 60
           }
         },
@@ -329,9 +329,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "source": {
             "file": "signalbox.model",
-            "line": 887,
+            "line": 912,
             "column": 3,
-            "endLine": 887,
+            "endLine": 912,
             "endColumn": 83
           }
         },
@@ -342,9 +342,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "source": {
             "file": "signalbox.model",
-            "line": 888,
+            "line": 913,
             "column": 3,
-            "endLine": 888,
+            "endLine": 913,
             "endColumn": 82
           }
         }
@@ -355,9 +355,9 @@
       "name": "SchemaMigrationSummary",
       "source": {
         "file": "signalbox.model",
-        "line": 891,
+        "line": 916,
         "column": 1,
-        "endLine": 899,
+        "endLine": 924,
         "endColumn": 2
       },
       "sourceEntityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef",
@@ -368,9 +368,9 @@
           "sourceFieldId": "field:fld_6220c184797043188c546747a102e097",
           "source": {
             "file": "signalbox.model",
-            "line": 892,
+            "line": 917,
             "column": 3,
-            "endLine": 892,
+            "endLine": 917,
             "endColumn": 56
           }
         },
@@ -380,9 +380,9 @@
           "sourceFieldId": "field:fld_001992183e08454d9235ad39cc6a4f56",
           "source": {
             "file": "signalbox.model",
-            "line": 893,
+            "line": 918,
             "column": 3,
-            "endLine": 893,
+            "endLine": 918,
             "endColumn": 63
           }
         },
@@ -392,9 +392,9 @@
           "sourceFieldId": "field:fld_2a58885ca7404655a635e2bca9379202",
           "source": {
             "file": "signalbox.model",
-            "line": 894,
+            "line": 919,
             "column": 3,
-            "endLine": 894,
+            "endLine": 919,
             "endColumn": 67
           }
         },
@@ -404,9 +404,9 @@
           "sourceFieldId": "field:fld_9d6644545b0d47fbbe8d2699f202160b",
           "source": {
             "file": "signalbox.model",
-            "line": 895,
+            "line": 920,
             "column": 3,
-            "endLine": 895,
+            "endLine": 920,
             "endColumn": 66
           }
         },
@@ -416,9 +416,9 @@
           "sourceFieldId": "field:fld_9652d13eff5e44a59f102d58156ed82d",
           "source": {
             "file": "signalbox.model",
-            "line": 896,
+            "line": 921,
             "column": 3,
-            "endLine": 896,
+            "endLine": 921,
             "endColumn": 60
           }
         },
@@ -429,9 +429,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "source": {
             "file": "signalbox.model",
-            "line": 897,
+            "line": 922,
             "column": 3,
-            "endLine": 897,
+            "endLine": 922,
             "endColumn": 83
           }
         },
@@ -442,9 +442,9 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
           "source": {
             "file": "signalbox.model",
-            "line": 898,
+            "line": 923,
             "column": 3,
-            "endLine": 898,
+            "endLine": 923,
             "endColumn": 82
           }
         }
@@ -455,9 +455,9 @@
       "name": "ExecutionSummary",
       "source": {
         "file": "signalbox.model",
-        "line": 901,
+        "line": 926,
         "column": 1,
-        "endLine": 909,
+        "endLine": 934,
         "endColumn": 2
       },
       "sourceEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
@@ -468,9 +468,9 @@
           "sourceFieldId": "field:fld_054965adb4f143f5a51c51d9449265b5",
           "source": {
             "file": "signalbox.model",
-            "line": 902,
+            "line": 927,
             "column": 3,
-            "endLine": 902,
+            "endLine": 927,
             "endColumn": 56
           }
         },
@@ -480,9 +480,9 @@
           "sourceFieldId": "field:fld_21c95bb344a2454680073627dfd4a830",
           "source": {
             "file": "signalbox.model",
-            "line": 903,
+            "line": 928,
             "column": 3,
-            "endLine": 903,
+            "endLine": 928,
             "endColumn": 63
           }
         },
@@ -492,9 +492,9 @@
           "sourceFieldId": "field:fld_3bc7534978b84f1b81aad0e4cd9e629e",
           "source": {
             "file": "signalbox.model",
-            "line": 904,
+            "line": 929,
             "column": 3,
-            "endLine": 904,
+            "endLine": 929,
             "endColumn": 63
           }
         },
@@ -504,9 +504,9 @@
           "sourceFieldId": "field:fld_425a2eb8a4694f98a1d6b8b3271733f1",
           "source": {
             "file": "signalbox.model",
-            "line": 905,
+            "line": 930,
             "column": 3,
-            "endLine": 905,
+            "endLine": 930,
             "endColumn": 65
           }
         },
@@ -516,9 +516,9 @@
           "sourceFieldId": "field:fld_235cde6a26a7444582cce44bdb3e7524",
           "source": {
             "file": "signalbox.model",
-            "line": 906,
+            "line": 931,
             "column": 3,
-            "endLine": 906,
+            "endLine": 931,
             "endColumn": 60
           }
         },
@@ -528,9 +528,9 @@
           "sourceFieldId": "field:fld_34eddd44213045eda0988a0ebb8729f8",
           "source": {
             "file": "signalbox.model",
-            "line": 907,
+            "line": 932,
             "column": 3,
-            "endLine": 907,
+            "endLine": 932,
             "endColumn": 71
           }
         },
@@ -540,9 +540,9 @@
           "sourceFieldId": "field:fld_c31f988db83b4854a999c67c86c3aea1",
           "source": {
             "file": "signalbox.model",
-            "line": 908,
+            "line": 933,
             "column": 3,
-            "endLine": 908,
+            "endLine": 933,
             "endColumn": 68
           }
         }
@@ -6219,7 +6219,7 @@
         "file": "signalbox.model",
         "line": 668,
         "column": 1,
-        "endLine": 695,
+        "endLine": 700,
         "endColumn": 2
       },
       "caller": {
@@ -6242,6 +6242,14 @@
           "type": {
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        },
+        {
+          "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           }
         }
       ],
@@ -6368,9 +6376,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "source": {
           "file": "signalbox.model",
-          "line": 674,
+          "line": 675,
           "column": 5,
-          "endLine": 677,
+          "endLine": 678,
           "endColumn": 33
         },
         "dependencies": [
@@ -6446,9 +6454,9 @@
           "sourceExpression": "(request.status == RequestStatus.READY)",
           "source": {
             "file": "signalbox.model",
-            "line": 678,
+            "line": 679,
             "column": 3,
-            "endLine": 678,
+            "endLine": 679,
             "endColumn": 56
           },
           "dependencies": [
@@ -6528,9 +6536,9 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "source": {
             "file": "signalbox.model",
-            "line": 679,
+            "line": 680,
             "column": 3,
-            "endLine": 680,
+            "endLine": 681,
             "endColumn": 77
           },
           "dependencies": [
@@ -6559,13 +6567,140 @@
               "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request"
             }
           ]
+        },
+        {
+          "id": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_3fa9d020d7914602a2fe039d078564e6",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_9cbabb6af742448e967a399cb770e8a3",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "source": {
+            "file": "signalbox.model",
+            "line": 682,
+            "column": 3,
+            "endLine": 685,
+            "endColumn": 52
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_06806641834a4e048a4ababf906d07ad"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_3fa9d020d7914602a2fe039d078564e6"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_81fe7c2870e94deb969b52b66979aa55"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_9cbabb6af742448e967a399cb770e8a3"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_db3853658ad7448a926b93f8edfdc962"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request"
+            }
+          ]
         }
       ],
       "readSet": {
         "entityIds": [
           "entity:ent_197f12dacaf14992a367c5c15f895415",
           "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
-          "entity:ent_d66226c7efc345ba9853df0d4abb879a"
+          "entity:ent_d66226c7efc345ba9853df0d4abb879a",
+          "entity:ent_d817706888f344c4a8fe2d8069d5233c"
         ],
         "fieldIds": [
           "field:fld_059d2ddcea884369a05e172746ce56ee",
@@ -6577,8 +6712,10 @@
           "field:fld_701810bb7b774ea4877941ecd35be293",
           "field:fld_72c4a69879134905b2c62f511514143f",
           "field:fld_73260390a96241b4b94137e53ed48792",
+          "field:fld_81fe7c2870e94deb969b52b66979aa55",
           "field:fld_9cbabb6af742448e967a399cb770e8a3",
-          "field:fld_bdcff79287c8490eab0028122b904f2b"
+          "field:fld_bdcff79287c8490eab0028122b904f2b",
+          "field:fld_db3853658ad7448a926b93f8edfdc962"
         ]
       },
       "lockPlan": [
@@ -6602,6 +6739,13 @@
           "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
           "mode": "update",
           "order": 2
+        },
+        {
+          "id": "lock:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+          "mode": "share",
+          "order": 3
         }
       ],
       "effects": [
@@ -6681,11 +6825,10 @@
             {
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
-                "parameter": "request",
-                "fieldId": "field:fld_3fa9d020d7914602a2fe039d078564e6",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -6760,9 +6903,9 @@
       "name": "dispatchPullRequest",
       "source": {
         "file": "signalbox.model",
-        "line": 697,
+        "line": 702,
         "column": 1,
-        "endLine": 724,
+        "endLine": 734,
         "endColumn": 2
       },
       "caller": {
@@ -6785,6 +6928,14 @@
           "type": {
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        },
+        {
+          "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           }
         }
       ],
@@ -6911,9 +7062,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "source": {
           "file": "signalbox.model",
-          "line": 703,
+          "line": 709,
           "column": 5,
-          "endLine": 706,
+          "endLine": 712,
           "endColumn": 33
         },
         "dependencies": [
@@ -6989,9 +7140,9 @@
           "sourceExpression": "(request.status == RequestStatus.READY)",
           "source": {
             "file": "signalbox.model",
-            "line": 707,
+            "line": 713,
             "column": 3,
-            "endLine": 707,
+            "endLine": 713,
             "endColumn": 56
           },
           "dependencies": [
@@ -7071,9 +7222,9 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "source": {
             "file": "signalbox.model",
-            "line": 708,
+            "line": 714,
             "column": 3,
-            "endLine": 709,
+            "endLine": 715,
             "endColumn": 77
           },
           "dependencies": [
@@ -7102,13 +7253,140 @@
               "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request"
             }
           ]
+        },
+        {
+          "id": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_119200b4be784b949bcb3e9e052740cf",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_2dca9ffcf1754ff8a8ecaa99f31b2f40",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "source": {
+            "file": "signalbox.model",
+            "line": 716,
+            "column": 3,
+            "endLine": 719,
+            "endColumn": 52
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_06806641834a4e048a4ababf906d07ad"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_119200b4be784b949bcb3e9e052740cf"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_2dca9ffcf1754ff8a8ecaa99f31b2f40"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_81fe7c2870e94deb969b52b66979aa55"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_db3853658ad7448a926b93f8edfdc962"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request"
+            }
+          ]
         }
       ],
       "readSet": {
         "entityIds": [
           "entity:ent_197f12dacaf14992a367c5c15f895415",
           "entity:ent_44eefd913a6d40389e4b1baf02add8c4",
-          "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+          "entity:ent_d817706888f344c4a8fe2d8069d5233c"
         ],
         "fieldIds": [
           "field:fld_059d2ddcea884369a05e172746ce56ee",
@@ -7121,7 +7399,9 @@
           "field:fld_701810bb7b774ea4877941ecd35be293",
           "field:fld_72c4a69879134905b2c62f511514143f",
           "field:fld_73260390a96241b4b94137e53ed48792",
-          "field:fld_cb697ff356bc4a02a303c94240c84074"
+          "field:fld_81fe7c2870e94deb969b52b66979aa55",
+          "field:fld_cb697ff356bc4a02a303c94240c84074",
+          "field:fld_db3853658ad7448a926b93f8edfdc962"
         ]
       },
       "lockPlan": [
@@ -7145,6 +7425,13 @@
           "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance",
           "mode": "share",
           "order": 2
+        },
+        {
+          "id": "lock:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+          "mode": "share",
+          "order": 3
         }
       ],
       "effects": [
@@ -7224,11 +7511,10 @@
             {
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
-                "parameter": "request",
-                "fieldId": "field:fld_119200b4be784b949bcb3e9e052740cf",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -7303,9 +7589,9 @@
       "name": "dispatchStagingDeployment",
       "source": {
         "file": "signalbox.model",
-        "line": 726,
+        "line": 736,
         "column": 1,
-        "endLine": 755,
+        "endLine": 770,
         "endColumn": 2
       },
       "caller": {
@@ -7328,6 +7614,14 @@
           "type": {
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        },
+        {
+          "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           }
         }
       ],
@@ -7454,9 +7748,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "source": {
           "file": "signalbox.model",
-          "line": 732,
+          "line": 743,
           "column": 5,
-          "endLine": 735,
+          "endLine": 746,
           "endColumn": 33
         },
         "dependencies": [
@@ -7561,9 +7855,9 @@
           "sourceExpression": "((request.environmentTier == EnvironmentTier.STAGING) and (request.status == RequestStatus.READY))",
           "source": {
             "file": "signalbox.model",
-            "line": 736,
+            "line": 747,
             "column": 3,
-            "endLine": 738,
+            "endLine": 749,
             "endColumn": 47
           },
           "dependencies": [
@@ -7651,9 +7945,9 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "source": {
             "file": "signalbox.model",
-            "line": 739,
+            "line": 750,
             "column": 3,
-            "endLine": 740,
+            "endLine": 751,
             "endColumn": 77
           },
           "dependencies": [
@@ -7682,12 +7976,139 @@
               "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request"
             }
           ]
+        },
+        {
+          "id": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "source": {
+            "file": "signalbox.model",
+            "line": 752,
+            "column": 3,
+            "endLine": 755,
+            "endColumn": 52
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_06806641834a4e048a4ababf906d07ad"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_81fe7c2870e94deb969b52b66979aa55"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_a639788198e34e8694774dd0e3208d7d"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_db3853658ad7448a926b93f8edfdc962"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request"
+            }
+          ]
         }
       ],
       "readSet": {
         "entityIds": [
           "entity:ent_197f12dacaf14992a367c5c15f895415",
           "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+          "entity:ent_d817706888f344c4a8fe2d8069d5233c",
           "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
         ],
         "fieldIds": [
@@ -7698,11 +8119,13 @@
           "field:fld_701810bb7b774ea4877941ecd35be293",
           "field:fld_72c4a69879134905b2c62f511514143f",
           "field:fld_73260390a96241b4b94137e53ed48792",
+          "field:fld_81fe7c2870e94deb969b52b66979aa55",
           "field:fld_a639788198e34e8694774dd0e3208d7d",
           "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
           "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
           "field:fld_c9d0dea7ee234d18824faaed519bff81",
-          "field:fld_d905a7f0828849ae855fbbd30aad5255"
+          "field:fld_d905a7f0828849ae855fbbd30aad5255",
+          "field:fld_db3853658ad7448a926b93f8edfdc962"
         ]
       },
       "lockPlan": [
@@ -7721,11 +8144,18 @@
           "order": 1
         },
         {
+          "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+          "mode": "share",
+          "order": 2
+        },
+        {
           "id": "lock:action:act_3e26a4d454634bf3a2058204146d7c45.request",
           "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
           "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
           "mode": "update",
-          "order": 2
+          "order": 3
         }
       ],
       "effects": [
@@ -7805,11 +8235,10 @@
             {
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
-                "parameter": "request",
-                "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -7887,9 +8316,9 @@
       "name": "dispatchApprovedDeployment",
       "source": {
         "file": "signalbox.model",
-        "line": 757,
+        "line": 772,
         "column": 1,
-        "endLine": 786,
+        "endLine": 806,
         "endColumn": 2
       },
       "caller": {
@@ -7912,6 +8341,14 @@
           "type": {
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        },
+        {
+          "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           }
         }
       ],
@@ -8038,9 +8475,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "source": {
           "file": "signalbox.model",
-          "line": 763,
+          "line": 779,
           "column": 5,
-          "endLine": 766,
+          "endLine": 782,
           "endColumn": 33
         },
         "dependencies": [
@@ -8145,9 +8582,9 @@
           "sourceExpression": "((request.environmentTier == EnvironmentTier.PRODUCTION) and (request.status == RequestStatus.APPROVED))",
           "source": {
             "file": "signalbox.model",
-            "line": 767,
+            "line": 783,
             "column": 3,
-            "endLine": 769,
+            "endLine": 785,
             "endColumn": 50
           },
           "dependencies": [
@@ -8235,9 +8672,9 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "source": {
             "file": "signalbox.model",
-            "line": 770,
+            "line": 786,
             "column": 3,
-            "endLine": 771,
+            "endLine": 787,
             "endColumn": 77
           },
           "dependencies": [
@@ -8266,12 +8703,139 @@
               "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request"
             }
           ]
+        },
+        {
+          "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "source": {
+            "file": "signalbox.model",
+            "line": 788,
+            "column": 3,
+            "endLine": 791,
+            "endColumn": 52
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_06806641834a4e048a4ababf906d07ad"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_81fe7c2870e94deb969b52b66979aa55"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_a639788198e34e8694774dd0e3208d7d"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_db3853658ad7448a926b93f8edfdc962"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request"
+            }
+          ]
         }
       ],
       "readSet": {
         "entityIds": [
           "entity:ent_197f12dacaf14992a367c5c15f895415",
           "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+          "entity:ent_d817706888f344c4a8fe2d8069d5233c",
           "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
         ],
         "fieldIds": [
@@ -8282,11 +8846,13 @@
           "field:fld_701810bb7b774ea4877941ecd35be293",
           "field:fld_72c4a69879134905b2c62f511514143f",
           "field:fld_73260390a96241b4b94137e53ed48792",
+          "field:fld_81fe7c2870e94deb969b52b66979aa55",
           "field:fld_a639788198e34e8694774dd0e3208d7d",
           "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
           "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
           "field:fld_c9d0dea7ee234d18824faaed519bff81",
-          "field:fld_d905a7f0828849ae855fbbd30aad5255"
+          "field:fld_d905a7f0828849ae855fbbd30aad5255",
+          "field:fld_db3853658ad7448a926b93f8edfdc962"
         ]
       },
       "lockPlan": [
@@ -8305,11 +8871,18 @@
           "order": 1
         },
         {
+          "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+          "mode": "share",
+          "order": 2
+        },
+        {
           "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
           "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
           "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
           "mode": "update",
-          "order": 2
+          "order": 3
         }
       ],
       "effects": [
@@ -8389,11 +8962,10 @@
             {
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-                "parameter": "request",
-                "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -8471,9 +9043,9 @@
       "name": "dispatchApprovedSchemaMigration",
       "source": {
         "file": "signalbox.model",
-        "line": 788,
+        "line": 808,
         "column": 1,
-        "endLine": 815,
+        "endLine": 840,
         "endColumn": 2
       },
       "caller": {
@@ -8496,6 +9068,14 @@
           "type": {
             "kind": "entity",
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        },
+        {
+          "id": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+          "name": "connector",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           }
         }
       ],
@@ -8622,9 +9202,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == request.org))",
         "source": {
           "file": "signalbox.model",
-          "line": 794,
+          "line": 815,
           "column": 5,
-          "endLine": 797,
+          "endLine": 818,
           "endColumn": 33
         },
         "dependencies": [
@@ -8700,9 +9280,9 @@
           "sourceExpression": "(request.status == RequestStatus.APPROVED)",
           "source": {
             "file": "signalbox.model",
-            "line": 798,
+            "line": 819,
             "column": 3,
-            "endLine": 798,
+            "endLine": 819,
             "endColumn": 62
           },
           "dependencies": [
@@ -8782,9 +9362,9 @@
           "sourceExpression": "((allowance.org == request.org) and (allowance.agent == request.requestedBy))",
           "source": {
             "file": "signalbox.model",
-            "line": 799,
+            "line": 820,
             "column": 3,
-            "endLine": 800,
+            "endLine": 821,
             "endColumn": 77
           },
           "dependencies": [
@@ -8813,13 +9393,140 @@
               "id": "parameter:action:act_70d3862584094631aca61e9db664d991.request"
             }
           ]
+        },
+        {
+          "id": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+          "name": "connector_active",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_3b91f96763da4611a09ec9774b3fde7b",
+                  "fieldName": "connector",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "entityValue",
+                  "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                  "name": "connector",
+                  "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                  "parameter": "connector",
+                  "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c7eac19396da4475916b33163d6ecd9f",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                "parameter": "connector",
+                "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+                "fieldName": "status",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "memberId": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+                "memberName": "ACTIVE",
+                "type": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((request.connector == connector) and (connector.org == request.org)) and (connector.status == ConnectorStatus.ACTIVE))",
+          "source": {
+            "file": "signalbox.model",
+            "line": 822,
+            "column": 3,
+            "endLine": 825,
+            "endColumn": 52
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_06806641834a4e048a4ababf906d07ad"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_3b91f96763da4611a09ec9774b3fde7b"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_81fe7c2870e94deb969b52b66979aa55"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_c7eac19396da4475916b33163d6ecd9f"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_db3853658ad7448a926b93f8edfdc962"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_70d3862584094631aca61e9db664d991.connector"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_70d3862584094631aca61e9db664d991.request"
+            }
+          ]
         }
       ],
       "readSet": {
         "entityIds": [
           "entity:ent_197f12dacaf14992a367c5c15f895415",
           "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
-          "entity:ent_c136762ce9794a7b92ca3c138c7c7bef"
+          "entity:ent_c136762ce9794a7b92ca3c138c7c7bef",
+          "entity:ent_d817706888f344c4a8fe2d8069d5233c"
         ],
         "fieldIds": [
           "field:fld_059d2ddcea884369a05e172746ce56ee",
@@ -8831,8 +9538,10 @@
           "field:fld_701810bb7b774ea4877941ecd35be293",
           "field:fld_72c4a69879134905b2c62f511514143f",
           "field:fld_73260390a96241b4b94137e53ed48792",
+          "field:fld_81fe7c2870e94deb969b52b66979aa55",
           "field:fld_9652d13eff5e44a59f102d58156ed82d",
-          "field:fld_c7eac19396da4475916b33163d6ecd9f"
+          "field:fld_c7eac19396da4475916b33163d6ecd9f",
+          "field:fld_db3853658ad7448a926b93f8edfdc962"
         ]
       },
       "lockPlan": [
@@ -8856,6 +9565,13 @@
           "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
           "mode": "update",
           "order": 2
+        },
+        {
+          "id": "lock:action:act_70d3862584094631aca61e9db664d991.connector",
+          "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+          "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+          "mode": "share",
+          "order": 3
         }
       ],
       "effects": [
@@ -8935,11 +9651,10 @@
             {
               "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
               "expression": {
-                "kind": "fieldAccess",
-                "source": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
-                "parameter": "request",
-                "fieldId": "field:fld_3b91f96763da4611a09ec9774b3fde7b",
-                "fieldName": "connector",
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.connector",
+                "name": "connector",
+                "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "type": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
                 "nullable": false
               }
@@ -9017,9 +9732,9 @@
       "name": "completeExecution",
       "source": {
         "file": "signalbox.model",
-        "line": 817,
+        "line": 842,
         "column": 1,
-        "endLine": 835,
+        "endLine": 860,
         "endColumn": 2
       },
       "caller": {
@@ -9168,9 +9883,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == execution.org))",
         "source": {
           "file": "signalbox.model",
-          "line": 823,
+          "line": 848,
           "column": 5,
-          "endLine": 826,
+          "endLine": 851,
           "endColumn": 35
         },
         "dependencies": [
@@ -9246,9 +9961,9 @@
           "sourceExpression": "(execution.status == ExecutionStatus.PENDING)",
           "source": {
             "file": "signalbox.model",
-            "line": 827,
+            "line": 852,
             "column": 3,
-            "endLine": 827,
+            "endLine": 852,
             "endColumn": 64
           },
           "dependencies": [
@@ -9365,9 +10080,9 @@
       "name": "failExecution",
       "source": {
         "file": "signalbox.model",
-        "line": 837,
+        "line": 862,
         "column": 1,
-        "endLine": 855,
+        "endLine": 880,
         "endColumn": 2
       },
       "caller": {
@@ -9516,9 +10231,9 @@
         "sourceExpression": "((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.EXECUTOR in actor.roles)) and (actor.org == execution.org))",
         "source": {
           "file": "signalbox.model",
-          "line": 843,
+          "line": 868,
           "column": 5,
-          "endLine": 846,
+          "endLine": 871,
           "endColumn": 35
         },
         "dependencies": [
@@ -9594,9 +10309,9 @@
           "sourceExpression": "(execution.status == ExecutionStatus.PENDING)",
           "source": {
             "file": "signalbox.model",
-            "line": 847,
+            "line": 872,
             "column": 3,
-            "endLine": 847,
+            "endLine": 872,
             "endColumn": 64
           },
           "dependencies": [
@@ -9716,9 +10431,9 @@
       "name": "myIssueRequests",
       "source": {
         "file": "signalbox.model",
-        "line": 911,
+        "line": 936,
         "column": 1,
-        "endLine": 918,
+        "endLine": 943,
         "endColumn": 2
       },
       "caller": {
@@ -9750,9 +10465,9 @@
         "sourceExpression": "true",
         "source": {
           "file": "signalbox.model",
-          "line": 912,
+          "line": 937,
           "column": 13,
-          "endLine": 912,
+          "endLine": 937,
           "endColumn": 17
         },
         "dependencies": []
@@ -9788,9 +10503,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "source": {
           "file": "signalbox.model",
-          "line": 913,
+          "line": 938,
           "column": 9,
-          "endLine": 913,
+          "endLine": 938,
           "endColumn": 33
         },
         "dependencies": [
@@ -9879,9 +10594,9 @@
       "name": "myPullRequests",
       "source": {
         "file": "signalbox.model",
-        "line": 920,
+        "line": 945,
         "column": 1,
-        "endLine": 927,
+        "endLine": 952,
         "endColumn": 2
       },
       "caller": {
@@ -9913,9 +10628,9 @@
         "sourceExpression": "true",
         "source": {
           "file": "signalbox.model",
-          "line": 921,
+          "line": 946,
           "column": 13,
-          "endLine": 921,
+          "endLine": 946,
           "endColumn": 17
         },
         "dependencies": []
@@ -9951,9 +10666,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "source": {
           "file": "signalbox.model",
-          "line": 922,
+          "line": 947,
           "column": 9,
-          "endLine": 922,
+          "endLine": 947,
           "endColumn": 33
         },
         "dependencies": [
@@ -10048,9 +10763,9 @@
       "name": "myDeploymentRequests",
       "source": {
         "file": "signalbox.model",
-        "line": 929,
+        "line": 954,
         "column": 1,
-        "endLine": 938,
+        "endLine": 963,
         "endColumn": 2
       },
       "caller": {
@@ -10082,9 +10797,9 @@
         "sourceExpression": "true",
         "source": {
           "file": "signalbox.model",
-          "line": 932,
+          "line": 957,
           "column": 13,
-          "endLine": 932,
+          "endLine": 957,
           "endColumn": 17
         },
         "dependencies": []
@@ -10120,9 +10835,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "source": {
           "file": "signalbox.model",
-          "line": 933,
+          "line": 958,
           "column": 9,
-          "endLine": 933,
+          "endLine": 958,
           "endColumn": 33
         },
         "dependencies": [
@@ -10217,9 +10932,9 @@
       "name": "deploymentApprovalInbox",
       "source": {
         "file": "signalbox.model",
-        "line": 940,
+        "line": 965,
         "column": 1,
-        "endLine": 954,
+        "endLine": 979,
         "endColumn": 2
       },
       "caller": {
@@ -10298,9 +11013,9 @@
         "sourceExpression": "((actor.kind == PrincipalKind.HUMAN) and (Role.APPROVER in actor.roles))",
         "source": {
           "file": "signalbox.model",
-          "line": 944,
+          "line": 969,
           "column": 5,
-          "endLine": 945,
+          "endLine": 970,
           "endColumn": 37
         },
         "dependencies": [
@@ -10445,9 +11160,9 @@
         "sourceExpression": "((((request.org == actor.org) and (request.environmentTier == EnvironmentTier.PRODUCTION)) and (request.status == RequestStatus.PENDING_APPROVAL)) and (request.requestedBy != actor))",
         "source": {
           "file": "signalbox.model",
-          "line": 946,
+          "line": 971,
           "column": 9,
-          "endLine": 949,
+          "endLine": 974,
           "endColumn": 37
         },
         "dependencies": [
@@ -10563,9 +11278,9 @@
       "name": "mySchemaMigrationRequests",
       "source": {
         "file": "signalbox.model",
-        "line": 956,
+        "line": 981,
         "column": 1,
-        "endLine": 965,
+        "endLine": 990,
         "endColumn": 2
       },
       "caller": {
@@ -10597,9 +11312,9 @@
         "sourceExpression": "true",
         "source": {
           "file": "signalbox.model",
-          "line": 959,
+          "line": 984,
           "column": 13,
-          "endLine": 959,
+          "endLine": 984,
           "endColumn": 17
         },
         "dependencies": []
@@ -10635,9 +11350,9 @@
         "sourceExpression": "(request.org == actor.org)",
         "source": {
           "file": "signalbox.model",
-          "line": 960,
+          "line": 985,
           "column": 9,
-          "endLine": 960,
+          "endLine": 985,
           "endColumn": 33
         },
         "dependencies": [
@@ -10732,9 +11447,9 @@
       "name": "migrationApprovalInbox",
       "source": {
         "file": "signalbox.model",
-        "line": 967,
+        "line": 992,
         "column": 1,
-        "endLine": 980,
+        "endLine": 1005,
         "endColumn": 2
       },
       "caller": {
@@ -10813,9 +11528,9 @@
         "sourceExpression": "((actor.kind == PrincipalKind.HUMAN) and (Role.APPROVER in actor.roles))",
         "source": {
           "file": "signalbox.model",
-          "line": 971,
+          "line": 996,
           "column": 5,
-          "endLine": 972,
+          "endLine": 997,
           "endColumn": 37
         },
         "dependencies": [
@@ -10931,9 +11646,9 @@
         "sourceExpression": "(((request.org == actor.org) and (request.status == RequestStatus.PENDING_APPROVAL)) and (request.requestedBy != actor))",
         "source": {
           "file": "signalbox.model",
-          "line": 973,
+          "line": 998,
           "column": 9,
-          "endLine": 975,
+          "endLine": 1000,
           "endColumn": 37
         },
         "dependencies": [
@@ -11041,9 +11756,9 @@
       "name": "myExecutions",
       "source": {
         "file": "signalbox.model",
-        "line": 982,
+        "line": 1007,
         "column": 1,
-        "endLine": 989,
+        "endLine": 1014,
         "endColumn": 2
       },
       "caller": {
@@ -11075,9 +11790,9 @@
         "sourceExpression": "true",
         "source": {
           "file": "signalbox.model",
-          "line": 983,
+          "line": 1008,
           "column": 13,
-          "endLine": 983,
+          "endLine": 1008,
           "endColumn": 17
         },
         "dependencies": []
@@ -11113,9 +11828,9 @@
         "sourceExpression": "(execution.org == actor.org)",
         "source": {
           "file": "signalbox.model",
-          "line": 984,
+          "line": 1009,
           "column": 9,
-          "endLine": 984,
+          "endLine": 1009,
           "endColumn": 35
         },
         "dependencies": [

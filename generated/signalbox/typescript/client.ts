@@ -151,8 +151,8 @@ export class SignalboxClient {
     try {
       const metadata = executionMetadata(options, true, "idempotency:action:act_cbb72fd307704ab3927aa4bea8112fbf");
       const result = await this.adapter.query<{ value: Execution }>(
-        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $3, true), pg_catalog.set_config('modellang.idempotency_key', $4, true), pg_catalog.set_config('modellang.correlation_id', $5, true), pg_catalog.set_config('modellang.causation_id', $6, true)) SELECT \"model_signalbox\".\"dispatch_issue_creation\"($1, $2) AS value FROM execution_context",
-        [input.request, input.allowance, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
+        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $4, true), pg_catalog.set_config('modellang.idempotency_key', $5, true), pg_catalog.set_config('modellang.correlation_id', $6, true), pg_catalog.set_config('modellang.causation_id', $7, true)) SELECT \"model_signalbox\".\"dispatch_issue_creation\"($1, $2, $3) AS value FROM execution_context",
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -164,8 +164,8 @@ export class SignalboxClient {
     try {
       const metadata = executionMetadata(options, true, "idempotency:action:act_3e99da927be642efac3d1bee026ef00a");
       const result = await this.adapter.query<{ value: Execution }>(
-        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $3, true), pg_catalog.set_config('modellang.idempotency_key', $4, true), pg_catalog.set_config('modellang.correlation_id', $5, true), pg_catalog.set_config('modellang.causation_id', $6, true)) SELECT \"model_signalbox\".\"dispatch_pull_request\"($1, $2) AS value FROM execution_context",
-        [input.request, input.allowance, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
+        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $4, true), pg_catalog.set_config('modellang.idempotency_key', $5, true), pg_catalog.set_config('modellang.correlation_id', $6, true), pg_catalog.set_config('modellang.causation_id', $7, true)) SELECT \"model_signalbox\".\"dispatch_pull_request\"($1, $2, $3) AS value FROM execution_context",
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -177,8 +177,8 @@ export class SignalboxClient {
     try {
       const metadata = executionMetadata(options, true, "idempotency:action:act_3e26a4d454634bf3a2058204146d7c45");
       const result = await this.adapter.query<{ value: Execution }>(
-        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $3, true), pg_catalog.set_config('modellang.idempotency_key', $4, true), pg_catalog.set_config('modellang.correlation_id', $5, true), pg_catalog.set_config('modellang.causation_id', $6, true)) SELECT \"model_signalbox\".\"dispatch_staging_deployment\"($1, $2) AS value FROM execution_context",
-        [input.request, input.allowance, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
+        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $4, true), pg_catalog.set_config('modellang.idempotency_key', $5, true), pg_catalog.set_config('modellang.correlation_id', $6, true), pg_catalog.set_config('modellang.causation_id', $7, true)) SELECT \"model_signalbox\".\"dispatch_staging_deployment\"($1, $2, $3) AS value FROM execution_context",
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -190,8 +190,8 @@ export class SignalboxClient {
     try {
       const metadata = executionMetadata(options, true, "idempotency:action:act_4a9421bfc2e744969b9f73109e6cda54");
       const result = await this.adapter.query<{ value: Execution }>(
-        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $3, true), pg_catalog.set_config('modellang.idempotency_key', $4, true), pg_catalog.set_config('modellang.correlation_id', $5, true), pg_catalog.set_config('modellang.causation_id', $6, true)) SELECT \"model_signalbox\".\"dispatch_approved_deployment\"($1, $2) AS value FROM execution_context",
-        [input.request, input.allowance, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
+        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $4, true), pg_catalog.set_config('modellang.idempotency_key', $5, true), pg_catalog.set_config('modellang.correlation_id', $6, true), pg_catalog.set_config('modellang.causation_id', $7, true)) SELECT \"model_signalbox\".\"dispatch_approved_deployment\"($1, $2, $3) AS value FROM execution_context",
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -203,8 +203,8 @@ export class SignalboxClient {
     try {
       const metadata = executionMetadata(options, true, "idempotency:action:act_70d3862584094631aca61e9db664d991");
       const result = await this.adapter.query<{ value: Execution }>(
-        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $3, true), pg_catalog.set_config('modellang.idempotency_key', $4, true), pg_catalog.set_config('modellang.correlation_id', $5, true), pg_catalog.set_config('modellang.causation_id', $6, true)) SELECT \"model_signalbox\".\"dispatch_approved_schema_migration\"($1, $2) AS value FROM execution_context",
-        [input.request, input.allowance, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
+        "WITH execution_context AS MATERIALIZED (SELECT pg_catalog.set_config('modellang.expected_revision', $4, true), pg_catalog.set_config('modellang.idempotency_key', $5, true), pg_catalog.set_config('modellang.correlation_id', $6, true), pg_catalog.set_config('modellang.causation_id', $7, true)) SELECT \"model_signalbox\".\"dispatch_approved_schema_migration\"($1, $2, $3) AS value FROM execution_context",
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? "", metadata.idempotencyKey, metadata.correlationId, metadata.causationId],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -349,8 +349,8 @@ export class SignalboxClient {
   async assessDispatchIssueCreation(input: DispatchIssueCreationInput, options: ApplicabilityOptions = {}): Promise<ApplicabilityDecision> {
     try {
       const result = await this.adapter.query<{ value: ApplicabilityDecision }>(
-        'SELECT "model_signalbox"."decide_act_cbb72fd307704ab3927aa4bea8112fbf"($1, $2, $3) AS value',
-        [input.request, input.allowance, options.expectedRevision ?? null],
+        'SELECT "model_signalbox"."decide_act_cbb72fd307704ab3927aa4bea8112fbf"($1, $2, $3, $4) AS value',
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? null],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -361,8 +361,8 @@ export class SignalboxClient {
   async assessDispatchPullRequest(input: DispatchPullRequestInput, options: ApplicabilityOptions = {}): Promise<ApplicabilityDecision> {
     try {
       const result = await this.adapter.query<{ value: ApplicabilityDecision }>(
-        'SELECT "model_signalbox"."decide_act_3e99da927be642efac3d1bee026ef00a"($1, $2, $3) AS value',
-        [input.request, input.allowance, options.expectedRevision ?? null],
+        'SELECT "model_signalbox"."decide_act_3e99da927be642efac3d1bee026ef00a"($1, $2, $3, $4) AS value',
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? null],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -373,8 +373,8 @@ export class SignalboxClient {
   async assessDispatchStagingDeployment(input: DispatchStagingDeploymentInput, options: ApplicabilityOptions = {}): Promise<ApplicabilityDecision> {
     try {
       const result = await this.adapter.query<{ value: ApplicabilityDecision }>(
-        'SELECT "model_signalbox"."decide_act_3e26a4d454634bf3a2058204146d7c45"($1, $2, $3) AS value',
-        [input.request, input.allowance, options.expectedRevision ?? null],
+        'SELECT "model_signalbox"."decide_act_3e26a4d454634bf3a2058204146d7c45"($1, $2, $3, $4) AS value',
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? null],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -385,8 +385,8 @@ export class SignalboxClient {
   async assessDispatchApprovedDeployment(input: DispatchApprovedDeploymentInput, options: ApplicabilityOptions = {}): Promise<ApplicabilityDecision> {
     try {
       const result = await this.adapter.query<{ value: ApplicabilityDecision }>(
-        'SELECT "model_signalbox"."decide_act_4a9421bfc2e744969b9f73109e6cda54"($1, $2, $3) AS value',
-        [input.request, input.allowance, options.expectedRevision ?? null],
+        'SELECT "model_signalbox"."decide_act_4a9421bfc2e744969b9f73109e6cda54"($1, $2, $3, $4) AS value',
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? null],
       );
       return result.rows[0]!.value;
     } catch (error) {
@@ -397,8 +397,8 @@ export class SignalboxClient {
   async assessDispatchApprovedSchemaMigration(input: DispatchApprovedSchemaMigrationInput, options: ApplicabilityOptions = {}): Promise<ApplicabilityDecision> {
     try {
       const result = await this.adapter.query<{ value: ApplicabilityDecision }>(
-        'SELECT "model_signalbox"."decide_act_70d3862584094631aca61e9db664d991"($1, $2, $3) AS value',
-        [input.request, input.allowance, options.expectedRevision ?? null],
+        'SELECT "model_signalbox"."decide_act_70d3862584094631aca61e9db664d991"($1, $2, $3, $4) AS value',
+        [input.request, input.allowance, input.connector, options.expectedRevision ?? null],
       );
       return result.rows[0]!.value;
     } catch (error) {

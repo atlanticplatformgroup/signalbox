@@ -4,7 +4,7 @@
 // represented by a typed request. Sensitive operations require an independent
 // human approval before a connector worker may dispatch them.
 
-model Signalbox version "0.51.0";
+model Signalbox version "0.52.0";
 
 enum PrincipalKind @stableId("enm_943e2ecda4b34981aa0185964e8ebea1") {
   HUMAN @stableId("emv_efb2884e01154acc9e5ef1f0ed82ae38"),
@@ -668,7 +668,8 @@ action rejectSchemaMigration @stableId("act_d3a1935e42f24e4d84d25bc05ee690ad")(
 action dispatchIssueCreation @stableId("act_cbb72fd307704ab3927aa4bea8112fbf")(
   caller actor: Principal,
   request: IssueRequest,
-  allowance: Allowance
+  allowance: Allowance,
+  connector: Connector
 ) -> Execution {
   authorize
     actor.kind == PrincipalKind.AGENT
@@ -678,6 +679,10 @@ action dispatchIssueCreation @stableId("act_cbb72fd307704ab3927aa4bea8112fbf")(
   require ready: request.status == RequestStatus.READY;
   require allowance_scope:
     allowance.org == request.org and allowance.agent == request.requestedBy;
+  require connector_active:
+    request.connector == connector
+    and connector.org == request.org
+    and connector.status == ConnectorStatus.ACTIVE;
   idempotency required;
 
   update request { status = RequestStatus.DISPATCHED; }
@@ -686,7 +691,7 @@ action dispatchIssueCreation @stableId("act_cbb72fd307704ab3927aa4bea8112fbf")(
     requestId = request.id;
     requestKind = RequestKind.ISSUE;
     requestedBy = request.requestedBy;
-    connector = request.connector;
+    connector = connector;
     allowance = allowance;
     status = ExecutionStatus.PENDING;
     externalReference = null;
@@ -697,7 +702,8 @@ action dispatchIssueCreation @stableId("act_cbb72fd307704ab3927aa4bea8112fbf")(
 action dispatchPullRequest @stableId("act_3e99da927be642efac3d1bee026ef00a")(
   caller actor: Principal,
   request: PullRequest,
-  allowance: Allowance
+  allowance: Allowance,
+  connector: Connector
 ) -> Execution {
   authorize
     actor.kind == PrincipalKind.AGENT
@@ -707,6 +713,10 @@ action dispatchPullRequest @stableId("act_3e99da927be642efac3d1bee026ef00a")(
   require ready: request.status == RequestStatus.READY;
   require allowance_scope:
     allowance.org == request.org and allowance.agent == request.requestedBy;
+  require connector_active:
+    request.connector == connector
+    and connector.org == request.org
+    and connector.status == ConnectorStatus.ACTIVE;
   idempotency required;
 
   update request { status = RequestStatus.DISPATCHED; }
@@ -715,7 +725,7 @@ action dispatchPullRequest @stableId("act_3e99da927be642efac3d1bee026ef00a")(
     requestId = request.id;
     requestKind = RequestKind.PULL_REQUEST;
     requestedBy = request.requestedBy;
-    connector = request.connector;
+    connector = connector;
     allowance = allowance;
     status = ExecutionStatus.PENDING;
     externalReference = null;
@@ -726,7 +736,8 @@ action dispatchPullRequest @stableId("act_3e99da927be642efac3d1bee026ef00a")(
 action dispatchStagingDeployment @stableId("act_3e26a4d454634bf3a2058204146d7c45")(
   caller actor: Principal,
   request: DeploymentRequest,
-  allowance: Allowance
+  allowance: Allowance,
+  connector: Connector
 ) -> Execution {
   authorize
     actor.kind == PrincipalKind.AGENT
@@ -738,6 +749,10 @@ action dispatchStagingDeployment @stableId("act_3e26a4d454634bf3a2058204146d7c45
     and request.status == RequestStatus.READY;
   require allowance_scope:
     allowance.org == request.org and allowance.agent == request.requestedBy;
+  require connector_active:
+    request.connector == connector
+    and connector.org == request.org
+    and connector.status == ConnectorStatus.ACTIVE;
   idempotency required;
 
   update request { status = RequestStatus.DISPATCHED; }
@@ -746,7 +761,7 @@ action dispatchStagingDeployment @stableId("act_3e26a4d454634bf3a2058204146d7c45
     requestId = request.id;
     requestKind = RequestKind.DEPLOYMENT;
     requestedBy = request.requestedBy;
-    connector = request.connector;
+    connector = connector;
     allowance = allowance;
     status = ExecutionStatus.PENDING;
     externalReference = null;
@@ -757,7 +772,8 @@ action dispatchStagingDeployment @stableId("act_3e26a4d454634bf3a2058204146d7c45
 action dispatchApprovedDeployment @stableId("act_4a9421bfc2e744969b9f73109e6cda54")(
   caller actor: Principal,
   request: DeploymentRequest,
-  allowance: Allowance
+  allowance: Allowance,
+  connector: Connector
 ) -> Execution {
   authorize
     actor.kind == PrincipalKind.AGENT
@@ -769,6 +785,10 @@ action dispatchApprovedDeployment @stableId("act_4a9421bfc2e744969b9f73109e6cda5
     and request.status == RequestStatus.APPROVED;
   require allowance_scope:
     allowance.org == request.org and allowance.agent == request.requestedBy;
+  require connector_active:
+    request.connector == connector
+    and connector.org == request.org
+    and connector.status == ConnectorStatus.ACTIVE;
   idempotency required;
 
   update request { status = RequestStatus.DISPATCHED; }
@@ -777,7 +797,7 @@ action dispatchApprovedDeployment @stableId("act_4a9421bfc2e744969b9f73109e6cda5
     requestId = request.id;
     requestKind = RequestKind.DEPLOYMENT;
     requestedBy = request.requestedBy;
-    connector = request.connector;
+    connector = connector;
     allowance = allowance;
     status = ExecutionStatus.PENDING;
     externalReference = null;
@@ -788,7 +808,8 @@ action dispatchApprovedDeployment @stableId("act_4a9421bfc2e744969b9f73109e6cda5
 action dispatchApprovedSchemaMigration @stableId("act_70d3862584094631aca61e9db664d991")(
   caller actor: Principal,
   request: SchemaMigrationRequest,
-  allowance: Allowance
+  allowance: Allowance,
+  connector: Connector
 ) -> Execution {
   authorize
     actor.kind == PrincipalKind.AGENT
@@ -798,6 +819,10 @@ action dispatchApprovedSchemaMigration @stableId("act_70d3862584094631aca61e9db6
   require approved: request.status == RequestStatus.APPROVED;
   require allowance_scope:
     allowance.org == request.org and allowance.agent == request.requestedBy;
+  require connector_active:
+    request.connector == connector
+    and connector.org == request.org
+    and connector.status == ConnectorStatus.ACTIVE;
   idempotency required;
 
   update request { status = RequestStatus.DISPATCHED; }
@@ -806,7 +831,7 @@ action dispatchApprovedSchemaMigration @stableId("act_70d3862584094631aca61e9db6
     requestId = request.id;
     requestKind = RequestKind.SCHEMA_MIGRATION;
     requestedBy = request.requestedBy;
-    connector = request.connector;
+    connector = connector;
     allowance = allowance;
     status = ExecutionStatus.PENDING;
     externalReference = null;

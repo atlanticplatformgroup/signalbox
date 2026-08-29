@@ -158,9 +158,11 @@ flowchart LR
   authorize_action_act_cbb72fd307704ab3927aa4bea8112fbf["Authorize"] -->|guards| action_act_cbb72fd307704ab3927aa4bea8112fbf
   require_action_act_cbb72fd307704ab3927aa4bea8112fbf_ready["Require: ready"] -->|guards| action_act_cbb72fd307704ab3927aa4bea8112fbf
   require_action_act_cbb72fd307704ab3927aa4bea8112fbf_allowance_scope["Require: allowance_scope"] -->|guards| action_act_cbb72fd307704ab3927aa4bea8112fbf
+  require_action_act_cbb72fd307704ab3927aa4bea8112fbf_connector_active["Require: connector_active"] -->|guards| action_act_cbb72fd307704ab3927aa4bea8112fbf
   action_act_cbb72fd307704ab3927aa4bea8112fbf -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_cbb72fd307704ab3927aa4bea8112fbf -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
   action_act_cbb72fd307704ab3927aa4bea8112fbf -->|locks update| entity_ent_d66226c7efc345ba9853df0d4abb879a
+  action_act_cbb72fd307704ab3927aa4bea8112fbf -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
   action_act_3e99da927be642efac3d1bee026ef00a["Action: dispatchPullRequest"]
   principal -->|authenticated caller| action_act_3e99da927be642efac3d1bee026ef00a
   action_act_3e99da927be642efac3d1bee026ef00a -->|0: updates| entity_ent_44eefd913a6d40389e4b1baf02add8c4
@@ -168,9 +170,11 @@ flowchart LR
   authorize_action_act_3e99da927be642efac3d1bee026ef00a["Authorize"] -->|guards| action_act_3e99da927be642efac3d1bee026ef00a
   require_action_act_3e99da927be642efac3d1bee026ef00a_ready["Require: ready"] -->|guards| action_act_3e99da927be642efac3d1bee026ef00a
   require_action_act_3e99da927be642efac3d1bee026ef00a_allowance_scope["Require: allowance_scope"] -->|guards| action_act_3e99da927be642efac3d1bee026ef00a
+  require_action_act_3e99da927be642efac3d1bee026ef00a_connector_active["Require: connector_active"] -->|guards| action_act_3e99da927be642efac3d1bee026ef00a
   action_act_3e99da927be642efac3d1bee026ef00a -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_3e99da927be642efac3d1bee026ef00a -->|locks update| entity_ent_44eefd913a6d40389e4b1baf02add8c4
   action_act_3e99da927be642efac3d1bee026ef00a -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_3e99da927be642efac3d1bee026ef00a -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
   action_act_3e26a4d454634bf3a2058204146d7c45["Action: dispatchStagingDeployment"]
   principal -->|authenticated caller| action_act_3e26a4d454634bf3a2058204146d7c45
   action_act_3e26a4d454634bf3a2058204146d7c45 -->|0: updates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
@@ -178,8 +182,10 @@ flowchart LR
   authorize_action_act_3e26a4d454634bf3a2058204146d7c45["Authorize"] -->|guards| action_act_3e26a4d454634bf3a2058204146d7c45
   require_action_act_3e26a4d454634bf3a2058204146d7c45_staging_request["Require: staging_request"] -->|guards| action_act_3e26a4d454634bf3a2058204146d7c45
   require_action_act_3e26a4d454634bf3a2058204146d7c45_allowance_scope["Require: allowance_scope"] -->|guards| action_act_3e26a4d454634bf3a2058204146d7c45
+  require_action_act_3e26a4d454634bf3a2058204146d7c45_connector_active["Require: connector_active"] -->|guards| action_act_3e26a4d454634bf3a2058204146d7c45
   action_act_3e26a4d454634bf3a2058204146d7c45 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_3e26a4d454634bf3a2058204146d7c45 -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_3e26a4d454634bf3a2058204146d7c45 -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
   action_act_3e26a4d454634bf3a2058204146d7c45 -->|locks update| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   action_act_4a9421bfc2e744969b9f73109e6cda54["Action: dispatchApprovedDeployment"]
   principal -->|authenticated caller| action_act_4a9421bfc2e744969b9f73109e6cda54
@@ -188,8 +194,10 @@ flowchart LR
   authorize_action_act_4a9421bfc2e744969b9f73109e6cda54["Authorize"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
   require_action_act_4a9421bfc2e744969b9f73109e6cda54_approved_production_request["Require: approved_production_request"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
   require_action_act_4a9421bfc2e744969b9f73109e6cda54_allowance_scope["Require: allowance_scope"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
+  require_action_act_4a9421bfc2e744969b9f73109e6cda54_connector_active["Require: connector_active"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
   action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
   action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks update| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   action_act_70d3862584094631aca61e9db664d991["Action: dispatchApprovedSchemaMigration"]
   principal -->|authenticated caller| action_act_70d3862584094631aca61e9db664d991
@@ -198,9 +206,11 @@ flowchart LR
   authorize_action_act_70d3862584094631aca61e9db664d991["Authorize"] -->|guards| action_act_70d3862584094631aca61e9db664d991
   require_action_act_70d3862584094631aca61e9db664d991_approved["Require: approved"] -->|guards| action_act_70d3862584094631aca61e9db664d991
   require_action_act_70d3862584094631aca61e9db664d991_allowance_scope["Require: allowance_scope"] -->|guards| action_act_70d3862584094631aca61e9db664d991
+  require_action_act_70d3862584094631aca61e9db664d991_connector_active["Require: connector_active"] -->|guards| action_act_70d3862584094631aca61e9db664d991
   action_act_70d3862584094631aca61e9db664d991 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_70d3862584094631aca61e9db664d991 -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
   action_act_70d3862584094631aca61e9db664d991 -->|locks update| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  action_act_70d3862584094631aca61e9db664d991 -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
   action_act_5be24324b68d4c2eb334732b36e1b16c["Action: completeExecution"]
   principal -->|authenticated caller| action_act_5be24324b68d4c2eb334732b36e1b16c
   action_act_5be24324b68d4c2eb334732b36e1b16c -->|0: updates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d

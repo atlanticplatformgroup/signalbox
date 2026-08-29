@@ -1179,7 +1179,8 @@ const toolDefinitions = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -1187,6 +1188,10 @@ const toolDefinitions = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -1299,7 +1304,8 @@ const toolDefinitions = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -1307,6 +1313,10 @@ const toolDefinitions = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -1419,7 +1429,8 @@ const toolDefinitions = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -1427,6 +1438,10 @@ const toolDefinitions = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -1539,7 +1554,8 @@ const toolDefinitions = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -1547,6 +1563,10 @@ const toolDefinitions = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -1659,7 +1679,8 @@ const toolDefinitions = [
       "additionalProperties": false,
       "required": [
         "request",
-        "allowance"
+        "allowance",
+        "connector"
       ],
       "properties": {
         "request": {
@@ -1667,6 +1688,10 @@ const toolDefinitions = [
           "format": "uuid"
         },
         "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         }
@@ -3399,7 +3424,8 @@ const taskPacketDefinition = {
                   "additionalProperties": false,
                   "required": [
                     "request",
-                    "allowance"
+                    "allowance",
+                    "connector"
                   ],
                   "properties": {
                     "request": {
@@ -3407,6 +3433,10 @@ const taskPacketDefinition = {
                       "format": "uuid"
                     },
                     "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
                       "type": "string",
                       "format": "uuid"
                     }
@@ -3435,7 +3465,8 @@ const taskPacketDefinition = {
                   "additionalProperties": false,
                   "required": [
                     "request",
-                    "allowance"
+                    "allowance",
+                    "connector"
                   ],
                   "properties": {
                     "request": {
@@ -3443,6 +3474,10 @@ const taskPacketDefinition = {
                       "format": "uuid"
                     },
                     "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
                       "type": "string",
                       "format": "uuid"
                     }
@@ -3471,7 +3506,8 @@ const taskPacketDefinition = {
                   "additionalProperties": false,
                   "required": [
                     "request",
-                    "allowance"
+                    "allowance",
+                    "connector"
                   ],
                   "properties": {
                     "request": {
@@ -3479,6 +3515,10 @@ const taskPacketDefinition = {
                       "format": "uuid"
                     },
                     "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
                       "type": "string",
                       "format": "uuid"
                     }
@@ -3507,7 +3547,8 @@ const taskPacketDefinition = {
                   "additionalProperties": false,
                   "required": [
                     "request",
-                    "allowance"
+                    "allowance",
+                    "connector"
                   ],
                   "properties": {
                     "request": {
@@ -3515,6 +3556,10 @@ const taskPacketDefinition = {
                       "format": "uuid"
                     },
                     "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
                       "type": "string",
                       "format": "uuid"
                     }
@@ -3543,7 +3588,8 @@ const taskPacketDefinition = {
                   "additionalProperties": false,
                   "required": [
                     "request",
-                    "allowance"
+                    "allowance",
+                    "connector"
                   ],
                   "properties": {
                     "request": {
@@ -3551,6 +3597,10 @@ const taskPacketDefinition = {
                       "format": "uuid"
                     },
                     "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
                       "type": "string",
                       "format": "uuid"
                     }
@@ -3908,8 +3958,8 @@ const taskPacketDefinition = {
         "const": {
           "id": "model:Signalbox",
           "name": "Signalbox",
-          "version": "0.51.0",
-          "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+          "version": "0.52.0",
+          "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
         }
       },
       "packetId": {
@@ -7158,7 +7208,8 @@ const taskPacketDefinition = {
                     "additionalProperties": false,
                     "required": [
                       "request",
-                      "allowance"
+                      "allowance",
+                      "connector"
                     ],
                     "properties": {
                       "request": {
@@ -7166,6 +7217,10 @@ const taskPacketDefinition = {
                         "format": "uuid"
                       },
                       "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       }
@@ -7503,7 +7558,8 @@ const taskPacketDefinition = {
                     "additionalProperties": false,
                     "required": [
                       "request",
-                      "allowance"
+                      "allowance",
+                      "connector"
                     ],
                     "properties": {
                       "request": {
@@ -7511,6 +7567,10 @@ const taskPacketDefinition = {
                         "format": "uuid"
                       },
                       "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       }
@@ -7848,7 +7908,8 @@ const taskPacketDefinition = {
                     "additionalProperties": false,
                     "required": [
                       "request",
-                      "allowance"
+                      "allowance",
+                      "connector"
                     ],
                     "properties": {
                       "request": {
@@ -7856,6 +7917,10 @@ const taskPacketDefinition = {
                         "format": "uuid"
                       },
                       "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       }
@@ -8193,7 +8258,8 @@ const taskPacketDefinition = {
                     "additionalProperties": false,
                     "required": [
                       "request",
-                      "allowance"
+                      "allowance",
+                      "connector"
                     ],
                     "properties": {
                       "request": {
@@ -8201,6 +8267,10 @@ const taskPacketDefinition = {
                         "format": "uuid"
                       },
                       "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       }
@@ -8538,7 +8608,8 @@ const taskPacketDefinition = {
                     "additionalProperties": false,
                     "required": [
                       "request",
-                      "allowance"
+                      "allowance",
+                      "connector"
                     ],
                     "properties": {
                       "request": {
@@ -8546,6 +8617,10 @@ const taskPacketDefinition = {
                         "format": "uuid"
                       },
                       "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       }
@@ -9592,8 +9667,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.51.0",
-                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                        "version": "0.52.0",
+                        "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                       }
                     },
                     "operationId": {
@@ -9779,8 +9854,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.51.0",
-                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                        "version": "0.52.0",
+                        "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                       }
                     },
                     "operationId": {
@@ -9974,8 +10049,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.51.0",
-                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                        "version": "0.52.0",
+                        "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                       }
                     },
                     "operationId": {
@@ -10202,8 +10277,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.51.0",
-                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                        "version": "0.52.0",
+                        "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                       }
                     },
                     "operationId": {
@@ -10430,8 +10505,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.51.0",
-                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                        "version": "0.52.0",
+                        "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                       }
                     },
                     "operationId": {
@@ -10654,8 +10729,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.51.0",
-                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                        "version": "0.52.0",
+                        "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                       }
                     },
                     "operationId": {
@@ -10878,8 +10953,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.51.0",
-                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                        "version": "0.52.0",
+                        "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
                       }
                     },
                     "operationId": {
@@ -11412,7 +11487,8 @@ const delegatedCapabilityDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -11420,6 +11496,10 @@ const delegatedCapabilityDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -11444,7 +11524,8 @@ const delegatedCapabilityDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -11452,6 +11533,10 @@ const delegatedCapabilityDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -11476,7 +11561,8 @@ const delegatedCapabilityDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -11484,6 +11570,10 @@ const delegatedCapabilityDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -11508,7 +11598,8 @@ const delegatedCapabilityDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -11516,6 +11607,10 @@ const delegatedCapabilityDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -11540,7 +11635,8 @@ const delegatedCapabilityDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -11548,6 +11644,10 @@ const delegatedCapabilityDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -11689,8 +11789,8 @@ const delegatedCapabilityDefinition = {
         "const": {
           "id": "model:Signalbox",
           "name": "Signalbox",
-          "version": "0.51.0",
-          "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+          "version": "0.52.0",
+          "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
         }
       },
       "grantId": {
@@ -12226,7 +12326,8 @@ const publicDecisionTraceDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -12234,6 +12335,10 @@ const publicDecisionTraceDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -12262,7 +12367,8 @@ const publicDecisionTraceDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -12270,6 +12376,10 @@ const publicDecisionTraceDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -12298,7 +12408,8 @@ const publicDecisionTraceDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -12306,6 +12417,10 @@ const publicDecisionTraceDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -12334,7 +12449,8 @@ const publicDecisionTraceDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -12342,6 +12458,10 @@ const publicDecisionTraceDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -12370,7 +12490,8 @@ const publicDecisionTraceDefinition = {
                 "additionalProperties": false,
                 "required": [
                   "request",
-                  "allowance"
+                  "allowance",
+                  "connector"
                 ],
                 "properties": {
                   "request": {
@@ -12378,6 +12499,10 @@ const publicDecisionTraceDefinition = {
                     "format": "uuid"
                   },
                   "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -12499,8 +12624,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -12825,8 +12950,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -13151,8 +13276,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -13597,8 +13722,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -14043,8 +14168,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -14369,8 +14494,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -14892,8 +15017,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -15415,8 +15540,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -15861,8 +15986,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -16307,8 +16432,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -16471,7 +16596,8 @@ const publicDecisionTraceDefinition = {
                       "ruleId": {
                         "enum": [
                           "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
-                          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+                          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active"
                         ]
                       }
                     }
@@ -16563,6 +16689,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -16606,6 +16736,10 @@ const publicDecisionTraceDefinition = {
                       },
                       {
                         "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
                         "outcome": "passed"
                       }
                     ],
@@ -16652,6 +16786,10 @@ const publicDecisionTraceDefinition = {
                         {
                           "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                           "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                          "outcome": "passed"
                         }
                       ],
                       "revision": {
@@ -16671,6 +16809,10 @@ const publicDecisionTraceDefinition = {
                         },
                         {
                           "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
                           "outcome": "passed"
                         }
                       ],
@@ -16729,6 +16871,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -16785,6 +16931,70 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
                         "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.connector_active",
+                        "outcome": "failed"
                       }
                     ],
                     "revision": {
@@ -16830,8 +17040,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -16994,7 +17204,8 @@ const publicDecisionTraceDefinition = {
                       "ruleId": {
                         "enum": [
                           "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
-                          "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+                          "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                          "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active"
                         ]
                       }
                     }
@@ -17086,6 +17297,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -17129,6 +17344,10 @@ const publicDecisionTraceDefinition = {
                       },
                       {
                         "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
                         "outcome": "passed"
                       }
                     ],
@@ -17175,6 +17394,10 @@ const publicDecisionTraceDefinition = {
                         {
                           "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                           "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                          "outcome": "passed"
                         }
                       ],
                       "revision": {
@@ -17194,6 +17417,10 @@ const publicDecisionTraceDefinition = {
                         },
                         {
                           "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
                           "outcome": "passed"
                         }
                       ],
@@ -17252,6 +17479,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -17308,6 +17539,70 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
                         "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.connector_active",
+                        "outcome": "failed"
                       }
                     ],
                     "revision": {
@@ -17353,8 +17648,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -17517,7 +17812,8 @@ const publicDecisionTraceDefinition = {
                       "ruleId": {
                         "enum": [
                           "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
-                          "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+                          "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                          "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active"
                         ]
                       }
                     }
@@ -17609,6 +17905,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -17652,6 +17952,10 @@ const publicDecisionTraceDefinition = {
                       },
                       {
                         "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
                         "outcome": "passed"
                       }
                     ],
@@ -17698,6 +18002,10 @@ const publicDecisionTraceDefinition = {
                         {
                           "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                           "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                          "outcome": "passed"
                         }
                       ],
                       "revision": {
@@ -17717,6 +18025,10 @@ const publicDecisionTraceDefinition = {
                         },
                         {
                           "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
                           "outcome": "passed"
                         }
                       ],
@@ -17775,6 +18087,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -17831,6 +18147,70 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
                         "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.connector_active",
+                        "outcome": "failed"
                       }
                     ],
                     "revision": {
@@ -17876,8 +18256,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -18040,7 +18420,8 @@ const publicDecisionTraceDefinition = {
                       "ruleId": {
                         "enum": [
                           "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
-                          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
+                          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active"
                         ]
                       }
                     }
@@ -18132,6 +18513,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -18175,6 +18560,10 @@ const publicDecisionTraceDefinition = {
                       },
                       {
                         "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
                         "outcome": "passed"
                       }
                     ],
@@ -18221,6 +18610,10 @@ const publicDecisionTraceDefinition = {
                         {
                           "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                           "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                          "outcome": "passed"
                         }
                       ],
                       "revision": {
@@ -18240,6 +18633,10 @@ const publicDecisionTraceDefinition = {
                         },
                         {
                           "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
                           "outcome": "passed"
                         }
                       ],
@@ -18298,6 +18695,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -18354,6 +18755,70 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
                         "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.connector_active",
+                        "outcome": "failed"
                       }
                     ],
                     "revision": {
@@ -18399,8 +18864,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -18563,7 +19028,8 @@ const publicDecisionTraceDefinition = {
                       "ruleId": {
                         "enum": [
                           "require:action:act_70d3862584094631aca61e9db664d991.approved",
-                          "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
+                          "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                          "require:action:act_70d3862584094631aca61e9db664d991.connector_active"
                         ]
                       }
                     }
@@ -18655,6 +19121,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -18698,6 +19168,10 @@ const publicDecisionTraceDefinition = {
                       },
                       {
                         "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
                         "outcome": "passed"
                       }
                     ],
@@ -18744,6 +19218,10 @@ const publicDecisionTraceDefinition = {
                         {
                           "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                           "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                          "outcome": "passed"
                         }
                       ],
                       "revision": {
@@ -18763,6 +19241,10 @@ const publicDecisionTraceDefinition = {
                         },
                         {
                           "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
                           "outcome": "passed"
                         }
                       ],
@@ -18821,6 +19303,10 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                         "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                        "outcome": "notEvaluated"
                       }
                     ],
                     "revision": {
@@ -18877,6 +19363,70 @@ const publicDecisionTraceDefinition = {
                       {
                         "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
                         "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_70d3862584094631aca61e9db664d991.connector_active"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.connector_active",
+                        "outcome": "failed"
                       }
                     ],
                     "revision": {
@@ -18922,8 +19472,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -19368,8 +19918,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.51.0",
-              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+              "version": "0.52.0",
+              "sourceHash": "sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"
             }
           },
           "traceId": {
@@ -19808,7 +20358,7 @@ const discoveryCacheDefinition = {
     "server/discover",
     "tools/list"
   ],
-  "revision": "sha256:d4335687bf2b77f0fac452275fff614e9d72d2351ef69ad790a1493ec7035a0f",
+  "revision": "sha256:17988860871a1dba1f4d4610d514a963ff42304300af7207a1bca8aa3f85f38f",
   "revisionHeader": "ETag",
   "ttlUnit": "milliseconds",
   "defaultTtlMs": 0,
@@ -19952,7 +20502,7 @@ function currentStateEnvelope(definition: McpToolDefinition, data: unknown, retr
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json" as const,
     resourceVersion: 1 as const,
     catalogVersion: 7 as const,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.52.0","sourceHash":"sha256:f5b2d9c53f816a26d113584ee7bec33cbca55ef28b95a53b375e2c234cd3d5b9"},
     operationId: definition.operationId,
     kind: "queryResult" as const,
     authority: "none" as const,
@@ -20002,7 +20552,7 @@ function buildSignalboxMcpServer(
   onerror?: (error: Error) => void,
 ): McpServer {
   const server = new McpServer(
-    { name: "Signalbox-ModelLang", version: "0.51.0" },
+    { name: "Signalbox-ModelLang", version: "0.52.0" },
     {
       instructions: "Tool discovery, task packets, public applicability traces, and extension metadata grant no authority. Extension tools require an explicitly registered host adapter and host authorization on every invocation; ModelLang generates no extension implementation and does not verify its tests or effects. Public traces are zero-age current evaluations, not execution evidence or complete decision traces. Delegated invocation requires a separately issued exact-input credential plus authenticated delegate identity; every call revalidates current runtime authorization.",
       cacheHints: {
