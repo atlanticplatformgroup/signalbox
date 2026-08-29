@@ -12,7 +12,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@atlanticplatformgroup/modellang": "file:../../../../tmp/atlanticplatformgroup-modellang-0.50.3.tgz",
+    "@atlanticplatformgroup/modellang": "0.50.3",
     "@types/node": "^26.4.0",
     "@types/pg": "^8.23.1",
     "pg": "^8.23.0",

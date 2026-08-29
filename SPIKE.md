@@ -190,3 +190,10 @@ Phase 1 can start on schedule with no open stack question:
 1. Ship ModelLang 0.51 tenant scoping, publish, then **freeze the compiler** and pin the exact version.
 2. Expand to the full ~14-entity model under `@tenantScoped`.
 3. Read the full Nebius official rules for a concurrent-submission clause before planning the Galuxium double-submit.
+
+## Known local-only state
+
+`package.json` declares `@atlanticplatformgroup/modellang` at `0.50.3`, but the three
+fixes above are **unreleased** — they exist only in the local ModelLang worktree.
+Until a patch is published, install from a local `npm pack` tarball. Publishing the
+patch release is a prerequisite for the first reproducible clone of this repo.
