@@ -3,7 +3,7 @@
     "id": "model:Signalbox",
     "name": "Signalbox",
     "version": "0.50.0",
-    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e",
+    "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a",
     "sourceFile": "signalbox.model",
     "naming": {
       "sqlSchema": "model_signalbox",
@@ -3020,6 +3020,62 @@
       "layer": "PostgreSQL transactional inbox",
       "artifact": "postgres/002_schema.sql",
       "objectName": "model_signalbox_internal.event_inbox"
+    },
+    {
+      "id": "boundary:tenant_scoping",
+      "purpose": "Confine every generated operation to one 'Organization', derived from the authenticated caller's 'org'. Checked when the model is compiled; an operation that fails to constrain its tenant does not generate.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "tenant:Organization"
+    },
+    {
+      "id": "tenant-scope:Allowance",
+      "purpose": "Every 'Allowance' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.allowance.org"
+    },
+    {
+      "id": "tenant-scope:Approval",
+      "purpose": "Every 'Approval' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.approval.org"
+    },
+    {
+      "id": "tenant-scope:Delegation",
+      "purpose": "Every 'Delegation' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.delegation.org"
+    },
+    {
+      "id": "tenant-scope:Environment",
+      "purpose": "Every 'Environment' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.environment.org"
+    },
+    {
+      "id": "tenant-scope:Execution",
+      "purpose": "Every 'Execution' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.execution.org"
+    },
+    {
+      "id": "tenant-scope:Principal",
+      "purpose": "Every 'Principal' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.principal.org"
+    },
+    {
+      "id": "tenant-scope:ProductionDeployRequest",
+      "purpose": "Every 'ProductionDeployRequest' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.production_deploy_request.org"
     }
   ]
 }

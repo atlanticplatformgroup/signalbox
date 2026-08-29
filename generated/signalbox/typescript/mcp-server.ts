@@ -1002,7 +1002,7 @@ const taskPacketDefinition = {
           "id": "model:Signalbox",
           "name": "Signalbox",
           "version": "0.50.0",
-          "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+          "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
         }
       },
       "packetId": {
@@ -2436,7 +2436,7 @@ const taskPacketDefinition = {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
                         "version": "0.50.0",
-                        "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+                        "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
                       }
                     },
                     "operationId": {
@@ -2655,7 +2655,7 @@ const taskPacketDefinition = {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
                         "version": "0.50.0",
-                        "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+                        "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
                       }
                     },
                     "operationId": {
@@ -3064,7 +3064,7 @@ const delegatedCapabilityDefinition = {
           "id": "model:Signalbox",
           "name": "Signalbox",
           "version": "0.50.0",
-          "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+          "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
         }
       },
       "grantId": {
@@ -3385,7 +3385,7 @@ const publicDecisionTraceDefinition = {
               "id": "model:Signalbox",
               "name": "Signalbox",
               "version": "0.50.0",
-              "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
             }
           },
           "traceId": {
@@ -3831,7 +3831,7 @@ const publicDecisionTraceDefinition = {
               "id": "model:Signalbox",
               "name": "Signalbox",
               "version": "0.50.0",
-              "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
             }
           },
           "traceId": {
@@ -4277,7 +4277,7 @@ const publicDecisionTraceDefinition = {
               "id": "model:Signalbox",
               "name": "Signalbox",
               "version": "0.50.0",
-              "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
             }
           },
           "traceId": {
@@ -4800,7 +4800,7 @@ const publicDecisionTraceDefinition = {
               "id": "model:Signalbox",
               "name": "Signalbox",
               "version": "0.50.0",
-              "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
             }
           },
           "traceId": {
@@ -5239,7 +5239,7 @@ const discoveryCacheDefinition = {
     "server/discover",
     "tools/list"
   ],
-  "revision": "sha256:9108016a129c0c2f00cc6b71e4b98e26f7c2fd741feaa28f71c2315eaadee8bd",
+  "revision": "sha256:2b92ae22db1aa546406d1c082dee1d3f155bbaad007ddadf4759a2229c36ec1d",
   "revisionHeader": "ETag",
   "ttlUnit": "milliseconds",
   "defaultTtlMs": 0,
@@ -5383,7 +5383,7 @@ function currentStateEnvelope(definition: McpToolDefinition, data: unknown, retr
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json" as const,
     resourceVersion: 1 as const,
     catalogVersion: 7 as const,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
     operationId: definition.operationId,
     kind: "queryResult" as const,
     authority: "none" as const,

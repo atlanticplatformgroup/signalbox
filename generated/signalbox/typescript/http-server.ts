@@ -1869,7 +1869,7 @@ function validateDelegatedClaim(
     && model?.id === "model:Signalbox"
     && model?.name === "Signalbox"
     && model?.version === "0.50.0"
-    && model?.sourceHash === "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+    && model?.sourceHash === "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
     && Object.keys(model).length === 4
     && validGrantId(claim.grantId)
     && operationDefinitions.some((item) => item.endpoint === "execution" && item.action && item.id === claim.operationId)
@@ -1960,7 +1960,7 @@ export async function invokeSignalboxExtension(
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/extension-tool-result.schema.json",
     extensionToolResultVersion: 1,
     catalogVersion: 7,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
     extensionId: definition.id,
     contractRevision: definition.contractRevision,
     kind: "hostExtensionResult",
@@ -1981,7 +1981,7 @@ function currentStateResource(definition: OperationDefinition, data: unknown, re
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json" as const,
     resourceVersion: 1 as const,
     catalogVersion: 7 as const,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
     operationId: definition.id,
     kind: "queryResult" as const,
     authority: "none" as const,
@@ -2034,7 +2034,7 @@ export async function assembleSignalboxPublicDecisionTrace(
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json",
     traceVersion: 1,
     catalogVersion: 7,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
     traceId: globalThis.crypto.randomUUID(),
     kind: "applicabilityDecisionTrace",
     operationId: candidate.operationId,
@@ -2114,7 +2114,7 @@ export async function assembleSignalboxTaskPacket(
     packetVersion: 1,
     catalogVersion: 7,
     resourceVersion: 1,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
     packetId: globalThis.crypto.randomUUID(),
     kind: "boundedTaskContext",
     authority: "none",
@@ -2318,7 +2318,7 @@ export function createSignalboxHttpHandler(
           $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/delegated-capability.schema.json",
           delegatedCapabilityVersion: 1,
           catalogVersion: 7,
-          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"},
+          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
           grantId: issued.grantId,
           operationId: issueRequest.action.operationId,
           inputHash,
@@ -2465,7 +2465,7 @@ export function createSignalboxHttpHandler(
           $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/subject-capability-view.schema.json",
           viewVersion: 1,
           catalogVersion: 7,
-          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"},
+          model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
           view: {
             audience: "agent",
             subjectSpecific: true,

@@ -4,7 +4,7 @@
     "id": "model:Signalbox",
     "name": "Signalbox",
     "version": "0.50.0",
-    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e",
+    "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a",
     "sourceFile": "signalbox.model",
     "naming": {
       "sqlSchema": "model_signalbox",
@@ -14,6 +14,40 @@
   "principal": {
     "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
     "bindingMechanism": "session_user"
+  },
+  "tenant": {
+    "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+    "principalFieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+    "scopedEntities": [
+      {
+        "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+        "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856"
+      },
+      {
+        "entityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+        "fieldId": "field:fld_38800d8c1ef74f46a314cdbf1ba6aed6"
+      },
+      {
+        "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce",
+        "fieldId": "field:fld_57535d45b9bc42ccb9b9bed2c77a8996"
+      },
+      {
+        "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+        "fieldId": "field:fld_059d2ddcea884369a05e172746ce56ee"
+      },
+      {
+        "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+        "fieldId": "field:fld_a07af94c649f43379bb186f5d102939f"
+      },
+      {
+        "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+        "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+      },
+      {
+        "entityId": "entity:ent_f6f083c592f34c07af0204bb507be013",
+        "fieldId": "field:fld_84cbfc1dead747469eff52af38e562fc"
+      }
+    ]
   },
   "enums": [
     {
@@ -7595,6 +7629,62 @@
       "layer": "PostgreSQL transactional inbox",
       "artifact": "postgres/002_schema.sql",
       "objectName": "model_signalbox_internal.event_inbox"
+    },
+    {
+      "id": "boundary:tenant_scoping",
+      "purpose": "Confine every generated operation to one 'Organization', derived from the authenticated caller's 'org'. Checked when the model is compiled; an operation that fails to constrain its tenant does not generate.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "tenant:Organization"
+    },
+    {
+      "id": "tenant-scope:Allowance",
+      "purpose": "Every 'Allowance' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.allowance.org"
+    },
+    {
+      "id": "tenant-scope:Approval",
+      "purpose": "Every 'Approval' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.approval.org"
+    },
+    {
+      "id": "tenant-scope:Delegation",
+      "purpose": "Every 'Delegation' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.delegation.org"
+    },
+    {
+      "id": "tenant-scope:Environment",
+      "purpose": "Every 'Environment' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.environment.org"
+    },
+    {
+      "id": "tenant-scope:Execution",
+      "purpose": "Every 'Execution' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.execution.org"
+    },
+    {
+      "id": "tenant-scope:Principal",
+      "purpose": "Every 'Principal' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.principal.org"
+    },
+    {
+      "id": "tenant-scope:ProductionDeployRequest",
+      "purpose": "Every 'ProductionDeployRequest' belongs to exactly one 'Organization' through immutable 'org'.",
+      "layer": "ModelLang compile-time check",
+      "artifact": "model.ir.json",
+      "objectName": "model_signalbox.production_deploy_request.org"
     }
   ]
 }

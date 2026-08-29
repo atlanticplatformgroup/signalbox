@@ -12,7 +12,7 @@ export const SignalboxUiManifest = {
     "id": "model:Signalbox",
     "name": "Signalbox",
     "version": "0.50.0",
-    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e",
+    "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a",
     "label": "Signalbox"
   },
   "authentication": {

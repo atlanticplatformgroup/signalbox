@@ -1,6 +1,6 @@
 # Signalbox enforcement map
 
-Source hash: `sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e`
+Source hash: `sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a`
 
 | Rule or mechanism | Purpose | Layer | Generated enforcement | Source |
 |---|---|---|---|---|
@@ -237,3 +237,11 @@ Source hash: `sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c
 | `boundary:command_receipts` | Keep idempotency keys, request fingerprints, correlations, stored results, and audit links private and transactional. | PostgreSQL receipt boundary | `postgres/002_schema.sql`: `model_signalbox_internal.command_receipt` | compiler-derived |
 | `boundary:event_outbox` | Commit domain events atomically with state, audit, evidence, and receipts, then deliver them through private leases with at-least-once semantics. | PostgreSQL transactional outbox | `postgres/002_schema.sql`: `model_signalbox_internal.event_outbox` | compiler-derived |
 | `boundary:event_inbox` | Commit consumer deduplication, validation, local effect, audit evidence, and stored result atomically. | PostgreSQL transactional inbox | `postgres/002_schema.sql`: `model_signalbox_internal.event_inbox` | compiler-derived |
+| `boundary:tenant_scoping` | Confine every generated operation to one 'Organization', derived from the authenticated caller's 'org'. Checked when the model is compiled; an operation that fails to constrain its tenant does not generate. | ModelLang compile-time check | `model.ir.json`: `tenant:Organization` | compiler-derived |
+| `tenant-scope:Allowance` | Every 'Allowance' belongs to exactly one 'Organization' through immutable 'org'. | ModelLang compile-time check | `model.ir.json`: `model_signalbox.allowance.org` | compiler-derived |
+| `tenant-scope:Approval` | Every 'Approval' belongs to exactly one 'Organization' through immutable 'org'. | ModelLang compile-time check | `model.ir.json`: `model_signalbox.approval.org` | compiler-derived |
+| `tenant-scope:Delegation` | Every 'Delegation' belongs to exactly one 'Organization' through immutable 'org'. | ModelLang compile-time check | `model.ir.json`: `model_signalbox.delegation.org` | compiler-derived |
+| `tenant-scope:Environment` | Every 'Environment' belongs to exactly one 'Organization' through immutable 'org'. | ModelLang compile-time check | `model.ir.json`: `model_signalbox.environment.org` | compiler-derived |
+| `tenant-scope:Execution` | Every 'Execution' belongs to exactly one 'Organization' through immutable 'org'. | ModelLang compile-time check | `model.ir.json`: `model_signalbox.execution.org` | compiler-derived |
+| `tenant-scope:Principal` | Every 'Principal' belongs to exactly one 'Organization' through immutable 'org'. | ModelLang compile-time check | `model.ir.json`: `model_signalbox.principal.org` | compiler-derived |
+| `tenant-scope:ProductionDeployRequest` | Every 'ProductionDeployRequest' belongs to exactly one 'Organization' through immutable 'org'. | ModelLang compile-time check | `model.ir.json`: `model_signalbox.production_deploy_request.org` | compiler-derived |

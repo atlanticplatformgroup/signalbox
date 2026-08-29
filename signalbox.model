@@ -52,7 +52,7 @@ enum RequestStatus @stableId("enm_62bc5aa58efc405398d2931c339c730c") {
   EXECUTED @stableId("emv_7dfcad253ae24f8b9b05598cd2c5b59e")
 }
 
-entity Organization @stableId("ent_661a8bc41d68494eaaa82198b8354a94") {
+entity Organization @tenant @stableId("ent_661a8bc41d68494eaaa82198b8354a94") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_8c75c4fc7038498e91dcd41c7a5fcb1e");
   slug: String @unique @immutable @stableId("fld_b9b406196ec14910a8112232504a9ceb");
   name: String @stableId("fld_549aa3872e244af8a95fbeeb39f9ea46");
@@ -60,7 +60,7 @@ entity Organization @stableId("ent_661a8bc41d68494eaaa82198b8354a94") {
 
 // One principal entity for humans and agents. ModelLang permits exactly one
 // caller type per model, so identity kind is an attribute, not a separate entity.
-entity Principal @stableId("ent_197f12dacaf14992a367c5c15f895415") {
+entity Principal @tenantScoped(org) @stableId("ent_197f12dacaf14992a367c5c15f895415") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_0f4346fb82a7470baa889475e5480797");
   org: Organization @immutable @stableId("fld_21bdc1e7c1a4408f8d0c56d3c73b6856");
   kind: PrincipalKind @immutable @stableId("fld_4494f33148d746dcb887d73be133b248");
@@ -69,7 +69,7 @@ entity Principal @stableId("ent_197f12dacaf14992a367c5c15f895415") {
   roles: Set<Role> @stableId("fld_701810bb7b774ea4877941ecd35be293");
 }
 
-entity Environment @stableId("ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b") {
+entity Environment @tenantScoped(org) @stableId("ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_9c6795a2d88d486f9e1afafc7c39b749");
   org: Organization @immutable @stableId("fld_a07af94c649f43379bb186f5d102939f");
   name: String @stableId("fld_d7283a03833947b99224118cac98cf46");
@@ -82,7 +82,7 @@ entity Environment @stableId("ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b") {
 //
 // Cross-entity org consistency cannot be an entity invariant (E2406: invariants
 // may not dereference related entities), so it lives in policies and preconditions.
-entity Delegation @stableId("ent_accc8ba6b5ae4d76813eb983c3d1f8ce") {
+entity Delegation @tenantScoped(org) @stableId("ent_accc8ba6b5ae4d76813eb983c3d1f8ce") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_776b40619c354d4b93a2eeec5f6cc254");
   org: Organization @immutable @stableId("fld_57535d45b9bc42ccb9b9bed2c77a8996");
   agent: Principal @immutable @stableId("fld_054b2d41511b413cb6928aa459d34e60");
@@ -92,14 +92,14 @@ entity Delegation @stableId("ent_accc8ba6b5ae4d76813eb983c3d1f8ce") {
 }
 
 // Budget without arithmetic: allowances are pre-issued consumption tokens.
-entity Allowance @stableId("ent_b0fd2128e94a469089ac56c643cc4e36") {
+entity Allowance @tenantScoped(org) @stableId("ent_b0fd2128e94a469089ac56c643cc4e36") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_4669d240de76491f918160af4833ca73");
   org: Organization @immutable @stableId("fld_059d2ddcea884369a05e172746ce56ee");
   period: String @immutable @stableId("fld_9e4882e18d894214b52e6dcde5e92efc");
   sequence: Int @immutable @stableId("fld_a87e7d4bc69d4343b5aa2e955bed21a3");
 }
 
-entity ProductionDeployRequest @stableId("ent_e2b5ba3cccef437796b2048fd1ff2f24") {
+entity ProductionDeployRequest @tenantScoped(org) @stableId("ent_e2b5ba3cccef437796b2048fd1ff2f24") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_adecbdc3c4cb4bbb8b4e528dbc7408a5");
   createdAt: DateTime @generated(now) @immutable @stableId("fld_90575438c6e94deab4c8e6948e68345b");
   org: Organization @immutable @stableId("fld_c9d0dea7ee234d18824faaed519bff81");
@@ -139,7 +139,7 @@ entity ProductionDeployRequest @stableId("ent_e2b5ba3cccef437796b2048fd1ff2f24")
     or Role.APPROVER in approvedByRoles;
 }
 
-entity Approval @stableId("ent_f6f083c592f34c07af0204bb507be013") {
+entity Approval @tenantScoped(org) @stableId("ent_f6f083c592f34c07af0204bb507be013") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_d76e45f665d140d29821a79fe8cf0d57");
   decidedAt: DateTime @generated(now) @immutable @stableId("fld_a9a2a789b7d74ca2971ab753ab9e9ab3");
   org: Organization @immutable @stableId("fld_84cbfc1dead747469eff52af38e562fc");
@@ -148,7 +148,7 @@ entity Approval @stableId("ent_f6f083c592f34c07af0204bb507be013") {
 }
 
 // Guarantee B and C are storage-level: one execution per request, one per allowance.
-entity Execution @stableId("ent_695aab5599c84a78ac8f2ea75ccbdf1d") {
+entity Execution @tenantScoped(org) @stableId("ent_695aab5599c84a78ac8f2ea75ccbdf1d") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_054965adb4f143f5a51c51d9449265b5");
   startedAt: DateTime @generated(now) @immutable @stableId("fld_21c95bb344a2454680073627dfd4a830");
   org: Organization @immutable @stableId("fld_38800d8c1ef74f46a314cdbf1ba6aed6");
