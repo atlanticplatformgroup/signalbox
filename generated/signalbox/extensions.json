@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/extension-ledger.schema.json",
+  "ledgerVersion": 1,
+  "compilerVersion": "0.50.3",
+  "irVersion": 2,
+  "audience": "engineering",
+  "public": false,
+  "executable": false,
+  "model": {
+    "id": "model:Signalbox",
+    "version": "0.50.0",
+    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+  },
+  "extensions": [],
+  "summary": {
+    "declared": 0,
+    "externallyImplemented": 0,
+    "generatedImplementations": 0
+  }
+}

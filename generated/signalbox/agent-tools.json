@@ -1,0 +1,994 @@
+{
+  "$schema": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-tool-catalog.schema.json",
+  "catalogVersion": 7,
+  "compilerVersion": "0.50.3",
+  "operationManifestVersion": 11,
+  "capabilityManifestVersion": 10,
+  "model": {
+    "id": "model:Signalbox",
+    "name": "Signalbox",
+    "version": "0.50.0",
+    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+  },
+  "view": {
+    "audience": "agent",
+    "static": true,
+    "authorizationFiltered": false,
+    "containsExpressions": false,
+    "containsCurrentState": false,
+    "containsExtensions": false,
+    "grantsAuthority": false,
+    "runtimeAuthorizationRequired": true
+  },
+  "adapter": {
+    "compatibility": "mcpTool",
+    "directProtocolConformance": false
+  },
+  "authentication": {
+    "required": true,
+    "source": "authenticatedContext",
+    "callerInput": false
+  },
+  "subjectView": {
+    "protocol": "http",
+    "method": "POST",
+    "path": "/agent/capabilities",
+    "authenticated": true,
+    "subjectSpecific": true,
+    "authorizationFiltered": true,
+    "inputSpecific": true,
+    "candidateKinds": [
+      "action"
+    ],
+    "maxCandidates": 32,
+    "queryTools": "separateResourceBindings",
+    "containsResourceState": false,
+    "grantsAuthority": false,
+    "runtimeAuthorizationRequired": true
+  },
+  "taskPackets": {
+    "protocol": "http",
+    "method": "POST",
+    "path": "/agent/task-packets",
+    "packetVersion": 1,
+    "authenticated": true,
+    "subjectSpecific": true,
+    "authorizationFiltered": true,
+    "inputSpecific": true,
+    "actionCandidates": "exact",
+    "observations": "callerSelectedQueries",
+    "maxActions": 32,
+    "maxObservations": 32,
+    "containsCurrentState": true,
+    "containsOperationInput": false,
+    "containsObservationInput": false,
+    "containsAuthenticatedIdentity": false,
+    "closure": "explicitPartial",
+    "atomic": false,
+    "grantsAuthority": false,
+    "runtimeAuthorizationRequired": true
+  },
+  "delegatedCapabilities": {
+    "version": 1,
+    "protocol": "http",
+    "issue": {
+      "method": "POST",
+      "path": "/agent/delegations"
+    },
+    "revoke": {
+      "method": "POST",
+      "pathTemplate": "/agent/delegations/{grantId}/revoke"
+    },
+    "invocation": "authenticatedRequestCredential",
+    "authenticatedGrantor": true,
+    "exactAction": true,
+    "exactInputHash": "canonicalSha256",
+    "revisionBound": true,
+    "maxTtlSeconds": 3600,
+    "maxUses": 1,
+    "transferable": false,
+    "redelegation": false,
+    "hostCredentialAuthorityRequired": true,
+    "runtimeAuthorizationRequired": true,
+    "discoveryGrantsAuthority": false
+  },
+  "publicDecisionTraces": {
+    "version": 1,
+    "protocol": "http",
+    "method": "POST",
+    "path": "/agent/decision-traces",
+    "authenticated": true,
+    "subjectSpecific": true,
+    "authorizationFiltered": true,
+    "inputSpecific": true,
+    "scope": "applicability",
+    "orderedRuleOutcomes": true,
+    "containsCurrentStateValues": false,
+    "containsOperationInput": false,
+    "containsAuthenticatedIdentity": false,
+    "containsExpressions": false,
+    "containsPolicyIds": false,
+    "containsAuthorityIds": false,
+    "containsPrivateEvidence": false,
+    "executionObserved": false,
+    "durableEvidence": false,
+    "freshness": {
+      "mode": "pointInTime",
+      "maxAgeSeconds": 0,
+      "revalidate": "beforeReuse"
+    },
+    "grantsAuthority": false,
+    "runtimeAuthorizationRequired": true
+  },
+  "extensionToolAdapter": {
+    "version": 1,
+    "registration": "hostRequired",
+    "authorization": "hostRequired",
+    "implementationVerification": "hostResponsibility",
+    "testVerification": "hostResponsibility",
+    "generatedImplementations": 0,
+    "discoveryGrantsAuthority": false,
+    "runtimeAuthorizationRequired": true
+  },
+  "tools": [
+    {
+      "id": "action:act_d10d1618ed4045f396b64fc3745ce3dd",
+      "name": "requestProductionDeployment",
+      "description": "Execute the requestProductionDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "delegation",
+          "environment",
+          "commitSha"
+        ],
+        "properties": {
+          "delegation": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "environment": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "commitSha": {
+            "type": "string"
+          }
+        }
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "createdAt",
+          "org",
+          "requestedBy",
+          "environment",
+          "commitSha",
+          "status",
+          "approvedBy",
+          "approvedByRoles"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "org": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requestedBy": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "environment": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "commitSha": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING_APPROVAL",
+              "APPROVED",
+              "REJECTED",
+              "EXECUTED"
+            ]
+          },
+          "approvedBy": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "approvedByRoles": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "MEMBER",
+                    "APPROVER",
+                    "ADMIN"
+                  ]
+                },
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "execution": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_d10d1618ed4045f396b64fc3745ce3dd",
+        "authenticated": true,
+        "runtimeAuthorizationRequired": true
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "annotations": {
+        "readOnly": false
+      },
+      "kind": "action",
+      "applicability": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_d10d1618ed4045f396b64fc3745ce3dd/applicability",
+        "outcomes": [
+          "applicable",
+          "denied",
+          "notApplicable",
+          "stale"
+        ],
+        "authorizationRuleId": "authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd",
+        "preconditionRuleIds": [
+          "require:action:act_d10d1618ed4045f396b64fc3745ce3dd.production_target"
+        ],
+        "revisionRuleId": "revision:action:act_d10d1618ed4045f396b64fc3745ce3dd",
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "fingerprint": "canonicalSha256"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "id": "action:act_047a601f15384b5ea4bfa05b5ef72676",
+      "name": "approveProductionDeployment",
+      "description": "Execute the approveProductionDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request"
+        ],
+        "properties": {
+          "request": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "decidedAt",
+          "org",
+          "request",
+          "approver"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "decidedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "org": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "request": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "approver": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "execution": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_047a601f15384b5ea4bfa05b5ef72676",
+        "authenticated": true,
+        "runtimeAuthorizationRequired": true
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "transition",
+        "invariant"
+      ],
+      "annotations": {
+        "readOnly": false
+      },
+      "kind": "action",
+      "applicability": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_047a601f15384b5ea4bfa05b5ef72676/applicability",
+        "outcomes": [
+          "applicable",
+          "denied",
+          "notApplicable",
+          "stale"
+        ],
+        "authorizationRuleId": "authorize:action:act_047a601f15384b5ea4bfa05b5ef72676",
+        "preconditionRuleIds": [
+          "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval"
+        ],
+        "revisionRuleId": "revision:action:act_047a601f15384b5ea4bfa05b5ef72676",
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "fingerprint": "canonicalSha256"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "id": "action:act_4a9421bfc2e744969b9f73109e6cda54",
+      "name": "executeApprovedDeployment",
+      "description": "Execute the executeApprovedDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request",
+          "allowance"
+        ],
+        "properties": {
+          "request": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "allowance": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "startedAt",
+          "org",
+          "request",
+          "allowance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "org": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "request": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "allowance": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "execution": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_4a9421bfc2e744969b9f73109e6cda54",
+        "authenticated": true,
+        "runtimeAuthorizationRequired": true
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "transition",
+        "invariant"
+      ],
+      "annotations": {
+        "readOnly": false
+      },
+      "kind": "action",
+      "applicability": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_4a9421bfc2e744969b9f73109e6cda54/applicability",
+        "outcomes": [
+          "applicable",
+          "denied",
+          "notApplicable",
+          "stale"
+        ],
+        "authorizationRuleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+        "preconditionRuleIds": [
+          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
+          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org"
+        ],
+        "revisionRuleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "fingerprint": "canonicalSha256"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "id": "action:act_18ab026d358144dfa4d1729e40dd832e",
+      "name": "rejectProductionDeployment",
+      "description": "Execute the rejectProductionDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request"
+        ],
+        "properties": {
+          "request": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "createdAt",
+          "org",
+          "requestedBy",
+          "environment",
+          "commitSha",
+          "status",
+          "approvedBy",
+          "approvedByRoles"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "org": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requestedBy": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "environment": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "commitSha": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING_APPROVAL",
+              "APPROVED",
+              "REJECTED",
+              "EXECUTED"
+            ]
+          },
+          "approvedBy": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "approvedByRoles": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "MEMBER",
+                    "APPROVER",
+                    "ADMIN"
+                  ]
+                },
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "execution": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_18ab026d358144dfa4d1729e40dd832e",
+        "authenticated": true,
+        "runtimeAuthorizationRequired": true
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "transition",
+        "invariant"
+      ],
+      "annotations": {
+        "readOnly": false
+      },
+      "kind": "action",
+      "applicability": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/actions/act_18ab026d358144dfa4d1729e40dd832e/applicability",
+        "outcomes": [
+          "applicable",
+          "denied",
+          "notApplicable",
+          "stale"
+        ],
+        "authorizationRuleId": "authorize:action:act_18ab026d358144dfa4d1729e40dd832e",
+        "preconditionRuleIds": [
+          "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval"
+        ],
+        "revisionRuleId": "revision:action:act_18ab026d358144dfa4d1729e40dd832e",
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "fingerprint": "canonicalSha256"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "id": "query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "name": "myOrgDeployRequests",
+      "description": "Read the bounded myOrgDeployRequests projection. Runtime authorization and row policy remain authoritative.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [],
+        "properties": {
+          "cursor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[A-Za-z0-9_-]+$"
+          }
+        }
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "createdAt",
+                "commitSha",
+                "status",
+                "requestedBy",
+                "approvedBy"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "commitSha": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "PENDING_APPROVAL",
+                    "APPROVED",
+                    "REJECTED",
+                    "EXECUTED"
+                  ]
+                },
+                "requestedBy": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "displayName",
+                    "kind"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "displayName": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "HUMAN",
+                        "AGENT"
+                      ]
+                    }
+                  }
+                },
+                "approvedBy": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "displayName",
+                        "kind"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "displayName": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "HUMAN",
+                            "AGENT"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "execution": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/queries/qry_60d1c5d416eb428caa385db274edcb4b",
+        "authenticated": true,
+        "runtimeAuthorizationRequired": true
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ],
+      "annotations": {
+        "readOnly": true
+      },
+      "kind": "query",
+      "bounds": {
+        "cardinality": "page",
+        "maxItems": 50
+      },
+      "resource": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/agent/resources/queries/qry_60d1c5d416eb428caa385db274edcb4b",
+        "authenticated": true,
+        "subjectSpecific": true,
+        "authorizationFiltered": true,
+        "containsCurrentState": true,
+        "freshness": {
+          "mode": "pointInTime",
+          "maxAgeSeconds": 0,
+          "revalidate": "beforeReuse"
+        },
+        "grantsAuthority": false,
+        "runtimeAuthorizationRequired": true
+      },
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b"
+      }
+    },
+    {
+      "id": "query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "name": "approvalInbox",
+      "description": "Read the bounded approvalInbox projection. Runtime authorization and row policy remain authoritative.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [],
+        "properties": {
+          "cursor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[A-Za-z0-9_-]+$"
+          }
+        }
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "createdAt",
+                "commitSha",
+                "status",
+                "requestedBy",
+                "approvedBy"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "commitSha": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "PENDING_APPROVAL",
+                    "APPROVED",
+                    "REJECTED",
+                    "EXECUTED"
+                  ]
+                },
+                "requestedBy": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "displayName",
+                    "kind"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "displayName": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "HUMAN",
+                        "AGENT"
+                      ]
+                    }
+                  }
+                },
+                "approvedBy": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "displayName",
+                        "kind"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "displayName": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "HUMAN",
+                            "AGENT"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "execution": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/operations/queries/qry_21f24f72d72c4bb98df539477f0e81f2",
+        "authenticated": true,
+        "runtimeAuthorizationRequired": true
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ],
+      "annotations": {
+        "readOnly": true
+      },
+      "kind": "query",
+      "bounds": {
+        "cardinality": "page",
+        "maxItems": 50
+      },
+      "resource": {
+        "protocol": "http",
+        "method": "POST",
+        "path": "/agent/resources/queries/qry_21f24f72d72c4bb98df539477f0e81f2",
+        "authenticated": true,
+        "subjectSpecific": true,
+        "authorizationFiltered": true,
+        "containsCurrentState": true,
+        "freshness": {
+          "mode": "pointInTime",
+          "maxAgeSeconds": 0,
+          "revalidate": "beforeReuse"
+        },
+        "grantsAuthority": false,
+        "runtimeAuthorizationRequired": true
+      },
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:1be0f20f5159288d02fcc0cc3848d32633b1c7bcad6dea570b6b61a0ed5ac15a"
+      }
+    }
+  ],
+  "extensionTools": []
+}

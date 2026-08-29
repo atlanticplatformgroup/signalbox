@@ -1,0 +1,22 @@
+{
+  "name": "signalbox",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Transactional interlocking for AI agent actions",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "model:check": "modelc check signalbox.model --strict",
+    "model:generate": "modelc build signalbox.model --out generated/signalbox",
+    "generated:build": "cd generated/signalbox && npm install --omit=dev --no-package-lock && npx tsc -p tsconfig.build.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@atlanticplatformgroup/modellang": "file:../../../../tmp/atlanticplatformgroup-modellang-0.50.3.tgz",
+    "@types/node": "^26.4.0",
+    "@types/pg": "^8.23.1",
+    "pg": "^8.23.0",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  }
+}

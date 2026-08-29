@@ -1,0 +1,25 @@
+{
+  "name": "signalbox-generated",
+  "version": "0.50.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "jose": "^6.2.8",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@types/node": "^24.1.0",
+    "@types/pg": "^8.15.4",
+    "typescript": "^5.8.3"
+  },
+  "modellang": {
+    "compilerVersion": "0.50.3",
+    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+  }
+}

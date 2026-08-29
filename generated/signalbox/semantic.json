@@ -1,0 +1,2480 @@
+{
+  "$schema": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/semantic-manifest.schema.json",
+  "manifestVersion": 19,
+  "profile": "sml-transactional-core/19",
+  "audience": "engineering",
+  "view": {
+    "authorizationFiltered": false,
+    "currentState": false,
+    "executable": false
+  },
+  "provenance": {
+    "compilerVersion": "0.50.3",
+    "irVersion": 2,
+    "generator": "semantic-manifest"
+  },
+  "model": {
+    "id": "model:Signalbox",
+    "name": "Signalbox",
+    "version": "0.50.0",
+    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e",
+    "sourceFile": "signalbox.model"
+  },
+  "principal": {
+    "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+    "binding": "authenticatedContext",
+    "requestSupplied": false
+  },
+  "projections": [
+    {
+      "id": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
+      "name": "PrincipalSummary",
+      "source": {
+        "file": "signalbox.model",
+        "line": 278,
+        "column": 1,
+        "endLine": 282,
+        "endColumn": 2
+      },
+      "sourceEntityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+      "fields": [
+        {
+          "id": "projectionField:pfd_2671ffbfa9204040bf12047d8863d7bb",
+          "name": "id",
+          "sourceFieldId": "field:fld_0f4346fb82a7470baa889475e5480797",
+          "source": {
+            "file": "signalbox.model",
+            "line": 279,
+            "column": 3,
+            "endLine": 279,
+            "endColumn": 56
+          }
+        },
+        {
+          "id": "projectionField:pfd_018396cfad6b491189efac5afc593045",
+          "name": "displayName",
+          "sourceFieldId": "field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
+          "source": {
+            "file": "signalbox.model",
+            "line": 280,
+            "column": 3,
+            "endLine": 280,
+            "endColumn": 65
+          }
+        },
+        {
+          "id": "projectionField:pfd_727810accbba4c598f1cc706d3ab403b",
+          "name": "kind",
+          "sourceFieldId": "field:fld_4494f33148d746dcb887d73be133b248",
+          "source": {
+            "file": "signalbox.model",
+            "line": 281,
+            "column": 3,
+            "endLine": 281,
+            "endColumn": 58
+          }
+        }
+      ]
+    },
+    {
+      "id": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
+      "name": "DeployRequestSummary",
+      "source": {
+        "file": "signalbox.model",
+        "line": 284,
+        "column": 1,
+        "endLine": 291,
+        "endColumn": 2
+      },
+      "sourceEntityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+      "fields": [
+        {
+          "id": "projectionField:pfd_3835738ea3d74c929d37b9e48fe5621c",
+          "name": "id",
+          "sourceFieldId": "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+          "source": {
+            "file": "signalbox.model",
+            "line": 285,
+            "column": 3,
+            "endLine": 285,
+            "endColumn": 56
+          }
+        },
+        {
+          "id": "projectionField:pfd_82476ee8b87447bb890d32c0bb74da68",
+          "name": "createdAt",
+          "sourceFieldId": "field:fld_90575438c6e94deab4c8e6948e68345b",
+          "source": {
+            "file": "signalbox.model",
+            "line": 286,
+            "column": 3,
+            "endLine": 286,
+            "endColumn": 63
+          }
+        },
+        {
+          "id": "projectionField:pfd_eb55b7f4b54d45cba6b5d74ddd65f4ff",
+          "name": "commitSha",
+          "sourceFieldId": "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
+          "source": {
+            "file": "signalbox.model",
+            "line": 287,
+            "column": 3,
+            "endLine": 287,
+            "endColumn": 63
+          }
+        },
+        {
+          "id": "projectionField:pfd_a9d6406516424f5b846f165cade68203",
+          "name": "status",
+          "sourceFieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+          "source": {
+            "file": "signalbox.model",
+            "line": 288,
+            "column": 3,
+            "endLine": 288,
+            "endColumn": 60
+          }
+        },
+        {
+          "id": "projectionField:pfd_e2b6c3876e0f4b538de84f9aa524b5d5",
+          "name": "requestedBy",
+          "sourceFieldId": "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+          "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
+          "source": {
+            "file": "signalbox.model",
+            "line": 289,
+            "column": 3,
+            "endLine": 289,
+            "endColumn": 83
+          }
+        },
+        {
+          "id": "projectionField:pfd_15c0e810e03d42ceb2841d637f58119e",
+          "name": "approvedBy",
+          "sourceFieldId": "field:fld_da7706d558434a06b10cfa548972efa6",
+          "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04",
+          "source": {
+            "file": "signalbox.model",
+            "line": 290,
+            "column": 3,
+            "endLine": 290,
+            "endColumn": 82
+          }
+        }
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a",
+      "name": "ProductionDeployDelegation",
+      "source": {
+        "file": "signalbox.model",
+        "line": 160,
+        "column": 1,
+        "endLine": 174,
+        "endColumn": 2
+      },
+      "parameters": [
+        {
+          "id": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.actor",
+          "name": "actor",
+          "type": "entity:ent_197f12dacaf14992a367c5c15f895415"
+        },
+        {
+          "id": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.delegation",
+          "name": "delegation",
+          "type": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+        },
+        {
+          "id": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.environment",
+          "name": "environment",
+          "type": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+        }
+      ],
+      "evaluation": "exactlyOneBranch",
+      "branches": [
+        {
+          "id": "policyBranch:pbr_a1caa050a0174a1d9c9e75137153a4d0",
+          "name": "delegated_agent",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "and",
+                "left": {
+                  "kind": "binary",
+                  "operator": "and",
+                  "left": {
+                    "kind": "binary",
+                    "operator": "and",
+                    "left": {
+                      "kind": "binary",
+                      "operator": "and",
+                      "left": {
+                        "kind": "binary",
+                        "operator": "and",
+                        "left": {
+                          "kind": "binary",
+                          "operator": "==",
+                          "left": {
+                            "kind": "fieldAccess",
+                            "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.actor",
+                            "parameter": "actor",
+                            "fieldId": "field:fld_4494f33148d746dcb887d73be133b248",
+                            "fieldName": "kind",
+                            "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                            "nullable": false
+                          },
+                          "right": {
+                            "kind": "enumLiteral",
+                            "enumId": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                            "memberId": "enumMember:emv_6ceac84fdd024ed9a99f98717db188f5",
+                            "memberName": "AGENT",
+                            "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                            "nullable": false
+                          },
+                          "type": "Boolean",
+                          "nullable": false
+                        },
+                        "right": {
+                          "kind": "binary",
+                          "operator": "==",
+                          "left": {
+                            "kind": "fieldAccess",
+                            "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.actor",
+                            "parameter": "actor",
+                            "fieldId": "field:fld_72c4a69879134905b2c62f511514143f",
+                            "fieldName": "status",
+                            "type": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                            "nullable": false
+                          },
+                          "right": {
+                            "kind": "enumLiteral",
+                            "enumId": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                            "memberId": "enumMember:emv_342a2e9919724cf490eea833a409067b",
+                            "memberName": "ACTIVE",
+                            "type": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                            "nullable": false
+                          },
+                          "type": "Boolean",
+                          "nullable": false
+                        },
+                        "type": "Boolean",
+                        "nullable": false
+                      },
+                      "right": {
+                        "kind": "binary",
+                        "operator": "==",
+                        "left": {
+                          "kind": "fieldAccess",
+                          "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.delegation",
+                          "parameter": "delegation",
+                          "fieldId": "field:fld_054b2d41511b413cb6928aa459d34e60",
+                          "fieldName": "agent",
+                          "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                          "nullable": false
+                        },
+                        "right": {
+                          "kind": "entityValue",
+                          "parameterId": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.actor",
+                          "name": "actor",
+                          "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                          "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                          "nullable": false
+                        },
+                        "type": "Boolean",
+                        "nullable": false,
+                        "comparisonSemantics": "entityIdentity"
+                      },
+                      "type": "Boolean",
+                      "nullable": false
+                    },
+                    "right": {
+                      "kind": "binary",
+                      "operator": "==",
+                      "left": {
+                        "kind": "fieldAccess",
+                        "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.delegation",
+                        "parameter": "delegation",
+                        "fieldId": "field:fld_3e25eaed78c54f1e893497b8af2045a1",
+                        "fieldName": "status",
+                        "type": "enum:enm_82705b31f72f487b9f0af8726779ea39",
+                        "nullable": false
+                      },
+                      "right": {
+                        "kind": "enumLiteral",
+                        "enumId": "enum:enm_82705b31f72f487b9f0af8726779ea39",
+                        "memberId": "enumMember:emv_740011172f05480b9606af59979e50ce",
+                        "memberName": "ACTIVE",
+                        "type": "enum:enm_82705b31f72f487b9f0af8726779ea39",
+                        "nullable": false
+                      },
+                      "type": "Boolean",
+                      "nullable": false
+                    },
+                    "type": "Boolean",
+                    "nullable": false
+                  },
+                  "right": {
+                    "kind": "binary",
+                    "operator": "==",
+                    "left": {
+                      "kind": "fieldAccess",
+                      "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.delegation",
+                      "parameter": "delegation",
+                      "fieldId": "field:fld_cc8b5256189f47279d51704215aaae8f",
+                      "fieldName": "capability",
+                      "type": "enum:enm_8381729a6ae947c885585318421c3883",
+                      "nullable": false
+                    },
+                    "right": {
+                      "kind": "enumLiteral",
+                      "enumId": "enum:enm_8381729a6ae947c885585318421c3883",
+                      "memberId": "enumMember:emv_b6af2941a9904877944e278153abca35",
+                      "memberName": "REQUEST_PRODUCTION_DEPLOY",
+                      "type": "enum:enm_8381729a6ae947c885585318421c3883",
+                      "nullable": false
+                    },
+                    "type": "Boolean",
+                    "nullable": false
+                  },
+                  "type": "Boolean",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "binary",
+                  "operator": "==",
+                  "left": {
+                    "kind": "fieldAccess",
+                    "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.delegation",
+                    "parameter": "delegation",
+                    "fieldId": "field:fld_5baad9f56824417b8743b7cc93b32007",
+                    "fieldName": "environment",
+                    "type": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+                    "nullable": false
+                  },
+                  "right": {
+                    "kind": "entityValue",
+                    "parameterId": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.environment",
+                    "name": "environment",
+                    "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+                    "type": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+                    "nullable": false
+                  },
+                  "type": "Boolean",
+                  "nullable": false,
+                  "comparisonSemantics": "entityIdentity"
+                },
+                "type": "Boolean",
+                "nullable": false
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.delegation",
+                  "parameter": "delegation",
+                  "fieldId": "field:fld_57535d45b9bc42ccb9b9bed2c77a8996",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.actor",
+                  "parameter": "actor",
+                  "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.environment",
+                "parameter": "environment",
+                "fieldId": "field:fld_a07af94c649f43379bb186f5d102939f",
+                "fieldName": "org",
+                "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                "nullable": false
+              },
+              "right": {
+                "kind": "fieldAccess",
+                "source": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.actor",
+                "parameter": "actor",
+                "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+                "fieldName": "org",
+                "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false,
+              "comparisonSemantics": "entityIdentity"
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "((((((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (delegation.agent == actor)) and (delegation.status == DelegationStatus.ACTIVE)) and (delegation.capability == Capability.REQUEST_PRODUCTION_DEPLOY)) and (delegation.environment == environment)) and (delegation.org == actor.org)) and (environment.org == actor.org))",
+          "source": {
+            "file": "signalbox.model",
+            "line": 165,
+            "column": 3,
+            "endLine": 173,
+            "endColumn": 38
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_342a2e9919724cf490eea833a409067b"
+            },
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_6ceac84fdd024ed9a99f98717db188f5"
+            },
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_740011172f05480b9606af59979e50ce"
+            },
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_b6af2941a9904877944e278153abca35"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_054b2d41511b413cb6928aa459d34e60"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_3e25eaed78c54f1e893497b8af2045a1"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_4494f33148d746dcb887d73be133b248"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_57535d45b9bc42ccb9b9bed2c77a8996"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_5baad9f56824417b8743b7cc93b32007"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_72c4a69879134905b2c62f511514143f"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_a07af94c649f43379bb186f5d102939f"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_cc8b5256189f47279d51704215aaae8f"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.actor"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.delegation"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a.environment"
+            }
+          ]
+        }
+      ],
+      "usedBy": [
+        {
+          "operationId": "action:act_d10d1618ed4045f396b64fc3745ce3dd",
+          "ruleId": "authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd",
+          "usage": "authorization"
+        }
+      ],
+      "coverage": {
+        "applicability": true,
+        "execution": true,
+        "durableEvidence": true
+      }
+    },
+    {
+      "id": "policy:pol_08ab785a8747405bbdfeb05009a9df9d",
+      "name": "IndependentHumanApprover",
+      "source": {
+        "file": "signalbox.model",
+        "line": 177,
+        "column": 1,
+        "endLine": 187,
+        "endColumn": 2
+      },
+      "parameters": [
+        {
+          "id": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.actor",
+          "name": "actor",
+          "type": "entity:ent_197f12dacaf14992a367c5c15f895415"
+        },
+        {
+          "id": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.request",
+          "name": "request",
+          "type": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+        }
+      ],
+      "evaluation": "exactlyOneBranch",
+      "branches": [
+        {
+          "id": "policyBranch:pbr_3c3833abc88242adb5090ed343f32057",
+          "name": "independent_approver",
+          "expression": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "and",
+                "left": {
+                  "kind": "binary",
+                  "operator": "and",
+                  "left": {
+                    "kind": "binary",
+                    "operator": "==",
+                    "left": {
+                      "kind": "fieldAccess",
+                      "source": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.actor",
+                      "parameter": "actor",
+                      "fieldId": "field:fld_4494f33148d746dcb887d73be133b248",
+                      "fieldName": "kind",
+                      "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                      "nullable": false
+                    },
+                    "right": {
+                      "kind": "enumLiteral",
+                      "enumId": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                      "memberId": "enumMember:emv_efb2884e01154acc9e5ef1f0ed82ae38",
+                      "memberName": "HUMAN",
+                      "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                      "nullable": false
+                    },
+                    "type": "Boolean",
+                    "nullable": false
+                  },
+                  "right": {
+                    "kind": "binary",
+                    "operator": "==",
+                    "left": {
+                      "kind": "fieldAccess",
+                      "source": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.actor",
+                      "parameter": "actor",
+                      "fieldId": "field:fld_72c4a69879134905b2c62f511514143f",
+                      "fieldName": "status",
+                      "type": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                      "nullable": false
+                    },
+                    "right": {
+                      "kind": "enumLiteral",
+                      "enumId": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                      "memberId": "enumMember:emv_342a2e9919724cf490eea833a409067b",
+                      "memberName": "ACTIVE",
+                      "type": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                      "nullable": false
+                    },
+                    "type": "Boolean",
+                    "nullable": false
+                  },
+                  "type": "Boolean",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "binary",
+                  "operator": "in",
+                  "left": {
+                    "kind": "enumLiteral",
+                    "enumId": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+                    "memberId": "enumMember:emv_42acb032e28f402aae0129d1b2da8fa0",
+                    "memberName": "APPROVER",
+                    "type": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+                    "nullable": false
+                  },
+                  "right": {
+                    "kind": "fieldAccess",
+                    "source": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.actor",
+                    "parameter": "actor",
+                    "fieldId": "field:fld_701810bb7b774ea4877941ecd35be293",
+                    "fieldName": "roles",
+                    "type": "set:enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+                    "nullable": false
+                  },
+                  "type": "Boolean",
+                  "nullable": false,
+                  "comparisonSemantics": "setMembership"
+                },
+                "type": "Boolean",
+                "nullable": false
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.actor",
+                  "parameter": "actor",
+                  "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.request",
+                  "parameter": "request",
+                  "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                  "fieldName": "org",
+                  "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false,
+                "comparisonSemantics": "entityIdentity"
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "!=",
+              "left": {
+                "kind": "entityValue",
+                "parameterId": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.actor",
+                "name": "actor",
+                "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "nullable": false
+              },
+              "right": {
+                "kind": "fieldAccess",
+                "source": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.request",
+                "parameter": "request",
+                "fieldId": "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+                "fieldName": "requestedBy",
+                "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false,
+              "comparisonSemantics": "entityIdentity"
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(((((actor.kind == PrincipalKind.HUMAN) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.APPROVER in actor.roles)) and (actor.org == request.org)) and (actor != request.requestedBy))",
+          "source": {
+            "file": "signalbox.model",
+            "line": 181,
+            "column": 3,
+            "endLine": 186,
+            "endColumn": 38
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_342a2e9919724cf490eea833a409067b"
+            },
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_42acb032e28f402aae0129d1b2da8fa0"
+            },
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_efb2884e01154acc9e5ef1f0ed82ae38"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_4494f33148d746dcb887d73be133b248"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_701810bb7b774ea4877941ecd35be293"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_72c4a69879134905b2c62f511514143f"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.actor"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:policy:pol_08ab785a8747405bbdfeb05009a9df9d.request"
+            }
+          ]
+        }
+      ],
+      "usedBy": [
+        {
+          "operationId": "action:act_047a601f15384b5ea4bfa05b5ef72676",
+          "ruleId": "authorize:action:act_047a601f15384b5ea4bfa05b5ef72676",
+          "usage": "authorization"
+        },
+        {
+          "operationId": "action:act_18ab026d358144dfa4d1729e40dd832e",
+          "ruleId": "authorize:action:act_18ab026d358144dfa4d1729e40dd832e",
+          "usage": "authorization"
+        }
+      ],
+      "coverage": {
+        "applicability": true,
+        "execution": true,
+        "durableEvidence": true
+      }
+    }
+  ],
+  "events": [],
+  "actions": [
+    {
+      "id": "action:act_d10d1618ed4045f396b64fc3745ce3dd",
+      "name": "requestProductionDeployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 189,
+        "column": 1,
+        "endLine": 208,
+        "endColumn": 2
+      },
+      "caller": {
+        "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+        "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+        "source": "authenticatedContext"
+      },
+      "input": [
+        {
+          "id": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation",
+          "name": "delegation",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          }
+        },
+        {
+          "id": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+          "name": "environment",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+          }
+        },
+        {
+          "id": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.commitSha",
+          "name": "commitSha",
+          "type": {
+            "kind": "scalar",
+            "name": "String"
+          }
+        }
+      ],
+      "output": {
+        "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+        "cardinality": "one"
+      },
+      "authorization": {
+        "id": "authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd",
+        "name": "authorize",
+        "expression": {
+          "kind": "policyCall",
+          "policyId": "policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a",
+          "arguments": [
+            {
+              "kind": "entityValue",
+              "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+              "name": "actor",
+              "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "nullable": false
+            },
+            {
+              "kind": "entityValue",
+              "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation",
+              "name": "delegation",
+              "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce",
+              "type": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce",
+              "nullable": false
+            },
+            {
+              "kind": "entityValue",
+              "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+              "name": "environment",
+              "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+              "type": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+              "nullable": false
+            }
+          ],
+          "type": "Boolean",
+          "nullable": false
+        },
+        "sourceExpression": "ProductionDeployDelegation(actor, delegation, environment)",
+        "source": {
+          "file": "signalbox.model",
+          "line": 195,
+          "column": 13,
+          "endLine": 195,
+          "endColumn": 71
+        },
+        "dependencies": [
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment"
+          },
+          {
+            "kind": "policy",
+            "id": "policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a"
+          }
+        ]
+      },
+      "preconditions": [
+        {
+          "id": "require:action:act_d10d1618ed4045f396b64fc3745ce3dd.production_target",
+          "name": "production_target",
+          "expression": {
+            "kind": "binary",
+            "operator": "==",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+              "parameter": "environment",
+              "fieldId": "field:fld_85e49c361751417686fab601b59b541b",
+              "fieldName": "tier",
+              "type": "enum:enm_380f40ed4b084a67944e5f793458621d",
+              "nullable": false
+            },
+            "right": {
+              "kind": "enumLiteral",
+              "enumId": "enum:enm_380f40ed4b084a67944e5f793458621d",
+              "memberId": "enumMember:emv_6c5e03a32f0a410785d2bba34a83ff21",
+              "memberName": "PRODUCTION",
+              "type": "enum:enm_380f40ed4b084a67944e5f793458621d",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(environment.tier == EnvironmentTier.PRODUCTION)",
+          "source": {
+            "file": "signalbox.model",
+            "line": 196,
+            "column": 3,
+            "endLine": 196,
+            "endColumn": 77
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_6c5e03a32f0a410785d2bba34a83ff21"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_85e49c361751417686fab601b59b541b"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment"
+            }
+          ]
+        }
+      ],
+      "readSet": {
+        "entityIds": [
+          "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce",
+          "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+        ],
+        "fieldIds": [
+          "field:fld_054b2d41511b413cb6928aa459d34e60",
+          "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+          "field:fld_3e25eaed78c54f1e893497b8af2045a1",
+          "field:fld_4494f33148d746dcb887d73be133b248",
+          "field:fld_57535d45b9bc42ccb9b9bed2c77a8996",
+          "field:fld_5baad9f56824417b8743b7cc93b32007",
+          "field:fld_72c4a69879134905b2c62f511514143f",
+          "field:fld_85e49c361751417686fab601b59b541b",
+          "field:fld_a07af94c649f43379bb186f5d102939f",
+          "field:fld_cc8b5256189f47279d51704215aaae8f"
+        ]
+      },
+      "lockPlan": [
+        {
+          "id": "lock:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+          "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+          "mode": "share",
+          "order": 0
+        },
+        {
+          "id": "lock:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation",
+          "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce",
+          "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation",
+          "mode": "share",
+          "order": 1
+        },
+        {
+          "id": "lock:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+          "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+          "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+          "mode": "share",
+          "order": 2
+        }
+      ],
+      "effects": [
+        {
+          "id": "effect:action:act_d10d1618ed4045f396b64fc3745ce3dd.0",
+          "order": 0,
+          "kind": "create",
+          "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+          "assignments": [
+            {
+              "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+              "expression": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+                "parameter": "actor",
+                "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+                "fieldName": "org",
+                "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+              "expression": {
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+                "name": "actor",
+                "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_f70e0428ad644adc8f1ec755350ad645",
+              "expression": {
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+                "name": "environment",
+                "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+                "type": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
+              "expression": {
+                "kind": "parameter",
+                "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.commitSha",
+                "name": "commitSha",
+                "type": "String",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+              "expression": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "memberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
+                "memberName": "PENDING_APPROVAL",
+                "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_da7706d558434a06b10cfa548972efa6",
+              "expression": {
+                "kind": "nullLiteral",
+                "type": "null",
+                "nullable": true
+              }
+            },
+            {
+              "fieldId": "field:fld_d82dc0f1c8fc4accacdc742dd0258ac6",
+              "expression": {
+                "kind": "nullLiteral",
+                "type": "null",
+                "nullable": true
+              }
+            }
+          ]
+        }
+      ],
+      "postconditions": {
+        "invariantIds": [
+          "invariant:inv_1be7fd43c4ab4198ab733fbeb8fd7d44",
+          "invariant:inv_a981bd3d01714dd489b3159dfddf6e31",
+          "invariant:inv_ff4e5164d93f4c67b0be7af34ed228d7"
+        ],
+        "temporalExclusionIds": []
+      },
+      "workflowTransitionIds": [],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "durableReceipt": true,
+        "correlation": true
+      },
+      "emittedEventIds": [],
+      "failureClasses": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ]
+    },
+    {
+      "id": "action:act_047a601f15384b5ea4bfa05b5ef72676",
+      "name": "approveProductionDeployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 210,
+        "column": 1,
+        "endLine": 228,
+        "endColumn": 2
+      },
+      "caller": {
+        "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+        "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+        "source": "authenticatedContext"
+      },
+      "input": [
+        {
+          "id": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+          "name": "request",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+          }
+        }
+      ],
+      "output": {
+        "entityId": "entity:ent_f6f083c592f34c07af0204bb507be013",
+        "cardinality": "one"
+      },
+      "authorization": {
+        "id": "authorize:action:act_047a601f15384b5ea4bfa05b5ef72676",
+        "name": "authorize",
+        "expression": {
+          "kind": "policyCall",
+          "policyId": "policy:pol_08ab785a8747405bbdfeb05009a9df9d",
+          "arguments": [
+            {
+              "kind": "entityValue",
+              "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+              "name": "actor",
+              "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "nullable": false
+            },
+            {
+              "kind": "entityValue",
+              "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+              "name": "request",
+              "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+              "type": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+              "nullable": false
+            }
+          ],
+          "type": "Boolean",
+          "nullable": false
+        },
+        "sourceExpression": "IndependentHumanApprover(actor, request)",
+        "source": {
+          "file": "signalbox.model",
+          "line": 214,
+          "column": 13,
+          "endLine": 214,
+          "endColumn": 53
+        },
+        "dependencies": [
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request"
+          },
+          {
+            "kind": "policy",
+            "id": "policy:pol_08ab785a8747405bbdfeb05009a9df9d"
+          }
+        ]
+      },
+      "preconditions": [
+        {
+          "id": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
+          "name": "awaiting_approval",
+          "expression": {
+            "kind": "binary",
+            "operator": "==",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+              "parameter": "request",
+              "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+              "fieldName": "status",
+              "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "nullable": false
+            },
+            "right": {
+              "kind": "enumLiteral",
+              "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "memberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
+              "memberName": "PENDING_APPROVAL",
+              "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(request.status == RequestStatus.PENDING_APPROVAL)",
+          "source": {
+            "file": "signalbox.model",
+            "line": 215,
+            "column": 3,
+            "endLine": 215,
+            "endColumn": 79
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_d905a7f0828849ae855fbbd30aad5255"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request"
+            }
+          ]
+        }
+      ],
+      "readSet": {
+        "entityIds": [
+          "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+        ],
+        "fieldIds": [
+          "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+          "field:fld_4494f33148d746dcb887d73be133b248",
+          "field:fld_701810bb7b774ea4877941ecd35be293",
+          "field:fld_72c4a69879134905b2c62f511514143f",
+          "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+          "field:fld_c9d0dea7ee234d18824faaed519bff81",
+          "field:fld_d905a7f0828849ae855fbbd30aad5255"
+        ]
+      },
+      "lockPlan": [
+        {
+          "id": "lock:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+          "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+          "mode": "share",
+          "order": 0
+        },
+        {
+          "id": "lock:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+          "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+          "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+          "mode": "update",
+          "order": 1
+        }
+      ],
+      "effects": [
+        {
+          "id": "effect:action:act_047a601f15384b5ea4bfa05b5ef72676.0",
+          "order": 0,
+          "kind": "update",
+          "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+          "targetParameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+          "assignments": [
+            {
+              "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+              "expression": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "memberId": "enumMember:emv_66537f67e79d4374a2d5dede854aed06",
+                "memberName": "APPROVED",
+                "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_da7706d558434a06b10cfa548972efa6",
+              "expression": {
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+                "name": "actor",
+                "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_d82dc0f1c8fc4accacdc742dd0258ac6",
+              "expression": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+                "parameter": "actor",
+                "fieldId": "field:fld_701810bb7b774ea4877941ecd35be293",
+                "fieldName": "roles",
+                "type": "set:enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+                "nullable": false
+              }
+            }
+          ]
+        },
+        {
+          "id": "effect:action:act_047a601f15384b5ea4bfa05b5ef72676.1",
+          "order": 1,
+          "kind": "create",
+          "entityId": "entity:ent_f6f083c592f34c07af0204bb507be013",
+          "assignments": [
+            {
+              "fieldId": "field:fld_84cbfc1dead747469eff52af38e562fc",
+              "expression": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+                "parameter": "request",
+                "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                "fieldName": "org",
+                "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_f64acc87201840f491d55ceb5c6bebec",
+              "expression": {
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+                "name": "request",
+                "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+                "type": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_3cbd6c8ee8df4e4e90d1932ad237e9c2",
+              "expression": {
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+                "name": "actor",
+                "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+                "nullable": false
+              }
+            }
+          ]
+        }
+      ],
+      "postconditions": {
+        "invariantIds": [
+          "invariant:inv_1be7fd43c4ab4198ab733fbeb8fd7d44",
+          "invariant:inv_a981bd3d01714dd489b3159dfddf6e31",
+          "invariant:inv_ff4e5164d93f4c67b0be7af34ed228d7"
+        ],
+        "temporalExclusionIds": []
+      },
+      "workflowTransitionIds": [
+        "transition:trn_71f01fea84c94edf82cd4d28255783f3"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "durableReceipt": true,
+        "correlation": true
+      },
+      "emittedEventIds": [],
+      "failureClasses": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "transition",
+        "invariant"
+      ]
+    },
+    {
+      "id": "action:act_4a9421bfc2e744969b9f73109e6cda54",
+      "name": "executeApprovedDeployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 231,
+        "column": 1,
+        "endLine": 253,
+        "endColumn": 2
+      },
+      "caller": {
+        "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+        "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+        "source": "authenticatedContext"
+      },
+      "input": [
+        {
+          "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+          "name": "request",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+          }
+        },
+        {
+          "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+          "name": "allowance",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        }
+      ],
+      "output": {
+        "entityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+        "cardinality": "one"
+      },
+      "authorization": {
+        "id": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+        "name": "authorize",
+        "expression": {
+          "kind": "binary",
+          "operator": "and",
+          "left": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "and",
+              "left": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+                  "parameter": "actor",
+                  "fieldId": "field:fld_4494f33148d746dcb887d73be133b248",
+                  "fieldName": "kind",
+                  "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "enumLiteral",
+                  "enumId": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                  "memberId": "enumMember:emv_efb2884e01154acc9e5ef1f0ed82ae38",
+                  "memberName": "HUMAN",
+                  "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false
+              },
+              "right": {
+                "kind": "binary",
+                "operator": "==",
+                "left": {
+                  "kind": "fieldAccess",
+                  "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+                  "parameter": "actor",
+                  "fieldId": "field:fld_72c4a69879134905b2c62f511514143f",
+                  "fieldName": "status",
+                  "type": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                  "nullable": false
+                },
+                "right": {
+                  "kind": "enumLiteral",
+                  "enumId": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                  "memberId": "enumMember:emv_342a2e9919724cf490eea833a409067b",
+                  "memberName": "ACTIVE",
+                  "type": "enum:enm_b3eb770de22342738109ac1a6eba6d12",
+                  "nullable": false
+                },
+                "type": "Boolean",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "in",
+              "left": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+                "memberId": "enumMember:emv_9d8ee6584f95458392c0ac62647c3453",
+                "memberName": "ADMIN",
+                "type": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+                "nullable": false
+              },
+              "right": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+                "parameter": "actor",
+                "fieldId": "field:fld_701810bb7b774ea4877941ecd35be293",
+                "fieldName": "roles",
+                "type": "set:enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false,
+              "comparisonSemantics": "setMembership"
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "right": {
+            "kind": "binary",
+            "operator": "==",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+              "parameter": "actor",
+              "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+              "fieldName": "org",
+              "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+              "nullable": false
+            },
+            "right": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+              "parameter": "request",
+              "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+              "fieldName": "org",
+              "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false,
+            "comparisonSemantics": "entityIdentity"
+          },
+          "type": "Boolean",
+          "nullable": false
+        },
+        "sourceExpression": "((((actor.kind == PrincipalKind.HUMAN) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.ADMIN in actor.roles)) and (actor.org == request.org))",
+        "source": {
+          "file": "signalbox.model",
+          "line": 237,
+          "column": 5,
+          "endLine": 240,
+          "endColumn": 33
+        },
+        "dependencies": [
+          {
+            "kind": "enumMember",
+            "id": "enumMember:emv_342a2e9919724cf490eea833a409067b"
+          },
+          {
+            "kind": "enumMember",
+            "id": "enumMember:emv_9d8ee6584f95458392c0ac62647c3453"
+          },
+          {
+            "kind": "enumMember",
+            "id": "enumMember:emv_efb2884e01154acc9e5ef1f0ed82ae38"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_4494f33148d746dcb887d73be133b248"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_701810bb7b774ea4877941ecd35be293"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_72c4a69879134905b2c62f511514143f"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request"
+          }
+        ]
+      },
+      "preconditions": [
+        {
+          "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
+          "name": "approved",
+          "expression": {
+            "kind": "binary",
+            "operator": "==",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+              "parameter": "request",
+              "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+              "fieldName": "status",
+              "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "nullable": false
+            },
+            "right": {
+              "kind": "enumLiteral",
+              "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "memberId": "enumMember:emv_66537f67e79d4374a2d5dede854aed06",
+              "memberName": "APPROVED",
+              "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(request.status == RequestStatus.APPROVED)",
+          "source": {
+            "file": "signalbox.model",
+            "line": 241,
+            "column": 3,
+            "endLine": 241,
+            "endColumn": 62
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_66537f67e79d4374a2d5dede854aed06"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_d905a7f0828849ae855fbbd30aad5255"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request"
+            }
+          ]
+        },
+        {
+          "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
+          "name": "allowance_same_org",
+          "expression": {
+            "kind": "binary",
+            "operator": "==",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+              "parameter": "allowance",
+              "fieldId": "field:fld_059d2ddcea884369a05e172746ce56ee",
+              "fieldName": "org",
+              "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+              "nullable": false
+            },
+            "right": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+              "parameter": "request",
+              "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+              "fieldName": "org",
+              "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false,
+            "comparisonSemantics": "entityIdentity"
+          },
+          "sourceExpression": "(allowance.org == request.org)",
+          "source": {
+            "file": "signalbox.model",
+            "line": 242,
+            "column": 3,
+            "endLine": 242,
+            "endColumn": 60
+          },
+          "dependencies": [
+            {
+              "kind": "field",
+              "id": "field:fld_059d2ddcea884369a05e172746ce56ee"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request"
+            }
+          ]
+        }
+      ],
+      "readSet": {
+        "entityIds": [
+          "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+          "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+        ],
+        "fieldIds": [
+          "field:fld_059d2ddcea884369a05e172746ce56ee",
+          "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+          "field:fld_4494f33148d746dcb887d73be133b248",
+          "field:fld_701810bb7b774ea4877941ecd35be293",
+          "field:fld_72c4a69879134905b2c62f511514143f",
+          "field:fld_c9d0dea7ee234d18824faaed519bff81",
+          "field:fld_d905a7f0828849ae855fbbd30aad5255"
+        ]
+      },
+      "lockPlan": [
+        {
+          "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+          "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+          "mode": "share",
+          "order": 0
+        },
+        {
+          "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+          "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+          "mode": "share",
+          "order": 1
+        },
+        {
+          "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+          "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+          "mode": "update",
+          "order": 2
+        }
+      ],
+      "effects": [
+        {
+          "id": "effect:action:act_4a9421bfc2e744969b9f73109e6cda54.0",
+          "order": 0,
+          "kind": "update",
+          "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+          "targetParameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+          "assignments": [
+            {
+              "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+              "expression": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "memberId": "enumMember:emv_7dfcad253ae24f8b9b05598cd2c5b59e",
+                "memberName": "EXECUTED",
+                "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "nullable": false
+              }
+            }
+          ]
+        },
+        {
+          "id": "effect:action:act_4a9421bfc2e744969b9f73109e6cda54.1",
+          "order": 1,
+          "kind": "create",
+          "entityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+          "assignments": [
+            {
+              "fieldId": "field:fld_38800d8c1ef74f46a314cdbf1ba6aed6",
+              "expression": {
+                "kind": "fieldAccess",
+                "source": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                "parameter": "request",
+                "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                "fieldName": "org",
+                "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_cbe0efca671b48e992d83664581698ba",
+              "expression": {
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+                "name": "request",
+                "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+                "type": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+                "nullable": false
+              }
+            },
+            {
+              "fieldId": "field:fld_3ab113e9fda24d89818dc798b47dc0bd",
+              "expression": {
+                "kind": "entityValue",
+                "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+                "name": "allowance",
+                "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+                "type": "entity:ent_b0fd2128e94a469089ac56c643cc4e36",
+                "nullable": false
+              }
+            }
+          ]
+        }
+      ],
+      "postconditions": {
+        "invariantIds": [
+          "invariant:inv_1be7fd43c4ab4198ab733fbeb8fd7d44",
+          "invariant:inv_a981bd3d01714dd489b3159dfddf6e31",
+          "invariant:inv_ff4e5164d93f4c67b0be7af34ed228d7"
+        ],
+        "temporalExclusionIds": []
+      },
+      "workflowTransitionIds": [
+        "transition:trn_e8d57ac85e6745f99c7e5abd4d795209"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "durableReceipt": true,
+        "correlation": true
+      },
+      "emittedEventIds": [],
+      "failureClasses": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "transition",
+        "invariant"
+      ]
+    },
+    {
+      "id": "action:act_18ab026d358144dfa4d1729e40dd832e",
+      "name": "rejectProductionDeployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 255,
+        "column": 1,
+        "endLine": 266,
+        "endColumn": 2
+      },
+      "caller": {
+        "parameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.actor",
+        "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+        "source": "authenticatedContext"
+      },
+      "input": [
+        {
+          "id": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request",
+          "name": "request",
+          "type": {
+            "kind": "entity",
+            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+          }
+        }
+      ],
+      "output": {
+        "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+        "cardinality": "one"
+      },
+      "authorization": {
+        "id": "authorize:action:act_18ab026d358144dfa4d1729e40dd832e",
+        "name": "authorize",
+        "expression": {
+          "kind": "policyCall",
+          "policyId": "policy:pol_08ab785a8747405bbdfeb05009a9df9d",
+          "arguments": [
+            {
+              "kind": "entityValue",
+              "parameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.actor",
+              "name": "actor",
+              "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "nullable": false
+            },
+            {
+              "kind": "entityValue",
+              "parameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request",
+              "name": "request",
+              "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+              "type": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+              "nullable": false
+            }
+          ],
+          "type": "Boolean",
+          "nullable": false
+        },
+        "sourceExpression": "IndependentHumanApprover(actor, request)",
+        "source": {
+          "file": "signalbox.model",
+          "line": 259,
+          "column": 13,
+          "endLine": 259,
+          "endColumn": 53
+        },
+        "dependencies": [
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.actor"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request"
+          },
+          {
+            "kind": "policy",
+            "id": "policy:pol_08ab785a8747405bbdfeb05009a9df9d"
+          }
+        ]
+      },
+      "preconditions": [
+        {
+          "id": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
+          "name": "awaiting_approval",
+          "expression": {
+            "kind": "binary",
+            "operator": "==",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request",
+              "parameter": "request",
+              "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+              "fieldName": "status",
+              "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "nullable": false
+            },
+            "right": {
+              "kind": "enumLiteral",
+              "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "memberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
+              "memberName": "PENDING_APPROVAL",
+              "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "sourceExpression": "(request.status == RequestStatus.PENDING_APPROVAL)",
+          "source": {
+            "file": "signalbox.model",
+            "line": 260,
+            "column": 3,
+            "endLine": 260,
+            "endColumn": 79
+          },
+          "dependencies": [
+            {
+              "kind": "enumMember",
+              "id": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d"
+            },
+            {
+              "kind": "field",
+              "id": "field:fld_d905a7f0828849ae855fbbd30aad5255"
+            },
+            {
+              "kind": "parameter",
+              "id": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request"
+            }
+          ]
+        }
+      ],
+      "readSet": {
+        "entityIds": [
+          "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+        ],
+        "fieldIds": [
+          "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+          "field:fld_4494f33148d746dcb887d73be133b248",
+          "field:fld_701810bb7b774ea4877941ecd35be293",
+          "field:fld_72c4a69879134905b2c62f511514143f",
+          "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+          "field:fld_c9d0dea7ee234d18824faaed519bff81",
+          "field:fld_d905a7f0828849ae855fbbd30aad5255"
+        ]
+      },
+      "lockPlan": [
+        {
+          "id": "lock:action:act_18ab026d358144dfa4d1729e40dd832e.actor",
+          "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "parameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.actor",
+          "mode": "share",
+          "order": 0
+        },
+        {
+          "id": "lock:action:act_18ab026d358144dfa4d1729e40dd832e.request",
+          "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+          "parameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request",
+          "mode": "update",
+          "order": 1
+        }
+      ],
+      "effects": [
+        {
+          "id": "effect:action:act_18ab026d358144dfa4d1729e40dd832e.0",
+          "order": 0,
+          "kind": "update",
+          "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+          "targetParameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request",
+          "assignments": [
+            {
+              "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+              "expression": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "memberId": "enumMember:emv_1f9acbfbce954efbaff9c782a7e5af94",
+                "memberName": "REJECTED",
+                "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "nullable": false
+              }
+            }
+          ]
+        }
+      ],
+      "postconditions": {
+        "invariantIds": [
+          "invariant:inv_1be7fd43c4ab4198ab733fbeb8fd7d44",
+          "invariant:inv_a981bd3d01714dd489b3159dfddf6e31",
+          "invariant:inv_ff4e5164d93f4c67b0be7af34ed228d7"
+        ],
+        "temporalExclusionIds": []
+      },
+      "workflowTransitionIds": [
+        "transition:trn_70d0b557789946c9874777fc20cb27dd"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "replay": "storedResult",
+        "durableReceipt": true,
+        "correlation": true
+      },
+      "emittedEventIds": [],
+      "failureClasses": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "transition",
+        "invariant"
+      ]
+    }
+  ],
+  "consumers": [],
+  "queries": [
+    {
+      "id": "query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "name": "myOrgDeployRequests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 294,
+        "column": 1,
+        "endLine": 303,
+        "endColumn": 2
+      },
+      "caller": {
+        "parameterId": "parameter:query:qry_60d1c5d416eb428caa385db274edcb4b.actor",
+        "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+        "source": "authenticatedContext"
+      },
+      "input": [],
+      "output": {
+        "projectionId": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
+        "cardinality": "page",
+        "maxItems": 50,
+        "pagination": {
+          "kind": "cursor",
+          "cursorVersion": 1,
+          "queryRevision": "sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b",
+          "cursorInput": "cursor"
+        }
+      },
+      "authorization": {
+        "id": "authorize:query:qry_60d1c5d416eb428caa385db274edcb4b",
+        "name": "authorize",
+        "expression": {
+          "kind": "literal",
+          "value": true,
+          "type": "Boolean",
+          "nullable": false
+        },
+        "sourceExpression": "true",
+        "source": {
+          "file": "signalbox.model",
+          "line": 297,
+          "column": 13,
+          "endLine": 297,
+          "endColumn": 17
+        },
+        "dependencies": []
+      },
+      "rowPolicy": {
+        "id": "where:query:qry_60d1c5d416eb428caa385db274edcb4b",
+        "name": "where",
+        "expression": {
+          "kind": "binary",
+          "operator": "==",
+          "left": {
+            "kind": "fieldAccess",
+            "source": "queryRow",
+            "parameter": "request",
+            "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+            "fieldName": "org",
+            "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+            "nullable": false
+          },
+          "right": {
+            "kind": "fieldAccess",
+            "source": "parameter:query:qry_60d1c5d416eb428caa385db274edcb4b.actor",
+            "parameter": "actor",
+            "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+            "fieldName": "org",
+            "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+            "nullable": false
+          },
+          "type": "Boolean",
+          "nullable": false,
+          "comparisonSemantics": "entityIdentity"
+        },
+        "sourceExpression": "(request.org == actor.org)",
+        "source": {
+          "file": "signalbox.model",
+          "line": 298,
+          "column": 9,
+          "endLine": 298,
+          "endColumn": 33
+        },
+        "dependencies": [
+          {
+            "kind": "field",
+            "id": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:query:qry_60d1c5d416eb428caa385db274edcb4b.actor"
+          }
+        ]
+      },
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:e07638c9b2a5d43087667ad7cdde7d46a6b3cb306f8d2e539a3b11848729cc8b"
+      },
+      "readSet": {
+        "entityIds": [
+          "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+        ],
+        "fieldIds": [
+          "field:fld_0f4346fb82a7470baa889475e5480797",
+          "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+          "field:fld_4494f33148d746dcb887d73be133b248",
+          "field:fld_90575438c6e94deab4c8e6948e68345b",
+          "field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
+          "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+          "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+          "field:fld_c9d0dea7ee234d18824faaed519bff81",
+          "field:fld_d905a7f0828849ae855fbbd30aad5255",
+          "field:fld_da7706d558434a06b10cfa548972efa6",
+          "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85"
+        ]
+      },
+      "disclosureSet": {
+        "projectionId": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
+        "projectionIds": [
+          "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
+          "projection:prj_a89b0acb503746ed86110f47bbe42c04"
+        ],
+        "projectionFieldIds": [
+          "projectionField:pfd_3835738ea3d74c929d37b9e48fe5621c",
+          "projectionField:pfd_82476ee8b87447bb890d32c0bb74da68",
+          "projectionField:pfd_eb55b7f4b54d45cba6b5d74ddd65f4ff",
+          "projectionField:pfd_a9d6406516424f5b846f165cade68203",
+          "projectionField:pfd_e2b6c3876e0f4b538de84f9aa524b5d5",
+          "projectionField:pfd_15c0e810e03d42ceb2841d637f58119e",
+          "projectionField:pfd_2671ffbfa9204040bf12047d8863d7bb",
+          "projectionField:pfd_018396cfad6b491189efac5afc593045",
+          "projectionField:pfd_727810accbba4c598f1cc706d3ab403b"
+        ],
+        "sourceFieldIds": [
+          "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+          "field:fld_90575438c6e94deab4c8e6948e68345b",
+          "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
+          "field:fld_d905a7f0828849ae855fbbd30aad5255",
+          "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+          "field:fld_da7706d558434a06b10cfa548972efa6",
+          "field:fld_0f4346fb82a7470baa889475e5480797",
+          "field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
+          "field:fld_4494f33148d746dcb887d73be133b248"
+        ]
+      },
+      "orderBy": {
+        "fieldId": "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+        "direction": "asc",
+        "identityTieBreaker": true
+      },
+      "failureClasses": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ]
+    },
+    {
+      "id": "query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "name": "approvalInbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 305,
+        "column": 1,
+        "endLine": 318,
+        "endColumn": 2
+      },
+      "caller": {
+        "parameterId": "parameter:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor",
+        "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+        "source": "authenticatedContext"
+      },
+      "input": [],
+      "output": {
+        "projectionId": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
+        "cardinality": "page",
+        "maxItems": 50,
+        "pagination": {
+          "kind": "cursor",
+          "cursorVersion": 1,
+          "queryRevision": "sha256:1be0f20f5159288d02fcc0cc3848d32633b1c7bcad6dea570b6b61a0ed5ac15a",
+          "cursorInput": "cursor"
+        }
+      },
+      "authorization": {
+        "id": "authorize:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+        "name": "authorize",
+        "expression": {
+          "kind": "binary",
+          "operator": "and",
+          "left": {
+            "kind": "binary",
+            "operator": "==",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "parameter:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor",
+              "parameter": "actor",
+              "fieldId": "field:fld_4494f33148d746dcb887d73be133b248",
+              "fieldName": "kind",
+              "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+              "nullable": false
+            },
+            "right": {
+              "kind": "enumLiteral",
+              "enumId": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+              "memberId": "enumMember:emv_efb2884e01154acc9e5ef1f0ed82ae38",
+              "memberName": "HUMAN",
+              "type": "enum:enm_943e2ecda4b34981aa0185964e8ebea1",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "right": {
+            "kind": "binary",
+            "operator": "in",
+            "left": {
+              "kind": "enumLiteral",
+              "enumId": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+              "memberId": "enumMember:emv_42acb032e28f402aae0129d1b2da8fa0",
+              "memberName": "APPROVER",
+              "type": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+              "nullable": false
+            },
+            "right": {
+              "kind": "fieldAccess",
+              "source": "parameter:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor",
+              "parameter": "actor",
+              "fieldId": "field:fld_701810bb7b774ea4877941ecd35be293",
+              "fieldName": "roles",
+              "type": "set:enum:enm_0be4ea379dd741439ed47dcaae9dd5fc",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false,
+            "comparisonSemantics": "setMembership"
+          },
+          "type": "Boolean",
+          "nullable": false
+        },
+        "sourceExpression": "((actor.kind == PrincipalKind.HUMAN) and (Role.APPROVER in actor.roles))",
+        "source": {
+          "file": "signalbox.model",
+          "line": 309,
+          "column": 5,
+          "endLine": 310,
+          "endColumn": 37
+        },
+        "dependencies": [
+          {
+            "kind": "enumMember",
+            "id": "enumMember:emv_42acb032e28f402aae0129d1b2da8fa0"
+          },
+          {
+            "kind": "enumMember",
+            "id": "enumMember:emv_efb2884e01154acc9e5ef1f0ed82ae38"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_4494f33148d746dcb887d73be133b248"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_701810bb7b774ea4877941ecd35be293"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor"
+          }
+        ]
+      },
+      "rowPolicy": {
+        "id": "where:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+        "name": "where",
+        "expression": {
+          "kind": "binary",
+          "operator": "and",
+          "left": {
+            "kind": "binary",
+            "operator": "and",
+            "left": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "queryRow",
+                "parameter": "request",
+                "fieldId": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+                "fieldName": "org",
+                "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                "nullable": false
+              },
+              "right": {
+                "kind": "fieldAccess",
+                "source": "parameter:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor",
+                "parameter": "actor",
+                "fieldId": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+                "fieldName": "org",
+                "type": "entity:ent_661a8bc41d68494eaaa82198b8354a94",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false,
+              "comparisonSemantics": "entityIdentity"
+            },
+            "right": {
+              "kind": "binary",
+              "operator": "==",
+              "left": {
+                "kind": "fieldAccess",
+                "source": "queryRow",
+                "parameter": "request",
+                "fieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
+                "fieldName": "status",
+                "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "nullable": false
+              },
+              "right": {
+                "kind": "enumLiteral",
+                "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "memberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
+                "memberName": "PENDING_APPROVAL",
+                "type": "enum:enm_62bc5aa58efc405398d2931c339c730c",
+                "nullable": false
+              },
+              "type": "Boolean",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false
+          },
+          "right": {
+            "kind": "binary",
+            "operator": "!=",
+            "left": {
+              "kind": "fieldAccess",
+              "source": "queryRow",
+              "parameter": "request",
+              "fieldId": "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+              "fieldName": "requestedBy",
+              "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "nullable": false
+            },
+            "right": {
+              "kind": "entityValue",
+              "parameterId": "parameter:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor",
+              "name": "actor",
+              "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "type": "entity:ent_197f12dacaf14992a367c5c15f895415",
+              "nullable": false
+            },
+            "type": "Boolean",
+            "nullable": false,
+            "comparisonSemantics": "entityIdentity"
+          },
+          "type": "Boolean",
+          "nullable": false
+        },
+        "sourceExpression": "(((request.org == actor.org) and (request.status == RequestStatus.PENDING_APPROVAL)) and (request.requestedBy != actor))",
+        "source": {
+          "file": "signalbox.model",
+          "line": 311,
+          "column": 9,
+          "endLine": 313,
+          "endColumn": 37
+        },
+        "dependencies": [
+          {
+            "kind": "enumMember",
+            "id": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_c9d0dea7ee234d18824faaed519bff81"
+          },
+          {
+            "kind": "field",
+            "id": "field:fld_d905a7f0828849ae855fbbd30aad5255"
+          },
+          {
+            "kind": "parameter",
+            "id": "parameter:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor"
+          }
+        ]
+      },
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:1be0f20f5159288d02fcc0cc3848d32633b1c7bcad6dea570b6b61a0ed5ac15a"
+      },
+      "readSet": {
+        "entityIds": [
+          "entity:ent_197f12dacaf14992a367c5c15f895415",
+          "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+        ],
+        "fieldIds": [
+          "field:fld_0f4346fb82a7470baa889475e5480797",
+          "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+          "field:fld_4494f33148d746dcb887d73be133b248",
+          "field:fld_701810bb7b774ea4877941ecd35be293",
+          "field:fld_90575438c6e94deab4c8e6948e68345b",
+          "field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
+          "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+          "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+          "field:fld_c9d0dea7ee234d18824faaed519bff81",
+          "field:fld_d905a7f0828849ae855fbbd30aad5255",
+          "field:fld_da7706d558434a06b10cfa548972efa6",
+          "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85"
+        ]
+      },
+      "disclosureSet": {
+        "projectionId": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
+        "projectionIds": [
+          "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
+          "projection:prj_a89b0acb503746ed86110f47bbe42c04"
+        ],
+        "projectionFieldIds": [
+          "projectionField:pfd_3835738ea3d74c929d37b9e48fe5621c",
+          "projectionField:pfd_82476ee8b87447bb890d32c0bb74da68",
+          "projectionField:pfd_eb55b7f4b54d45cba6b5d74ddd65f4ff",
+          "projectionField:pfd_a9d6406516424f5b846f165cade68203",
+          "projectionField:pfd_e2b6c3876e0f4b538de84f9aa524b5d5",
+          "projectionField:pfd_15c0e810e03d42ceb2841d637f58119e",
+          "projectionField:pfd_2671ffbfa9204040bf12047d8863d7bb",
+          "projectionField:pfd_018396cfad6b491189efac5afc593045",
+          "projectionField:pfd_727810accbba4c598f1cc706d3ab403b"
+        ],
+        "sourceFieldIds": [
+          "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+          "field:fld_90575438c6e94deab4c8e6948e68345b",
+          "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
+          "field:fld_d905a7f0828849ae855fbbd30aad5255",
+          "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+          "field:fld_da7706d558434a06b10cfa548972efa6",
+          "field:fld_0f4346fb82a7470baa889475e5480797",
+          "field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
+          "field:fld_4494f33148d746dcb887d73be133b248"
+        ]
+      },
+      "orderBy": {
+        "fieldId": "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+        "direction": "asc",
+        "identityTieBreaker": true
+      },
+      "failureClasses": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ]
+    }
+  ],
+  "extensions": []
+}

@@ -1,0 +1,1 @@
+-- Example seed data is defined only for the Procurement demonstration model.

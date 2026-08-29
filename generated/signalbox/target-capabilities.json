@@ -1,0 +1,244 @@
+{
+  "$schema": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/target-capability-profile.schema.json",
+  "profileVersion": 9,
+  "compilerVersion": "0.50.3",
+  "generatorProfile": "postgresql-http-ui-agent-plugin-atomic-effects/33",
+  "targetProfile": "target:postgresql-http-ui-extension-tools/9",
+  "irVersion": 2,
+  "model": {
+    "id": "model:Signalbox",
+    "version": "0.50.0",
+    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+  },
+  "conformance": "complete",
+  "authority": "none",
+  "capabilities": [
+    {
+      "id": "core.stableIdentity",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "compiler",
+        "canonical-ir",
+        "semantic-diff"
+      ]
+    },
+    {
+      "id": "core.typedState",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "compiler",
+        "postgresql",
+        "typescript"
+      ]
+    },
+    {
+      "id": "operations.authenticatedActions",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "postgresql",
+        "http"
+      ]
+    },
+    {
+      "id": "operations.reliableCommands",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "postgresql",
+        "http"
+      ]
+    },
+    {
+      "id": "policy.closedBoolean",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "compiler",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "events.transactionalOutbox",
+      "required": false,
+      "support": "native",
+      "enforcement": [
+        "postgresql",
+        "typescript"
+      ]
+    },
+    {
+      "id": "events.transactionalConsumers",
+      "required": false,
+      "support": "native",
+      "enforcement": [
+        "postgresql",
+        "typescript"
+      ]
+    },
+    {
+      "id": "queries.closedProjections",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "postgresql",
+        "http",
+        "ui-metadata"
+      ]
+    },
+    {
+      "id": "queries.toOneTraversal",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "compiler",
+        "postgresql",
+        "http"
+      ]
+    },
+    {
+      "id": "queries.optionalFilters",
+      "required": false,
+      "support": "native",
+      "enforcement": [
+        "compiler",
+        "postgresql",
+        "http"
+      ]
+    },
+    {
+      "id": "queries.authoredSortProfiles",
+      "required": false,
+      "support": "native",
+      "enforcement": [
+        "compiler",
+        "postgresql",
+        "http"
+      ]
+    },
+    {
+      "id": "queries.cursorPagination",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "postgresql",
+        "http"
+      ]
+    },
+    {
+      "id": "queries.conditionalDisclosure",
+      "required": false,
+      "support": "native",
+      "enforcement": [
+        "compiler",
+        "postgresql",
+        "http"
+      ]
+    },
+    {
+      "id": "queries.transactionalReadEvidence",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "postgresql"
+      ]
+    },
+    {
+      "id": "agents.staticToolCatalog",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "agent-tool-catalog",
+        "http"
+      ]
+    },
+    {
+      "id": "agents.subjectCapabilityView",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "agent-tool-catalog",
+        "http",
+        "postgresql-applicability"
+      ]
+    },
+    {
+      "id": "agents.currentStateResources",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "agent-tool-catalog",
+        "http",
+        "postgresql-query"
+      ]
+    },
+    {
+      "id": "agents.mcpAdapter",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "mcp",
+        "agent-tool-catalog",
+        "postgresql-runtime"
+      ]
+    },
+    {
+      "id": "agents.taskPackets",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "agent-task-packet",
+        "http",
+        "mcp",
+        "postgresql-runtime"
+      ]
+    },
+    {
+      "id": "agents.delegatedCapabilities",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "delegated-capability",
+        "http",
+        "mcp",
+        "host-credential-authority",
+        "postgresql-runtime"
+      ]
+    },
+    {
+      "id": "agents.publicDecisionTraces",
+      "required": true,
+      "support": "native",
+      "enforcement": [
+        "public-decision-trace",
+        "http",
+        "mcp",
+        "postgresql-applicability"
+      ]
+    },
+    {
+      "id": "agents.extensionToolAdapter",
+      "required": false,
+      "support": "native",
+      "enforcement": [
+        "agent-tool-catalog",
+        "http",
+        "mcp",
+        "host-extension-adapter",
+        "host-contract-tests"
+      ]
+    },
+    {
+      "id": "extensions.declaredExternal",
+      "required": false,
+      "support": "externalImplementationRequired",
+      "enforcement": [
+        "extension-ledger",
+        "host-conformance-tests"
+      ]
+    }
+  ],
+  "gaps": []
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/event-manifest.schema.json",
+  "eventManifestVersion": 5,
+  "model": {
+    "id": "model:Signalbox",
+    "name": "Signalbox",
+    "version": "0.50.0",
+    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e"
+  },
+  "delivery": {
+    "semantics": "atLeastOnce",
+    "storage": "privateTransactionalOutbox",
+    "ordering": "occurredAtThenProducerOrdinal",
+    "acknowledgement": "leaseToken",
+    "envelopeVersion": 2
+  },
+  "events": []
+}

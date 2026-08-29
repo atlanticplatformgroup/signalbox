@@ -1,0 +1,318 @@
+// Signalbox — transactional interlocking for AI agent actions.
+//
+// SPIKE SCOPE: proves the workarounds forced by ModelLang 0.50 constraints.
+//   1. Single principal entity + `kind` discriminator   (E2304: one principal per model)
+//   2. Budget as Allowance rows, not arithmetic          (no +,-,*,/ operators exist)
+//   3. Typed per-action request entity, not a JSON blob  (no Json scalar exists)
+//   4. Cross-entity org consistency as preconditions     (E2406: invariants are local-only)
+//
+// Guarantees under test:
+//   A. requester cannot approve own request      (policy + at-rest invariant)
+//   B. a request executes at most once           (Execution.request @unique)
+//   C. an allowance is consumed at most once     (Execution.allowance @unique)
+//   D. every read is tenant-scoped               (explicit org predicates)
+
+model Signalbox version "0.50.0";
+
+enum PrincipalKind @stableId("enm_943e2ecda4b34981aa0185964e8ebea1") {
+  HUMAN @stableId("emv_efb2884e01154acc9e5ef1f0ed82ae38"),
+  AGENT @stableId("emv_6ceac84fdd024ed9a99f98717db188f5")
+}
+
+enum PrincipalStatus @stableId("enm_b3eb770de22342738109ac1a6eba6d12") {
+  ACTIVE @stableId("emv_342a2e9919724cf490eea833a409067b"),
+  REVOKED @stableId("emv_9bb96442c5fb4a7eb09bdba6438cf103")
+}
+
+enum Role @stableId("enm_0be4ea379dd741439ed47dcaae9dd5fc") {
+  MEMBER @stableId("emv_86658ec57f164a6aa3fcacffbc75de4e"),
+  APPROVER @stableId("emv_42acb032e28f402aae0129d1b2da8fa0"),
+  ADMIN @stableId("emv_9d8ee6584f95458392c0ac62647c3453")
+}
+
+enum EnvironmentTier @stableId("enm_380f40ed4b084a67944e5f793458621d") {
+  STAGING @stableId("emv_755e07c678b947119388106756bf7f0d"),
+  PRODUCTION @stableId("emv_6c5e03a32f0a410785d2bba34a83ff21")
+}
+
+enum Capability @stableId("enm_8381729a6ae947c885585318421c3883") {
+  DEPLOY_STAGING @stableId("emv_f2c9d52d03e24e409ae47104d23b1ef5"),
+  REQUEST_PRODUCTION_DEPLOY @stableId("emv_b6af2941a9904877944e278153abca35")
+}
+
+enum DelegationStatus @stableId("enm_82705b31f72f487b9f0af8726779ea39") {
+  ACTIVE @stableId("emv_740011172f05480b9606af59979e50ce"),
+  REVOKED @stableId("emv_b37edfd22dda455b8aee5a11238b8a39")
+}
+
+enum RequestStatus @stableId("enm_62bc5aa58efc405398d2931c339c730c") {
+  PENDING_APPROVAL @stableId("emv_68cab0efe9654fce9b385cede2f85e9d"),
+  APPROVED @stableId("emv_66537f67e79d4374a2d5dede854aed06"),
+  REJECTED @stableId("emv_1f9acbfbce954efbaff9c782a7e5af94"),
+  EXECUTED @stableId("emv_7dfcad253ae24f8b9b05598cd2c5b59e")
+}
+
+entity Organization @stableId("ent_661a8bc41d68494eaaa82198b8354a94") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_8c75c4fc7038498e91dcd41c7a5fcb1e");
+  slug: String @unique @immutable @stableId("fld_b9b406196ec14910a8112232504a9ceb");
+  name: String @stableId("fld_549aa3872e244af8a95fbeeb39f9ea46");
+}
+
+// One principal entity for humans and agents. ModelLang permits exactly one
+// caller type per model, so identity kind is an attribute, not a separate entity.
+entity Principal @stableId("ent_197f12dacaf14992a367c5c15f895415") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_0f4346fb82a7470baa889475e5480797");
+  org: Organization @immutable @stableId("fld_21bdc1e7c1a4408f8d0c56d3c73b6856");
+  kind: PrincipalKind @immutable @stableId("fld_4494f33148d746dcb887d73be133b248");
+  displayName: String @stableId("fld_a25b3b5aefbe4466a95b26a8edf32a28");
+  status: PrincipalStatus = PrincipalStatus.ACTIVE @stableId("fld_72c4a69879134905b2c62f511514143f");
+  roles: Set<Role> @stableId("fld_701810bb7b774ea4877941ecd35be293");
+}
+
+entity Environment @stableId("ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_9c6795a2d88d486f9e1afafc7c39b749");
+  org: Organization @immutable @stableId("fld_a07af94c649f43379bb186f5d102939f");
+  name: String @stableId("fld_d7283a03833947b99224118cac98cf46");
+  tier: EnvironmentTier @immutable @stableId("fld_85e49c361751417686fab601b59b541b");
+}
+
+// Delegation is resolved by the host and passed in as a parameter. ModelLang
+// authorization cannot issue subqueries, so the boundary instead *verifies* the
+// supplied delegation belongs to the caller, the org, and the target resource.
+//
+// Cross-entity org consistency cannot be an entity invariant (E2406: invariants
+// may not dereference related entities), so it lives in policies and preconditions.
+entity Delegation @stableId("ent_accc8ba6b5ae4d76813eb983c3d1f8ce") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_776b40619c354d4b93a2eeec5f6cc254");
+  org: Organization @immutable @stableId("fld_57535d45b9bc42ccb9b9bed2c77a8996");
+  agent: Principal @immutable @stableId("fld_054b2d41511b413cb6928aa459d34e60");
+  capability: Capability @immutable @stableId("fld_cc8b5256189f47279d51704215aaae8f");
+  environment: Environment @immutable @stableId("fld_5baad9f56824417b8743b7cc93b32007");
+  status: DelegationStatus = DelegationStatus.ACTIVE @stableId("fld_3e25eaed78c54f1e893497b8af2045a1");
+}
+
+// Budget without arithmetic: allowances are pre-issued consumption tokens.
+entity Allowance @stableId("ent_b0fd2128e94a469089ac56c643cc4e36") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_4669d240de76491f918160af4833ca73");
+  org: Organization @immutable @stableId("fld_059d2ddcea884369a05e172746ce56ee");
+  period: String @immutable @stableId("fld_9e4882e18d894214b52e6dcde5e92efc");
+  sequence: Int @immutable @stableId("fld_a87e7d4bc69d4343b5aa2e955bed21a3");
+}
+
+entity ProductionDeployRequest @stableId("ent_e2b5ba3cccef437796b2048fd1ff2f24") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_adecbdc3c4cb4bbb8b4e528dbc7408a5");
+  createdAt: DateTime @generated(now) @immutable @stableId("fld_90575438c6e94deab4c8e6948e68345b");
+  org: Organization @immutable @stableId("fld_c9d0dea7ee234d18824faaed519bff81");
+  requestedBy: Principal @immutable @stableId("fld_c3b2af2fa9ab4b29bfaa4e030bee1562");
+  environment: Environment @immutable @stableId("fld_f70e0428ad644adc8f1ec755350ad645");
+  commitSha: String @immutable @stableId("fld_dd3ada66cf6b49b5a37ab5fcba85fb85");
+  status: RequestStatus = RequestStatus.PENDING_APPROVAL @stableId("fld_d905a7f0828849ae855fbbd30aad5255");
+  approvedBy: Principal? @stableId("fld_da7706d558434a06b10cfa548972efa6");
+  approvedByRoles: Set<Role>? @snapshot @stableId("fld_d82dc0f1c8fc4accacdc742dd0258ac6");
+
+  // Local-only invariants. `approvedByRoles` is a @snapshot precisely because an
+  // invariant cannot reach through `approvedBy` to read live roles.
+
+  // Guarantee A, at rest: an approved or executed request can never carry an
+  // approver equal to its requester.
+  invariant approver_differs_from_requester @stableId("inv_a981bd3d01714dd489b3159dfddf6e31"):
+    (status != RequestStatus.APPROVED and status != RequestStatus.EXECUTED)
+    or approvedBy != requestedBy;
+
+  invariant approval_fields_match_status @stableId("inv_ff4e5164d93f4c67b0be7af34ed228d7"):
+    (
+      (status == RequestStatus.APPROVED or status == RequestStatus.EXECUTED)
+      and approvedBy != null
+      and approvedByRoles != null
+    )
+    or
+    (
+      status != RequestStatus.APPROVED
+      and status != RequestStatus.EXECUTED
+      and approvedBy == null
+      and approvedByRoles == null
+    );
+
+  // Only a principal holding APPROVER may appear as the recorded approver.
+  invariant approval_authority_recorded @stableId("inv_1be7fd43c4ab4198ab733fbeb8fd7d44"):
+    (status != RequestStatus.APPROVED and status != RequestStatus.EXECUTED)
+    or Role.APPROVER in approvedByRoles;
+}
+
+entity Approval @stableId("ent_f6f083c592f34c07af0204bb507be013") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_d76e45f665d140d29821a79fe8cf0d57");
+  decidedAt: DateTime @generated(now) @immutable @stableId("fld_a9a2a789b7d74ca2971ab753ab9e9ab3");
+  org: Organization @immutable @stableId("fld_84cbfc1dead747469eff52af38e562fc");
+  request: ProductionDeployRequest @unique @stableId("fld_f64acc87201840f491d55ceb5c6bebec");
+  approver: Principal @immutable @stableId("fld_3cbd6c8ee8df4e4e90d1932ad237e9c2");
+}
+
+// Guarantee B and C are storage-level: one execution per request, one per allowance.
+entity Execution @stableId("ent_695aab5599c84a78ac8f2ea75ccbdf1d") {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_054965adb4f143f5a51c51d9449265b5");
+  startedAt: DateTime @generated(now) @immutable @stableId("fld_21c95bb344a2454680073627dfd4a830");
+  org: Organization @immutable @stableId("fld_38800d8c1ef74f46a314cdbf1ba6aed6");
+  request: ProductionDeployRequest @unique @stableId("fld_cbe0efca671b48e992d83664581698ba");
+  allowance: Allowance @unique @stableId("fld_3ab113e9fda24d89818dc798b47dc0bd");
+}
+
+// An agent may request a production deploy only with an active, matching delegation.
+policy ProductionDeployDelegation @stableId("pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a")(
+  actor: Principal,
+  delegation: Delegation,
+  environment: Environment
+) {
+  allow delegated_agent @stableId("pbr_a1caa050a0174a1d9c9e75137153a4d0"):
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and delegation.agent == actor
+    and delegation.status == DelegationStatus.ACTIVE
+    and delegation.capability == Capability.REQUEST_PRODUCTION_DEPLOY
+    and delegation.environment == environment
+    and delegation.org == actor.org
+    and environment.org == actor.org;
+}
+
+// Only an independent human approver may clear a production deploy.
+policy IndependentHumanApprover @stableId("pol_08ab785a8747405bbdfeb05009a9df9d")(
+  actor: Principal,
+  request: ProductionDeployRequest
+) {
+  allow independent_approver @stableId("pbr_3c3833abc88242adb5090ed343f32057"):
+    actor.kind == PrincipalKind.HUMAN
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.APPROVER in actor.roles
+    and actor.org == request.org
+    and actor != request.requestedBy;
+}
+
+action requestProductionDeployment @stableId("act_d10d1618ed4045f396b64fc3745ce3dd")(
+  caller actor: Principal,
+  delegation: Delegation,
+  environment: Environment,
+  commitSha: String
+) -> ProductionDeployRequest {
+  authorize ProductionDeployDelegation(actor, delegation, environment);
+  require production_target: environment.tier == EnvironmentTier.PRODUCTION;
+  idempotency required;
+
+  create ProductionDeployRequest {
+    org = actor.org;
+    requestedBy = actor;
+    environment = environment;
+    commitSha = commitSha;
+    status = RequestStatus.PENDING_APPROVAL;
+    approvedBy = null;
+    approvedByRoles = null;
+  }
+}
+
+action approveProductionDeployment @stableId("act_047a601f15384b5ea4bfa05b5ef72676")(
+  caller actor: Principal,
+  request: ProductionDeployRequest
+) -> Approval {
+  authorize IndependentHumanApprover(actor, request);
+  require awaiting_approval: request.status == RequestStatus.PENDING_APPROVAL;
+  idempotency required;
+
+  update request {
+    status = RequestStatus.APPROVED;
+    approvedBy = actor;
+    approvedByRoles = actor.roles;
+  }
+  create Approval {
+    org = request.org;
+    request = request;
+    approver = actor;
+  }
+}
+
+// Consumes exactly one allowance and produces exactly one execution, atomically.
+action executeApprovedDeployment @stableId("act_4a9421bfc2e744969b9f73109e6cda54")(
+  caller actor: Principal,
+  request: ProductionDeployRequest,
+  allowance: Allowance
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.HUMAN
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.ADMIN in actor.roles
+    and actor.org == request.org;
+  require approved: request.status == RequestStatus.APPROVED;
+  require allowance_same_org: allowance.org == request.org;
+  idempotency required;
+
+  update request {
+    status = RequestStatus.EXECUTED;
+  }
+  create Execution {
+    org = request.org;
+    request = request;
+    allowance = allowance;
+  }
+}
+
+action rejectProductionDeployment @stableId("act_18ab026d358144dfa4d1729e40dd832e")(
+  caller actor: Principal,
+  request: ProductionDeployRequest
+) -> ProductionDeployRequest {
+  authorize IndependentHumanApprover(actor, request);
+  require awaiting_approval: request.status == RequestStatus.PENDING_APPROVAL;
+  idempotency required;
+
+  update request {
+    status = RequestStatus.REJECTED;
+  }
+}
+
+workflow ProductionDeployLifecycle @stableId("wfl_e439c3fe71514c98b303d21ee7937042") for ProductionDeployRequest.status {
+  initial RequestStatus.PENDING_APPROVAL;
+  transition approve @stableId("trn_71f01fea84c94edf82cd4d28255783f3"):
+    RequestStatus.PENDING_APPROVAL -> RequestStatus.APPROVED by approveProductionDeployment;
+  transition execute @stableId("trn_e8d57ac85e6745f99c7e5abd4d795209"):
+    RequestStatus.APPROVED -> RequestStatus.EXECUTED by executeApprovedDeployment;
+  transition reject @stableId("trn_70d0b557789946c9874777fc20cb27dd"):
+    RequestStatus.PENDING_APPROVAL -> RequestStatus.REJECTED by rejectProductionDeployment;
+}
+
+projection PrincipalSummary @stableId("prj_a89b0acb503746ed86110f47bbe42c04") from Principal {
+  id @stableId("pfd_2671ffbfa9204040bf12047d8863d7bb");
+  displayName @stableId("pfd_018396cfad6b491189efac5afc593045");
+  kind @stableId("pfd_727810accbba4c598f1cc706d3ab403b");
+}
+
+projection DeployRequestSummary @stableId("prj_6d0491126ecb4d1abb14f945eb26c641") from ProductionDeployRequest {
+  id @stableId("pfd_3835738ea3d74c929d37b9e48fe5621c");
+  createdAt @stableId("pfd_82476ee8b87447bb890d32c0bb74da68");
+  commitSha @stableId("pfd_eb55b7f4b54d45cba6b5d74ddd65f4ff");
+  status @stableId("pfd_a9d6406516424f5b846f165cade68203");
+  requestedBy: PrincipalSummary @stableId("pfd_e2b6c3876e0f4b538de84f9aa524b5d5");
+  approvedBy: PrincipalSummary @stableId("pfd_15c0e810e03d42ceb2841d637f58119e");
+}
+
+// Guarantee D: every read is constrained to the caller's organization.
+query myOrgDeployRequests @stableId("qry_60d1c5d416eb428caa385db274edcb4b")(
+  caller actor: Principal
+) returns DeployRequestSummary from ProductionDeployRequest as request {
+  authorize true;
+  where request.org == actor.org;
+  orderBy request.id asc;
+  limit 50;
+  paginate cursor;
+  audit reads;
+}
+
+query approvalInbox @stableId("qry_21f24f72d72c4bb98df539477f0e81f2")(
+  caller actor: Principal
+) returns DeployRequestSummary from ProductionDeployRequest as request {
+  authorize
+    actor.kind == PrincipalKind.HUMAN
+    and Role.APPROVER in actor.roles;
+  where request.org == actor.org
+    and request.status == RequestStatus.PENDING_APPROVAL
+    and request.requestedBy != actor;
+  orderBy request.id asc;
+  limit 50;
+  paginate cursor;
+  audit reads;
+}

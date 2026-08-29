@@ -1,0 +1,3025 @@
+{
+  "model": {
+    "id": "model:Signalbox",
+    "name": "Signalbox",
+    "version": "0.50.0",
+    "sourceHash": "sha256:c05d742f0b6c8e9a06ee09732d45a9e73af1e8508dfe2d2ee1706df175c6356e",
+    "sourceFile": "signalbox.model",
+    "naming": {
+      "sqlSchema": "model_signalbox",
+      "internalSchema": "model_signalbox_internal"
+    }
+  },
+  "enforcement": [
+    {
+      "id": "boundary:principal_binding",
+      "purpose": "Bind a direct database session identity to the model principal through an owner-controlled table.",
+      "layer": "PostgreSQL session identity",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox_internal.principal_binding"
+    },
+    {
+      "id": "boundary:consumer_role",
+      "purpose": "Confine event consumption to a dedicated non-login role with execute-only handler access.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_consumer NOLOGIN"
+    },
+    {
+      "id": "boundary:recovery_role",
+      "purpose": "Confine opted-in terminal consumer recovery to a dedicated non-login role with execute-only access.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_recovery NOLOGIN"
+    },
+    {
+      "id": "boundary:publication_recovery_role",
+      "purpose": "Confine opted-in terminal publication recovery to a separate non-login role with execute-only access.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_publication_recovery NOLOGIN"
+    },
+    {
+      "id": "boundary:failure_observer_role",
+      "purpose": "Confine bounded terminal-failure inspection to a separate non-login role with execute-only access and no recovery authority.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_failure_observer NOLOGIN"
+    },
+    {
+      "id": "boundary:failure_acknowledger_role",
+      "purpose": "Confine audited terminal-cycle acknowledgement to a separate non-login role with execute-only access and no observation or recovery authority.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_failure_acknowledger NOLOGIN"
+    },
+    {
+      "id": "boundary:failure_claimant_role",
+      "purpose": "Confine first-writer terminal-cycle self-claiming to a separate non-login role with execute-only access and no observation, acknowledgement, or recovery authority.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_failure_claimant NOLOGIN"
+    },
+    {
+      "id": "boundary:dispatcher_role",
+      "purpose": "Confine event delivery leasing, acknowledgement, release, and failure recording to a dedicated non-login dispatcher role.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_dispatcher NOLOGIN"
+    },
+    {
+      "id": "boundary:owner_role",
+      "purpose": "Generated objects are owned by a non-login role that application principals cannot assume.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_owner NOLOGIN"
+    },
+    {
+      "id": "boundary:gateway_role",
+      "purpose": "Confine shared-credential identity activation to a dedicated non-login gateway role.",
+      "layer": "PostgreSQL role",
+      "artifact": "postgres/001_roles.sql",
+      "objectName": "modellang_gateway NOLOGIN"
+    },
+    {
+      "id": "boundary:gateway_identity",
+      "purpose": "Resolve verified issuer and subject claims through an owner-controlled binding inside one transaction.",
+      "layer": "PostgreSQL transaction identity",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox_internal.gateway_principal_binding"
+    },
+    {
+      "id": "boundary:gateway_audit",
+      "purpose": "Record gateway issuer and subject provenance symmetrically with the resolved principal.",
+      "layer": "PostgreSQL audit",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox_internal.action_audit"
+    },
+    {
+      "id": "boundary:internal_schema",
+      "purpose": "Application principals cannot access principal bindings, audit storage, or migration history.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox_internal"
+    },
+    {
+      "id": "boundary:migration_history",
+      "purpose": "Record installed model/source identity, migration kind, and reviewed plan provenance for fail-closed evolution checks.",
+      "layer": "PostgreSQL migration history",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox_internal.schema_migrations"
+    },
+    {
+      "id": "policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a",
+      "purpose": "Evaluate reusable policy ProductionDeployDelegation as a closed Boolean decision with exactly one successful authority branch.",
+      "layer": "Canonical decision plan",
+      "artifact": "decisions.json",
+      "objectName": "policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a",
+      "source": {
+        "file": "signalbox.model",
+        "line": 160,
+        "column": 1,
+        "endLine": 174,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "policyBranch:pbr_a1caa050a0174a1d9c9e75137153a4d0",
+      "purpose": "((((((((actor.kind == PrincipalKind.AGENT) and (actor.status == PrincipalStatus.ACTIVE)) and (delegation.agent == actor)) and (delegation.status == DelegationStatus.ACTIVE)) and (delegation.capability == Capability.REQUEST_PRODUCTION_DEPLOY)) and (delegation.environment == environment)) and (delegation.org == actor.org)) and (environment.org == actor.org))",
+      "layer": "PostgreSQL policy branch",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "policy:pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a",
+      "source": {
+        "file": "signalbox.model",
+        "line": 165,
+        "column": 3,
+        "endLine": 173,
+        "endColumn": 38
+      }
+    },
+    {
+      "id": "policy:pol_08ab785a8747405bbdfeb05009a9df9d",
+      "purpose": "Evaluate reusable policy IndependentHumanApprover as a closed Boolean decision with exactly one successful authority branch.",
+      "layer": "Canonical decision plan",
+      "artifact": "decisions.json",
+      "objectName": "policy:pol_08ab785a8747405bbdfeb05009a9df9d",
+      "source": {
+        "file": "signalbox.model",
+        "line": 177,
+        "column": 1,
+        "endLine": 187,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "policyBranch:pbr_3c3833abc88242adb5090ed343f32057",
+      "purpose": "(((((actor.kind == PrincipalKind.HUMAN) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.APPROVER in actor.roles)) and (actor.org == request.org)) and (actor != request.requestedBy))",
+      "layer": "PostgreSQL policy branch",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "policy:pol_08ab785a8747405bbdfeb05009a9df9d",
+      "source": {
+        "file": "signalbox.model",
+        "line": 181,
+        "column": 3,
+        "endLine": 186,
+        "endColumn": 38
+      }
+    },
+    {
+      "id": "required:field:fld_8c75c4fc7038498e91dcd41c7a5fcb1e",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.organization.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 56,
+        "column": 3,
+        "endLine": 56,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_8c75c4fc7038498e91dcd41c7a5fcb1e",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.organization.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 56,
+        "column": 3,
+        "endLine": 56,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_8c75c4fc7038498e91dcd41c7a5fcb1e",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_8c75c4fc7038498e91dcd41c7a5fcb1e",
+      "source": {
+        "file": "signalbox.model",
+        "line": 56,
+        "column": 3,
+        "endLine": 56,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_8c75c4fc7038498e91dcd41c7a5fcb1e.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "organization_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 56,
+        "column": 3,
+        "endLine": 56,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_b9b406196ec14910a8112232504a9ceb",
+      "purpose": "slug is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.organization.slug NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 57,
+        "column": 3,
+        "endLine": 57,
+        "endColumn": 85
+      }
+    },
+    {
+      "id": "immutable:field:fld_b9b406196ec14910a8112232504a9ceb",
+      "purpose": "Prevent action updates to immutable field slug.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_b9b406196ec14910a8112232504a9ceb",
+      "source": {
+        "file": "signalbox.model",
+        "line": 57,
+        "column": 3,
+        "endLine": 57,
+        "endColumn": 85
+      }
+    },
+    {
+      "id": "annotation:field:fld_b9b406196ec14910a8112232504a9ceb.unique",
+      "purpose": "Enforce @unique.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "uq_organization_slug_unique",
+      "source": {
+        "file": "signalbox.model",
+        "line": 57,
+        "column": 3,
+        "endLine": 57,
+        "endColumn": 85
+      }
+    },
+    {
+      "id": "required:field:fld_549aa3872e244af8a95fbeeb39f9ea46",
+      "purpose": "name is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.organization.name NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 58,
+        "column": 3,
+        "endLine": 58,
+        "endColumn": 66
+      }
+    },
+    {
+      "id": "boundary:entity:ent_661a8bc41d68494eaaa82198b8354a94.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.organization",
+      "source": {
+        "file": "signalbox.model",
+        "line": 55,
+        "column": 1,
+        "endLine": 59,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_661a8bc41d68494eaaa82198b8354a94.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.organization",
+      "source": {
+        "file": "signalbox.model",
+        "line": 55,
+        "column": 1,
+        "endLine": 59,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "required:field:fld_0f4346fb82a7470baa889475e5480797",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 64,
+        "column": 3,
+        "endLine": 64,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_0f4346fb82a7470baa889475e5480797",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 64,
+        "column": 3,
+        "endLine": 64,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_0f4346fb82a7470baa889475e5480797",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_0f4346fb82a7470baa889475e5480797",
+      "source": {
+        "file": "signalbox.model",
+        "line": 64,
+        "column": 3,
+        "endLine": 64,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_0f4346fb82a7470baa889475e5480797.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "principal_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 64,
+        "column": 3,
+        "endLine": 64,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+      "purpose": "org is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.org_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 65,
+        "column": 3,
+        "endLine": 65,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+      "purpose": "org references Organization.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_principal_org_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 65,
+        "column": 3,
+        "endLine": 65,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+      "purpose": "Prevent action updates to immutable field org.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_21bdc1e7c1a4408f8d0c56d3c73b6856",
+      "source": {
+        "file": "signalbox.model",
+        "line": 65,
+        "column": 3,
+        "endLine": 65,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_4494f33148d746dcb887d73be133b248",
+      "purpose": "kind is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.kind NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 66,
+        "column": 3,
+        "endLine": 66,
+        "endColumn": 84
+      }
+    },
+    {
+      "id": "enum-membership:field:fld_4494f33148d746dcb887d73be133b248",
+      "purpose": "kind must be a declared PrincipalKind member.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_principal_kind_enum",
+      "source": {
+        "file": "signalbox.model",
+        "line": 66,
+        "column": 3,
+        "endLine": 66,
+        "endColumn": 84
+      }
+    },
+    {
+      "id": "immutable:field:fld_4494f33148d746dcb887d73be133b248",
+      "purpose": "Prevent action updates to immutable field kind.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_4494f33148d746dcb887d73be133b248",
+      "source": {
+        "file": "signalbox.model",
+        "line": 66,
+        "column": 3,
+        "endLine": 66,
+        "endColumn": 84
+      }
+    },
+    {
+      "id": "required:field:fld_a25b3b5aefbe4466a95b26a8edf32a28",
+      "purpose": "displayName is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.display_name NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 67,
+        "column": 3,
+        "endLine": 67,
+        "endColumn": 73
+      }
+    },
+    {
+      "id": "required:field:fld_72c4a69879134905b2c62f511514143f",
+      "purpose": "status is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.status NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 68,
+        "column": 3,
+        "endLine": 68,
+        "endColumn": 102
+      }
+    },
+    {
+      "id": "enum-membership:field:fld_72c4a69879134905b2c62f511514143f",
+      "purpose": "status must be a declared PrincipalStatus member.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_principal_status_enum",
+      "source": {
+        "file": "signalbox.model",
+        "line": 68,
+        "column": 3,
+        "endLine": 68,
+        "endColumn": 102
+      }
+    },
+    {
+      "id": "default:field:fld_72c4a69879134905b2c62f511514143f",
+      "purpose": "Apply the declared constant default for status.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.status",
+      "source": {
+        "file": "signalbox.model",
+        "line": 68,
+        "column": 3,
+        "endLine": 68,
+        "endColumn": 102
+      }
+    },
+    {
+      "id": "required:field:fld_701810bb7b774ea4877941ecd35be293",
+      "purpose": "roles is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.principal.roles NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 69,
+        "column": 3,
+        "endLine": 69,
+        "endColumn": 70
+      }
+    },
+    {
+      "id": "enum-set:field:fld_701810bb7b774ea4877941ecd35be293",
+      "purpose": "roles is a duplicate-free set of declared Role members.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_principal_roles_enum_set",
+      "source": {
+        "file": "signalbox.model",
+        "line": 69,
+        "column": 3,
+        "endLine": 69,
+        "endColumn": 70
+      }
+    },
+    {
+      "id": "boundary:entity:ent_197f12dacaf14992a367c5c15f895415.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.principal",
+      "source": {
+        "file": "signalbox.model",
+        "line": 63,
+        "column": 1,
+        "endLine": 70,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_197f12dacaf14992a367c5c15f895415.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.principal",
+      "source": {
+        "file": "signalbox.model",
+        "line": 63,
+        "column": 1,
+        "endLine": 70,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "required:field:fld_9c6795a2d88d486f9e1afafc7c39b749",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.environment.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 73,
+        "column": 3,
+        "endLine": 73,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_9c6795a2d88d486f9e1afafc7c39b749",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.environment.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 73,
+        "column": 3,
+        "endLine": 73,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_9c6795a2d88d486f9e1afafc7c39b749",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_9c6795a2d88d486f9e1afafc7c39b749",
+      "source": {
+        "file": "signalbox.model",
+        "line": 73,
+        "column": 3,
+        "endLine": 73,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_9c6795a2d88d486f9e1afafc7c39b749.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "environment_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 73,
+        "column": 3,
+        "endLine": 73,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_a07af94c649f43379bb186f5d102939f",
+      "purpose": "org is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.environment.org_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 74,
+        "column": 3,
+        "endLine": 74,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_a07af94c649f43379bb186f5d102939f",
+      "purpose": "org references Organization.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_environment_org_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 74,
+        "column": 3,
+        "endLine": 74,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_a07af94c649f43379bb186f5d102939f",
+      "purpose": "Prevent action updates to immutable field org.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_a07af94c649f43379bb186f5d102939f",
+      "source": {
+        "file": "signalbox.model",
+        "line": 74,
+        "column": 3,
+        "endLine": 74,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_d7283a03833947b99224118cac98cf46",
+      "purpose": "name is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.environment.name NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 75,
+        "column": 3,
+        "endLine": 75,
+        "endColumn": 66
+      }
+    },
+    {
+      "id": "required:field:fld_85e49c361751417686fab601b59b541b",
+      "purpose": "tier is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.environment.tier NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 76,
+        "column": 3,
+        "endLine": 76,
+        "endColumn": 86
+      }
+    },
+    {
+      "id": "enum-membership:field:fld_85e49c361751417686fab601b59b541b",
+      "purpose": "tier must be a declared EnvironmentTier member.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_environment_tier_enum",
+      "source": {
+        "file": "signalbox.model",
+        "line": 76,
+        "column": 3,
+        "endLine": 76,
+        "endColumn": 86
+      }
+    },
+    {
+      "id": "immutable:field:fld_85e49c361751417686fab601b59b541b",
+      "purpose": "Prevent action updates to immutable field tier.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_85e49c361751417686fab601b59b541b",
+      "source": {
+        "file": "signalbox.model",
+        "line": 76,
+        "column": 3,
+        "endLine": 76,
+        "endColumn": 86
+      }
+    },
+    {
+      "id": "boundary:entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.environment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 72,
+        "column": 1,
+        "endLine": 77,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.environment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 72,
+        "column": 1,
+        "endLine": 77,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "required:field:fld_776b40619c354d4b93a2eeec5f6cc254",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 86,
+        "column": 3,
+        "endLine": 86,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_776b40619c354d4b93a2eeec5f6cc254",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 86,
+        "column": 3,
+        "endLine": 86,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_776b40619c354d4b93a2eeec5f6cc254",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_776b40619c354d4b93a2eeec5f6cc254",
+      "source": {
+        "file": "signalbox.model",
+        "line": 86,
+        "column": 3,
+        "endLine": 86,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_776b40619c354d4b93a2eeec5f6cc254.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "delegation_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 86,
+        "column": 3,
+        "endLine": 86,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_57535d45b9bc42ccb9b9bed2c77a8996",
+      "purpose": "org is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.org_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 87,
+        "column": 3,
+        "endLine": 87,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_57535d45b9bc42ccb9b9bed2c77a8996",
+      "purpose": "org references Organization.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_delegation_org_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 87,
+        "column": 3,
+        "endLine": 87,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_57535d45b9bc42ccb9b9bed2c77a8996",
+      "purpose": "Prevent action updates to immutable field org.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_57535d45b9bc42ccb9b9bed2c77a8996",
+      "source": {
+        "file": "signalbox.model",
+        "line": 87,
+        "column": 3,
+        "endLine": 87,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_054b2d41511b413cb6928aa459d34e60",
+      "purpose": "agent is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.agent_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 88,
+        "column": 3,
+        "endLine": 88,
+        "endColumn": 81
+      }
+    },
+    {
+      "id": "reference:field:fld_054b2d41511b413cb6928aa459d34e60",
+      "purpose": "agent references Principal.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_delegation_agent_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 88,
+        "column": 3,
+        "endLine": 88,
+        "endColumn": 81
+      }
+    },
+    {
+      "id": "immutable:field:fld_054b2d41511b413cb6928aa459d34e60",
+      "purpose": "Prevent action updates to immutable field agent.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_054b2d41511b413cb6928aa459d34e60",
+      "source": {
+        "file": "signalbox.model",
+        "line": 88,
+        "column": 3,
+        "endLine": 88,
+        "endColumn": 81
+      }
+    },
+    {
+      "id": "required:field:fld_cc8b5256189f47279d51704215aaae8f",
+      "purpose": "capability is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.capability NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 89,
+        "column": 3,
+        "endLine": 89,
+        "endColumn": 87
+      }
+    },
+    {
+      "id": "enum-membership:field:fld_cc8b5256189f47279d51704215aaae8f",
+      "purpose": "capability must be a declared Capability member.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_delegation_capability_enum",
+      "source": {
+        "file": "signalbox.model",
+        "line": 89,
+        "column": 3,
+        "endLine": 89,
+        "endColumn": 87
+      }
+    },
+    {
+      "id": "immutable:field:fld_cc8b5256189f47279d51704215aaae8f",
+      "purpose": "Prevent action updates to immutable field capability.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_cc8b5256189f47279d51704215aaae8f",
+      "source": {
+        "file": "signalbox.model",
+        "line": 89,
+        "column": 3,
+        "endLine": 89,
+        "endColumn": 87
+      }
+    },
+    {
+      "id": "required:field:fld_5baad9f56824417b8743b7cc93b32007",
+      "purpose": "environment is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.environment_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 90,
+        "column": 3,
+        "endLine": 90,
+        "endColumn": 89
+      }
+    },
+    {
+      "id": "reference:field:fld_5baad9f56824417b8743b7cc93b32007",
+      "purpose": "environment references Environment.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_delegation_environment_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 90,
+        "column": 3,
+        "endLine": 90,
+        "endColumn": 89
+      }
+    },
+    {
+      "id": "immutable:field:fld_5baad9f56824417b8743b7cc93b32007",
+      "purpose": "Prevent action updates to immutable field environment.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_5baad9f56824417b8743b7cc93b32007",
+      "source": {
+        "file": "signalbox.model",
+        "line": 90,
+        "column": 3,
+        "endLine": 90,
+        "endColumn": 89
+      }
+    },
+    {
+      "id": "required:field:fld_3e25eaed78c54f1e893497b8af2045a1",
+      "purpose": "status is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.status NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 91,
+        "column": 3,
+        "endLine": 91,
+        "endColumn": 104
+      }
+    },
+    {
+      "id": "enum-membership:field:fld_3e25eaed78c54f1e893497b8af2045a1",
+      "purpose": "status must be a declared DelegationStatus member.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_delegation_status_enum",
+      "source": {
+        "file": "signalbox.model",
+        "line": 91,
+        "column": 3,
+        "endLine": 91,
+        "endColumn": 104
+      }
+    },
+    {
+      "id": "default:field:fld_3e25eaed78c54f1e893497b8af2045a1",
+      "purpose": "Apply the declared constant default for status.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.delegation.status",
+      "source": {
+        "file": "signalbox.model",
+        "line": 91,
+        "column": 3,
+        "endLine": 91,
+        "endColumn": 104
+      }
+    },
+    {
+      "id": "boundary:entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.delegation",
+      "source": {
+        "file": "signalbox.model",
+        "line": 85,
+        "column": 1,
+        "endLine": 92,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.delegation",
+      "source": {
+        "file": "signalbox.model",
+        "line": 85,
+        "column": 1,
+        "endLine": 92,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "required:field:fld_4669d240de76491f918160af4833ca73",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.allowance.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 96,
+        "column": 3,
+        "endLine": 96,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_4669d240de76491f918160af4833ca73",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.allowance.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 96,
+        "column": 3,
+        "endLine": 96,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_4669d240de76491f918160af4833ca73",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_4669d240de76491f918160af4833ca73",
+      "source": {
+        "file": "signalbox.model",
+        "line": 96,
+        "column": 3,
+        "endLine": 96,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_4669d240de76491f918160af4833ca73.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "allowance_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 96,
+        "column": 3,
+        "endLine": 96,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_059d2ddcea884369a05e172746ce56ee",
+      "purpose": "org is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.allowance.org_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 97,
+        "column": 3,
+        "endLine": 97,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_059d2ddcea884369a05e172746ce56ee",
+      "purpose": "org references Organization.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_allowance_org_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 97,
+        "column": 3,
+        "endLine": 97,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_059d2ddcea884369a05e172746ce56ee",
+      "purpose": "Prevent action updates to immutable field org.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_059d2ddcea884369a05e172746ce56ee",
+      "source": {
+        "file": "signalbox.model",
+        "line": 97,
+        "column": 3,
+        "endLine": 97,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_9e4882e18d894214b52e6dcde5e92efc",
+      "purpose": "period is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.allowance.period NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 98,
+        "column": 3,
+        "endLine": 98,
+        "endColumn": 79
+      }
+    },
+    {
+      "id": "immutable:field:fld_9e4882e18d894214b52e6dcde5e92efc",
+      "purpose": "Prevent action updates to immutable field period.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_9e4882e18d894214b52e6dcde5e92efc",
+      "source": {
+        "file": "signalbox.model",
+        "line": 98,
+        "column": 3,
+        "endLine": 98,
+        "endColumn": 79
+      }
+    },
+    {
+      "id": "required:field:fld_a87e7d4bc69d4343b5aa2e955bed21a3",
+      "purpose": "sequence is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.allowance.sequence NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 99,
+        "column": 3,
+        "endLine": 99,
+        "endColumn": 78
+      }
+    },
+    {
+      "id": "immutable:field:fld_a87e7d4bc69d4343b5aa2e955bed21a3",
+      "purpose": "Prevent action updates to immutable field sequence.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_a87e7d4bc69d4343b5aa2e955bed21a3",
+      "source": {
+        "file": "signalbox.model",
+        "line": 99,
+        "column": 3,
+        "endLine": 99,
+        "endColumn": 78
+      }
+    },
+    {
+      "id": "boundary:entity:ent_b0fd2128e94a469089ac56c643cc4e36.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.allowance",
+      "source": {
+        "file": "signalbox.model",
+        "line": 95,
+        "column": 1,
+        "endLine": 100,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_b0fd2128e94a469089ac56c643cc4e36.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.allowance",
+      "source": {
+        "file": "signalbox.model",
+        "line": 95,
+        "column": 1,
+        "endLine": 100,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "required:field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 103,
+        "column": 3,
+        "endLine": 103,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 103,
+        "column": 3,
+        "endLine": 103,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
+      "source": {
+        "file": "signalbox.model",
+        "line": 103,
+        "column": 3,
+        "endLine": 103,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "production_deploy_request_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 103,
+        "column": 3,
+        "endLine": 103,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_90575438c6e94deab4c8e6948e68345b",
+      "purpose": "createdAt is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.created_at NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 104,
+        "column": 3,
+        "endLine": 104,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "generated:field:fld_90575438c6e94deab4c8e6948e68345b",
+      "purpose": "Generate createdAt with now under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.created_at",
+      "source": {
+        "file": "signalbox.model",
+        "line": 104,
+        "column": 3,
+        "endLine": 104,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "immutable:field:fld_90575438c6e94deab4c8e6948e68345b",
+      "purpose": "Prevent action updates to immutable field createdAt.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_90575438c6e94deab4c8e6948e68345b",
+      "source": {
+        "file": "signalbox.model",
+        "line": 104,
+        "column": 3,
+        "endLine": 104,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "required:field:fld_c9d0dea7ee234d18824faaed519bff81",
+      "purpose": "org is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.org_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 105,
+        "column": 3,
+        "endLine": 105,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_c9d0dea7ee234d18824faaed519bff81",
+      "purpose": "org references Organization.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_production_deploy_request_org_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 105,
+        "column": 3,
+        "endLine": 105,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_c9d0dea7ee234d18824faaed519bff81",
+      "purpose": "Prevent action updates to immutable field org.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_c9d0dea7ee234d18824faaed519bff81",
+      "source": {
+        "file": "signalbox.model",
+        "line": 105,
+        "column": 3,
+        "endLine": 105,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+      "purpose": "requestedBy is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.requested_by_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 106,
+        "column": 3,
+        "endLine": 106,
+        "endColumn": 87
+      }
+    },
+    {
+      "id": "reference:field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+      "purpose": "requestedBy references Principal.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_production_deploy_request_requested_by_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 106,
+        "column": 3,
+        "endLine": 106,
+        "endColumn": 87
+      }
+    },
+    {
+      "id": "immutable:field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+      "purpose": "Prevent action updates to immutable field requestedBy.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_c3b2af2fa9ab4b29bfaa4e030bee1562",
+      "source": {
+        "file": "signalbox.model",
+        "line": 106,
+        "column": 3,
+        "endLine": 106,
+        "endColumn": 87
+      }
+    },
+    {
+      "id": "required:field:fld_f70e0428ad644adc8f1ec755350ad645",
+      "purpose": "environment is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.environment_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 107,
+        "column": 3,
+        "endLine": 107,
+        "endColumn": 89
+      }
+    },
+    {
+      "id": "reference:field:fld_f70e0428ad644adc8f1ec755350ad645",
+      "purpose": "environment references Environment.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_production_deploy_request_environment_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 107,
+        "column": 3,
+        "endLine": 107,
+        "endColumn": 89
+      }
+    },
+    {
+      "id": "immutable:field:fld_f70e0428ad644adc8f1ec755350ad645",
+      "purpose": "Prevent action updates to immutable field environment.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_f70e0428ad644adc8f1ec755350ad645",
+      "source": {
+        "file": "signalbox.model",
+        "line": 107,
+        "column": 3,
+        "endLine": 107,
+        "endColumn": 89
+      }
+    },
+    {
+      "id": "required:field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
+      "purpose": "commitSha is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.commit_sha NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 108,
+        "column": 3,
+        "endLine": 108,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
+      "purpose": "Prevent action updates to immutable field commitSha.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_dd3ada66cf6b49b5a37ab5fcba85fb85",
+      "source": {
+        "file": "signalbox.model",
+        "line": 108,
+        "column": 3,
+        "endLine": 108,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_d905a7f0828849ae855fbbd30aad5255",
+      "purpose": "status is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.status NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 109,
+        "column": 3,
+        "endLine": 109,
+        "endColumn": 108
+      }
+    },
+    {
+      "id": "enum-membership:field:fld_d905a7f0828849ae855fbbd30aad5255",
+      "purpose": "status must be a declared RequestStatus member.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_production_deploy_request_status_enum",
+      "source": {
+        "file": "signalbox.model",
+        "line": 109,
+        "column": 3,
+        "endLine": 109,
+        "endColumn": 108
+      }
+    },
+    {
+      "id": "default:field:fld_d905a7f0828849ae855fbbd30aad5255",
+      "purpose": "Apply the declared constant default for status.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.production_deploy_request.status",
+      "source": {
+        "file": "signalbox.model",
+        "line": 109,
+        "column": 3,
+        "endLine": 109,
+        "endColumn": 108
+      }
+    },
+    {
+      "id": "reference:field:fld_da7706d558434a06b10cfa548972efa6",
+      "purpose": "approvedBy references Principal.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_production_deploy_request_approved_by_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 110,
+        "column": 3,
+        "endLine": 110,
+        "endColumn": 76
+      }
+    },
+    {
+      "id": "enum-set:field:fld_d82dc0f1c8fc4accacdc742dd0258ac6",
+      "purpose": "approvedByRoles is a duplicate-free set of declared Role members.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_production_deploy_request_approved_by_roles_enum_set",
+      "source": {
+        "file": "signalbox.model",
+        "line": 111,
+        "column": 3,
+        "endLine": 111,
+        "endColumn": 91
+      }
+    },
+    {
+      "id": "snapshot:field:fld_d82dc0f1c8fc4accacdc742dd0258ac6",
+      "purpose": "approvedByRoles is a stored point-in-time audit snapshot, not a live relationship-derived value.",
+      "layer": "ModelLang storage semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_d82dc0f1c8fc4accacdc742dd0258ac6",
+      "source": {
+        "file": "signalbox.model",
+        "line": 111,
+        "column": 3,
+        "endLine": 111,
+        "endColumn": 91
+      }
+    },
+    {
+      "id": "invariant:inv_a981bd3d01714dd489b3159dfddf6e31",
+      "purpose": "(((status != RequestStatus.APPROVED) and (status != RequestStatus.EXECUTED)) or (approvedBy != requestedBy))",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_production_deploy_request_approver_differs_from_requester",
+      "source": {
+        "file": "signalbox.model",
+        "line": 118,
+        "column": 3,
+        "endLine": 120,
+        "endColumn": 34
+      }
+    },
+    {
+      "id": "invariant:inv_ff4e5164d93f4c67b0be7af34ed228d7",
+      "purpose": "(((((status == RequestStatus.APPROVED) or (status == RequestStatus.EXECUTED)) and (approvedBy != null)) and (approvedByRoles != null)) or ((((status != RequestStatus.APPROVED) and (status != RequestStatus.EXECUTED)) and (approvedBy == null)) and (approvedByRoles == null)))",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_production_deploy_request_approval_fields_match_status",
+      "source": {
+        "file": "signalbox.model",
+        "line": 122,
+        "column": 3,
+        "endLine": 134,
+        "endColumn": 7
+      }
+    },
+    {
+      "id": "invariant:inv_1be7fd43c4ab4198ab733fbeb8fd7d44",
+      "purpose": "(((status != RequestStatus.APPROVED) and (status != RequestStatus.EXECUTED)) or (Role.APPROVER in approvedByRoles))",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "ck_production_deploy_request_approval_authority_recorded",
+      "source": {
+        "file": "signalbox.model",
+        "line": 137,
+        "column": 3,
+        "endLine": 139,
+        "endColumn": 41
+      }
+    },
+    {
+      "id": "boundary:entity:ent_e2b5ba3cccef437796b2048fd1ff2f24.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.production_deploy_request",
+      "source": {
+        "file": "signalbox.model",
+        "line": 102,
+        "column": 1,
+        "endLine": 140,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_e2b5ba3cccef437796b2048fd1ff2f24.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.production_deploy_request",
+      "source": {
+        "file": "signalbox.model",
+        "line": 102,
+        "column": 1,
+        "endLine": 140,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "required:field:fld_d76e45f665d140d29821a79fe8cf0d57",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.approval.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 143,
+        "column": 3,
+        "endLine": 143,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_d76e45f665d140d29821a79fe8cf0d57",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.approval.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 143,
+        "column": 3,
+        "endLine": 143,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_d76e45f665d140d29821a79fe8cf0d57",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_d76e45f665d140d29821a79fe8cf0d57",
+      "source": {
+        "file": "signalbox.model",
+        "line": 143,
+        "column": 3,
+        "endLine": 143,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_d76e45f665d140d29821a79fe8cf0d57.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "approval_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 143,
+        "column": 3,
+        "endLine": 143,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_a9a2a789b7d74ca2971ab753ab9e9ab3",
+      "purpose": "decidedAt is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.approval.decided_at NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 144,
+        "column": 3,
+        "endLine": 144,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "generated:field:fld_a9a2a789b7d74ca2971ab753ab9e9ab3",
+      "purpose": "Generate decidedAt with now under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.approval.decided_at",
+      "source": {
+        "file": "signalbox.model",
+        "line": 144,
+        "column": 3,
+        "endLine": 144,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "immutable:field:fld_a9a2a789b7d74ca2971ab753ab9e9ab3",
+      "purpose": "Prevent action updates to immutable field decidedAt.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_a9a2a789b7d74ca2971ab753ab9e9ab3",
+      "source": {
+        "file": "signalbox.model",
+        "line": 144,
+        "column": 3,
+        "endLine": 144,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "required:field:fld_84cbfc1dead747469eff52af38e562fc",
+      "purpose": "org is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.approval.org_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 145,
+        "column": 3,
+        "endLine": 145,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_84cbfc1dead747469eff52af38e562fc",
+      "purpose": "org references Organization.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_approval_org_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 145,
+        "column": 3,
+        "endLine": 145,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_84cbfc1dead747469eff52af38e562fc",
+      "purpose": "Prevent action updates to immutable field org.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_84cbfc1dead747469eff52af38e562fc",
+      "source": {
+        "file": "signalbox.model",
+        "line": 145,
+        "column": 3,
+        "endLine": 145,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_f64acc87201840f491d55ceb5c6bebec",
+      "purpose": "request is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.approval.request_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 146,
+        "column": 3,
+        "endLine": 146,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "reference:field:fld_f64acc87201840f491d55ceb5c6bebec",
+      "purpose": "request references ProductionDeployRequest.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_approval_request_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 146,
+        "column": 3,
+        "endLine": 146,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_f64acc87201840f491d55ceb5c6bebec.unique",
+      "purpose": "Enforce @unique.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "uq_approval_request_id_unique",
+      "source": {
+        "file": "signalbox.model",
+        "line": 146,
+        "column": 3,
+        "endLine": 146,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_3cbd6c8ee8df4e4e90d1932ad237e9c2",
+      "purpose": "approver is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.approval.approver_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 147,
+        "column": 3,
+        "endLine": 147,
+        "endColumn": 84
+      }
+    },
+    {
+      "id": "reference:field:fld_3cbd6c8ee8df4e4e90d1932ad237e9c2",
+      "purpose": "approver references Principal.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_approval_approver_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 147,
+        "column": 3,
+        "endLine": 147,
+        "endColumn": 84
+      }
+    },
+    {
+      "id": "immutable:field:fld_3cbd6c8ee8df4e4e90d1932ad237e9c2",
+      "purpose": "Prevent action updates to immutable field approver.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_3cbd6c8ee8df4e4e90d1932ad237e9c2",
+      "source": {
+        "file": "signalbox.model",
+        "line": 147,
+        "column": 3,
+        "endLine": 147,
+        "endColumn": 84
+      }
+    },
+    {
+      "id": "boundary:entity:ent_f6f083c592f34c07af0204bb507be013.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.approval",
+      "source": {
+        "file": "signalbox.model",
+        "line": 142,
+        "column": 1,
+        "endLine": 148,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_f6f083c592f34c07af0204bb507be013.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.approval",
+      "source": {
+        "file": "signalbox.model",
+        "line": 142,
+        "column": 1,
+        "endLine": 148,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "required:field:fld_054965adb4f143f5a51c51d9449265b5",
+      "purpose": "id is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.execution.id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 152,
+        "column": 3,
+        "endLine": 152,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "generated:field:fld_054965adb4f143f5a51c51d9449265b5",
+      "purpose": "Generate id with uuid under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.execution.id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 152,
+        "column": 3,
+        "endLine": 152,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "immutable:field:fld_054965adb4f143f5a51c51d9449265b5",
+      "purpose": "Prevent action updates to immutable field id.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_054965adb4f143f5a51c51d9449265b5",
+      "source": {
+        "file": "signalbox.model",
+        "line": 152,
+        "column": 3,
+        "endLine": 152,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_054965adb4f143f5a51c51d9449265b5.id",
+      "purpose": "Enforce @id.",
+      "layer": "PostgreSQL primary key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "execution_pkey",
+      "source": {
+        "file": "signalbox.model",
+        "line": 152,
+        "column": 3,
+        "endLine": 152,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_21c95bb344a2454680073627dfd4a830",
+      "purpose": "startedAt is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.execution.started_at NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 153,
+        "column": 3,
+        "endLine": 153,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "generated:field:fld_21c95bb344a2454680073627dfd4a830",
+      "purpose": "Generate startedAt with now under database authority.",
+      "layer": "PostgreSQL column default",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.execution.started_at",
+      "source": {
+        "file": "signalbox.model",
+        "line": 153,
+        "column": 3,
+        "endLine": 153,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "immutable:field:fld_21c95bb344a2454680073627dfd4a830",
+      "purpose": "Prevent action updates to immutable field startedAt.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_21c95bb344a2454680073627dfd4a830",
+      "source": {
+        "file": "signalbox.model",
+        "line": 153,
+        "column": 3,
+        "endLine": 153,
+        "endColumn": 100
+      }
+    },
+    {
+      "id": "required:field:fld_38800d8c1ef74f46a314cdbf1ba6aed6",
+      "purpose": "org is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.execution.org_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 154,
+        "column": 3,
+        "endLine": 154,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_38800d8c1ef74f46a314cdbf1ba6aed6",
+      "purpose": "org references Organization.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_execution_org_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 154,
+        "column": 3,
+        "endLine": 154,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "immutable:field:fld_38800d8c1ef74f46a314cdbf1ba6aed6",
+      "purpose": "Prevent action updates to immutable field org.",
+      "layer": "ModelLang action semantics",
+      "artifact": "model.ir.json",
+      "objectName": "field:fld_38800d8c1ef74f46a314cdbf1ba6aed6",
+      "source": {
+        "file": "signalbox.model",
+        "line": 154,
+        "column": 3,
+        "endLine": 154,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "required:field:fld_cbe0efca671b48e992d83664581698ba",
+      "purpose": "request is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.execution.request_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 155,
+        "column": 3,
+        "endLine": 155,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "reference:field:fld_cbe0efca671b48e992d83664581698ba",
+      "purpose": "request references ProductionDeployRequest.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_execution_request_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 155,
+        "column": 3,
+        "endLine": 155,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "annotation:field:fld_cbe0efca671b48e992d83664581698ba.unique",
+      "purpose": "Enforce @unique.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "uq_execution_request_id_unique",
+      "source": {
+        "file": "signalbox.model",
+        "line": 155,
+        "column": 3,
+        "endLine": 155,
+        "endColumn": 94
+      }
+    },
+    {
+      "id": "required:field:fld_3ab113e9fda24d89818dc798b47dc0bd",
+      "purpose": "allowance is required.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox.execution.allowance_id NOT NULL",
+      "source": {
+        "file": "signalbox.model",
+        "line": 156,
+        "column": 3,
+        "endLine": 156,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "reference:field:fld_3ab113e9fda24d89818dc798b47dc0bd",
+      "purpose": "allowance references Allowance.",
+      "layer": "PostgreSQL foreign key",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "fk_execution_allowance_id",
+      "source": {
+        "file": "signalbox.model",
+        "line": 156,
+        "column": 3,
+        "endLine": 156,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "annotation:field:fld_3ab113e9fda24d89818dc798b47dc0bd.unique",
+      "purpose": "Enforce @unique.",
+      "layer": "PostgreSQL constraint",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "uq_execution_allowance_id_unique",
+      "source": {
+        "file": "signalbox.model",
+        "line": 156,
+        "column": 3,
+        "endLine": 156,
+        "endColumn": 82
+      }
+    },
+    {
+      "id": "boundary:entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d.direct_write",
+      "purpose": "Application principals cannot directly mutate entity rows.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.execution",
+      "source": {
+        "file": "signalbox.model",
+        "line": 151,
+        "column": 1,
+        "endLine": 157,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "boundary:entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d.direct_read",
+      "purpose": "Application principals cannot directly read entity rows outside generated queries.",
+      "layer": "PostgreSQL privilege",
+      "artifact": "postgres/004_grants.sql",
+      "objectName": "model_signalbox.execution",
+      "source": {
+        "file": "signalbox.model",
+        "line": 151,
+        "column": 1,
+        "endLine": 157,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "caller:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+      "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
+      "layer": "PostgreSQL authenticated identity",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.request_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 190,
+        "column": 3,
+        "endLine": 190,
+        "endColumn": 26
+      }
+    },
+    {
+      "id": "boundary:action:act_d10d1618ed4045f396b64fc3745ce3dd.safe_search_path",
+      "purpose": "Prevent caller-controlled object shadowing inside the privileged function.",
+      "layer": "PostgreSQL function configuration",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.request_production_deployment search_path=pg_catalog,pg_temp"
+    },
+    {
+      "id": "boundary:action:act_d10d1618ed4045f396b64fc3745ce3dd.applicability",
+      "purpose": "Evaluate authenticated current-state applicability without mutation or authority grant from the same decision plan used by execution.",
+      "layer": "PostgreSQL stable function",
+      "artifact": "postgres/003_decisions.sql",
+      "objectName": "model_signalbox.decide_act_d10d1618ed4045f396b64fc3745ce3dd",
+      "source": {
+        "file": "signalbox.model",
+        "line": 189,
+        "column": 1,
+        "endLine": 208,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "idempotency:action:act_d10d1618ed4045f396b64fc3745ce3dd",
+      "purpose": "Serialize principal-scoped retries and replay the one committed result from a private transactional receipt.",
+      "layer": "PostgreSQL command receipt",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox_internal.command_receipt",
+      "source": {
+        "file": "signalbox.model",
+        "line": 189,
+        "column": 1,
+        "endLine": 208,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "revision:action:act_d10d1618ed4045f396b64fc3745ce3dd",
+      "purpose": "Compare an explicitly supplied opaque revision only after current authorization; a match grants no authority.",
+      "layer": "PostgreSQL action and applicability functions",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.request_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 189,
+        "column": 1,
+        "endLine": 208,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "authorize:action:act_d10d1618ed4045f396b64fc3745ce3dd",
+      "purpose": "ProductionDeployDelegation(actor, delegation, environment)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.request_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 195,
+        "column": 13,
+        "endLine": 195,
+        "endColumn": 71
+      }
+    },
+    {
+      "id": "require:action:act_d10d1618ed4045f396b64fc3745ce3dd.production_target",
+      "purpose": "(environment.tier == EnvironmentTier.PRODUCTION)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.request_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 196,
+        "column": 3,
+        "endLine": 196,
+        "endColumn": 77
+      }
+    },
+    {
+      "id": "effect:action:act_d10d1618ed4045f396b64fc3745ce3dd.0",
+      "purpose": "create entity:ent_e2b5ba3cccef437796b2048fd1ff2f24 as ordered effect 0.",
+      "layer": "PostgreSQL action function",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.request_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 189,
+        "column": 1,
+        "endLine": 208,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "lock:action:act_d10d1618ed4045f396b64fc3745ce3dd.actor",
+      "purpose": "Stabilize caller before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.request_production_deployment"
+    },
+    {
+      "id": "lock:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation",
+      "purpose": "Stabilize parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.request_production_deployment"
+    },
+    {
+      "id": "lock:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+      "purpose": "Stabilize parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.request_production_deployment"
+    },
+    {
+      "id": "caller:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+      "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
+      "layer": "PostgreSQL authenticated identity",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.approve_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 211,
+        "column": 3,
+        "endLine": 211,
+        "endColumn": 26
+      }
+    },
+    {
+      "id": "boundary:action:act_047a601f15384b5ea4bfa05b5ef72676.safe_search_path",
+      "purpose": "Prevent caller-controlled object shadowing inside the privileged function.",
+      "layer": "PostgreSQL function configuration",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.approve_production_deployment search_path=pg_catalog,pg_temp"
+    },
+    {
+      "id": "boundary:action:act_047a601f15384b5ea4bfa05b5ef72676.applicability",
+      "purpose": "Evaluate authenticated current-state applicability without mutation or authority grant from the same decision plan used by execution.",
+      "layer": "PostgreSQL stable function",
+      "artifact": "postgres/003_decisions.sql",
+      "objectName": "model_signalbox.decide_act_047a601f15384b5ea4bfa05b5ef72676",
+      "source": {
+        "file": "signalbox.model",
+        "line": 210,
+        "column": 1,
+        "endLine": 228,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "idempotency:action:act_047a601f15384b5ea4bfa05b5ef72676",
+      "purpose": "Serialize principal-scoped retries and replay the one committed result from a private transactional receipt.",
+      "layer": "PostgreSQL command receipt",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox_internal.command_receipt",
+      "source": {
+        "file": "signalbox.model",
+        "line": 210,
+        "column": 1,
+        "endLine": 228,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "revision:action:act_047a601f15384b5ea4bfa05b5ef72676",
+      "purpose": "Compare an explicitly supplied opaque revision only after current authorization; a match grants no authority.",
+      "layer": "PostgreSQL action and applicability functions",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.approve_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 210,
+        "column": 1,
+        "endLine": 228,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "authorize:action:act_047a601f15384b5ea4bfa05b5ef72676",
+      "purpose": "IndependentHumanApprover(actor, request)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.approve_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 214,
+        "column": 13,
+        "endLine": 214,
+        "endColumn": 53
+      }
+    },
+    {
+      "id": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
+      "purpose": "(request.status == RequestStatus.PENDING_APPROVAL)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.approve_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 215,
+        "column": 3,
+        "endLine": 215,
+        "endColumn": 79
+      }
+    },
+    {
+      "id": "effect:action:act_047a601f15384b5ea4bfa05b5ef72676.0",
+      "purpose": "update entity:ent_e2b5ba3cccef437796b2048fd1ff2f24 as ordered effect 0.",
+      "layer": "PostgreSQL action function",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.approve_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 210,
+        "column": 1,
+        "endLine": 228,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "effect:action:act_047a601f15384b5ea4bfa05b5ef72676.1",
+      "purpose": "create entity:ent_f6f083c592f34c07af0204bb507be013 as ordered effect 1.",
+      "layer": "PostgreSQL action function",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.approve_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 210,
+        "column": 1,
+        "endLine": 228,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "lock:action:act_047a601f15384b5ea4bfa05b5ef72676.actor",
+      "purpose": "Stabilize caller before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.approve_production_deployment"
+    },
+    {
+      "id": "lock:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
+      "purpose": "Stabilize parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR UPDATE in model_signalbox.approve_production_deployment"
+    },
+    {
+      "id": "caller:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+      "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
+      "layer": "PostgreSQL authenticated identity",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 232,
+        "column": 3,
+        "endLine": 232,
+        "endColumn": 26
+      }
+    },
+    {
+      "id": "boundary:action:act_4a9421bfc2e744969b9f73109e6cda54.safe_search_path",
+      "purpose": "Prevent caller-controlled object shadowing inside the privileged function.",
+      "layer": "PostgreSQL function configuration",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment search_path=pg_catalog,pg_temp"
+    },
+    {
+      "id": "boundary:action:act_4a9421bfc2e744969b9f73109e6cda54.applicability",
+      "purpose": "Evaluate authenticated current-state applicability without mutation or authority grant from the same decision plan used by execution.",
+      "layer": "PostgreSQL stable function",
+      "artifact": "postgres/003_decisions.sql",
+      "objectName": "model_signalbox.decide_act_4a9421bfc2e744969b9f73109e6cda54",
+      "source": {
+        "file": "signalbox.model",
+        "line": 231,
+        "column": 1,
+        "endLine": 253,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "idempotency:action:act_4a9421bfc2e744969b9f73109e6cda54",
+      "purpose": "Serialize principal-scoped retries and replay the one committed result from a private transactional receipt.",
+      "layer": "PostgreSQL command receipt",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox_internal.command_receipt",
+      "source": {
+        "file": "signalbox.model",
+        "line": 231,
+        "column": 1,
+        "endLine": 253,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+      "purpose": "Compare an explicitly supplied opaque revision only after current authorization; a match grants no authority.",
+      "layer": "PostgreSQL action and applicability functions",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 231,
+        "column": 1,
+        "endLine": 253,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+      "purpose": "((((actor.kind == PrincipalKind.HUMAN) and (actor.status == PrincipalStatus.ACTIVE)) and (Role.ADMIN in actor.roles)) and (actor.org == request.org))",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 237,
+        "column": 5,
+        "endLine": 240,
+        "endColumn": 33
+      }
+    },
+    {
+      "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
+      "purpose": "(request.status == RequestStatus.APPROVED)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 241,
+        "column": 3,
+        "endLine": 241,
+        "endColumn": 62
+      }
+    },
+    {
+      "id": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
+      "purpose": "(allowance.org == request.org)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 242,
+        "column": 3,
+        "endLine": 242,
+        "endColumn": 60
+      }
+    },
+    {
+      "id": "effect:action:act_4a9421bfc2e744969b9f73109e6cda54.0",
+      "purpose": "update entity:ent_e2b5ba3cccef437796b2048fd1ff2f24 as ordered effect 0.",
+      "layer": "PostgreSQL action function",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 231,
+        "column": 1,
+        "endLine": 253,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "effect:action:act_4a9421bfc2e744969b9f73109e6cda54.1",
+      "purpose": "create entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d as ordered effect 1.",
+      "layer": "PostgreSQL action function",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.execute_approved_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 231,
+        "column": 1,
+        "endLine": 253,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.actor",
+      "purpose": "Stabilize caller before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.execute_approved_deployment"
+    },
+    {
+      "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+      "purpose": "Stabilize parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.execute_approved_deployment"
+    },
+    {
+      "id": "lock:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+      "purpose": "Stabilize parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR UPDATE in model_signalbox.execute_approved_deployment"
+    },
+    {
+      "id": "caller:action:act_18ab026d358144dfa4d1729e40dd832e.actor",
+      "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
+      "layer": "PostgreSQL authenticated identity",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.reject_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 256,
+        "column": 3,
+        "endLine": 256,
+        "endColumn": 26
+      }
+    },
+    {
+      "id": "boundary:action:act_18ab026d358144dfa4d1729e40dd832e.safe_search_path",
+      "purpose": "Prevent caller-controlled object shadowing inside the privileged function.",
+      "layer": "PostgreSQL function configuration",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.reject_production_deployment search_path=pg_catalog,pg_temp"
+    },
+    {
+      "id": "boundary:action:act_18ab026d358144dfa4d1729e40dd832e.applicability",
+      "purpose": "Evaluate authenticated current-state applicability without mutation or authority grant from the same decision plan used by execution.",
+      "layer": "PostgreSQL stable function",
+      "artifact": "postgres/003_decisions.sql",
+      "objectName": "model_signalbox.decide_act_18ab026d358144dfa4d1729e40dd832e",
+      "source": {
+        "file": "signalbox.model",
+        "line": 255,
+        "column": 1,
+        "endLine": 266,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "idempotency:action:act_18ab026d358144dfa4d1729e40dd832e",
+      "purpose": "Serialize principal-scoped retries and replay the one committed result from a private transactional receipt.",
+      "layer": "PostgreSQL command receipt",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox_internal.command_receipt",
+      "source": {
+        "file": "signalbox.model",
+        "line": 255,
+        "column": 1,
+        "endLine": 266,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "revision:action:act_18ab026d358144dfa4d1729e40dd832e",
+      "purpose": "Compare an explicitly supplied opaque revision only after current authorization; a match grants no authority.",
+      "layer": "PostgreSQL action and applicability functions",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.reject_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 255,
+        "column": 1,
+        "endLine": 266,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "authorize:action:act_18ab026d358144dfa4d1729e40dd832e",
+      "purpose": "IndependentHumanApprover(actor, request)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.reject_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 259,
+        "column": 13,
+        "endLine": 259,
+        "endColumn": 53
+      }
+    },
+    {
+      "id": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
+      "purpose": "(request.status == RequestStatus.PENDING_APPROVAL)",
+      "layer": "PostgreSQL action guard",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.reject_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 260,
+        "column": 3,
+        "endLine": 260,
+        "endColumn": 79
+      }
+    },
+    {
+      "id": "effect:action:act_18ab026d358144dfa4d1729e40dd832e.0",
+      "purpose": "update entity:ent_e2b5ba3cccef437796b2048fd1ff2f24 as ordered effect 0.",
+      "layer": "PostgreSQL action function",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox.reject_production_deployment",
+      "source": {
+        "file": "signalbox.model",
+        "line": 255,
+        "column": 1,
+        "endLine": 266,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "lock:action:act_18ab026d358144dfa4d1729e40dd832e.actor",
+      "purpose": "Stabilize caller before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR SHARE in model_signalbox.reject_production_deployment"
+    },
+    {
+      "id": "lock:action:act_18ab026d358144dfa4d1729e40dd832e.request",
+      "purpose": "Stabilize parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request before evaluating guards and effects.",
+      "layer": "PostgreSQL row lock",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "FOR UPDATE in model_signalbox.reject_production_deployment"
+    },
+    {
+      "id": "caller:query:qry_60d1c5d416eb428caa385db274edcb4b.actor",
+      "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
+      "layer": "PostgreSQL authenticated identity",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 295,
+        "column": 3,
+        "endLine": 295,
+        "endColumn": 26
+      }
+    },
+    {
+      "id": "boundary:query:qry_60d1c5d416eb428caa385db274edcb4b.safe_search_path",
+      "purpose": "Prevent caller-controlled object shadowing inside the privileged function.",
+      "layer": "PostgreSQL function configuration",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests search_path=pg_catalog,pg_temp"
+    },
+    {
+      "id": "authorize:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "true",
+      "layer": "PostgreSQL query guard",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 297,
+        "column": 13,
+        "endLine": 297,
+        "endColumn": 17
+      }
+    },
+    {
+      "id": "where:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "(request.org == actor.org)",
+      "layer": "PostgreSQL row policy",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 298,
+        "column": 9,
+        "endLine": 298,
+        "endColumn": 33
+      }
+    },
+    {
+      "id": "order:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "Return rows in the default declared order with an ascending identity tie-breaker.",
+      "layer": "PostgreSQL query function",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 294,
+        "column": 1,
+        "endLine": 303,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "limit:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "Return at most 50 rows.",
+      "layer": "PostgreSQL query function",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 294,
+        "column": 1,
+        "endLine": 303,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "cursor:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "Continue by the declared order and identity key; bind the opaque cursor to model/query identity, source, caller, filters, and ordering, and re-evaluate authorization and row policy.",
+      "layer": "PostgreSQL keyset pagination",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 294,
+        "column": 1,
+        "endLine": 303,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "read-evidence:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "Append private transactional evidence for each successful committed query invocation, binding authenticated identity and query revision to canonical request and exact response hashes without copying inputs, cursors, or result payloads.",
+      "layer": "PostgreSQL private query audit",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox_internal.query_audit",
+      "source": {
+        "file": "signalbox.model",
+        "line": 294,
+        "column": 1,
+        "endLine": 303,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "read:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "Read entity:ent_e2b5ba3cccef437796b2048fd1ff2f24 root rows and authored to-one related entities entity:ent_197f12dacaf14992a367c5c15f895415 through the generated query boundary.",
+      "layer": "PostgreSQL query function",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 294,
+        "column": 1,
+        "endLine": 303,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "disclose:query:qry_60d1c5d416eb428caa385db274edcb4b",
+      "purpose": "Disclose only projection closure projection:prj_6d0491126ecb4d1abb14f945eb26c641 -> projection:prj_a89b0acb503746ed86110f47bbe42c04 through the generated query boundary.",
+      "layer": "PostgreSQL projection encoder",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.my_org_deploy_requests",
+      "source": {
+        "file": "signalbox.model",
+        "line": 294,
+        "column": 1,
+        "endLine": 303,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "caller:query:qry_21f24f72d72c4bb98df539477f0e81f2.actor",
+      "purpose": "Resolve the semantic caller from direct session identity or transaction-bound gateway claims; no caller UUID is accepted.",
+      "layer": "PostgreSQL authenticated identity",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 306,
+        "column": 3,
+        "endLine": 306,
+        "endColumn": 26
+      }
+    },
+    {
+      "id": "boundary:query:qry_21f24f72d72c4bb98df539477f0e81f2.safe_search_path",
+      "purpose": "Prevent caller-controlled object shadowing inside the privileged function.",
+      "layer": "PostgreSQL function configuration",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox search_path=pg_catalog,pg_temp"
+    },
+    {
+      "id": "authorize:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "((actor.kind == PrincipalKind.HUMAN) and (Role.APPROVER in actor.roles))",
+      "layer": "PostgreSQL query guard",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 309,
+        "column": 5,
+        "endLine": 310,
+        "endColumn": 37
+      }
+    },
+    {
+      "id": "where:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "(((request.org == actor.org) and (request.status == RequestStatus.PENDING_APPROVAL)) and (request.requestedBy != actor))",
+      "layer": "PostgreSQL row policy",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 311,
+        "column": 9,
+        "endLine": 313,
+        "endColumn": 37
+      }
+    },
+    {
+      "id": "order:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "Return rows in the default declared order with an ascending identity tie-breaker.",
+      "layer": "PostgreSQL query function",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 305,
+        "column": 1,
+        "endLine": 318,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "limit:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "Return at most 50 rows.",
+      "layer": "PostgreSQL query function",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 305,
+        "column": 1,
+        "endLine": 318,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "cursor:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "Continue by the declared order and identity key; bind the opaque cursor to model/query identity, source, caller, filters, and ordering, and re-evaluate authorization and row policy.",
+      "layer": "PostgreSQL keyset pagination",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 305,
+        "column": 1,
+        "endLine": 318,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "read-evidence:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "Append private transactional evidence for each successful committed query invocation, binding authenticated identity and query revision to canonical request and exact response hashes without copying inputs, cursors, or result payloads.",
+      "layer": "PostgreSQL private query audit",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox_internal.query_audit",
+      "source": {
+        "file": "signalbox.model",
+        "line": 305,
+        "column": 1,
+        "endLine": 318,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "read:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "Read entity:ent_e2b5ba3cccef437796b2048fd1ff2f24 root rows and authored to-one related entities entity:ent_197f12dacaf14992a367c5c15f895415 through the generated query boundary.",
+      "layer": "PostgreSQL query function",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 305,
+        "column": 1,
+        "endLine": 318,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "disclose:query:qry_21f24f72d72c4bb98df539477f0e81f2",
+      "purpose": "Disclose only projection closure projection:prj_6d0491126ecb4d1abb14f945eb26c641 -> projection:prj_a89b0acb503746ed86110f47bbe42c04 through the generated query boundary.",
+      "layer": "PostgreSQL projection encoder",
+      "artifact": "postgres/003_queries.sql",
+      "objectName": "model_signalbox.approval_inbox",
+      "source": {
+        "file": "signalbox.model",
+        "line": 305,
+        "column": 1,
+        "endLine": 318,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "workflow-initial:workflow:wfl_e439c3fe71514c98b303d21ee7937042",
+      "purpose": "Require new entity:ent_e2b5ba3cccef437796b2048fd1ff2f24 rows to begin in the declared initial state.",
+      "layer": "PostgreSQL workflow trigger",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "trg_production_deploy_request_status_workflow_insert",
+      "source": {
+        "file": "signalbox.model",
+        "line": 268,
+        "column": 1,
+        "endLine": 276,
+        "endColumn": 2
+      }
+    },
+    {
+      "id": "transition:trn_71f01fea84c94edf82cd4d28255783f3",
+      "purpose": "Permit only the declared workflow edge implemented by action:act_047a601f15384b5ea4bfa05b5ef72676.",
+      "layer": "PostgreSQL workflow trigger",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "trg_production_deploy_request_status_workflow_update",
+      "source": {
+        "file": "signalbox.model",
+        "line": 270,
+        "column": 3,
+        "endLine": 271,
+        "endColumn": 93
+      }
+    },
+    {
+      "id": "transition:trn_e8d57ac85e6745f99c7e5abd4d795209",
+      "purpose": "Permit only the declared workflow edge implemented by action:act_4a9421bfc2e744969b9f73109e6cda54.",
+      "layer": "PostgreSQL workflow trigger",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "trg_production_deploy_request_status_workflow_update",
+      "source": {
+        "file": "signalbox.model",
+        "line": 272,
+        "column": 3,
+        "endLine": 273,
+        "endColumn": 83
+      }
+    },
+    {
+      "id": "transition:trn_70d0b557789946c9874777fc20cb27dd",
+      "purpose": "Permit only the declared workflow edge implemented by action:act_18ab026d358144dfa4d1729e40dd832e.",
+      "layer": "PostgreSQL workflow trigger",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "trg_production_deploy_request_status_workflow_update",
+      "source": {
+        "file": "signalbox.model",
+        "line": 274,
+        "column": 3,
+        "endLine": 275,
+        "endColumn": 92
+      }
+    },
+    {
+      "id": "boundary:target_capabilities",
+      "purpose": "Report the canonical generator target's supported semantics and every model requirement that remains externally implemented.",
+      "layer": "ModelLang target conformance",
+      "artifact": "target-capabilities.json",
+      "objectName": "target:postgresql-http-ui-extension-tools/9"
+    },
+    {
+      "id": "boundary:audit",
+      "purpose": "Record each successful action with database and model principal identities plus gateway provenance when present.",
+      "layer": "PostgreSQL audit",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox_internal.action_audit"
+    },
+    {
+      "id": "boundary:decision_evidence",
+      "purpose": "Record private model/source identity, stable decision rule and policy authority, and executed outcome transactionally with action audit.",
+      "layer": "PostgreSQL audit",
+      "artifact": "postgres/003_actions.sql",
+      "objectName": "model_signalbox_internal.action_audit.decision_evidence"
+    },
+    {
+      "id": "boundary:command_receipts",
+      "purpose": "Keep idempotency keys, request fingerprints, correlations, stored results, and audit links private and transactional.",
+      "layer": "PostgreSQL receipt boundary",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox_internal.command_receipt"
+    },
+    {
+      "id": "boundary:event_outbox",
+      "purpose": "Commit domain events atomically with state, audit, evidence, and receipts, then deliver them through private leases with at-least-once semantics.",
+      "layer": "PostgreSQL transactional outbox",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox_internal.event_outbox"
+    },
+    {
+      "id": "boundary:event_inbox",
+      "purpose": "Commit consumer deduplication, validation, local effect, audit evidence, and stored result atomically.",
+      "layer": "PostgreSQL transactional inbox",
+      "artifact": "postgres/002_schema.sql",
+      "objectName": "model_signalbox_internal.event_inbox"
+    }
+  ]
+}
