@@ -16,17 +16,18 @@
     "modellang:smoke": "node scripts/modellang-smoke.mjs",
     "start": "npm run generated:build && npm run host:build && node dist/server.mjs",
     "worker": "npm run generated:build && npm run host:build && node dist/worker-main.mjs",
+    "agent": "npm run generated:build && npm run host:build && node dist/agent-main.mjs",
     "test": "npm run generated:build && vitest run",
     "verify": "npm run modellang:smoke && vitest run"
   },
   "dependencies": {
+    "@modelcontextprotocol/client": "^2.0.0",
     "@modelcontextprotocol/server": "^2.0.0",
     "jose": "^6.2.10",
     "pg": "^8.23.0"
   },
   "devDependencies": {
     "@atlanticplatformgroup/modellang": "0.51.0",
-    "@modelcontextprotocol/client": "^2.0.0",
     "@types/node": "^26.4.0",
     "@types/pg": "^8.23.1",
     "typescript": "^7.0.2",

@@ -8,11 +8,15 @@ import pg from "pg";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { createSignalboxBoundary } from "../src/boundary.mjs";
 import { createSignalboxNodeServer } from "../src/server.mjs";
+import { SignalboxMcpTools } from "../src/agents/signalbox-mcp.mjs";
 
 const AGENT_PI = "00000000-0000-4000-8000-0000000000b1";
 const DELEGATION_ISSUE = "00000000-0000-4000-8000-0000000000f1";
+const DELEGATION_STAGING = "00000000-0000-4000-8000-0000000000f3";
 const REPOSITORY = "00000000-0000-4000-8000-0000000000d1";
 const CONNECTOR_GITHUB = "00000000-0000-4000-8000-0000000000c1";
+const CONNECTOR_STATIC = "00000000-0000-4000-8000-0000000000c2";
+const ENVIRONMENT_PRODUCTION = "00000000-0000-4000-8000-0000000000e1";
 const REQUEST_ISSUE = "act_ea693a4d658449fbab5741b8369bc276";
 const MY_ISSUES = "qry_22f082ad9148490eb301e04fdc6e2ce3";
 const OIDC_ISSUER = "https://oidc.test";
@@ -286,6 +290,43 @@ describe("MCP protocol boundary", () => {
       await client.close();
     }
   });
+  it("discovers the governed coding actions through the production MCP adapter", async () => {
+    const issued = await issueToken();
+    const tools = await SignalboxMcpTools.connect({
+      url: `${origin}/mcp`,
+      accessToken: issued.token,
+    });
+    try {
+      expect((await tools.definitions()).map((definition) => definition.authoredName)).toEqual([
+        "requestProductionDeployment",
+        "requestPullRequest",
+        "requestStagingDeployment",
+      ]);
+      const denied = await tools.invoke("requestProductionDeployment", {
+        delegation: DELEGATION_STAGING,
+        environment: ENVIRONMENT_PRODUCTION,
+        connector: CONNECTOR_STATIC,
+        commitSha: "a".repeat(40),
+      }, {
+        idempotencyKey: "host-test:production-denial",
+        correlationId: "host-test:production-denial",
+      });
+      expect(denied.outcome).toBe("denied");
+      if (denied.outcome === "denied") {
+        expect(denied.denial.ruleId).toMatch(/^authorize:/);
+        expect(denied.denial.policyId).toBeNull();
+        expect(denied.denial.policyDisclosure).toBe("withheldByPublicTrace");
+        expect(denied.denial.decisionEvidence.model).toMatchObject({
+          id: "model:Signalbox",
+          version: "0.52.0",
+          sourceHash: expect.stringMatching(/^sha256:/),
+        });
+      }
+    } finally {
+      await tools.close();
+    }
+  });
+
 
   it("challenges an MCP request without a bearer token", async () => {
     const response = await fetch(`${origin}/mcp`, {
