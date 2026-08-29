@@ -188,13 +188,12 @@ Phase 1 can start on schedule with no open stack question:
 
 ## Next
 
-1. Ship ModelLang 0.51 tenant scoping, publish, then **freeze the compiler** and pin the exact version.
-2. Expand to the full ~14-entity model under `@tenantScoped`.
-3. Read the full Nebius official rules for a concurrent-submission clause before planning the Galuxium double-submit.
+1. Expand to the full ~14-entity model under `@tenantScoped`.
+2. Read the full Nebius official rules for a concurrent-submission clause before planning the Galuxium double-submit.
 
-## Known local-only state
+## Published compiler state
 
-`package.json` declares `@atlanticplatformgroup/modellang` at `0.50.3`, but the three
-fixes above are **unreleased** — they exist only in the local ModelLang worktree.
-Until a patch is published, install from a local `npm pack` tarball. Publishing the
-patch release is a prerequisite for the first reproducible clone of this repo.
+`package.json` and `package-lock.json` pin `@atlanticplatformgroup/modellang` at
+the published `0.51.0` registry artifact. A local `npm pack` tarball is no longer
+required. The published package regenerated the Signalbox artifacts and passed
+all 20 live PostgreSQL 16 enforcement tests.
