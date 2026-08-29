@@ -188,7 +188,7 @@ Phase 1 can start on schedule with no open stack question:
 
 ## Next
 
-1. Expand to the full ~14-entity model under `@tenantScoped`.
+1. Build the Phase 2 authenticated REST + MCP host over the complete 14-entity tenant model.
 2. Read the full Nebius official rules for a concurrent-submission clause before planning the Galuxium double-submit.
 
 ## Published compiler state

@@ -7,75 +7,75 @@
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.50.0",
-    "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+    "version": "0.51.0",
+    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
   },
   "irVersion": 2,
   "artifacts": [
     {
       "path": "agent-tools.json",
       "role": "contract",
-      "sha256": "sha256:d9583282050258179a53117ad56ba0577057efd094376e44903e217371bbd59e"
+      "sha256": "sha256:36aaca5156db8c3698e79e933efd5ebcd2381ad6fed29c83b472dc5a4e2f5e9c"
     },
     {
       "path": "capabilities.json",
       "role": "contract",
-      "sha256": "sha256:f1c4aadedca6b62d5387cece4236992ae3677dd0b9a8f4687d116455834260f9"
+      "sha256": "sha256:86d04e09effe3df9612bfc355c40ff1457c78b7e77f0eea2116ab904204a4f77"
     },
     {
       "path": "decisions.json",
       "role": "contract",
-      "sha256": "sha256:bd09b1a9256d45519ccf5fee35005c104a5dbdd581bab86562f519fd2beec2f4"
+      "sha256": "sha256:f07cf90094bfcd3e9061c9ede66c5b4c06a4305ae9e7f7adc6e6c3c9b45d48e1"
     },
     {
       "path": "enforcement.json",
       "role": "assurance",
-      "sha256": "sha256:9d2881d4123f90ead574d3c09f15c971d58ad6a66253c6bd2b13b4ef6a867934"
+      "sha256": "sha256:3ced1f52bea527a875d2afbecada7db1a9c3c885ddf11f0d5da707956e2ad08b"
     },
     {
       "path": "enforcement.md",
       "role": "assurance",
-      "sha256": "sha256:332e7932a197ed7d9e20b58ee1cf6bd1db863f106f234457202777ec6ab5d313"
+      "sha256": "sha256:f8428a761a87add5f0a02b8cef9d141101e18311fd9d44ee7657b799834b5221"
     },
     {
       "path": "events.json",
       "role": "contract",
-      "sha256": "sha256:63011e5641c9740e6ed34817994a8c71a810a0ec60e297869320dde883a6f902"
+      "sha256": "sha256:05320163e27da34ab555f9cb889db1e9044f541ab56b7c139c8f395383ccce49"
     },
     {
       "path": "extensions.json",
       "role": "assurance",
-      "sha256": "sha256:3e4158e2180c435681ec693392d34e041cffb63cbef3c9092d9a4ca19fec2a9b"
+      "sha256": "sha256:5aca47049e676eed0d9b877075b9129997bf14ba194ca13a58ebef56def2d851"
     },
     {
       "path": "mcp.json",
       "role": "contract",
-      "sha256": "sha256:6f88aae2d4bdd4ba97b654d314265d042ffa591e92bac738fd6950c806b66a5e"
+      "sha256": "sha256:6baa3f78ffbb168d6b0759e85700d7240884bfb721260fb97204889f2c1ccec7"
     },
     {
       "path": "model.ir.json",
       "role": "canonical",
-      "sha256": "sha256:72c7791de2fcaac861c9e057f76c87ff9a247396649549bcb6a8b6e6475dc20c"
+      "sha256": "sha256:e1e74411816c06fce874bcc01eeb2fb572f75549036e0adab83422cb7cb64535"
     },
     {
       "path": "model.mmd",
       "role": "projection",
-      "sha256": "sha256:50960a640394c2515335d19597a943da087ed354742242808969900577e3dad5"
+      "sha256": "sha256:66d49539535657329c5f70e62fa76e7de6e12fdb1e4ca26524a2a37c245ef0a9"
     },
     {
       "path": "openapi.json",
       "role": "contract",
-      "sha256": "sha256:4858e6717c3617b09945852fe512738dd138c67683bba2dc0d4a18cb15dff214"
+      "sha256": "sha256:88ad55d720a999c61ceb1fa07b5a7946505e7729bfad1a5885b380f37af3cc18"
     },
     {
       "path": "operations.json",
       "role": "contract",
-      "sha256": "sha256:ef210b88daf1d93ed5d0f7e4638c90fa11282823b6bad5d5fe8411c88847b65c"
+      "sha256": "sha256:4bd75f19906d213c300b71b008179ec4ebad09533fddbea88da60844d7375522"
     },
     {
       "path": "package.json",
       "role": "projection",
-      "sha256": "sha256:8ddc4cf736f5dc18d5951ac01caeb5380a4a3f01d8d8250a1b0d6866a9351b7f"
+      "sha256": "sha256:f0c20a8a909bb6aa209630cf23cab8a96ea733c3d6ead1e36d88bf693929faac"
     },
     {
       "path": "postgres/001_roles.sql",
@@ -85,12 +85,12 @@
     {
       "path": "postgres/002_schema.sql",
       "role": "projection",
-      "sha256": "sha256:55fc6a022b913bd37d2b668d9630aeb32d2b5a8532a1c3e6514936add86fe439"
+      "sha256": "sha256:f6355f6fd65a24cb7ae9b39e4c9455f0296be65e007a8f75e230213c13fc9534"
     },
     {
       "path": "postgres/003_actions.sql",
       "role": "projection",
-      "sha256": "sha256:97bac49aba89611f74383c5fe15898822c51d6d4f123e53502952b142982bf43"
+      "sha256": "sha256:9489fa066a8e6968b6ba9accd99db87453996780915acf877789e6dab4f87b50"
     },
     {
       "path": "postgres/003_consumers.sql",
@@ -100,17 +100,17 @@
     {
       "path": "postgres/003_decisions.sql",
       "role": "projection",
-      "sha256": "sha256:e541bf6257d099aaabefd9fd306dba3faae66b2dda499518c89e210498a4f34a"
+      "sha256": "sha256:076f4d9a8fe228b8d863ea310c31e0efd3f2e303fe76599bb6d6ce7447825082"
     },
     {
       "path": "postgres/003_queries.sql",
       "role": "projection",
-      "sha256": "sha256:6f375988351f4f41fda2f57682d23b2b6948db3b832897855965de1ef146a270"
+      "sha256": "sha256:36db6c5f852fb8ccf3a3174fbe73f17ed7a5902504ccd6fb5fe47cbbe2ef502b"
     },
     {
       "path": "postgres/004_grants.sql",
       "role": "projection",
-      "sha256": "sha256:045eb287f56dddd101b4c91edfc4490e8dcad440445591fe8a22b38008a14ee7"
+      "sha256": "sha256:d77f670cfe1e02e17d145cb5fac331336048bb9d53e375c98b338f1a5f864d7e"
     },
     {
       "path": "postgres/005_seed.sql",
@@ -120,17 +120,17 @@
     {
       "path": "semantic.json",
       "role": "contract",
-      "sha256": "sha256:220643607c34676f0a31f055587317a57e8d3ad6cc8e40e865aca704421a8c39"
+      "sha256": "sha256:849c59e33e5e675711cf8dd727b6e380c21e617a31c7a4a192111ab5611b7461"
     },
     {
       "path": "sml-agent-assessment.json",
       "role": "assurance",
-      "sha256": "sha256:169be5eb8a42fa7d19753db4fbb178cebfff81d9bc2d6db32853d9aafb506530"
+      "sha256": "sha256:e76abfad3834ed9122a1fcf8be7834dbe41f07039379e0faf9730b61bc4c63c6"
     },
     {
       "path": "target-capabilities.json",
       "role": "assurance",
-      "sha256": "sha256:a0ca910defa2993c351fbdac0f8e450fd9ca83b4d9a6ae7db7f6b4ee1115e02b"
+      "sha256": "sha256:edd28efe6dfb646f47bdc3cbbd6066081f5886439cd717d1f07c2630d9b8fc1d"
     },
     {
       "path": "tsconfig.build.json",
@@ -150,12 +150,12 @@
     {
       "path": "typescript/capabilities.ts",
       "role": "projection",
-      "sha256": "sha256:3ecbd19ef8f1fb4c18c256e16ab40ee0283f6e564082642251111403b3446a20"
+      "sha256": "sha256:1c9791abc743ac59c2346e6bb138c2c338c1cab608f0d935a0512fafc73d7a15"
     },
     {
       "path": "typescript/client.ts",
       "role": "projection",
-      "sha256": "sha256:17d4c1324f84fe70a1d97279a7aec3ca34d25fbecf01c3e14b2dc034b27c4321"
+      "sha256": "sha256:7da32d52faf85fd5b4c613c881ee636213f811651e14b058220e202b9c7d71de"
     },
     {
       "path": "typescript/consumers.ts",
@@ -195,17 +195,17 @@
     {
       "path": "typescript/gateway.ts",
       "role": "projection",
-      "sha256": "sha256:1eba12fdc09cf1d3ec138f30821ff52e6b9df901a320945239f189946af052b7"
+      "sha256": "sha256:a563afdce0762c5cbde35af95b2390f77e1abbff8e0718d76e0e514cd4c8c6d9"
     },
     {
       "path": "typescript/http-client.ts",
       "role": "projection",
-      "sha256": "sha256:18e05d287189cedda2dcd370858968aaec366380d71c557830386e1a73425306"
+      "sha256": "sha256:885ac3fc16ee2b3ca8c5c2e78572ce189ed7671bc5bf1a8975ca8d78fd1600c8"
     },
     {
       "path": "typescript/http-server.ts",
       "role": "projection",
-      "sha256": "sha256:0ef0e94dda28d2123ab567bbff638cf0b1233bdd96e28cc3e62cef49d2e4cf3b"
+      "sha256": "sha256:0a55bdf3f7d1bc919bffab42ca1d68de85cc66bb60a56af2c347d0b236cb9df8"
     },
     {
       "path": "typescript/index.ts",
@@ -215,7 +215,7 @@
     {
       "path": "typescript/mcp-server.ts",
       "role": "projection",
-      "sha256": "sha256:3b1bc43a23ca6e71010d6105981aa788824361b46d2cdc9ed9bf40ce11cefbd3"
+      "sha256": "sha256:0f74b0ef3b69b55e419cfc79d60eb912b2c40712945e38fbf86784919517707f"
     },
     {
       "path": "typescript/publication-recovery.ts",
@@ -225,22 +225,22 @@
     {
       "path": "typescript/types.ts",
       "role": "projection",
-      "sha256": "sha256:26605171bf7740131aef9292871e599cc07d01ef9b42cdaac3775eaaed251f31"
+      "sha256": "sha256:7be250c5de8dbf4f3cf34f572d2bf1645ad84afce13484f6896a92027305a145"
     },
     {
       "path": "typescript/ui.ts",
       "role": "projection",
-      "sha256": "sha256:1a2e50d0267c9e759870f830696a39b0cf26fcc18f4842b8ec4591ef6319445f"
+      "sha256": "sha256:12cac1ca2a0dabda90542e13e8de790be8d3943b65d1201db6e24d5eb941bd42"
     },
     {
       "path": "typescript/workflows.ts",
       "role": "projection",
-      "sha256": "sha256:e69e5f7cd760be6e51c79c0db2a299f2e0f2c87b6820e5051b9b1238e9b55e5e"
+      "sha256": "sha256:ecc663701991efdae5cc2c843ed6b3eb9deaf63025108885ce1a5be0a0e89488"
     },
     {
       "path": "ui.json",
       "role": "contract",
-      "sha256": "sha256:9796e7604636cf45f4a8cd140f5a177e3b3812137cbfc779c1dda15e97458396"
+      "sha256": "sha256:2772989eabcd7ee317dbd40c726e2032a0e9e7195c4bcaf29ed7471174922090"
     }
   ]
 }

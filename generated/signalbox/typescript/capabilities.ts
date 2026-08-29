@@ -6,8 +6,8 @@ export const capabilityManifest = {
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.50.0",
-    "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+    "version": "0.51.0",
+    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
   },
   "view": {
     "audience": "application",
@@ -22,10 +22,112 @@ export const capabilityManifest = {
   },
   "actions": [
     {
+      "operationId": "action:act_ea693a4d658449fbab5741b8369bc276",
+      "inputParameterIds": [
+        "parameter:action:act_ea693a4d658449fbab5741b8369bc276.delegation",
+        "parameter:action:act_ea693a4d658449fbab5741b8369bc276.repository",
+        "parameter:action:act_ea693a4d658449fbab5741b8369bc276.connector",
+        "parameter:action:act_ea693a4d658449fbab5741b8369bc276.title",
+        "parameter:action:act_ea693a4d658449fbab5741b8369bc276.body"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_ea693a4d658449fbab5741b8369bc276",
+        "preconditionRuleIds": [],
+        "revisionRuleId": "revision:action:act_ea693a4d658449fbab5741b8369bc276"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_c4bb8af190dd48efb9784efb9ff9030c",
+      "inputParameterIds": [
+        "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.delegation",
+        "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.repository",
+        "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.connector",
+        "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.headBranch",
+        "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.baseBranch",
+        "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.title"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+        "preconditionRuleIds": [],
+        "revisionRuleId": "revision:action:act_c4bb8af190dd48efb9784efb9ff9030c"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_1388eb9f38684fa0830f60156cdba497",
+      "inputParameterIds": [
+        "parameter:action:act_1388eb9f38684fa0830f60156cdba497.delegation",
+        "parameter:action:act_1388eb9f38684fa0830f60156cdba497.environment",
+        "parameter:action:act_1388eb9f38684fa0830f60156cdba497.connector",
+        "parameter:action:act_1388eb9f38684fa0830f60156cdba497.commitSha"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_1388eb9f38684fa0830f60156cdba497",
+        "preconditionRuleIds": [
+          "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target"
+        ],
+        "revisionRuleId": "revision:action:act_1388eb9f38684fa0830f60156cdba497"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
       "operationId": "action:act_d10d1618ed4045f396b64fc3745ce3dd",
       "inputParameterIds": [
         "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.delegation",
         "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.environment",
+        "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.connector",
         "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.commitSha"
       ],
       "outcomes": [
@@ -55,6 +157,39 @@ export const capabilityManifest = {
       "emittedEventIds": []
     },
     {
+      "operationId": "action:act_411bfff32560406186bd2d442f1ecf3b",
+      "inputParameterIds": [
+        "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.delegation",
+        "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.environment",
+        "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.connector",
+        "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationName",
+        "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationSha"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_411bfff32560406186bd2d442f1ecf3b",
+        "preconditionRuleIds": [],
+        "revisionRuleId": "revision:action:act_411bfff32560406186bd2d442f1ecf3b"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
       "operationId": "action:act_047a601f15384b5ea4bfa05b5ef72676",
       "inputParameterIds": [
         "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request"
@@ -69,9 +204,203 @@ export const capabilityManifest = {
         "safe": true,
         "authorizationRuleId": "authorize:action:act_047a601f15384b5ea4bfa05b5ef72676",
         "preconditionRuleIds": [
+          "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
           "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval"
         ],
         "revisionRuleId": "revision:action:act_047a601f15384b5ea4bfa05b5ef72676"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_18ab026d358144dfa4d1729e40dd832e",
+      "inputParameterIds": [
+        "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_18ab026d358144dfa4d1729e40dd832e",
+        "preconditionRuleIds": [
+          "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
+          "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval"
+        ],
+        "revisionRuleId": "revision:action:act_18ab026d358144dfa4d1729e40dd832e"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+      "inputParameterIds": [
+        "parameter:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.request"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+        "preconditionRuleIds": [
+          "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval"
+        ],
+        "revisionRuleId": "revision:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+      "inputParameterIds": [
+        "parameter:action:act_d3a1935e42f24e4d84d25bc05ee690ad.request"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+        "preconditionRuleIds": [
+          "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval"
+        ],
+        "revisionRuleId": "revision:action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_cbb72fd307704ab3927aa4bea8112fbf",
+      "inputParameterIds": [
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+        "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+        "preconditionRuleIds": [
+          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+        ],
+        "revisionRuleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_3e99da927be642efac3d1bee026ef00a",
+      "inputParameterIds": [
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+        "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+        "preconditionRuleIds": [
+          "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+          "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+        ],
+        "revisionRuleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_3e26a4d454634bf3a2058204146d7c45",
+      "inputParameterIds": [
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+        "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+        "preconditionRuleIds": [
+          "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+          "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+        ],
+        "revisionRuleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45"
       },
       "revision": {
         "kind": "opaque",
@@ -101,8 +430,8 @@ export const capabilityManifest = {
         "safe": true,
         "authorizationRuleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
         "preconditionRuleIds": [
-          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org"
+          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
         ],
         "revisionRuleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54"
       },
@@ -119,9 +448,10 @@ export const capabilityManifest = {
       "emittedEventIds": []
     },
     {
-      "operationId": "action:act_18ab026d358144dfa4d1729e40dd832e",
+      "operationId": "action:act_70d3862584094631aca61e9db664d991",
       "inputParameterIds": [
-        "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request"
+        "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+        "parameter:action:act_70d3862584094631aca61e9db664d991.allowance"
       ],
       "outcomes": [
         "applicable",
@@ -131,11 +461,76 @@ export const capabilityManifest = {
       ],
       "explanation": {
         "safe": true,
-        "authorizationRuleId": "authorize:action:act_18ab026d358144dfa4d1729e40dd832e",
+        "authorizationRuleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
         "preconditionRuleIds": [
-          "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval"
+          "require:action:act_70d3862584094631aca61e9db664d991.approved",
+          "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
         ],
-        "revisionRuleId": "revision:action:act_18ab026d358144dfa4d1729e40dd832e"
+        "revisionRuleId": "revision:action:act_70d3862584094631aca61e9db664d991"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_5be24324b68d4c2eb334732b36e1b16c",
+      "inputParameterIds": [
+        "parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.execution",
+        "parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.externalReference"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
+        "preconditionRuleIds": [
+          "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending"
+        ],
+        "revisionRuleId": "revision:action:act_5be24324b68d4c2eb334732b36e1b16c"
+      },
+      "revision": {
+        "kind": "opaque",
+        "staleRequiresExpectedRevision": true,
+        "grantsAuthority": false
+      },
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal",
+        "grantsAuthority": false
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_926686163a6544e79d44dea9336d2c88",
+      "inputParameterIds": [
+        "parameter:action:act_926686163a6544e79d44dea9336d2c88.execution",
+        "parameter:action:act_926686163a6544e79d44dea9336d2c88.failureMessage"
+      ],
+      "outcomes": [
+        "applicable",
+        "denied",
+        "notApplicable",
+        "stale"
+      ],
+      "explanation": {
+        "safe": true,
+        "authorizationRuleId": "authorize:action:act_926686163a6544e79d44dea9336d2c88",
+        "preconditionRuleIds": [
+          "require:action:act_926686163a6544e79d44dea9336d2c88.pending"
+        ],
+        "revisionRuleId": "revision:action:act_926686163a6544e79d44dea9336d2c88"
       },
       "revision": {
         "kind": "opaque",

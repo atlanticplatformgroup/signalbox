@@ -5,30 +5,103 @@ flowchart LR
   entity_ent_661a8bc41d68494eaaa82198b8354a94["Entity: Organization"]
   entity_ent_197f12dacaf14992a367c5c15f895415["Entity: Principal"]
   entity_ent_197f12dacaf14992a367c5c15f895415 -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_197f12dacaf14992a367c5c15f895415 -->|responsibleOwner| entity_ent_197f12dacaf14992a367c5c15f895415
+  invariant_inv_9d2a1ef4ee1b4eb89823a061089a72bb["Invariant: agent_has_human_owner"] -->|constrains| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_bc00926c5e9b40bd9fd939ef1ebb1a11["Entity: AgentCredentialMetadata"]
+  entity_ent_bc00926c5e9b40bd9fd939ef1ebb1a11 -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_bc00926c5e9b40bd9fd939ef1ebb1a11 -->|agent| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_d817706888f344c4a8fe2d8069d5233c["Entity: Connector"]
+  entity_ent_d817706888f344c4a8fe2d8069d5233c -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_c60c5d44873846c7be0fdb64bb97b43a["Entity: Repository"]
+  entity_ent_c60c5d44873846c7be0fdb64bb97b43a -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_c60c5d44873846c7be0fdb64bb97b43a -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
   entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b["Entity: Environment"]
   entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b -->|repository| entity_ent_c60c5d44873846c7be0fdb64bb97b43a
+  entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
   entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce["Entity: Delegation"]
   entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
   entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce -->|agent| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce -->|repository| entity_ent_c60c5d44873846c7be0fdb64bb97b43a
   entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce -->|environment| entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b
+  entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
+  invariant_inv_1a0e2ae84b1c4512b89871065e0b8e8d["Invariant: resource_scope_matches_capability"] -->|constrains| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
   entity_ent_b0fd2128e94a469089ac56c643cc4e36["Entity: Allowance"]
   entity_ent_b0fd2128e94a469089ac56c643cc4e36 -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
-  entity_ent_e2b5ba3cccef437796b2048fd1ff2f24["Entity: ProductionDeployRequest"]
+  entity_ent_b0fd2128e94a469089ac56c643cc4e36 -->|agent| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_d66226c7efc345ba9853df0d4abb879a["Entity: IssueRequest"]
+  entity_ent_d66226c7efc345ba9853df0d4abb879a -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_d66226c7efc345ba9853df0d4abb879a -->|requestedBy| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_d66226c7efc345ba9853df0d4abb879a -->|delegation| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
+  entity_ent_d66226c7efc345ba9853df0d4abb879a -->|repository| entity_ent_c60c5d44873846c7be0fdb64bb97b43a
+  entity_ent_d66226c7efc345ba9853df0d4abb879a -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
+  invariant_inv_5fbe89ad06a4441fb6884072315e66f8["Invariant: direct_request_status"] -->|constrains| entity_ent_d66226c7efc345ba9853df0d4abb879a
+  entity_ent_44eefd913a6d40389e4b1baf02add8c4["Entity: PullRequest"]
+  entity_ent_44eefd913a6d40389e4b1baf02add8c4 -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_44eefd913a6d40389e4b1baf02add8c4 -->|requestedBy| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_44eefd913a6d40389e4b1baf02add8c4 -->|delegation| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
+  entity_ent_44eefd913a6d40389e4b1baf02add8c4 -->|repository| entity_ent_c60c5d44873846c7be0fdb64bb97b43a
+  entity_ent_44eefd913a6d40389e4b1baf02add8c4 -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
+  invariant_inv_eb91ccea513d43f4b7ae0e96f4f25ef9["Invariant: direct_request_status"] -->|constrains| entity_ent_44eefd913a6d40389e4b1baf02add8c4
+  entity_ent_e2b5ba3cccef437796b2048fd1ff2f24["Entity: DeploymentRequest"]
   entity_ent_e2b5ba3cccef437796b2048fd1ff2f24 -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
   entity_ent_e2b5ba3cccef437796b2048fd1ff2f24 -->|requestedBy| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_e2b5ba3cccef437796b2048fd1ff2f24 -->|delegation| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
   entity_ent_e2b5ba3cccef437796b2048fd1ff2f24 -->|environment| entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b
+  entity_ent_e2b5ba3cccef437796b2048fd1ff2f24 -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
   entity_ent_e2b5ba3cccef437796b2048fd1ff2f24 -->|approvedBy| entity_ent_197f12dacaf14992a367c5c15f895415
-  invariant_inv_a981bd3d01714dd489b3159dfddf6e31["Invariant: approver_differs_from_requester"] -->|constrains| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  invariant_inv_6bca35ccc0804598a347f1fe7fcc87d2["Invariant: tier_controls_lifecycle"] -->|constrains| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   invariant_inv_ff4e5164d93f4c67b0be7af34ed228d7["Invariant: approval_fields_match_status"] -->|constrains| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  invariant_inv_a981bd3d01714dd489b3159dfddf6e31["Invariant: approver_differs_from_requester"] -->|constrains| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   invariant_inv_1be7fd43c4ab4198ab733fbeb8fd7d44["Invariant: approval_authority_recorded"] -->|constrains| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  entity_ent_c136762ce9794a7b92ca3c138c7c7bef["Entity: SchemaMigrationRequest"]
+  entity_ent_c136762ce9794a7b92ca3c138c7c7bef -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
+  entity_ent_c136762ce9794a7b92ca3c138c7c7bef -->|requestedBy| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_c136762ce9794a7b92ca3c138c7c7bef -->|delegation| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
+  entity_ent_c136762ce9794a7b92ca3c138c7c7bef -->|environment| entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b
+  entity_ent_c136762ce9794a7b92ca3c138c7c7bef -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
+  entity_ent_c136762ce9794a7b92ca3c138c7c7bef -->|approvedBy| entity_ent_197f12dacaf14992a367c5c15f895415
+  invariant_inv_c3643a3b1ad24276a883a17ef432bc69["Invariant: migration_lifecycle"] -->|constrains| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  invariant_inv_86b577f6815d4b93b563323269aa7d59["Invariant: approval_fields_match_status"] -->|constrains| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  invariant_inv_d4a6e35e5ca24569b8a7d9287154d249["Invariant: approver_differs_from_requester"] -->|constrains| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  invariant_inv_d46ef40323b64ea1913f20ef51989bfd["Invariant: approval_authority_recorded"] -->|constrains| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
   entity_ent_f6f083c592f34c07af0204bb507be013["Entity: Approval"]
   entity_ent_f6f083c592f34c07af0204bb507be013 -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
-  entity_ent_f6f083c592f34c07af0204bb507be013 -->|request| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  entity_ent_f6f083c592f34c07af0204bb507be013 -->|requestedBy| entity_ent_197f12dacaf14992a367c5c15f895415
   entity_ent_f6f083c592f34c07af0204bb507be013 -->|approver| entity_ent_197f12dacaf14992a367c5c15f895415
+  invariant_inv_fefea6c0eacc4527af9b15c27ba1487a["Invariant: independent_approver"] -->|constrains| entity_ent_f6f083c592f34c07af0204bb507be013
+  invariant_inv_d69a838876bf4ab89b901d191b0ec820["Invariant: approval_authority_recorded"] -->|constrains| entity_ent_f6f083c592f34c07af0204bb507be013
   entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d["Entity: Execution"]
   entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d -->|org| entity_ent_661a8bc41d68494eaaa82198b8354a94
-  entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d -->|request| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d -->|requestedBy| entity_ent_197f12dacaf14992a367c5c15f895415
+  entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d -->|connector| entity_ent_d817706888f344c4a8fe2d8069d5233c
   entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d -->|allowance| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  invariant_inv_53a63cda070d479e8394eee58596d4d4["Invariant: result_matches_status"] -->|constrains| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  action_act_ea693a4d658449fbab5741b8369bc276["Action: requestIssueCreation"]
+  principal -->|authenticated caller| action_act_ea693a4d658449fbab5741b8369bc276
+  action_act_ea693a4d658449fbab5741b8369bc276 -->|0: creates| entity_ent_d66226c7efc345ba9853df0d4abb879a
+  authorize_action_act_ea693a4d658449fbab5741b8369bc276["Authorize"] -->|guards| action_act_ea693a4d658449fbab5741b8369bc276
+  action_act_ea693a4d658449fbab5741b8369bc276 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_ea693a4d658449fbab5741b8369bc276 -->|locks share| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
+  action_act_ea693a4d658449fbab5741b8369bc276 -->|locks share| entity_ent_c60c5d44873846c7be0fdb64bb97b43a
+  action_act_ea693a4d658449fbab5741b8369bc276 -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
+  action_act_c4bb8af190dd48efb9784efb9ff9030c["Action: requestPullRequest"]
+  principal -->|authenticated caller| action_act_c4bb8af190dd48efb9784efb9ff9030c
+  action_act_c4bb8af190dd48efb9784efb9ff9030c -->|0: creates| entity_ent_44eefd913a6d40389e4b1baf02add8c4
+  authorize_action_act_c4bb8af190dd48efb9784efb9ff9030c["Authorize"] -->|guards| action_act_c4bb8af190dd48efb9784efb9ff9030c
+  action_act_c4bb8af190dd48efb9784efb9ff9030c -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_c4bb8af190dd48efb9784efb9ff9030c -->|locks share| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
+  action_act_c4bb8af190dd48efb9784efb9ff9030c -->|locks share| entity_ent_c60c5d44873846c7be0fdb64bb97b43a
+  action_act_c4bb8af190dd48efb9784efb9ff9030c -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
+  action_act_1388eb9f38684fa0830f60156cdba497["Action: requestStagingDeployment"]
+  principal -->|authenticated caller| action_act_1388eb9f38684fa0830f60156cdba497
+  action_act_1388eb9f38684fa0830f60156cdba497 -->|0: creates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  authorize_action_act_1388eb9f38684fa0830f60156cdba497["Authorize"] -->|guards| action_act_1388eb9f38684fa0830f60156cdba497
+  require_action_act_1388eb9f38684fa0830f60156cdba497_staging_target["Require: staging_target"] -->|guards| action_act_1388eb9f38684fa0830f60156cdba497
+  action_act_1388eb9f38684fa0830f60156cdba497 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_1388eb9f38684fa0830f60156cdba497 -->|locks share| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
+  action_act_1388eb9f38684fa0830f60156cdba497 -->|locks share| entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b
+  action_act_1388eb9f38684fa0830f60156cdba497 -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
   action_act_d10d1618ed4045f396b64fc3745ce3dd["Action: requestProductionDeployment"]
   principal -->|authenticated caller| action_act_d10d1618ed4045f396b64fc3745ce3dd
   action_act_d10d1618ed4045f396b64fc3745ce3dd -->|0: creates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
@@ -37,33 +110,135 @@ flowchart LR
   action_act_d10d1618ed4045f396b64fc3745ce3dd -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_d10d1618ed4045f396b64fc3745ce3dd -->|locks share| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
   action_act_d10d1618ed4045f396b64fc3745ce3dd -->|locks share| entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b
+  action_act_d10d1618ed4045f396b64fc3745ce3dd -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
+  action_act_411bfff32560406186bd2d442f1ecf3b["Action: requestSchemaMigration"]
+  principal -->|authenticated caller| action_act_411bfff32560406186bd2d442f1ecf3b
+  action_act_411bfff32560406186bd2d442f1ecf3b -->|0: creates| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  authorize_action_act_411bfff32560406186bd2d442f1ecf3b["Authorize"] -->|guards| action_act_411bfff32560406186bd2d442f1ecf3b
+  action_act_411bfff32560406186bd2d442f1ecf3b -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_411bfff32560406186bd2d442f1ecf3b -->|locks share| entity_ent_accc8ba6b5ae4d76813eb983c3d1f8ce
+  action_act_411bfff32560406186bd2d442f1ecf3b -->|locks share| entity_ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b
+  action_act_411bfff32560406186bd2d442f1ecf3b -->|locks share| entity_ent_d817706888f344c4a8fe2d8069d5233c
   action_act_047a601f15384b5ea4bfa05b5ef72676["Action: approveProductionDeployment"]
   principal -->|authenticated caller| action_act_047a601f15384b5ea4bfa05b5ef72676
   action_act_047a601f15384b5ea4bfa05b5ef72676 -->|0: updates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   action_act_047a601f15384b5ea4bfa05b5ef72676 -->|1: creates| entity_ent_f6f083c592f34c07af0204bb507be013
   authorize_action_act_047a601f15384b5ea4bfa05b5ef72676["Authorize"] -->|guards| action_act_047a601f15384b5ea4bfa05b5ef72676
+  require_action_act_047a601f15384b5ea4bfa05b5ef72676_production_request["Require: production_request"] -->|guards| action_act_047a601f15384b5ea4bfa05b5ef72676
   require_action_act_047a601f15384b5ea4bfa05b5ef72676_awaiting_approval["Require: awaiting_approval"] -->|guards| action_act_047a601f15384b5ea4bfa05b5ef72676
   action_act_047a601f15384b5ea4bfa05b5ef72676 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_047a601f15384b5ea4bfa05b5ef72676 -->|locks update| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
-  action_act_4a9421bfc2e744969b9f73109e6cda54["Action: executeApprovedDeployment"]
-  principal -->|authenticated caller| action_act_4a9421bfc2e744969b9f73109e6cda54
-  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|0: updates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
-  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|1: creates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
-  authorize_action_act_4a9421bfc2e744969b9f73109e6cda54["Authorize"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
-  require_action_act_4a9421bfc2e744969b9f73109e6cda54_approved["Require: approved"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
-  require_action_act_4a9421bfc2e744969b9f73109e6cda54_allowance_same_org["Require: allowance_same_org"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
-  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
-  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
-  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks update| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   action_act_18ab026d358144dfa4d1729e40dd832e["Action: rejectProductionDeployment"]
   principal -->|authenticated caller| action_act_18ab026d358144dfa4d1729e40dd832e
   action_act_18ab026d358144dfa4d1729e40dd832e -->|0: updates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   authorize_action_act_18ab026d358144dfa4d1729e40dd832e["Authorize"] -->|guards| action_act_18ab026d358144dfa4d1729e40dd832e
+  require_action_act_18ab026d358144dfa4d1729e40dd832e_production_request["Require: production_request"] -->|guards| action_act_18ab026d358144dfa4d1729e40dd832e
   require_action_act_18ab026d358144dfa4d1729e40dd832e_awaiting_approval["Require: awaiting_approval"] -->|guards| action_act_18ab026d358144dfa4d1729e40dd832e
   action_act_18ab026d358144dfa4d1729e40dd832e -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
   action_act_18ab026d358144dfa4d1729e40dd832e -->|locks update| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
-  projection_prj_6d0491126ecb4d1abb14f945eb26c641["Projection: DeployRequestSummary"]
-  query_qry_60d1c5d416eb428caa385db274edcb4b["Query: myOrgDeployRequests"]
+  action_act_4c170dfcb0224cb8aaf078fe6b6ef23d["Action: approveSchemaMigration"]
+  principal -->|authenticated caller| action_act_4c170dfcb0224cb8aaf078fe6b6ef23d
+  action_act_4c170dfcb0224cb8aaf078fe6b6ef23d -->|0: updates| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  action_act_4c170dfcb0224cb8aaf078fe6b6ef23d -->|1: creates| entity_ent_f6f083c592f34c07af0204bb507be013
+  authorize_action_act_4c170dfcb0224cb8aaf078fe6b6ef23d["Authorize"] -->|guards| action_act_4c170dfcb0224cb8aaf078fe6b6ef23d
+  require_action_act_4c170dfcb0224cb8aaf078fe6b6ef23d_awaiting_approval["Require: awaiting_approval"] -->|guards| action_act_4c170dfcb0224cb8aaf078fe6b6ef23d
+  action_act_4c170dfcb0224cb8aaf078fe6b6ef23d -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_4c170dfcb0224cb8aaf078fe6b6ef23d -->|locks update| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  action_act_d3a1935e42f24e4d84d25bc05ee690ad["Action: rejectSchemaMigration"]
+  principal -->|authenticated caller| action_act_d3a1935e42f24e4d84d25bc05ee690ad
+  action_act_d3a1935e42f24e4d84d25bc05ee690ad -->|0: updates| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  authorize_action_act_d3a1935e42f24e4d84d25bc05ee690ad["Authorize"] -->|guards| action_act_d3a1935e42f24e4d84d25bc05ee690ad
+  require_action_act_d3a1935e42f24e4d84d25bc05ee690ad_awaiting_approval["Require: awaiting_approval"] -->|guards| action_act_d3a1935e42f24e4d84d25bc05ee690ad
+  action_act_d3a1935e42f24e4d84d25bc05ee690ad -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_d3a1935e42f24e4d84d25bc05ee690ad -->|locks update| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  action_act_cbb72fd307704ab3927aa4bea8112fbf["Action: dispatchIssueCreation"]
+  principal -->|authenticated caller| action_act_cbb72fd307704ab3927aa4bea8112fbf
+  action_act_cbb72fd307704ab3927aa4bea8112fbf -->|0: updates| entity_ent_d66226c7efc345ba9853df0d4abb879a
+  action_act_cbb72fd307704ab3927aa4bea8112fbf -->|1: creates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_action_act_cbb72fd307704ab3927aa4bea8112fbf["Authorize"] -->|guards| action_act_cbb72fd307704ab3927aa4bea8112fbf
+  require_action_act_cbb72fd307704ab3927aa4bea8112fbf_ready["Require: ready"] -->|guards| action_act_cbb72fd307704ab3927aa4bea8112fbf
+  require_action_act_cbb72fd307704ab3927aa4bea8112fbf_allowance_scope["Require: allowance_scope"] -->|guards| action_act_cbb72fd307704ab3927aa4bea8112fbf
+  action_act_cbb72fd307704ab3927aa4bea8112fbf -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_cbb72fd307704ab3927aa4bea8112fbf -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_cbb72fd307704ab3927aa4bea8112fbf -->|locks update| entity_ent_d66226c7efc345ba9853df0d4abb879a
+  action_act_3e99da927be642efac3d1bee026ef00a["Action: dispatchPullRequest"]
+  principal -->|authenticated caller| action_act_3e99da927be642efac3d1bee026ef00a
+  action_act_3e99da927be642efac3d1bee026ef00a -->|0: updates| entity_ent_44eefd913a6d40389e4b1baf02add8c4
+  action_act_3e99da927be642efac3d1bee026ef00a -->|1: creates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_action_act_3e99da927be642efac3d1bee026ef00a["Authorize"] -->|guards| action_act_3e99da927be642efac3d1bee026ef00a
+  require_action_act_3e99da927be642efac3d1bee026ef00a_ready["Require: ready"] -->|guards| action_act_3e99da927be642efac3d1bee026ef00a
+  require_action_act_3e99da927be642efac3d1bee026ef00a_allowance_scope["Require: allowance_scope"] -->|guards| action_act_3e99da927be642efac3d1bee026ef00a
+  action_act_3e99da927be642efac3d1bee026ef00a -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_3e99da927be642efac3d1bee026ef00a -->|locks update| entity_ent_44eefd913a6d40389e4b1baf02add8c4
+  action_act_3e99da927be642efac3d1bee026ef00a -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_3e26a4d454634bf3a2058204146d7c45["Action: dispatchStagingDeployment"]
+  principal -->|authenticated caller| action_act_3e26a4d454634bf3a2058204146d7c45
+  action_act_3e26a4d454634bf3a2058204146d7c45 -->|0: updates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  action_act_3e26a4d454634bf3a2058204146d7c45 -->|1: creates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_action_act_3e26a4d454634bf3a2058204146d7c45["Authorize"] -->|guards| action_act_3e26a4d454634bf3a2058204146d7c45
+  require_action_act_3e26a4d454634bf3a2058204146d7c45_staging_request["Require: staging_request"] -->|guards| action_act_3e26a4d454634bf3a2058204146d7c45
+  require_action_act_3e26a4d454634bf3a2058204146d7c45_allowance_scope["Require: allowance_scope"] -->|guards| action_act_3e26a4d454634bf3a2058204146d7c45
+  action_act_3e26a4d454634bf3a2058204146d7c45 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_3e26a4d454634bf3a2058204146d7c45 -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_3e26a4d454634bf3a2058204146d7c45 -->|locks update| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  action_act_4a9421bfc2e744969b9f73109e6cda54["Action: dispatchApprovedDeployment"]
+  principal -->|authenticated caller| action_act_4a9421bfc2e744969b9f73109e6cda54
+  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|0: updates| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|1: creates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_action_act_4a9421bfc2e744969b9f73109e6cda54["Authorize"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
+  require_action_act_4a9421bfc2e744969b9f73109e6cda54_approved_production_request["Require: approved_production_request"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
+  require_action_act_4a9421bfc2e744969b9f73109e6cda54_allowance_scope["Require: allowance_scope"] -->|guards| action_act_4a9421bfc2e744969b9f73109e6cda54
+  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_4a9421bfc2e744969b9f73109e6cda54 -->|locks update| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
+  action_act_70d3862584094631aca61e9db664d991["Action: dispatchApprovedSchemaMigration"]
+  principal -->|authenticated caller| action_act_70d3862584094631aca61e9db664d991
+  action_act_70d3862584094631aca61e9db664d991 -->|0: updates| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  action_act_70d3862584094631aca61e9db664d991 -->|1: creates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_action_act_70d3862584094631aca61e9db664d991["Authorize"] -->|guards| action_act_70d3862584094631aca61e9db664d991
+  require_action_act_70d3862584094631aca61e9db664d991_approved["Require: approved"] -->|guards| action_act_70d3862584094631aca61e9db664d991
+  require_action_act_70d3862584094631aca61e9db664d991_allowance_scope["Require: allowance_scope"] -->|guards| action_act_70d3862584094631aca61e9db664d991
+  action_act_70d3862584094631aca61e9db664d991 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_70d3862584094631aca61e9db664d991 -->|locks share| entity_ent_b0fd2128e94a469089ac56c643cc4e36
+  action_act_70d3862584094631aca61e9db664d991 -->|locks update| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  action_act_5be24324b68d4c2eb334732b36e1b16c["Action: completeExecution"]
+  principal -->|authenticated caller| action_act_5be24324b68d4c2eb334732b36e1b16c
+  action_act_5be24324b68d4c2eb334732b36e1b16c -->|0: updates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_action_act_5be24324b68d4c2eb334732b36e1b16c["Authorize"] -->|guards| action_act_5be24324b68d4c2eb334732b36e1b16c
+  require_action_act_5be24324b68d4c2eb334732b36e1b16c_pending["Require: pending"] -->|guards| action_act_5be24324b68d4c2eb334732b36e1b16c
+  action_act_5be24324b68d4c2eb334732b36e1b16c -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_5be24324b68d4c2eb334732b36e1b16c -->|locks update| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  action_act_926686163a6544e79d44dea9336d2c88["Action: failExecution"]
+  principal -->|authenticated caller| action_act_926686163a6544e79d44dea9336d2c88
+  action_act_926686163a6544e79d44dea9336d2c88 -->|0: updates| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_action_act_926686163a6544e79d44dea9336d2c88["Authorize"] -->|guards| action_act_926686163a6544e79d44dea9336d2c88
+  require_action_act_926686163a6544e79d44dea9336d2c88_pending["Require: pending"] -->|guards| action_act_926686163a6544e79d44dea9336d2c88
+  action_act_926686163a6544e79d44dea9336d2c88 -->|locks share| entity_ent_197f12dacaf14992a367c5c15f895415
+  action_act_926686163a6544e79d44dea9336d2c88 -->|locks update| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  projection_prj_d3a7e98e26b04b9895074d57f7ee399d["Projection: IssueRequestSummary"]
+  query_qry_22f082ad9148490eb301e04fdc6e2ce3["Query: myIssueRequests"]
+  principal -->|authenticated caller| query_qry_22f082ad9148490eb301e04fdc6e2ce3
+  query_qry_22f082ad9148490eb301e04fdc6e2ce3 -->|reads source rows| entity_ent_d66226c7efc345ba9853df0d4abb879a
+  query_qry_22f082ad9148490eb301e04fdc6e2ce3 -->|discloses selected fields| projection_prj_d3a7e98e26b04b9895074d57f7ee399d
+  projection_prj_d3a7e98e26b04b9895074d57f7ee399d -->|shape from| entity_ent_d66226c7efc345ba9853df0d4abb879a
+  projection_prj_a89b0acb503746ed86110f47bbe42c04["Projection: PrincipalSummary"]
+  projection_prj_d3a7e98e26b04b9895074d57f7ee399d -->|requestedBy: nested to-one| projection_prj_a89b0acb503746ed86110f47bbe42c04
+  projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
+  authorize_query_qry_22f082ad9148490eb301e04fdc6e2ce3["Authorize"] -->|guards| query_qry_22f082ad9148490eb301e04fdc6e2ce3
+  where_query_qry_22f082ad9148490eb301e04fdc6e2ce3["Where"] -->|filters rows| query_qry_22f082ad9148490eb301e04fdc6e2ce3
+  projection_prj_605bd019ead94c57a21a0176a0ffd852["Projection: PullRequestSummary"]
+  query_qry_a96d198b028c45f2b0ec43471cb5ba09["Query: myPullRequests"]
+  principal -->|authenticated caller| query_qry_a96d198b028c45f2b0ec43471cb5ba09
+  query_qry_a96d198b028c45f2b0ec43471cb5ba09 -->|reads source rows| entity_ent_44eefd913a6d40389e4b1baf02add8c4
+  query_qry_a96d198b028c45f2b0ec43471cb5ba09 -->|discloses selected fields| projection_prj_605bd019ead94c57a21a0176a0ffd852
+  projection_prj_605bd019ead94c57a21a0176a0ffd852 -->|shape from| entity_ent_44eefd913a6d40389e4b1baf02add8c4
+  projection_prj_a89b0acb503746ed86110f47bbe42c04["Projection: PrincipalSummary"]
+  projection_prj_605bd019ead94c57a21a0176a0ffd852 -->|requestedBy: nested to-one| projection_prj_a89b0acb503746ed86110f47bbe42c04
+  projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
+  authorize_query_qry_a96d198b028c45f2b0ec43471cb5ba09["Authorize"] -->|guards| query_qry_a96d198b028c45f2b0ec43471cb5ba09
+  where_query_qry_a96d198b028c45f2b0ec43471cb5ba09["Where"] -->|filters rows| query_qry_a96d198b028c45f2b0ec43471cb5ba09
+  projection_prj_6d0491126ecb4d1abb14f945eb26c641["Projection: DeploymentRequestSummary"]
+  query_qry_60d1c5d416eb428caa385db274edcb4b["Query: myDeploymentRequests"]
   principal -->|authenticated caller| query_qry_60d1c5d416eb428caa385db274edcb4b
   query_qry_60d1c5d416eb428caa385db274edcb4b -->|reads source rows| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   query_qry_60d1c5d416eb428caa385db274edcb4b -->|discloses selected fields| projection_prj_6d0491126ecb4d1abb14f945eb26c641
@@ -76,8 +251,8 @@ flowchart LR
   projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
   authorize_query_qry_60d1c5d416eb428caa385db274edcb4b["Authorize"] -->|guards| query_qry_60d1c5d416eb428caa385db274edcb4b
   where_query_qry_60d1c5d416eb428caa385db274edcb4b["Where"] -->|filters rows| query_qry_60d1c5d416eb428caa385db274edcb4b
-  projection_prj_6d0491126ecb4d1abb14f945eb26c641["Projection: DeployRequestSummary"]
-  query_qry_21f24f72d72c4bb98df539477f0e81f2["Query: approvalInbox"]
+  projection_prj_6d0491126ecb4d1abb14f945eb26c641["Projection: DeploymentRequestSummary"]
+  query_qry_21f24f72d72c4bb98df539477f0e81f2["Query: deploymentApprovalInbox"]
   principal -->|authenticated caller| query_qry_21f24f72d72c4bb98df539477f0e81f2
   query_qry_21f24f72d72c4bb98df539477f0e81f2 -->|reads source rows| entity_ent_e2b5ba3cccef437796b2048fd1ff2f24
   query_qry_21f24f72d72c4bb98df539477f0e81f2 -->|discloses selected fields| projection_prj_6d0491126ecb4d1abb14f945eb26c641
@@ -90,11 +265,39 @@ flowchart LR
   projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
   authorize_query_qry_21f24f72d72c4bb98df539477f0e81f2["Authorize"] -->|guards| query_qry_21f24f72d72c4bb98df539477f0e81f2
   where_query_qry_21f24f72d72c4bb98df539477f0e81f2["Where"] -->|filters rows| query_qry_21f24f72d72c4bb98df539477f0e81f2
-  state_enumMember_emv_68cab0efe9654fce9b385cede2f85e9d["State: PENDING_APPROVAL (initial)"]
-  state_enumMember_emv_66537f67e79d4374a2d5dede854aed06["State: APPROVED"]
-  state_enumMember_emv_1f9acbfbce954efbaff9c782a7e5af94["State: REJECTED"]
-  state_enumMember_emv_7dfcad253ae24f8b9b05598cd2c5b59e["State: EXECUTED"]
-  entity_ent_e2b5ba3cccef437796b2048fd1ff2f24 -->|workflow ProductionDeployLifecycle| state_enumMember_emv_68cab0efe9654fce9b385cede2f85e9d
-  state_enumMember_emv_68cab0efe9654fce9b385cede2f85e9d -->|approve via approveProductionDeployment| state_enumMember_emv_66537f67e79d4374a2d5dede854aed06
-  state_enumMember_emv_66537f67e79d4374a2d5dede854aed06 -->|execute via executeApprovedDeployment| state_enumMember_emv_7dfcad253ae24f8b9b05598cd2c5b59e
-  state_enumMember_emv_68cab0efe9654fce9b385cede2f85e9d -->|reject via rejectProductionDeployment| state_enumMember_emv_1f9acbfbce954efbaff9c782a7e5af94
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b["Projection: SchemaMigrationSummary"]
+  query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9["Query: mySchemaMigrationRequests"]
+  principal -->|authenticated caller| query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9
+  query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9 -->|reads source rows| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9 -->|discloses selected fields| projection_prj_e30b68bb7e874d81a4529a7d09f9954b
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b -->|shape from| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  projection_prj_a89b0acb503746ed86110f47bbe42c04["Projection: PrincipalSummary"]
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b -->|requestedBy: nested to-one| projection_prj_a89b0acb503746ed86110f47bbe42c04
+  projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
+  projection_prj_a89b0acb503746ed86110f47bbe42c04["Projection: PrincipalSummary"]
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b -->|approvedBy: nested to-one| projection_prj_a89b0acb503746ed86110f47bbe42c04
+  projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
+  authorize_query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9["Authorize"] -->|guards| query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9
+  where_query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9["Where"] -->|filters rows| query_qry_e3c9ea88ab664e96a5eaf20efc8c94a9
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b["Projection: SchemaMigrationSummary"]
+  query_qry_8a136078ed3b4ee6893410b631ac5a04["Query: migrationApprovalInbox"]
+  principal -->|authenticated caller| query_qry_8a136078ed3b4ee6893410b631ac5a04
+  query_qry_8a136078ed3b4ee6893410b631ac5a04 -->|reads source rows| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  query_qry_8a136078ed3b4ee6893410b631ac5a04 -->|discloses selected fields| projection_prj_e30b68bb7e874d81a4529a7d09f9954b
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b -->|shape from| entity_ent_c136762ce9794a7b92ca3c138c7c7bef
+  projection_prj_a89b0acb503746ed86110f47bbe42c04["Projection: PrincipalSummary"]
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b -->|requestedBy: nested to-one| projection_prj_a89b0acb503746ed86110f47bbe42c04
+  projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
+  projection_prj_a89b0acb503746ed86110f47bbe42c04["Projection: PrincipalSummary"]
+  projection_prj_e30b68bb7e874d81a4529a7d09f9954b -->|approvedBy: nested to-one| projection_prj_a89b0acb503746ed86110f47bbe42c04
+  projection_prj_a89b0acb503746ed86110f47bbe42c04 -->|shape from| entity_ent_197f12dacaf14992a367c5c15f895415
+  authorize_query_qry_8a136078ed3b4ee6893410b631ac5a04["Authorize"] -->|guards| query_qry_8a136078ed3b4ee6893410b631ac5a04
+  where_query_qry_8a136078ed3b4ee6893410b631ac5a04["Where"] -->|filters rows| query_qry_8a136078ed3b4ee6893410b631ac5a04
+  projection_prj_30b82e795021448b9d4bafd05678cf20["Projection: ExecutionSummary"]
+  query_qry_e608c643d17c4a908f26e6a538630a51["Query: myExecutions"]
+  principal -->|authenticated caller| query_qry_e608c643d17c4a908f26e6a538630a51
+  query_qry_e608c643d17c4a908f26e6a538630a51 -->|reads source rows| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  query_qry_e608c643d17c4a908f26e6a538630a51 -->|discloses selected fields| projection_prj_30b82e795021448b9d4bafd05678cf20
+  projection_prj_30b82e795021448b9d4bafd05678cf20 -->|shape from| entity_ent_695aab5599c84a78ac8f2ea75ccbdf1d
+  authorize_query_qry_e608c643d17c4a908f26e6a538630a51["Authorize"] -->|guards| query_qry_e608c643d17c4a908f26e6a538630a51
+  where_query_qry_e608c643d17c4a908f26e6a538630a51["Where"] -->|filters rows| query_qry_e608c643d17c4a908f26e6a538630a51

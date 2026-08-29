@@ -64,11 +64,241 @@ interface McpExtensionToolDefinition {
 
 const toolDefinitions = [
   {
-    "name": "act_d10d1618ed4045f396b64fc3745ce3dd",
-    "operationId": "action:act_d10d1618ed4045f396b64fc3745ce3dd",
-    "authoredName": "requestProductionDeployment",
+    "name": "act_ea693a4d658449fbab5741b8369bc276",
+    "operationId": "action:act_ea693a4d658449fbab5741b8369bc276",
+    "authoredName": "requestIssueCreation",
     "kind": "action",
-    "description": "Execute the requestProductionDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+    "description": "Execute the requestIssueCreation domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "delegation",
+        "repository",
+        "connector",
+        "title",
+        "body"
+      ],
+      "properties": {
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "repository": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "createdAt",
+        "org",
+        "requestedBy",
+        "delegation",
+        "repository",
+        "connector",
+        "title",
+        "body",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "repository": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "PENDING_APPROVAL",
+            "APPROVED",
+            "REJECTED",
+            "DISPATCHED"
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_c4bb8af190dd48efb9784efb9ff9030c",
+    "operationId": "action:act_c4bb8af190dd48efb9784efb9ff9030c",
+    "authoredName": "requestPullRequest",
+    "kind": "action",
+    "description": "Execute the requestPullRequest domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "delegation",
+        "repository",
+        "connector",
+        "headBranch",
+        "baseBranch",
+        "title"
+      ],
+      "properties": {
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "repository": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "headBranch": {
+          "type": "string"
+        },
+        "baseBranch": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "createdAt",
+        "org",
+        "requestedBy",
+        "delegation",
+        "repository",
+        "connector",
+        "headBranch",
+        "baseBranch",
+        "title",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "repository": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "headBranch": {
+          "type": "string"
+        },
+        "baseBranch": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "PENDING_APPROVAL",
+            "APPROVED",
+            "REJECTED",
+            "DISPATCHED"
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_1388eb9f38684fa0830f60156cdba497",
+    "operationId": "action:act_1388eb9f38684fa0830f60156cdba497",
+    "authoredName": "requestStagingDeployment",
+    "kind": "action",
+    "description": "Execute the requestStagingDeployment domain action. Runtime authorization and preconditions remain authoritative.",
     "inputSchema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "type": "object",
@@ -76,6 +306,7 @@ const toolDefinitions = [
       "required": [
         "delegation",
         "environment",
+        "connector",
         "commitSha"
       ],
       "properties": {
@@ -84,6 +315,10 @@ const toolDefinitions = [
           "format": "uuid"
         },
         "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         },
@@ -101,7 +336,10 @@ const toolDefinitions = [
         "createdAt",
         "org",
         "requestedBy",
+        "delegation",
         "environment",
+        "environmentTier",
+        "connector",
         "commitSha",
         "status",
         "approvedBy",
@@ -124,7 +362,22 @@ const toolDefinitions = [
           "type": "string",
           "format": "uuid"
         },
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
         "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environmentTier": {
+          "type": "string",
+          "enum": [
+            "STAGING",
+            "PRODUCTION"
+          ]
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         },
@@ -134,10 +387,11 @@ const toolDefinitions = [
         "status": {
           "type": "string",
           "enum": [
+            "READY",
             "PENDING_APPROVAL",
             "APPROVED",
             "REJECTED",
-            "EXECUTED"
+            "DISPATCHED"
           ]
         },
         "approvedBy": {
@@ -160,7 +414,296 @@ const toolDefinitions = [
                 "enum": [
                   "MEMBER",
                   "APPROVER",
-                  "ADMIN"
+                  "ADMIN",
+                  "EXECUTOR"
+                ]
+              },
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_d10d1618ed4045f396b64fc3745ce3dd",
+    "operationId": "action:act_d10d1618ed4045f396b64fc3745ce3dd",
+    "authoredName": "requestProductionDeployment",
+    "kind": "action",
+    "description": "Execute the requestProductionDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "delegation",
+        "environment",
+        "connector",
+        "commitSha"
+      ],
+      "properties": {
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "commitSha": {
+          "type": "string"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "createdAt",
+        "org",
+        "requestedBy",
+        "delegation",
+        "environment",
+        "environmentTier",
+        "connector",
+        "commitSha",
+        "status",
+        "approvedBy",
+        "approvedByRoles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environmentTier": {
+          "type": "string",
+          "enum": [
+            "STAGING",
+            "PRODUCTION"
+          ]
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "commitSha": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "PENDING_APPROVAL",
+            "APPROVED",
+            "REJECTED",
+            "DISPATCHED"
+          ]
+        },
+        "approvedBy": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approvedByRoles": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "MEMBER",
+                  "APPROVER",
+                  "ADMIN",
+                  "EXECUTOR"
+                ]
+              },
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_411bfff32560406186bd2d442f1ecf3b",
+    "operationId": "action:act_411bfff32560406186bd2d442f1ecf3b",
+    "authoredName": "requestSchemaMigration",
+    "kind": "action",
+    "description": "Execute the requestSchemaMigration domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "delegation",
+        "environment",
+        "connector",
+        "migrationName",
+        "migrationSha"
+      ],
+      "properties": {
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "migrationName": {
+          "type": "string"
+        },
+        "migrationSha": {
+          "type": "string"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "createdAt",
+        "org",
+        "requestedBy",
+        "delegation",
+        "environment",
+        "connector",
+        "migrationName",
+        "migrationSha",
+        "status",
+        "approvedBy",
+        "approvedByRoles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "migrationName": {
+          "type": "string"
+        },
+        "migrationSha": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "PENDING_APPROVAL",
+            "APPROVED",
+            "REJECTED",
+            "DISPATCHED"
+          ]
+        },
+        "approvedBy": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approvedByRoles": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "MEMBER",
+                  "APPROVER",
+                  "ADMIN",
+                  "EXECUTOR"
                 ]
               },
               "uniqueItems": true
@@ -210,8 +753,11 @@ const toolDefinitions = [
         "id",
         "decidedAt",
         "org",
-        "request",
-        "approver"
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "approver",
+        "approverRoles"
       ],
       "properties": {
         "id": {
@@ -226,82 +772,39 @@ const toolDefinitions = [
           "type": "string",
           "format": "uuid"
         },
-        "request": {
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
           "type": "string",
           "format": "uuid"
         },
         "approver": {
           "type": "string",
           "format": "uuid"
-        }
-      }
-    },
-    "annotations": {
-      "readOnlyHint": false,
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": false
-    },
-    "executionMetadata": {
-      "idempotency": "required"
-    }
-  },
-  {
-    "name": "act_4a9421bfc2e744969b9f73109e6cda54",
-    "operationId": "action:act_4a9421bfc2e744969b9f73109e6cda54",
-    "authoredName": "executeApprovedDeployment",
-    "kind": "action",
-    "description": "Execute the executeApprovedDeployment domain action. Runtime authorization and preconditions remain authoritative.",
-    "inputSchema": {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "request",
-        "allowance"
-      ],
-      "properties": {
-        "request": {
-          "type": "string",
-          "format": "uuid"
         },
-        "allowance": {
-          "type": "string",
-          "format": "uuid"
-        }
-      }
-    },
-    "outputSchema": {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "id",
-        "startedAt",
-        "org",
-        "request",
-        "allowance"
-      ],
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "startedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "org": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "request": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "allowance": {
-          "type": "string",
-          "format": "uuid"
+        "approverRoles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "MEMBER",
+              "APPROVER",
+              "ADMIN",
+              "EXECUTOR"
+            ]
+          },
+          "uniqueItems": true
         }
       }
     },
@@ -344,7 +847,10 @@ const toolDefinitions = [
         "createdAt",
         "org",
         "requestedBy",
+        "delegation",
         "environment",
+        "environmentTier",
+        "connector",
         "commitSha",
         "status",
         "approvedBy",
@@ -367,7 +873,22 @@ const toolDefinitions = [
           "type": "string",
           "format": "uuid"
         },
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
         "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environmentTier": {
+          "type": "string",
+          "enum": [
+            "STAGING",
+            "PRODUCTION"
+          ]
+        },
+        "connector": {
           "type": "string",
           "format": "uuid"
         },
@@ -377,10 +898,11 @@ const toolDefinitions = [
         "status": {
           "type": "string",
           "enum": [
+            "READY",
             "PENDING_APPROVAL",
             "APPROVED",
             "REJECTED",
-            "EXECUTED"
+            "DISPATCHED"
           ]
         },
         "approvedBy": {
@@ -403,7 +925,8 @@ const toolDefinitions = [
                 "enum": [
                   "MEMBER",
                   "APPROVER",
-                  "ADMIN"
+                  "ADMIN",
+                  "EXECUTOR"
                 ]
               },
               "uniqueItems": true
@@ -426,11 +949,1310 @@ const toolDefinitions = [
     }
   },
   {
+    "name": "act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+    "operationId": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+    "authoredName": "approveSchemaMigration",
+    "kind": "action",
+    "description": "Execute the approveSchemaMigration domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "decidedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "approver",
+        "approverRoles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "decidedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "approver": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "approverRoles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "MEMBER",
+              "APPROVER",
+              "ADMIN",
+              "EXECUTOR"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_d3a1935e42f24e4d84d25bc05ee690ad",
+    "operationId": "action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+    "authoredName": "rejectSchemaMigration",
+    "kind": "action",
+    "description": "Execute the rejectSchemaMigration domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "createdAt",
+        "org",
+        "requestedBy",
+        "delegation",
+        "environment",
+        "connector",
+        "migrationName",
+        "migrationSha",
+        "status",
+        "approvedBy",
+        "approvedByRoles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "delegation": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "environment": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "migrationName": {
+          "type": "string"
+        },
+        "migrationSha": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "READY",
+            "PENDING_APPROVAL",
+            "APPROVED",
+            "REJECTED",
+            "DISPATCHED"
+          ]
+        },
+        "approvedBy": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approvedByRoles": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "MEMBER",
+                  "APPROVER",
+                  "ADMIN",
+                  "EXECUTOR"
+                ]
+              },
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_cbb72fd307704ab3927aa4bea8112fbf",
+    "operationId": "action:act_cbb72fd307704ab3927aa4bea8112fbf",
+    "authoredName": "dispatchIssueCreation",
+    "kind": "action",
+    "description": "Execute the dispatchIssueCreation domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "allowance"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "connector",
+        "allowance",
+        "status",
+        "externalReference",
+        "failureMessage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED"
+          ]
+        },
+        "externalReference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_3e99da927be642efac3d1bee026ef00a",
+    "operationId": "action:act_3e99da927be642efac3d1bee026ef00a",
+    "authoredName": "dispatchPullRequest",
+    "kind": "action",
+    "description": "Execute the dispatchPullRequest domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "allowance"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "connector",
+        "allowance",
+        "status",
+        "externalReference",
+        "failureMessage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED"
+          ]
+        },
+        "externalReference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_3e26a4d454634bf3a2058204146d7c45",
+    "operationId": "action:act_3e26a4d454634bf3a2058204146d7c45",
+    "authoredName": "dispatchStagingDeployment",
+    "kind": "action",
+    "description": "Execute the dispatchStagingDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "allowance"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "connector",
+        "allowance",
+        "status",
+        "externalReference",
+        "failureMessage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED"
+          ]
+        },
+        "externalReference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_4a9421bfc2e744969b9f73109e6cda54",
+    "operationId": "action:act_4a9421bfc2e744969b9f73109e6cda54",
+    "authoredName": "dispatchApprovedDeployment",
+    "kind": "action",
+    "description": "Execute the dispatchApprovedDeployment domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "allowance"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "connector",
+        "allowance",
+        "status",
+        "externalReference",
+        "failureMessage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED"
+          ]
+        },
+        "externalReference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_70d3862584094631aca61e9db664d991",
+    "operationId": "action:act_70d3862584094631aca61e9db664d991",
+    "authoredName": "dispatchApprovedSchemaMigration",
+    "kind": "action",
+    "description": "Execute the dispatchApprovedSchemaMigration domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request",
+        "allowance"
+      ],
+      "properties": {
+        "request": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "connector",
+        "allowance",
+        "status",
+        "externalReference",
+        "failureMessage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED"
+          ]
+        },
+        "externalReference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_5be24324b68d4c2eb334732b36e1b16c",
+    "operationId": "action:act_5be24324b68d4c2eb334732b36e1b16c",
+    "authoredName": "completeExecution",
+    "kind": "action",
+    "description": "Execute the completeExecution domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution",
+        "externalReference"
+      ],
+      "properties": {
+        "execution": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "externalReference": {
+          "type": "string"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "connector",
+        "allowance",
+        "status",
+        "externalReference",
+        "failureMessage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED"
+          ]
+        },
+        "externalReference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "act_926686163a6544e79d44dea9336d2c88",
+    "operationId": "action:act_926686163a6544e79d44dea9336d2c88",
+    "authoredName": "failExecution",
+    "kind": "action",
+    "description": "Execute the failExecution domain action. Runtime authorization and preconditions remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution",
+        "failureMessage"
+      ],
+      "properties": {
+        "execution": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "failureMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "startedAt",
+        "org",
+        "requestId",
+        "requestKind",
+        "requestedBy",
+        "connector",
+        "allowance",
+        "status",
+        "externalReference",
+        "failureMessage"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "org": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requestKind": {
+          "type": "string",
+          "enum": [
+            "ISSUE",
+            "PULL_REQUEST",
+            "DEPLOYMENT",
+            "SCHEMA_MIGRATION"
+          ]
+        },
+        "requestedBy": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "connector": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "allowance": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED"
+          ]
+        },
+        "externalReference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "required"
+    }
+  },
+  {
+    "name": "qry_22f082ad9148490eb301e04fdc6e2ce3",
+    "operationId": "query:qry_22f082ad9148490eb301e04fdc6e2ce3",
+    "authoredName": "myIssueRequests",
+    "kind": "query",
+    "description": "Read the bounded myIssueRequests projection. Runtime authorization and row policy remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "nextCursor"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "createdAt",
+              "title",
+              "status",
+              "requestedBy"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "title": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "READY",
+                  "PENDING_APPROVAL",
+                  "APPROVED",
+                  "REJECTED",
+                  "DISPATCHED"
+                ]
+              },
+              "requestedBy": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "displayName",
+                  "kind"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "HUMAN",
+                      "AGENT"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "unsupported"
+    }
+  },
+  {
+    "name": "qry_a96d198b028c45f2b0ec43471cb5ba09",
+    "operationId": "query:qry_a96d198b028c45f2b0ec43471cb5ba09",
+    "authoredName": "myPullRequests",
+    "kind": "query",
+    "description": "Read the bounded myPullRequests projection. Runtime authorization and row policy remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "nextCursor"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "createdAt",
+              "headBranch",
+              "baseBranch",
+              "title",
+              "status",
+              "requestedBy"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "headBranch": {
+                "type": "string"
+              },
+              "baseBranch": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "READY",
+                  "PENDING_APPROVAL",
+                  "APPROVED",
+                  "REJECTED",
+                  "DISPATCHED"
+                ]
+              },
+              "requestedBy": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "displayName",
+                  "kind"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "HUMAN",
+                      "AGENT"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "unsupported"
+    }
+  },
+  {
     "name": "qry_60d1c5d416eb428caa385db274edcb4b",
     "operationId": "query:qry_60d1c5d416eb428caa385db274edcb4b",
-    "authoredName": "myOrgDeployRequests",
+    "authoredName": "myDeploymentRequests",
     "kind": "query",
-    "description": "Read the bounded myOrgDeployRequests projection. Runtime authorization and row policy remain authoritative.",
+    "description": "Read the bounded myDeploymentRequests projection. Runtime authorization and row policy remain authoritative.",
     "inputSchema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "type": "object",
@@ -464,6 +2286,7 @@ const toolDefinitions = [
               "id",
               "createdAt",
               "commitSha",
+              "environmentTier",
               "status",
               "requestedBy",
               "approvedBy"
@@ -480,13 +2303,21 @@ const toolDefinitions = [
               "commitSha": {
                 "type": "string"
               },
+              "environmentTier": {
+                "type": "string",
+                "enum": [
+                  "STAGING",
+                  "PRODUCTION"
+                ]
+              },
               "status": {
                 "type": "string",
                 "enum": [
+                  "READY",
                   "PENDING_APPROVAL",
                   "APPROVED",
                   "REJECTED",
-                  "EXECUTED"
+                  "DISPATCHED"
                 ]
               },
               "requestedBy": {
@@ -577,9 +2408,9 @@ const toolDefinitions = [
   {
     "name": "qry_21f24f72d72c4bb98df539477f0e81f2",
     "operationId": "query:qry_21f24f72d72c4bb98df539477f0e81f2",
-    "authoredName": "approvalInbox",
+    "authoredName": "deploymentApprovalInbox",
     "kind": "query",
-    "description": "Read the bounded approvalInbox projection. Runtime authorization and row policy remain authoritative.",
+    "description": "Read the bounded deploymentApprovalInbox projection. Runtime authorization and row policy remain authoritative.",
     "inputSchema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "type": "object",
@@ -613,6 +2444,7 @@ const toolDefinitions = [
               "id",
               "createdAt",
               "commitSha",
+              "environmentTier",
               "status",
               "requestedBy",
               "approvedBy"
@@ -629,13 +2461,21 @@ const toolDefinitions = [
               "commitSha": {
                 "type": "string"
               },
+              "environmentTier": {
+                "type": "string",
+                "enum": [
+                  "STAGING",
+                  "PRODUCTION"
+                ]
+              },
               "status": {
                 "type": "string",
                 "enum": [
+                  "READY",
                   "PENDING_APPROVAL",
                   "APPROVED",
                   "REJECTED",
-                  "EXECUTED"
+                  "DISPATCHED"
                 ]
               },
               "requestedBy": {
@@ -722,6 +2562,436 @@ const toolDefinitions = [
     "executionMetadata": {
       "idempotency": "unsupported"
     }
+  },
+  {
+    "name": "qry_e3c9ea88ab664e96a5eaf20efc8c94a9",
+    "operationId": "query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9",
+    "authoredName": "mySchemaMigrationRequests",
+    "kind": "query",
+    "description": "Read the bounded mySchemaMigrationRequests projection. Runtime authorization and row policy remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "nextCursor"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "createdAt",
+              "migrationName",
+              "migrationSha",
+              "status",
+              "requestedBy",
+              "approvedBy"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "migrationName": {
+                "type": "string"
+              },
+              "migrationSha": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "READY",
+                  "PENDING_APPROVAL",
+                  "APPROVED",
+                  "REJECTED",
+                  "DISPATCHED"
+                ]
+              },
+              "requestedBy": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "displayName",
+                  "kind"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "HUMAN",
+                      "AGENT"
+                    ]
+                  }
+                }
+              },
+              "approvedBy": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "displayName",
+                      "kind"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "displayName": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "HUMAN",
+                          "AGENT"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "unsupported"
+    }
+  },
+  {
+    "name": "qry_8a136078ed3b4ee6893410b631ac5a04",
+    "operationId": "query:qry_8a136078ed3b4ee6893410b631ac5a04",
+    "authoredName": "migrationApprovalInbox",
+    "kind": "query",
+    "description": "Read the bounded migrationApprovalInbox projection. Runtime authorization and row policy remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "nextCursor"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "createdAt",
+              "migrationName",
+              "migrationSha",
+              "status",
+              "requestedBy",
+              "approvedBy"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "migrationName": {
+                "type": "string"
+              },
+              "migrationSha": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "READY",
+                  "PENDING_APPROVAL",
+                  "APPROVED",
+                  "REJECTED",
+                  "DISPATCHED"
+                ]
+              },
+              "requestedBy": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "displayName",
+                  "kind"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "HUMAN",
+                      "AGENT"
+                    ]
+                  }
+                }
+              },
+              "approvedBy": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "displayName",
+                      "kind"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "displayName": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "HUMAN",
+                          "AGENT"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "unsupported"
+    }
+  },
+  {
+    "name": "qry_e608c643d17c4a908f26e6a538630a51",
+    "operationId": "query:qry_e608c643d17c4a908f26e6a538630a51",
+    "authoredName": "myExecutions",
+    "kind": "query",
+    "description": "Read the bounded myExecutions projection. Runtime authorization and row policy remain authoritative.",
+    "inputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "outputSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "nextCursor"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "startedAt",
+              "requestId",
+              "requestKind",
+              "status",
+              "externalReference",
+              "failureMessage"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "startedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "requestId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "requestKind": {
+                "type": "string",
+                "enum": [
+                  "ISSUE",
+                  "PULL_REQUEST",
+                  "DEPLOYMENT",
+                  "SCHEMA_MIGRATION"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "PENDING",
+                  "SUCCEEDED",
+                  "FAILED"
+                ]
+              },
+              "externalReference": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "failureMessage": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    },
+    "executionMetadata": {
+      "idempotency": "unsupported"
+    }
   }
 ] as unknown as readonly McpToolDefinition[];
 
@@ -743,10 +3013,157 @@ const taskPacketDefinition = {
       "actions": {
         "type": "array",
         "minItems": 1,
-        "maxItems": 4,
+        "maxItems": 16,
         "uniqueItems": true,
         "items": {
           "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "delegation",
+                    "repository",
+                    "connector",
+                    "title",
+                    "body"
+                  ],
+                  "properties": {
+                    "delegation": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "repository": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "delegation",
+                    "repository",
+                    "connector",
+                    "headBranch",
+                    "baseBranch",
+                    "title"
+                  ],
+                  "properties": {
+                    "delegation": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "repository": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "headBranch": {
+                      "type": "string"
+                    },
+                    "baseBranch": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "delegation",
+                    "environment",
+                    "connector",
+                    "commitSha"
+                  ],
+                  "properties": {
+                    "delegation": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "environment": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "commitSha": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
             {
               "type": "object",
               "additionalProperties": false,
@@ -765,6 +3182,7 @@ const taskPacketDefinition = {
                   "required": [
                     "delegation",
                     "environment",
+                    "connector",
                     "commitSha"
                   ],
                   "properties": {
@@ -776,7 +3194,60 @@ const taskPacketDefinition = {
                       "type": "string",
                       "format": "uuid"
                     },
+                    "connector": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
                     "commitSha": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "delegation",
+                    "environment",
+                    "connector",
+                    "migrationName",
+                    "migrationSha"
+                  ],
+                  "properties": {
+                    "delegation": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "environment": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "connector": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "migrationName": {
+                      "type": "string"
+                    },
+                    "migrationSha": {
                       "type": "string"
                     }
                   }
@@ -807,6 +3278,207 @@ const taskPacketDefinition = {
                   ],
                   "properties": {
                     "request": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_18ab026d358144dfa4d1729e40dd832e"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "request"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "request"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "request"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "request",
+                    "allowance"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "request",
+                    "allowance"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "request",
+                    "allowance"
+                  ],
+                  "properties": {
+                    "request": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "allowance": {
                       "type": "string",
                       "format": "uuid"
                     }
@@ -863,19 +3535,94 @@ const taskPacketDefinition = {
               ],
               "properties": {
                 "operationId": {
-                  "const": "action:act_18ab026d358144dfa4d1729e40dd832e"
+                  "const": "action:act_70d3862584094631aca61e9db664d991"
                 },
                 "input": {
                   "$schema": "https://json-schema.org/draft/2020-12/schema",
                   "type": "object",
                   "additionalProperties": false,
                   "required": [
-                    "request"
+                    "request",
+                    "allowance"
                   ],
                   "properties": {
                     "request": {
                       "type": "string",
                       "format": "uuid"
+                    },
+                    "allowance": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "execution",
+                    "externalReference"
+                  ],
+                  "properties": {
+                    "execution": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "externalReference": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "expectedRevision": {
+                  "type": "string",
+                  "pattern": "^rev:1:[0-9a-f]{32}$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_926686163a6544e79d44dea9336d2c88"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "execution",
+                    "failureMessage"
+                  ],
+                  "properties": {
+                    "execution": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "failureMessage": {
+                      "type": "string"
                     }
                   }
                 },
@@ -895,6 +3642,70 @@ const taskPacketDefinition = {
         "uniqueItems": true,
         "items": {
           "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_22f082ad9148490eb301e04fdc6e2ce3"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [],
+                  "properties": {
+                    "cursor": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096,
+                      "pattern": "^[A-Za-z0-9_-]+$"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_a96d198b028c45f2b0ec43471cb5ba09"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [],
+                  "properties": {
+                    "cursor": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096,
+                      "pattern": "^[A-Za-z0-9_-]+$"
+                    }
+                  }
+                }
+              }
+            },
             {
               "type": "object",
               "additionalProperties": false,
@@ -958,6 +3769,102 @@ const taskPacketDefinition = {
                   }
                 }
               }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [],
+                  "properties": {
+                    "cursor": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096,
+                      "pattern": "^[A-Za-z0-9_-]+$"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_8a136078ed3b4ee6893410b631ac5a04"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [],
+                  "properties": {
+                    "cursor": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096,
+                      "pattern": "^[A-Za-z0-9_-]+$"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "input"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_e608c643d17c4a908f26e6a538630a51"
+                },
+                "input": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [],
+                  "properties": {
+                    "cursor": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096,
+                      "pattern": "^[A-Za-z0-9_-]+$"
+                    }
+                  }
+                }
+              }
             }
           ]
         }
@@ -1001,8 +3908,8 @@ const taskPacketDefinition = {
         "const": {
           "id": "model:Signalbox",
           "name": "Signalbox",
-          "version": "0.50.0",
-          "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+          "version": "0.51.0",
+          "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
         }
       },
       "packetId": {
@@ -1090,9 +3997,1056 @@ const taskPacketDefinition = {
       "actions": {
         "type": "array",
         "minItems": 1,
-        "maxItems": 4,
+        "maxItems": 16,
         "items": {
           "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+                },
+                "name": {
+                  "const": "requestIssueCreation"
+                },
+                "description": {
+                  "const": "Execute the requestIssueCreation domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "delegation",
+                      "repository",
+                      "connector",
+                      "title",
+                      "body"
+                    ],
+                    "properties": {
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "repository": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "createdAt",
+                      "org",
+                      "requestedBy",
+                      "delegation",
+                      "repository",
+                      "connector",
+                      "title",
+                      "body",
+                      "status"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "repository": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "READY",
+                          "PENDING_APPROVAL",
+                          "APPROVED",
+                          "REJECTED",
+                          "DISPATCHED"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                },
+                "name": {
+                  "const": "requestPullRequest"
+                },
+                "description": {
+                  "const": "Execute the requestPullRequest domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "delegation",
+                      "repository",
+                      "connector",
+                      "headBranch",
+                      "baseBranch",
+                      "title"
+                    ],
+                    "properties": {
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "repository": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "headBranch": {
+                        "type": "string"
+                      },
+                      "baseBranch": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "createdAt",
+                      "org",
+                      "requestedBy",
+                      "delegation",
+                      "repository",
+                      "connector",
+                      "headBranch",
+                      "baseBranch",
+                      "title",
+                      "status"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "repository": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "headBranch": {
+                        "type": "string"
+                      },
+                      "baseBranch": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "READY",
+                          "PENDING_APPROVAL",
+                          "APPROVED",
+                          "REJECTED",
+                          "DISPATCHED"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+                },
+                "name": {
+                  "const": "requestStagingDeployment"
+                },
+                "description": {
+                  "const": "Execute the requestStagingDeployment domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "delegation",
+                      "environment",
+                      "connector",
+                      "commitSha"
+                    ],
+                    "properties": {
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "commitSha": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "createdAt",
+                      "org",
+                      "requestedBy",
+                      "delegation",
+                      "environment",
+                      "environmentTier",
+                      "connector",
+                      "commitSha",
+                      "status",
+                      "approvedBy",
+                      "approvedByRoles"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "environmentTier": {
+                        "type": "string",
+                        "enum": [
+                          "STAGING",
+                          "PRODUCTION"
+                        ]
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "commitSha": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "READY",
+                          "PENDING_APPROVAL",
+                          "APPROVED",
+                          "REJECTED",
+                          "DISPATCHED"
+                        ]
+                      },
+                      "approvedBy": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "approvedByRoles": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "MEMBER",
+                                "APPROVER",
+                                "ADMIN",
+                                "EXECUTOR"
+                              ]
+                            },
+                            "uniqueItems": true
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
             {
               "type": "object",
               "additionalProperties": false,
@@ -1126,6 +5080,7 @@ const taskPacketDefinition = {
                     "required": [
                       "delegation",
                       "environment",
+                      "connector",
                       "commitSha"
                     ],
                     "properties": {
@@ -1134,6 +5089,10 @@ const taskPacketDefinition = {
                         "format": "uuid"
                       },
                       "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       },
@@ -1153,7 +5112,10 @@ const taskPacketDefinition = {
                       "createdAt",
                       "org",
                       "requestedBy",
+                      "delegation",
                       "environment",
+                      "environmentTier",
+                      "connector",
                       "commitSha",
                       "status",
                       "approvedBy",
@@ -1176,7 +5138,22 @@ const taskPacketDefinition = {
                         "type": "string",
                         "format": "uuid"
                       },
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
                       "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "environmentTier": {
+                        "type": "string",
+                        "enum": [
+                          "STAGING",
+                          "PRODUCTION"
+                        ]
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       },
@@ -1186,10 +5163,11 @@ const taskPacketDefinition = {
                       "status": {
                         "type": "string",
                         "enum": [
+                          "READY",
                           "PENDING_APPROVAL",
                           "APPROVED",
                           "REJECTED",
-                          "EXECUTED"
+                          "DISPATCHED"
                         ]
                       },
                       "approvedBy": {
@@ -1212,7 +5190,8 @@ const taskPacketDefinition = {
                               "enum": [
                                 "MEMBER",
                                 "APPROVER",
-                                "ADMIN"
+                                "ADMIN",
+                                "EXECUTOR"
                               ]
                             },
                             "uniqueItems": true
@@ -1454,13 +5433,13 @@ const taskPacketDefinition = {
               ],
               "properties": {
                 "operationId": {
-                  "const": "action:act_047a601f15384b5ea4bfa05b5ef72676"
+                  "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
                 },
                 "name": {
-                  "const": "approveProductionDeployment"
+                  "const": "requestSchemaMigration"
                 },
                 "description": {
-                  "const": "Execute the approveProductionDeployment domain action. Runtime authorization and preconditions remain authoritative."
+                  "const": "Execute the requestSchemaMigration domain action. Runtime authorization and preconditions remain authoritative."
                 },
                 "inputSchema": {
                   "const": {
@@ -1468,12 +5447,30 @@ const taskPacketDefinition = {
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
-                      "request"
+                      "delegation",
+                      "environment",
+                      "connector",
+                      "migrationName",
+                      "migrationSha"
                     ],
                     "properties": {
-                      "request": {
+                      "delegation": {
                         "type": "string",
                         "format": "uuid"
+                      },
+                      "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "migrationName": {
+                        "type": "string"
+                      },
+                      "migrationSha": {
+                        "type": "string"
                       }
                     }
                   }
@@ -1485,17 +5482,24 @@ const taskPacketDefinition = {
                     "additionalProperties": false,
                     "required": [
                       "id",
-                      "decidedAt",
+                      "createdAt",
                       "org",
-                      "request",
-                      "approver"
+                      "requestedBy",
+                      "delegation",
+                      "environment",
+                      "connector",
+                      "migrationName",
+                      "migrationSha",
+                      "status",
+                      "approvedBy",
+                      "approvedByRoles"
                     ],
                     "properties": {
                       "id": {
                         "type": "string",
                         "format": "uuid"
                       },
-                      "decidedAt": {
+                      "createdAt": {
                         "type": "string",
                         "format": "date-time"
                       },
@@ -1503,13 +5507,68 @@ const taskPacketDefinition = {
                         "type": "string",
                         "format": "uuid"
                       },
-                      "request": {
+                      "requestedBy": {
                         "type": "string",
                         "format": "uuid"
                       },
-                      "approver": {
+                      "delegation": {
                         "type": "string",
                         "format": "uuid"
+                      },
+                      "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "migrationName": {
+                        "type": "string"
+                      },
+                      "migrationSha": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "READY",
+                          "PENDING_APPROVAL",
+                          "APPROVED",
+                          "REJECTED",
+                          "DISPATCHED"
+                        ]
+                      },
+                      "approvedBy": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "approvedByRoles": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "MEMBER",
+                                "APPROVER",
+                                "ADMIN",
+                                "EXECUTOR"
+                              ]
+                            },
+                            "uniqueItems": true
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
                       }
                     }
                   }
@@ -1519,8 +5578,6 @@ const taskPacketDefinition = {
                     "identityBinding",
                     "authorization",
                     "idempotency",
-                    "precondition",
-                    "transition",
                     "invariant"
                   ]
                 },
@@ -1536,15 +5593,7 @@ const taskPacketDefinition = {
                   "const": []
                 },
                 "workflowTransitions": {
-                  "const": [
-                    {
-                      "workflowId": "workflow:wfl_e439c3fe71514c98b303d21ee7937042",
-                      "transitionId": "transition:trn_71f01fea84c94edf82cd4d28255783f3",
-                      "fromMemberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
-                      "toMemberId": "enumMember:emv_66537f67e79d4374a2d5dede854aed06",
-                      "targetParameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request"
-                    }
-                  ]
+                  "const": []
                 },
                 "applicability": {
                   "type": "object",
@@ -1557,7 +5606,7 @@ const taskPacketDefinition = {
                   ],
                   "properties": {
                     "operationId": {
-                      "const": "action:act_047a601f15384b5ea4bfa05b5ef72676"
+                      "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
                     },
                     "status": {
                       "enum": [
@@ -1752,13 +5801,13 @@ const taskPacketDefinition = {
               ],
               "properties": {
                 "operationId": {
-                  "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                  "const": "action:act_047a601f15384b5ea4bfa05b5ef72676"
                 },
                 "name": {
-                  "const": "executeApprovedDeployment"
+                  "const": "approveProductionDeployment"
                 },
                 "description": {
-                  "const": "Execute the executeApprovedDeployment domain action. Runtime authorization and preconditions remain authoritative."
+                  "const": "Execute the approveProductionDeployment domain action. Runtime authorization and preconditions remain authoritative."
                 },
                 "inputSchema": {
                   "const": {
@@ -1766,15 +5815,10 @@ const taskPacketDefinition = {
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
-                      "request",
-                      "allowance"
+                      "request"
                     ],
                     "properties": {
                       "request": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "allowance": {
                         "type": "string",
                         "format": "uuid"
                       }
@@ -1788,17 +5832,20 @@ const taskPacketDefinition = {
                     "additionalProperties": false,
                     "required": [
                       "id",
-                      "startedAt",
+                      "decidedAt",
                       "org",
-                      "request",
-                      "allowance"
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "approver",
+                      "approverRoles"
                     ],
                     "properties": {
                       "id": {
                         "type": "string",
                         "format": "uuid"
                       },
-                      "startedAt": {
+                      "decidedAt": {
                         "type": "string",
                         "format": "date-time"
                       },
@@ -1806,13 +5853,39 @@ const taskPacketDefinition = {
                         "type": "string",
                         "format": "uuid"
                       },
-                      "request": {
+                      "requestId": {
                         "type": "string",
                         "format": "uuid"
                       },
-                      "allowance": {
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
                         "type": "string",
                         "format": "uuid"
+                      },
+                      "approver": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "approverRoles": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "MEMBER",
+                            "APPROVER",
+                            "ADMIN",
+                            "EXECUTOR"
+                          ]
+                        },
+                        "uniqueItems": true
                       }
                     }
                   }
@@ -1823,7 +5896,6 @@ const taskPacketDefinition = {
                     "authorization",
                     "idempotency",
                     "precondition",
-                    "transition",
                     "invariant"
                   ]
                 },
@@ -1839,15 +5911,7 @@ const taskPacketDefinition = {
                   "const": []
                 },
                 "workflowTransitions": {
-                  "const": [
-                    {
-                      "workflowId": "workflow:wfl_e439c3fe71514c98b303d21ee7937042",
-                      "transitionId": "transition:trn_e8d57ac85e6745f99c7e5abd4d795209",
-                      "fromMemberId": "enumMember:emv_66537f67e79d4374a2d5dede854aed06",
-                      "toMemberId": "enumMember:emv_7dfcad253ae24f8b9b05598cd2c5b59e",
-                      "targetParameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request"
-                    }
-                  ]
+                  "const": []
                 },
                 "applicability": {
                   "type": "object",
@@ -1860,7 +5924,7 @@ const taskPacketDefinition = {
                   ],
                   "properties": {
                     "operationId": {
-                      "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                      "const": "action:act_047a601f15384b5ea4bfa05b5ef72676"
                     },
                     "status": {
                       "enum": [
@@ -2089,7 +6153,10 @@ const taskPacketDefinition = {
                       "createdAt",
                       "org",
                       "requestedBy",
+                      "delegation",
                       "environment",
+                      "environmentTier",
+                      "connector",
                       "commitSha",
                       "status",
                       "approvedBy",
@@ -2112,7 +6179,22 @@ const taskPacketDefinition = {
                         "type": "string",
                         "format": "uuid"
                       },
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
                       "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "environmentTier": {
+                        "type": "string",
+                        "enum": [
+                          "STAGING",
+                          "PRODUCTION"
+                        ]
+                      },
+                      "connector": {
                         "type": "string",
                         "format": "uuid"
                       },
@@ -2122,10 +6204,11 @@ const taskPacketDefinition = {
                       "status": {
                         "type": "string",
                         "enum": [
+                          "READY",
                           "PENDING_APPROVAL",
                           "APPROVED",
                           "REJECTED",
-                          "EXECUTED"
+                          "DISPATCHED"
                         ]
                       },
                       "approvedBy": {
@@ -2148,7 +6231,8 @@ const taskPacketDefinition = {
                               "enum": [
                                 "MEMBER",
                                 "APPROVER",
-                                "ADMIN"
+                                "ADMIN",
+                                "EXECUTOR"
                               ]
                             },
                             "uniqueItems": true
@@ -2167,7 +6251,6 @@ const taskPacketDefinition = {
                     "authorization",
                     "idempotency",
                     "precondition",
-                    "transition",
                     "invariant"
                   ]
                 },
@@ -2183,15 +6266,7 @@ const taskPacketDefinition = {
                   "const": []
                 },
                 "workflowTransitions": {
-                  "const": [
-                    {
-                      "workflowId": "workflow:wfl_e439c3fe71514c98b303d21ee7937042",
-                      "transitionId": "transition:trn_70d0b557789946c9874777fc20cb27dd",
-                      "fromMemberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
-                      "toMemberId": "enumMember:emv_1f9acbfbce954efbaff9c782a7e5af94",
-                      "targetParameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request"
-                    }
-                  ]
+                  "const": []
                 },
                 "applicability": {
                   "type": "object",
@@ -2205,6 +6280,3088 @@ const taskPacketDefinition = {
                   "properties": {
                     "operationId": {
                       "const": "action:act_18ab026d358144dfa4d1729e40dd832e"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                },
+                "name": {
+                  "const": "approveSchemaMigration"
+                },
+                "description": {
+                  "const": "Execute the approveSchemaMigration domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "request"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "decidedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "approver",
+                      "approverRoles"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "decidedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "approver": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "approverRoles": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "MEMBER",
+                            "APPROVER",
+                            "ADMIN",
+                            "EXECUTOR"
+                          ]
+                        },
+                        "uniqueItems": true
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                },
+                "name": {
+                  "const": "rejectSchemaMigration"
+                },
+                "description": {
+                  "const": "Execute the rejectSchemaMigration domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "request"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "createdAt",
+                      "org",
+                      "requestedBy",
+                      "delegation",
+                      "environment",
+                      "connector",
+                      "migrationName",
+                      "migrationSha",
+                      "status",
+                      "approvedBy",
+                      "approvedByRoles"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "delegation": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "environment": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "migrationName": {
+                        "type": "string"
+                      },
+                      "migrationSha": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "READY",
+                          "PENDING_APPROVAL",
+                          "APPROVED",
+                          "REJECTED",
+                          "DISPATCHED"
+                        ]
+                      },
+                      "approvedBy": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "approvedByRoles": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "enum": [
+                                "MEMBER",
+                                "APPROVER",
+                                "ADMIN",
+                                "EXECUTOR"
+                              ]
+                            },
+                            "uniqueItems": true
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                },
+                "name": {
+                  "const": "dispatchIssueCreation"
+                },
+                "description": {
+                  "const": "Execute the dispatchIssueCreation domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "request",
+                      "allowance"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "startedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "connector",
+                      "allowance",
+                      "status",
+                      "externalReference",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "PENDING",
+                          "SUCCEEDED",
+                          "FAILED"
+                        ]
+                      },
+                      "externalReference": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "failureMessage": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+                },
+                "name": {
+                  "const": "dispatchPullRequest"
+                },
+                "description": {
+                  "const": "Execute the dispatchPullRequest domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "request",
+                      "allowance"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "startedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "connector",
+                      "allowance",
+                      "status",
+                      "externalReference",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "PENDING",
+                          "SUCCEEDED",
+                          "FAILED"
+                        ]
+                      },
+                      "externalReference": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "failureMessage": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+                },
+                "name": {
+                  "const": "dispatchStagingDeployment"
+                },
+                "description": {
+                  "const": "Execute the dispatchStagingDeployment domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "request",
+                      "allowance"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "startedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "connector",
+                      "allowance",
+                      "status",
+                      "externalReference",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "PENDING",
+                          "SUCCEEDED",
+                          "FAILED"
+                        ]
+                      },
+                      "externalReference": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "failureMessage": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                },
+                "name": {
+                  "const": "dispatchApprovedDeployment"
+                },
+                "description": {
+                  "const": "Execute the dispatchApprovedDeployment domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "request",
+                      "allowance"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "startedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "connector",
+                      "allowance",
+                      "status",
+                      "externalReference",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "PENDING",
+                          "SUCCEEDED",
+                          "FAILED"
+                        ]
+                      },
+                      "externalReference": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "failureMessage": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_70d3862584094631aca61e9db664d991"
+                },
+                "name": {
+                  "const": "dispatchApprovedSchemaMigration"
+                },
+                "description": {
+                  "const": "Execute the dispatchApprovedSchemaMigration domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "request",
+                      "allowance"
+                    ],
+                    "properties": {
+                      "request": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "startedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "connector",
+                      "allowance",
+                      "status",
+                      "externalReference",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "PENDING",
+                          "SUCCEEDED",
+                          "FAILED"
+                        ]
+                      },
+                      "externalReference": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "failureMessage": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_70d3862584094631aca61e9db664d991"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+                },
+                "name": {
+                  "const": "completeExecution"
+                },
+                "description": {
+                  "const": "Execute the completeExecution domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "execution",
+                      "externalReference"
+                    ],
+                    "properties": {
+                      "execution": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "externalReference": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "startedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "connector",
+                      "allowance",
+                      "status",
+                      "externalReference",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "PENDING",
+                          "SUCCEEDED",
+                          "FAILED"
+                        ]
+                      },
+                      "externalReference": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "failureMessage": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+                    },
+                    "status": {
+                      "enum": [
+                        "applicable",
+                        "denied",
+                        "notApplicable",
+                        "stale"
+                      ]
+                    },
+                    "applicable": {
+                      "type": "boolean"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "revision": {
+                      "type": "string",
+                      "pattern": "^rev:1:[0-9a-f]{32}$"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "ruleId"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "authorization",
+                            "requirement",
+                            "revision"
+                          ]
+                        },
+                        "ruleId": {
+                          "type": "string",
+                          "pattern": "^(authorize|require|revision):"
+                        }
+                      }
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "applicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": true
+                          },
+                          "revision": true,
+                          "explanation": false
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "denied"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": false,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "authorization"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^authorize:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "notApplicable"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "requirement"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^require:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "status": {
+                            "const": "stale"
+                          }
+                        },
+                        "required": [
+                          "status"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "revision",
+                          "explanation"
+                        ],
+                        "properties": {
+                          "applicable": {
+                            "const": false
+                          },
+                          "revision": true,
+                          "explanation": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "const": "revision"
+                              },
+                              "ruleId": {
+                                "type": "string",
+                                "pattern": "^revision:"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "operationId",
+                "name",
+                "description",
+                "inputSchema",
+                "outputSchema",
+                "errors",
+                "reliability",
+                "emittedEventIds",
+                "workflowTransitions",
+                "applicability"
+              ],
+              "properties": {
+                "operationId": {
+                  "const": "action:act_926686163a6544e79d44dea9336d2c88"
+                },
+                "name": {
+                  "const": "failExecution"
+                },
+                "description": {
+                  "const": "Execute the failExecution domain action. Runtime authorization and preconditions remain authoritative."
+                },
+                "inputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "execution",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "execution": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "failureMessage": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "outputSchema": {
+                  "const": {
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "startedAt",
+                      "org",
+                      "requestId",
+                      "requestKind",
+                      "requestedBy",
+                      "connector",
+                      "allowance",
+                      "status",
+                      "externalReference",
+                      "failureMessage"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "startedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "org": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestId": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "requestKind": {
+                        "type": "string",
+                        "enum": [
+                          "ISSUE",
+                          "PULL_REQUEST",
+                          "DEPLOYMENT",
+                          "SCHEMA_MIGRATION"
+                        ]
+                      },
+                      "requestedBy": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "connector": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "allowance": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "PENDING",
+                          "SUCCEEDED",
+                          "FAILED"
+                        ]
+                      },
+                      "externalReference": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "failureMessage": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "const": [
+                    "identityBinding",
+                    "authorization",
+                    "idempotency",
+                    "precondition",
+                    "invariant"
+                  ]
+                },
+                "reliability": {
+                  "const": {
+                    "idempotency": "required",
+                    "scope": "authenticatedPrincipal",
+                    "replay": "storedResult",
+                    "fingerprint": "canonicalSha256"
+                  }
+                },
+                "emittedEventIds": {
+                  "const": []
+                },
+                "workflowTransitions": {
+                  "const": []
+                },
+                "applicability": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "operationId",
+                    "status",
+                    "applicable",
+                    "authority"
+                  ],
+                  "properties": {
+                    "operationId": {
+                      "const": "action:act_926686163a6544e79d44dea9336d2c88"
                     },
                     "status": {
                       "enum": [
@@ -2404,6 +9561,388 @@ const taskPacketDefinition = {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
                 },
                 "operationId": {
+                  "const": "query:qry_22f082ad9148490eb301e04fdc6e2ce3"
+                },
+                "resource": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "$schema",
+                    "resourceVersion",
+                    "catalogVersion",
+                    "model",
+                    "operationId",
+                    "kind",
+                    "authority",
+                    "view",
+                    "freshness",
+                    "data"
+                  ],
+                  "properties": {
+                    "$schema": {
+                      "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json"
+                    },
+                    "resourceVersion": {
+                      "const": 1
+                    },
+                    "catalogVersion": {
+                      "const": 7
+                    },
+                    "model": {
+                      "const": {
+                        "id": "model:Signalbox",
+                        "name": "Signalbox",
+                        "version": "0.51.0",
+                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                      }
+                    },
+                    "operationId": {
+                      "const": "query:qry_22f082ad9148490eb301e04fdc6e2ce3"
+                    },
+                    "kind": {
+                      "const": "queryResult"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "view": {
+                      "const": {
+                        "audience": "agent",
+                        "subjectSpecific": true,
+                        "authorizationFiltered": true,
+                        "containsCurrentState": true,
+                        "containsInput": false,
+                        "containsAuthenticatedIdentity": false,
+                        "containsExtensions": false,
+                        "grantsAuthority": false,
+                        "runtimeAuthorizationRequired": true
+                      }
+                    },
+                    "freshness": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "mode",
+                        "retrievedAt",
+                        "maxAgeSeconds",
+                        "revalidate"
+                      ],
+                      "properties": {
+                        "mode": {
+                          "const": "pointInTime"
+                        },
+                        "retrievedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "maxAgeSeconds": {
+                          "const": 0
+                        },
+                        "revalidate": {
+                          "const": "beforeReuse"
+                        }
+                      }
+                    },
+                    "data": {
+                      "$schema": "https://json-schema.org/draft/2020-12/schema",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "items",
+                        "nextCursor"
+                      ],
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "maxItems": 50,
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "id",
+                              "createdAt",
+                              "title",
+                              "status",
+                              "requestedBy"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "READY",
+                                  "PENDING_APPROVAL",
+                                  "APPROVED",
+                                  "REJECTED",
+                                  "DISPATCHED"
+                                ]
+                              },
+                              "requestedBy": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "id",
+                                  "displayName",
+                                  "kind"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "displayName": {
+                                    "type": "string"
+                                  },
+                                  "kind": {
+                                    "type": "string",
+                                    "enum": [
+                                      "HUMAN",
+                                      "AGENT"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "nextCursor": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 4096,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "resource"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_a96d198b028c45f2b0ec43471cb5ba09"
+                },
+                "resource": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "$schema",
+                    "resourceVersion",
+                    "catalogVersion",
+                    "model",
+                    "operationId",
+                    "kind",
+                    "authority",
+                    "view",
+                    "freshness",
+                    "data"
+                  ],
+                  "properties": {
+                    "$schema": {
+                      "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json"
+                    },
+                    "resourceVersion": {
+                      "const": 1
+                    },
+                    "catalogVersion": {
+                      "const": 7
+                    },
+                    "model": {
+                      "const": {
+                        "id": "model:Signalbox",
+                        "name": "Signalbox",
+                        "version": "0.51.0",
+                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                      }
+                    },
+                    "operationId": {
+                      "const": "query:qry_a96d198b028c45f2b0ec43471cb5ba09"
+                    },
+                    "kind": {
+                      "const": "queryResult"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "view": {
+                      "const": {
+                        "audience": "agent",
+                        "subjectSpecific": true,
+                        "authorizationFiltered": true,
+                        "containsCurrentState": true,
+                        "containsInput": false,
+                        "containsAuthenticatedIdentity": false,
+                        "containsExtensions": false,
+                        "grantsAuthority": false,
+                        "runtimeAuthorizationRequired": true
+                      }
+                    },
+                    "freshness": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "mode",
+                        "retrievedAt",
+                        "maxAgeSeconds",
+                        "revalidate"
+                      ],
+                      "properties": {
+                        "mode": {
+                          "const": "pointInTime"
+                        },
+                        "retrievedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "maxAgeSeconds": {
+                          "const": 0
+                        },
+                        "revalidate": {
+                          "const": "beforeReuse"
+                        }
+                      }
+                    },
+                    "data": {
+                      "$schema": "https://json-schema.org/draft/2020-12/schema",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "items",
+                        "nextCursor"
+                      ],
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "maxItems": 50,
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "id",
+                              "createdAt",
+                              "headBranch",
+                              "baseBranch",
+                              "title",
+                              "status",
+                              "requestedBy"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "headBranch": {
+                                "type": "string"
+                              },
+                              "baseBranch": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "READY",
+                                  "PENDING_APPROVAL",
+                                  "APPROVED",
+                                  "REJECTED",
+                                  "DISPATCHED"
+                                ]
+                              },
+                              "requestedBy": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "id",
+                                  "displayName",
+                                  "kind"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "displayName": {
+                                    "type": "string"
+                                  },
+                                  "kind": {
+                                    "type": "string",
+                                    "enum": [
+                                      "HUMAN",
+                                      "AGENT"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "nextCursor": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 4096,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "resource"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
                   "const": "query:qry_60d1c5d416eb428caa385db274edcb4b"
                 },
                 "resource": {
@@ -2435,8 +9974,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.50.0",
-                        "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+                        "version": "0.51.0",
+                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
                       }
                     },
                     "operationId": {
@@ -2505,6 +10044,7 @@ const taskPacketDefinition = {
                               "id",
                               "createdAt",
                               "commitSha",
+                              "environmentTier",
                               "status",
                               "requestedBy",
                               "approvedBy"
@@ -2521,13 +10061,21 @@ const taskPacketDefinition = {
                               "commitSha": {
                                 "type": "string"
                               },
+                              "environmentTier": {
+                                "type": "string",
+                                "enum": [
+                                  "STAGING",
+                                  "PRODUCTION"
+                                ]
+                              },
                               "status": {
                                 "type": "string",
                                 "enum": [
+                                  "READY",
                                   "PENDING_APPROVAL",
                                   "APPROVED",
                                   "REJECTED",
-                                  "EXECUTED"
+                                  "DISPATCHED"
                                 ]
                               },
                               "requestedBy": {
@@ -2654,8 +10202,8 @@ const taskPacketDefinition = {
                       "const": {
                         "id": "model:Signalbox",
                         "name": "Signalbox",
-                        "version": "0.50.0",
-                        "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+                        "version": "0.51.0",
+                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
                       }
                     },
                     "operationId": {
@@ -2724,6 +10272,7 @@ const taskPacketDefinition = {
                               "id",
                               "createdAt",
                               "commitSha",
+                              "environmentTier",
                               "status",
                               "requestedBy",
                               "approvedBy"
@@ -2740,13 +10289,21 @@ const taskPacketDefinition = {
                               "commitSha": {
                                 "type": "string"
                               },
+                              "environmentTier": {
+                                "type": "string",
+                                "enum": [
+                                  "STAGING",
+                                  "PRODUCTION"
+                                ]
+                              },
                               "status": {
                                 "type": "string",
                                 "enum": [
+                                  "READY",
                                   "PENDING_APPROVAL",
                                   "APPROVED",
                                   "REJECTED",
-                                  "EXECUTED"
+                                  "DISPATCHED"
                                 ]
                               },
                               "requestedBy": {
@@ -2827,6 +10384,646 @@ const taskPacketDefinition = {
                   }
                 }
               }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "resource"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9"
+                },
+                "resource": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "$schema",
+                    "resourceVersion",
+                    "catalogVersion",
+                    "model",
+                    "operationId",
+                    "kind",
+                    "authority",
+                    "view",
+                    "freshness",
+                    "data"
+                  ],
+                  "properties": {
+                    "$schema": {
+                      "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json"
+                    },
+                    "resourceVersion": {
+                      "const": 1
+                    },
+                    "catalogVersion": {
+                      "const": 7
+                    },
+                    "model": {
+                      "const": {
+                        "id": "model:Signalbox",
+                        "name": "Signalbox",
+                        "version": "0.51.0",
+                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                      }
+                    },
+                    "operationId": {
+                      "const": "query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9"
+                    },
+                    "kind": {
+                      "const": "queryResult"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "view": {
+                      "const": {
+                        "audience": "agent",
+                        "subjectSpecific": true,
+                        "authorizationFiltered": true,
+                        "containsCurrentState": true,
+                        "containsInput": false,
+                        "containsAuthenticatedIdentity": false,
+                        "containsExtensions": false,
+                        "grantsAuthority": false,
+                        "runtimeAuthorizationRequired": true
+                      }
+                    },
+                    "freshness": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "mode",
+                        "retrievedAt",
+                        "maxAgeSeconds",
+                        "revalidate"
+                      ],
+                      "properties": {
+                        "mode": {
+                          "const": "pointInTime"
+                        },
+                        "retrievedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "maxAgeSeconds": {
+                          "const": 0
+                        },
+                        "revalidate": {
+                          "const": "beforeReuse"
+                        }
+                      }
+                    },
+                    "data": {
+                      "$schema": "https://json-schema.org/draft/2020-12/schema",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "items",
+                        "nextCursor"
+                      ],
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "maxItems": 50,
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "id",
+                              "createdAt",
+                              "migrationName",
+                              "migrationSha",
+                              "status",
+                              "requestedBy",
+                              "approvedBy"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "migrationName": {
+                                "type": "string"
+                              },
+                              "migrationSha": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "READY",
+                                  "PENDING_APPROVAL",
+                                  "APPROVED",
+                                  "REJECTED",
+                                  "DISPATCHED"
+                                ]
+                              },
+                              "requestedBy": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "id",
+                                  "displayName",
+                                  "kind"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "displayName": {
+                                    "type": "string"
+                                  },
+                                  "kind": {
+                                    "type": "string",
+                                    "enum": [
+                                      "HUMAN",
+                                      "AGENT"
+                                    ]
+                                  }
+                                }
+                              },
+                              "approvedBy": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "required": [
+                                      "id",
+                                      "displayName",
+                                      "kind"
+                                    ],
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "displayName": {
+                                        "type": "string"
+                                      },
+                                      "kind": {
+                                        "type": "string",
+                                        "enum": [
+                                          "HUMAN",
+                                          "AGENT"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "nextCursor": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 4096,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "resource"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_8a136078ed3b4ee6893410b631ac5a04"
+                },
+                "resource": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "$schema",
+                    "resourceVersion",
+                    "catalogVersion",
+                    "model",
+                    "operationId",
+                    "kind",
+                    "authority",
+                    "view",
+                    "freshness",
+                    "data"
+                  ],
+                  "properties": {
+                    "$schema": {
+                      "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json"
+                    },
+                    "resourceVersion": {
+                      "const": 1
+                    },
+                    "catalogVersion": {
+                      "const": 7
+                    },
+                    "model": {
+                      "const": {
+                        "id": "model:Signalbox",
+                        "name": "Signalbox",
+                        "version": "0.51.0",
+                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                      }
+                    },
+                    "operationId": {
+                      "const": "query:qry_8a136078ed3b4ee6893410b631ac5a04"
+                    },
+                    "kind": {
+                      "const": "queryResult"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "view": {
+                      "const": {
+                        "audience": "agent",
+                        "subjectSpecific": true,
+                        "authorizationFiltered": true,
+                        "containsCurrentState": true,
+                        "containsInput": false,
+                        "containsAuthenticatedIdentity": false,
+                        "containsExtensions": false,
+                        "grantsAuthority": false,
+                        "runtimeAuthorizationRequired": true
+                      }
+                    },
+                    "freshness": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "mode",
+                        "retrievedAt",
+                        "maxAgeSeconds",
+                        "revalidate"
+                      ],
+                      "properties": {
+                        "mode": {
+                          "const": "pointInTime"
+                        },
+                        "retrievedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "maxAgeSeconds": {
+                          "const": 0
+                        },
+                        "revalidate": {
+                          "const": "beforeReuse"
+                        }
+                      }
+                    },
+                    "data": {
+                      "$schema": "https://json-schema.org/draft/2020-12/schema",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "items",
+                        "nextCursor"
+                      ],
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "maxItems": 50,
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "id",
+                              "createdAt",
+                              "migrationName",
+                              "migrationSha",
+                              "status",
+                              "requestedBy",
+                              "approvedBy"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "migrationName": {
+                                "type": "string"
+                              },
+                              "migrationSha": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "READY",
+                                  "PENDING_APPROVAL",
+                                  "APPROVED",
+                                  "REJECTED",
+                                  "DISPATCHED"
+                                ]
+                              },
+                              "requestedBy": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "id",
+                                  "displayName",
+                                  "kind"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "displayName": {
+                                    "type": "string"
+                                  },
+                                  "kind": {
+                                    "type": "string",
+                                    "enum": [
+                                      "HUMAN",
+                                      "AGENT"
+                                    ]
+                                  }
+                                }
+                              },
+                              "approvedBy": {
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "required": [
+                                      "id",
+                                      "displayName",
+                                      "kind"
+                                    ],
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "displayName": {
+                                        "type": "string"
+                                      },
+                                      "kind": {
+                                        "type": "string",
+                                        "enum": [
+                                          "HUMAN",
+                                          "AGENT"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "nextCursor": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 4096,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "binding",
+                "operationId",
+                "resource"
+              ],
+              "properties": {
+                "binding": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+                },
+                "operationId": {
+                  "const": "query:qry_e608c643d17c4a908f26e6a538630a51"
+                },
+                "resource": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "$schema",
+                    "resourceVersion",
+                    "catalogVersion",
+                    "model",
+                    "operationId",
+                    "kind",
+                    "authority",
+                    "view",
+                    "freshness",
+                    "data"
+                  ],
+                  "properties": {
+                    "$schema": {
+                      "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json"
+                    },
+                    "resourceVersion": {
+                      "const": 1
+                    },
+                    "catalogVersion": {
+                      "const": 7
+                    },
+                    "model": {
+                      "const": {
+                        "id": "model:Signalbox",
+                        "name": "Signalbox",
+                        "version": "0.51.0",
+                        "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+                      }
+                    },
+                    "operationId": {
+                      "const": "query:qry_e608c643d17c4a908f26e6a538630a51"
+                    },
+                    "kind": {
+                      "const": "queryResult"
+                    },
+                    "authority": {
+                      "const": "none"
+                    },
+                    "view": {
+                      "const": {
+                        "audience": "agent",
+                        "subjectSpecific": true,
+                        "authorizationFiltered": true,
+                        "containsCurrentState": true,
+                        "containsInput": false,
+                        "containsAuthenticatedIdentity": false,
+                        "containsExtensions": false,
+                        "grantsAuthority": false,
+                        "runtimeAuthorizationRequired": true
+                      }
+                    },
+                    "freshness": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "mode",
+                        "retrievedAt",
+                        "maxAgeSeconds",
+                        "revalidate"
+                      ],
+                      "properties": {
+                        "mode": {
+                          "const": "pointInTime"
+                        },
+                        "retrievedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "maxAgeSeconds": {
+                          "const": 0
+                        },
+                        "revalidate": {
+                          "const": "beforeReuse"
+                        }
+                      }
+                    },
+                    "data": {
+                      "$schema": "https://json-schema.org/draft/2020-12/schema",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "items",
+                        "nextCursor"
+                      ],
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "maxItems": 50,
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "id",
+                              "startedAt",
+                              "requestId",
+                              "requestKind",
+                              "status",
+                              "externalReference",
+                              "failureMessage"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "startedAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "requestId": {
+                                "type": "string",
+                                "format": "uuid"
+                              },
+                              "requestKind": {
+                                "type": "string",
+                                "enum": [
+                                  "ISSUE",
+                                  "PULL_REQUEST",
+                                  "DEPLOYMENT",
+                                  "SCHEMA_MIGRATION"
+                                ]
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "PENDING",
+                                  "SUCCEEDED",
+                                  "FAILED"
+                                ]
+                              },
+                              "externalReference": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "failureMessage": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "nextCursor": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 4096,
+                              "pattern": "^[A-Za-z0-9_-]+$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           ]
         }
@@ -2878,7 +11075,101 @@ const delegatedCapabilityDefinition = {
             ],
             "properties": {
               "operationId": {
-                "const": "action:act_d10d1618ed4045f396b64fc3745ce3dd"
+                "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "repository",
+                  "connector",
+                  "title",
+                  "body"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "repository": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "repository",
+                  "connector",
+                  "headBranch",
+                  "baseBranch",
+                  "title"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "repository": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "headBranch": {
+                    "type": "string"
+                  },
+                  "baseBranch": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_1388eb9f38684fa0830f60156cdba497"
               },
               "input": {
                 "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -2887,6 +11178,7 @@ const delegatedCapabilityDefinition = {
                 "required": [
                   "delegation",
                   "environment",
+                  "connector",
                   "commitSha"
                 ],
                 "properties": {
@@ -2898,7 +11190,97 @@ const delegatedCapabilityDefinition = {
                     "type": "string",
                     "format": "uuid"
                   },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
                   "commitSha": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_d10d1618ed4045f396b64fc3745ce3dd"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "environment",
+                  "connector",
+                  "commitSha"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "environment": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "commitSha": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "environment",
+                  "connector",
+                  "migrationName",
+                  "migrationSha"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "environment": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "migrationName": {
+                    "type": "string"
+                  },
+                  "migrationSha": {
                     "type": "string"
                   }
                 }
@@ -2925,6 +11307,183 @@ const delegatedCapabilityDefinition = {
                 ],
                 "properties": {
                   "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_18ab026d358144dfa4d1729e40dd832e"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request",
+                  "allowance"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request",
+                  "allowance"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request",
+                  "allowance"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "allowance": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -2973,19 +11532,86 @@ const delegatedCapabilityDefinition = {
             ],
             "properties": {
               "operationId": {
-                "const": "action:act_18ab026d358144dfa4d1729e40dd832e"
+                "const": "action:act_70d3862584094631aca61e9db664d991"
               },
               "input": {
                 "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
-                  "request"
+                  "request",
+                  "allowance"
                 ],
                 "properties": {
                   "request": {
                     "type": "string",
                     "format": "uuid"
+                  },
+                  "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "execution",
+                  "externalReference"
+                ],
+                "properties": {
+                  "execution": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "externalReference": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_926686163a6544e79d44dea9336d2c88"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "execution",
+                  "failureMessage"
+                ],
+                "properties": {
+                  "execution": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "failureMessage": {
+                    "type": "string"
                   }
                 }
               }
@@ -3063,8 +11689,8 @@ const delegatedCapabilityDefinition = {
         "const": {
           "id": "model:Signalbox",
           "name": "Signalbox",
-          "version": "0.50.0",
-          "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+          "version": "0.51.0",
+          "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
         }
       },
       "grantId": {
@@ -3073,10 +11699,22 @@ const delegatedCapabilityDefinition = {
       },
       "operationId": {
         "enum": [
+          "action:act_ea693a4d658449fbab5741b8369bc276",
+          "action:act_c4bb8af190dd48efb9784efb9ff9030c",
+          "action:act_1388eb9f38684fa0830f60156cdba497",
           "action:act_d10d1618ed4045f396b64fc3745ce3dd",
+          "action:act_411bfff32560406186bd2d442f1ecf3b",
           "action:act_047a601f15384b5ea4bfa05b5ef72676",
+          "action:act_18ab026d358144dfa4d1729e40dd832e",
+          "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+          "action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+          "action:act_cbb72fd307704ab3927aa4bea8112fbf",
+          "action:act_3e99da927be642efac3d1bee026ef00a",
+          "action:act_3e26a4d454634bf3a2058204146d7c45",
           "action:act_4a9421bfc2e744969b9f73109e6cda54",
-          "action:act_18ab026d358144dfa4d1729e40dd832e"
+          "action:act_70d3862584094631aca61e9db664d991",
+          "action:act_5be24324b68d4c2eb334732b36e1b16c",
+          "action:act_926686163a6544e79d44dea9336d2c88"
         ]
       },
       "inputHash": {
@@ -3215,7 +11853,109 @@ const publicDecisionTraceDefinition = {
             ],
             "properties": {
               "operationId": {
-                "const": "action:act_d10d1618ed4045f396b64fc3745ce3dd"
+                "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "repository",
+                  "connector",
+                  "title",
+                  "body"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "repository": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "repository",
+                  "connector",
+                  "headBranch",
+                  "baseBranch",
+                  "title"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "repository": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "headBranch": {
+                    "type": "string"
+                  },
+                  "baseBranch": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_1388eb9f38684fa0830f60156cdba497"
               },
               "input": {
                 "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -3224,6 +11964,7 @@ const publicDecisionTraceDefinition = {
                 "required": [
                   "delegation",
                   "environment",
+                  "connector",
                   "commitSha"
                 ],
                 "properties": {
@@ -3235,7 +11976,105 @@ const publicDecisionTraceDefinition = {
                     "type": "string",
                     "format": "uuid"
                   },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
                   "commitSha": {
+                    "type": "string"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_d10d1618ed4045f396b64fc3745ce3dd"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "environment",
+                  "connector",
+                  "commitSha"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "environment": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "commitSha": {
+                    "type": "string"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "delegation",
+                  "environment",
+                  "connector",
+                  "migrationName",
+                  "migrationSha"
+                ],
+                "properties": {
+                  "delegation": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "environment": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "connector": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "migrationName": {
+                    "type": "string"
+                  },
+                  "migrationSha": {
                     "type": "string"
                   }
                 }
@@ -3266,6 +12105,207 @@ const publicDecisionTraceDefinition = {
                 ],
                 "properties": {
                   "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_18ab026d358144dfa4d1729e40dd832e"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request",
+                  "allowance"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request",
+                  "allowance"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "request",
+                  "allowance"
+                ],
+                "properties": {
+                  "request": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "allowance": {
                     "type": "string",
                     "format": "uuid"
                   }
@@ -3322,19 +12362,94 @@ const publicDecisionTraceDefinition = {
             ],
             "properties": {
               "operationId": {
-                "const": "action:act_18ab026d358144dfa4d1729e40dd832e"
+                "const": "action:act_70d3862584094631aca61e9db664d991"
               },
               "input": {
                 "$schema": "https://json-schema.org/draft/2020-12/schema",
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
-                  "request"
+                  "request",
+                  "allowance"
                 ],
                 "properties": {
                   "request": {
                     "type": "string",
                     "format": "uuid"
+                  },
+                  "allowance": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "execution",
+                  "externalReference"
+                ],
+                "properties": {
+                  "execution": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "externalReference": {
+                    "type": "string"
+                  }
+                }
+              },
+              "expectedRevision": {
+                "type": "string",
+                "pattern": "^rev:1:[0-9a-f]{32}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "operationId",
+              "input"
+            ],
+            "properties": {
+              "operationId": {
+                "const": "action:act_926686163a6544e79d44dea9336d2c88"
+              },
+              "input": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "execution",
+                  "failureMessage"
+                ],
+                "properties": {
+                  "execution": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "failureMessage": {
+                    "type": "string"
                   }
                 }
               },
@@ -3384,8 +12499,1106 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.50.0",
-              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_ea693a4d658449fbab5741b8369bc276"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_ea693a4d658449fbab5741b8369bc276"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_ea693a4d658449fbab5741b8369bc276"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_ea693a4d658449fbab5741b8369bc276",
+                      "outcome": "failed"
+                    },
+                    "requirements": [],
+                    "revision": {
+                      "ruleId": "revision:action:act_ea693a4d658449fbab5741b8369bc276",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_ea693a4d658449fbab5741b8369bc276",
+                      "outcome": "passed"
+                    },
+                    "requirements": [],
+                    "revision": {
+                      "ruleId": "revision:action:act_ea693a4d658449fbab5741b8369bc276",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_ea693a4d658449fbab5741b8369bc276",
+                        "outcome": "passed"
+                      },
+                      "requirements": [],
+                      "revision": {
+                        "ruleId": "revision:action:act_ea693a4d658449fbab5741b8369bc276",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_ea693a4d658449fbab5741b8369bc276",
+                        "outcome": "passed"
+                      },
+                      "requirements": [],
+                      "revision": {
+                        "ruleId": "revision:action:act_ea693a4d658449fbab5741b8369bc276",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_c4bb8af190dd48efb9784efb9ff9030c"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                      "outcome": "failed"
+                    },
+                    "requirements": [],
+                    "revision": {
+                      "ruleId": "revision:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                      "outcome": "passed"
+                    },
+                    "requirements": [],
+                    "revision": {
+                      "ruleId": "revision:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                        "outcome": "passed"
+                      },
+                      "requirements": [],
+                      "revision": {
+                        "ruleId": "revision:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                        "outcome": "passed"
+                      },
+                      "requirements": [],
+                      "revision": {
+                        "ruleId": "revision:action:act_c4bb8af190dd48efb9784efb9ff9030c",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_1388eb9f38684fa0830f60156cdba497"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_1388eb9f38684fa0830f60156cdba497"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_1388eb9f38684fa0830f60156cdba497"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_1388eb9f38684fa0830f60156cdba497",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_1388eb9f38684fa0830f60156cdba497",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_1388eb9f38684fa0830f60156cdba497",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_1388eb9f38684fa0830f60156cdba497",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_1388eb9f38684fa0830f60156cdba497",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_1388eb9f38684fa0830f60156cdba497",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_1388eb9f38684fa0830f60156cdba497",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_1388eb9f38684fa0830f60156cdba497",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_1388eb9f38684fa0830f60156cdba497",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_1388eb9f38684fa0830f60156cdba497.staging_target",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_1388eb9f38684fa0830f60156cdba497",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
             }
           },
           "traceId": {
@@ -3830,8 +14043,334 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.50.0",
-              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_411bfff32560406186bd2d442f1ecf3b"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_411bfff32560406186bd2d442f1ecf3b"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_411bfff32560406186bd2d442f1ecf3b"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_411bfff32560406186bd2d442f1ecf3b",
+                      "outcome": "failed"
+                    },
+                    "requirements": [],
+                    "revision": {
+                      "ruleId": "revision:action:act_411bfff32560406186bd2d442f1ecf3b",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_411bfff32560406186bd2d442f1ecf3b",
+                      "outcome": "passed"
+                    },
+                    "requirements": [],
+                    "revision": {
+                      "ruleId": "revision:action:act_411bfff32560406186bd2d442f1ecf3b",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_411bfff32560406186bd2d442f1ecf3b",
+                        "outcome": "passed"
+                      },
+                      "requirements": [],
+                      "revision": {
+                        "ruleId": "revision:action:act_411bfff32560406186bd2d442f1ecf3b",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_411bfff32560406186bd2d442f1ecf3b",
+                        "outcome": "passed"
+                      },
+                      "requirements": [],
+                      "revision": {
+                        "ruleId": "revision:action:act_411bfff32560406186bd2d442f1ecf3b",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
             }
           },
           "traceId": {
@@ -3993,6 +14532,7 @@ const publicDecisionTraceDefinition = {
                       },
                       "ruleId": {
                         "enum": [
+                          "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
                           "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval"
                         ]
                       }
@@ -4079,6 +14619,10 @@ const publicDecisionTraceDefinition = {
                     },
                     "requirements": [
                       {
+                        "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
+                        "outcome": "notEvaluated"
+                      },
+                      {
                         "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
                         "outcome": "notEvaluated"
                       }
@@ -4118,6 +14662,10 @@ const publicDecisionTraceDefinition = {
                       "outcome": "passed"
                     },
                     "requirements": [
+                      {
+                        "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
+                        "outcome": "passed"
+                      },
                       {
                         "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
                         "outcome": "passed"
@@ -4160,6 +14708,10 @@ const publicDecisionTraceDefinition = {
                       },
                       "requirements": [
                         {
+                          "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
+                          "outcome": "passed"
+                        },
+                        {
                           "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
                           "outcome": "passed"
                         }
@@ -4176,6 +14728,10 @@ const publicDecisionTraceDefinition = {
                       },
                       "requirements": [
                         {
+                          "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
+                          "outcome": "passed"
+                        },
+                        {
                           "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
                           "outcome": "passed"
                         }
@@ -4186,6 +14742,62 @@ const publicDecisionTraceDefinition = {
                       }
                     }
                   ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_047a601f15384b5ea4bfa05b5ef72676",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
+                        "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_047a601f15384b5ea4bfa05b5ef72676",
+                      "outcome": "notEvaluated"
+                    }
+                  }
                 }
               }
             }
@@ -4229,6 +14841,10 @@ const publicDecisionTraceDefinition = {
                     },
                     "requirements": [
                       {
+                        "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.production_request",
+                        "outcome": "passed"
+                      },
+                      {
                         "ruleId": "require:action:act_047a601f15384b5ea4bfa05b5ef72676.awaiting_approval",
                         "outcome": "failed"
                       }
@@ -4276,531 +14892,8 @@ const publicDecisionTraceDefinition = {
             "const": {
               "id": "model:Signalbox",
               "name": "Signalbox",
-              "version": "0.50.0",
-              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
-            }
-          },
-          "traceId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "kind": {
-            "const": "applicabilityDecisionTrace"
-          },
-          "operationId": {
-            "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
-          },
-          "authority": {
-            "const": "none"
-          },
-          "view": {
-            "const": {
-              "audience": "agent",
-              "subjectSpecific": true,
-              "authorizationFiltered": true,
-              "inputSpecific": true,
-              "derivedFromCurrentState": true,
-              "containsCurrentStateValues": false,
-              "containsOperationInput": false,
-              "containsAuthenticatedIdentity": false,
-              "containsExpressions": false,
-              "containsPolicyIds": false,
-              "containsAuthorityIds": false,
-              "containsPrivateEvidence": false,
-              "grantsAuthority": false,
-              "runtimeAuthorizationRequired": true
-            }
-          },
-          "freshness": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "mode",
-              "tracedAt",
-              "maxAgeSeconds",
-              "revalidate"
-            ],
-            "properties": {
-              "mode": {
-                "const": "pointInTime"
-              },
-              "tracedAt": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "maxAgeSeconds": {
-                "const": 0
-              },
-              "revalidate": {
-                "const": "beforeReuse"
-              }
-            }
-          },
-          "decision": {
-            "oneOf": [
-              {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "operationId",
-                  "status",
-                  "applicable",
-                  "authority",
-                  "revision"
-                ],
-                "properties": {
-                  "operationId": {
-                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
-                  },
-                  "status": {
-                    "const": "applicable"
-                  },
-                  "applicable": {
-                    "const": true
-                  },
-                  "authority": {
-                    "const": "none"
-                  },
-                  "revision": {
-                    "type": "string",
-                    "pattern": "^rev:1:[0-9a-f]{32}$"
-                  }
-                }
-              },
-              {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "operationId",
-                  "status",
-                  "applicable",
-                  "authority",
-                  "explanation"
-                ],
-                "properties": {
-                  "operationId": {
-                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
-                  },
-                  "status": {
-                    "const": "denied"
-                  },
-                  "applicable": {
-                    "const": false
-                  },
-                  "authority": {
-                    "const": "none"
-                  },
-                  "explanation": {
-                    "const": {
-                      "kind": "authorization",
-                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54"
-                    }
-                  }
-                }
-              },
-              {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "operationId",
-                  "status",
-                  "applicable",
-                  "authority",
-                  "revision",
-                  "explanation"
-                ],
-                "properties": {
-                  "operationId": {
-                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
-                  },
-                  "status": {
-                    "const": "notApplicable"
-                  },
-                  "applicable": {
-                    "const": false
-                  },
-                  "authority": {
-                    "const": "none"
-                  },
-                  "revision": {
-                    "type": "string",
-                    "pattern": "^rev:1:[0-9a-f]{32}$"
-                  },
-                  "explanation": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                      "kind",
-                      "ruleId"
-                    ],
-                    "properties": {
-                      "kind": {
-                        "const": "requirement"
-                      },
-                      "ruleId": {
-                        "enum": [
-                          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-                          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org"
-                        ]
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "operationId",
-                  "status",
-                  "applicable",
-                  "authority",
-                  "revision",
-                  "explanation"
-                ],
-                "properties": {
-                  "operationId": {
-                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
-                  },
-                  "status": {
-                    "const": "stale"
-                  },
-                  "applicable": {
-                    "const": false
-                  },
-                  "authority": {
-                    "const": "none"
-                  },
-                  "revision": {
-                    "type": "string",
-                    "pattern": "^rev:1:[0-9a-f]{32}$"
-                  },
-                  "explanation": {
-                    "const": {
-                      "kind": "revision",
-                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54"
-                    }
-                  }
-                }
-              }
-            ]
-          },
-          "stages": {
-            "type": "object"
-          },
-          "closure": {
-            "const": {
-              "scope": "applicability",
-              "currentEvaluation": true,
-              "executionObserved": false,
-              "durableEvidence": false,
-              "completeDecisionTrace": false
-            }
-          }
-        },
-        "allOf": [
-          {
-            "if": {
-              "type": "object",
-              "properties": {
-                "decision": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "const": "denied"
-                    }
-                  },
-                  "required": [
-                    "status"
-                  ]
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "stages": {
-                  "const": {
-                    "authorization": {
-                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "failed"
-                    },
-                    "requirements": [
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-                        "outcome": "notEvaluated"
-                      },
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
-                        "outcome": "notEvaluated"
-                      }
-                    ],
-                    "revision": {
-                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "notEvaluated"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            "if": {
-              "type": "object",
-              "properties": {
-                "decision": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "const": "stale"
-                    }
-                  },
-                  "required": [
-                    "status"
-                  ]
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "stages": {
-                  "const": {
-                    "authorization": {
-                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "passed"
-                    },
-                    "requirements": [
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-                        "outcome": "passed"
-                      },
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
-                        "outcome": "passed"
-                      }
-                    ],
-                    "revision": {
-                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "mismatched"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            "if": {
-              "type": "object",
-              "properties": {
-                "decision": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "const": "applicable"
-                    }
-                  },
-                  "required": [
-                    "status"
-                  ]
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "stages": {
-                  "enum": [
-                    {
-                      "authorization": {
-                        "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                        "outcome": "passed"
-                      },
-                      "requirements": [
-                        {
-                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-                          "outcome": "passed"
-                        },
-                        {
-                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
-                          "outcome": "passed"
-                        }
-                      ],
-                      "revision": {
-                        "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                        "outcome": "notRequested"
-                      }
-                    },
-                    {
-                      "authorization": {
-                        "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                        "outcome": "passed"
-                      },
-                      "requirements": [
-                        {
-                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-                          "outcome": "passed"
-                        },
-                        {
-                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
-                          "outcome": "passed"
-                        }
-                      ],
-                      "revision": {
-                        "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                        "outcome": "matched"
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          {
-            "if": {
-              "type": "object",
-              "properties": {
-                "decision": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "const": "notApplicable"
-                    },
-                    "explanation": {
-                      "type": "object",
-                      "properties": {
-                        "ruleId": {
-                          "const": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved"
-                        }
-                      },
-                      "required": [
-                        "ruleId"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "explanation"
-                  ]
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "stages": {
-                  "const": {
-                    "authorization": {
-                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "passed"
-                    },
-                    "requirements": [
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-                        "outcome": "failed"
-                      },
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
-                        "outcome": "notEvaluated"
-                      }
-                    ],
-                    "revision": {
-                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "notEvaluated"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            "if": {
-              "type": "object",
-              "properties": {
-                "decision": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "const": "notApplicable"
-                    },
-                    "explanation": {
-                      "type": "object",
-                      "properties": {
-                        "ruleId": {
-                          "const": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org"
-                        }
-                      },
-                      "required": [
-                        "ruleId"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "explanation"
-                  ]
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "stages": {
-                  "const": {
-                    "authorization": {
-                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "passed"
-                    },
-                    "requirements": [
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved",
-                        "outcome": "passed"
-                      },
-                      {
-                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_same_org",
-                        "outcome": "failed"
-                      }
-                    ],
-                    "revision": {
-                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
-                      "outcome": "notEvaluated"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        ]
-      },
-      {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "$schema",
-          "traceVersion",
-          "catalogVersion",
-          "model",
-          "traceId",
-          "kind",
-          "operationId",
-          "authority",
-          "view",
-          "freshness",
-          "decision",
-          "stages",
-          "closure"
-        ],
-        "properties": {
-          "$schema": {
-            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
-          },
-          "traceVersion": {
-            "const": 1
-          },
-          "catalogVersion": {
-            "const": 7
-          },
-          "model": {
-            "const": {
-              "id": "model:Signalbox",
-              "name": "Signalbox",
-              "version": "0.50.0",
-              "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
             }
           },
           "traceId": {
@@ -4962,6 +15055,7 @@ const publicDecisionTraceDefinition = {
                       },
                       "ruleId": {
                         "enum": [
+                          "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
                           "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval"
                         ]
                       }
@@ -5048,6 +15142,10 @@ const publicDecisionTraceDefinition = {
                     },
                     "requirements": [
                       {
+                        "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
+                        "outcome": "notEvaluated"
+                      },
+                      {
                         "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
                         "outcome": "notEvaluated"
                       }
@@ -5087,6 +15185,10 @@ const publicDecisionTraceDefinition = {
                       "outcome": "passed"
                     },
                     "requirements": [
+                      {
+                        "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
+                        "outcome": "passed"
+                      },
                       {
                         "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
                         "outcome": "passed"
@@ -5129,6 +15231,10 @@ const publicDecisionTraceDefinition = {
                       },
                       "requirements": [
                         {
+                          "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
+                          "outcome": "passed"
+                        },
+                        {
                           "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
                           "outcome": "passed"
                         }
@@ -5145,6 +15251,10 @@ const publicDecisionTraceDefinition = {
                       },
                       "requirements": [
                         {
+                          "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
+                          "outcome": "passed"
+                        },
+                        {
                           "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
                           "outcome": "passed"
                         }
@@ -5155,6 +15265,62 @@ const publicDecisionTraceDefinition = {
                       }
                     }
                   ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_18ab026d358144dfa4d1729e40dd832e",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
+                        "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_18ab026d358144dfa4d1729e40dd832e",
+                      "outcome": "notEvaluated"
+                    }
+                  }
                 }
               }
             }
@@ -5198,12 +15364,4415 @@ const publicDecisionTraceDefinition = {
                     },
                     "requirements": [
                       {
+                        "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.production_request",
+                        "outcome": "passed"
+                      },
+                      {
                         "ruleId": "require:action:act_18ab026d358144dfa4d1729e40dd832e.awaiting_approval",
                         "outcome": "failed"
                       }
                     ],
                     "revision": {
                       "ruleId": "revision:action:act_18ab026d358144dfa4d1729e40dd832e",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.awaiting_approval",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_d3a1935e42f24e4d84d25bc05ee690ad"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_d3a1935e42f24e4d84d25bc05ee690ad.awaiting_approval",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                          "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                        "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                        "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.ready",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance_scope",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_cbb72fd307704ab3927aa4bea8112fbf",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                          "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e99da927be642efac3d1bee026ef00a"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                        "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                        "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.ready",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e99da927be642efac3d1bee026ef00a.allowance_scope",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e99da927be642efac3d1bee026ef00a",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                          "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_3e26a4d454634bf3a2058204146d7c45"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                        "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                        "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.staging_request",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_3e26a4d454634bf3a2058204146d7c45.allowance_scope",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_3e26a4d454634bf3a2058204146d7c45",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                          "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_4a9421bfc2e744969b9f73109e6cda54"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                        "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                        "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.approved_production_request",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance_scope",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_4a9421bfc2e744969b9f73109e6cda54",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_70d3862584094631aca61e9db664d991"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_70d3862584094631aca61e9db664d991"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_70d3862584094631aca61e9db664d991"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_70d3862584094631aca61e9db664d991"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                          "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_70d3862584094631aca61e9db664d991"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                        "outcome": "notEvaluated"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                          "outcome": "passed"
+                        },
+                        {
+                          "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_70d3862584094631aca61e9db664d991.approved"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                        "outcome": "failed"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.approved",
+                        "outcome": "passed"
+                      },
+                      {
+                        "ruleId": "require:action:act_70d3862584094631aca61e9db664d991.allowance_scope",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_70d3862584094631aca61e9db664d991",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_5be24324b68d4c2eb334732b36e1b16c"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_5be24324b68d4c2eb334732b36e1b16c"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_5be24324b68d4c2eb334732b36e1b16c.pending",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_5be24324b68d4c2eb334732b36e1b16c",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$schema",
+          "traceVersion",
+          "catalogVersion",
+          "model",
+          "traceId",
+          "kind",
+          "operationId",
+          "authority",
+          "view",
+          "freshness",
+          "decision",
+          "stages",
+          "closure"
+        ],
+        "properties": {
+          "$schema": {
+            "const": "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/public-decision-trace.schema.json"
+          },
+          "traceVersion": {
+            "const": 1
+          },
+          "catalogVersion": {
+            "const": 7
+          },
+          "model": {
+            "const": {
+              "id": "model:Signalbox",
+              "name": "Signalbox",
+              "version": "0.51.0",
+              "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"
+            }
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "applicabilityDecisionTrace"
+          },
+          "operationId": {
+            "const": "action:act_926686163a6544e79d44dea9336d2c88"
+          },
+          "authority": {
+            "const": "none"
+          },
+          "view": {
+            "const": {
+              "audience": "agent",
+              "subjectSpecific": true,
+              "authorizationFiltered": true,
+              "inputSpecific": true,
+              "derivedFromCurrentState": true,
+              "containsCurrentStateValues": false,
+              "containsOperationInput": false,
+              "containsAuthenticatedIdentity": false,
+              "containsExpressions": false,
+              "containsPolicyIds": false,
+              "containsAuthorityIds": false,
+              "containsPrivateEvidence": false,
+              "grantsAuthority": false,
+              "runtimeAuthorizationRequired": true
+            }
+          },
+          "freshness": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "tracedAt",
+              "maxAgeSeconds",
+              "revalidate"
+            ],
+            "properties": {
+              "mode": {
+                "const": "pointInTime"
+              },
+              "tracedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "maxAgeSeconds": {
+                "const": 0
+              },
+              "revalidate": {
+                "const": "beforeReuse"
+              }
+            }
+          },
+          "decision": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_926686163a6544e79d44dea9336d2c88"
+                  },
+                  "status": {
+                    "const": "applicable"
+                  },
+                  "applicable": {
+                    "const": true
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_926686163a6544e79d44dea9336d2c88"
+                  },
+                  "status": {
+                    "const": "denied"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "authorization",
+                      "ruleId": "authorize:action:act_926686163a6544e79d44dea9336d2c88"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_926686163a6544e79d44dea9336d2c88"
+                  },
+                  "status": {
+                    "const": "notApplicable"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "ruleId"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "requirement"
+                      },
+                      "ruleId": {
+                        "enum": [
+                          "require:action:act_926686163a6544e79d44dea9336d2c88.pending"
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "operationId",
+                  "status",
+                  "applicable",
+                  "authority",
+                  "revision",
+                  "explanation"
+                ],
+                "properties": {
+                  "operationId": {
+                    "const": "action:act_926686163a6544e79d44dea9336d2c88"
+                  },
+                  "status": {
+                    "const": "stale"
+                  },
+                  "applicable": {
+                    "const": false
+                  },
+                  "authority": {
+                    "const": "none"
+                  },
+                  "revision": {
+                    "type": "string",
+                    "pattern": "^rev:1:[0-9a-f]{32}$"
+                  },
+                  "explanation": {
+                    "const": {
+                      "kind": "revision",
+                      "ruleId": "revision:action:act_926686163a6544e79d44dea9336d2c88"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "stages": {
+            "type": "object"
+          },
+          "closure": {
+            "const": {
+              "scope": "applicability",
+              "currentEvaluation": true,
+              "executionObserved": false,
+              "durableEvidence": false,
+              "completeDecisionTrace": false
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "denied"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_926686163a6544e79d44dea9336d2c88",
+                      "outcome": "failed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_926686163a6544e79d44dea9336d2c88.pending",
+                        "outcome": "notEvaluated"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_926686163a6544e79d44dea9336d2c88",
+                      "outcome": "notEvaluated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "stale"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_926686163a6544e79d44dea9336d2c88",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_926686163a6544e79d44dea9336d2c88.pending",
+                        "outcome": "passed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_926686163a6544e79d44dea9336d2c88",
+                      "outcome": "mismatched"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "applicable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "enum": [
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_926686163a6544e79d44dea9336d2c88",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_926686163a6544e79d44dea9336d2c88.pending",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_926686163a6544e79d44dea9336d2c88",
+                        "outcome": "notRequested"
+                      }
+                    },
+                    {
+                      "authorization": {
+                        "ruleId": "authorize:action:act_926686163a6544e79d44dea9336d2c88",
+                        "outcome": "passed"
+                      },
+                      "requirements": [
+                        {
+                          "ruleId": "require:action:act_926686163a6544e79d44dea9336d2c88.pending",
+                          "outcome": "passed"
+                        }
+                      ],
+                      "revision": {
+                        "ruleId": "revision:action:act_926686163a6544e79d44dea9336d2c88",
+                        "outcome": "matched"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": {
+                "decision": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "notApplicable"
+                    },
+                    "explanation": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "const": "require:action:act_926686163a6544e79d44dea9336d2c88.pending"
+                        }
+                      },
+                      "required": [
+                        "ruleId"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "explanation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "stages": {
+                  "const": {
+                    "authorization": {
+                      "ruleId": "authorize:action:act_926686163a6544e79d44dea9336d2c88",
+                      "outcome": "passed"
+                    },
+                    "requirements": [
+                      {
+                        "ruleId": "require:action:act_926686163a6544e79d44dea9336d2c88.pending",
+                        "outcome": "failed"
+                      }
+                    ],
+                    "revision": {
+                      "ruleId": "revision:action:act_926686163a6544e79d44dea9336d2c88",
                       "outcome": "notEvaluated"
                     }
                   }
@@ -5239,7 +19808,7 @@ const discoveryCacheDefinition = {
     "server/discover",
     "tools/list"
   ],
-  "revision": "sha256:2b92ae22db1aa546406d1c082dee1d3f155bbaad007ddadf4759a2229c36ec1d",
+  "revision": "sha256:d4335687bf2b77f0fac452275fff614e9d72d2351ef69ad790a1493ec7035a0f",
   "revisionHeader": "ETag",
   "ttlUnit": "milliseconds",
   "defaultTtlMs": 0,
@@ -5383,7 +19952,7 @@ function currentStateEnvelope(definition: McpToolDefinition, data: unknown, retr
     $schema: "https://raw.githubusercontent.com/atlanticplatformgroup/ModelLang/v0.50.0/schemas/agent-resource.schema.json" as const,
     resourceVersion: 1 as const,
     catalogVersion: 7 as const,
-    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.50.0","sourceHash":"sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a"},
+    model: {"id":"model:Signalbox","name":"Signalbox","version":"0.51.0","sourceHash":"sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608"},
     operationId: definition.operationId,
     kind: "queryResult" as const,
     authority: "none" as const,
@@ -5433,7 +20002,7 @@ function buildSignalboxMcpServer(
   onerror?: (error: Error) => void,
 ): McpServer {
   const server = new McpServer(
-    { name: "Signalbox-ModelLang", version: "0.50.0" },
+    { name: "Signalbox-ModelLang", version: "0.51.0" },
     {
       instructions: "Tool discovery, task packets, public applicability traces, and extension metadata grant no authority. Extension tools require an explicitly registered host adapter and host authorization on every invocation; ModelLang generates no extension implementation and does not verify its tests or effects. Public traces are zero-age current evaluations, not execution evidence or complete decision traces. Delegated invocation requires a separately issued exact-input credential plus authenticated delegate identity; every call revalidates current runtime authorization.",
       cacheHints: {

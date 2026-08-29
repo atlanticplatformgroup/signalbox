@@ -1,18 +1,10 @@
 // Signalbox — transactional interlocking for AI agent actions.
 //
-// SPIKE SCOPE: proves the workarounds forced by ModelLang 0.50 constraints.
-//   1. Single principal entity + `kind` discriminator   (E2304: one principal per model)
-//   2. Budget as Allowance rows, not arithmetic          (no +,-,*,/ operators exist)
-//   3. Typed per-action request entity, not a JSON blob  (no Json scalar exists)
-//   4. Cross-entity org consistency as preconditions     (E2406: invariants are local-only)
-//
-// Guarantees under test:
-//   A. requester cannot approve own request      (policy + at-rest invariant)
-//   B. a request executes at most once           (Execution.request @unique)
-//   C. an allowance is consumed at most once     (Execution.allowance @unique)
-//   D. every read is tenant-scoped               (explicit org predicates)
+// Every protected operation is tenant-confined, caller-bound, idempotent, and
+// represented by a typed request. Sensitive operations require an independent
+// human approval before a connector worker may dispatch them.
 
-model Signalbox version "0.50.0";
+model Signalbox version "0.51.0";
 
 enum PrincipalKind @stableId("enm_943e2ecda4b34981aa0185964e8ebea1") {
   HUMAN @stableId("emv_efb2884e01154acc9e5ef1f0ed82ae38"),
@@ -27,7 +19,19 @@ enum PrincipalStatus @stableId("enm_b3eb770de22342738109ac1a6eba6d12") {
 enum Role @stableId("enm_0be4ea379dd741439ed47dcaae9dd5fc") {
   MEMBER @stableId("emv_86658ec57f164a6aa3fcacffbc75de4e"),
   APPROVER @stableId("emv_42acb032e28f402aae0129d1b2da8fa0"),
-  ADMIN @stableId("emv_9d8ee6584f95458392c0ac62647c3453")
+  ADMIN @stableId("emv_9d8ee6584f95458392c0ac62647c3453"),
+  EXECUTOR @stableId("emv_35c5d303f6bd42f486dddf689c14e3d9")
+}
+
+enum ConnectorKind @stableId("enm_dfbeb9b2ef654a3786eccc2ef96567ff") {
+  GITHUB @stableId("emv_8896adf3e9524a5e96d5920347c96406"),
+  STATIC_SITE @stableId("emv_a3bed91bc7b9440ab27146394804ee9a"),
+  POSTGRESQL @stableId("emv_fdf98675d2b94e0e9ec7a25bfe35ad9b")
+}
+
+enum ConnectorStatus @stableId("enm_e0f0bb54bb29417aa8ad48dcc001d751") {
+  ACTIVE @stableId("emv_06806641834a4e048a4ababf906d07ad"),
+  REVOKED @stableId("emv_37139bd7991e42ed90815cacee1b9adc")
 }
 
 enum EnvironmentTier @stableId("enm_380f40ed4b084a67944e5f793458621d") {
@@ -36,8 +40,11 @@ enum EnvironmentTier @stableId("enm_380f40ed4b084a67944e5f793458621d") {
 }
 
 enum Capability @stableId("enm_8381729a6ae947c885585318421c3883") {
+  CREATE_ISSUE @stableId("emv_1d2efe651ad14d9ab7c95e7156f9dd7d"),
+  OPEN_PULL_REQUEST @stableId("emv_adb9bc0c4c804c209b6a16e2c040235e"),
   DEPLOY_STAGING @stableId("emv_f2c9d52d03e24e409ae47104d23b1ef5"),
-  REQUEST_PRODUCTION_DEPLOY @stableId("emv_b6af2941a9904877944e278153abca35")
+  REQUEST_PRODUCTION_DEPLOY @stableId("emv_b6af2941a9904877944e278153abca35"),
+  REQUEST_SCHEMA_MIGRATION @stableId("emv_2311b8cbff0749938fad96ade786c16c")
 }
 
 enum DelegationStatus @stableId("enm_82705b31f72f487b9f0af8726779ea39") {
@@ -46,10 +53,24 @@ enum DelegationStatus @stableId("enm_82705b31f72f487b9f0af8726779ea39") {
 }
 
 enum RequestStatus @stableId("enm_62bc5aa58efc405398d2931c339c730c") {
+  READY @stableId("emv_d184c3fad73845198cae3b13e7648218"),
   PENDING_APPROVAL @stableId("emv_68cab0efe9654fce9b385cede2f85e9d"),
   APPROVED @stableId("emv_66537f67e79d4374a2d5dede854aed06"),
   REJECTED @stableId("emv_1f9acbfbce954efbaff9c782a7e5af94"),
-  EXECUTED @stableId("emv_7dfcad253ae24f8b9b05598cd2c5b59e")
+  DISPATCHED @stableId("emv_7dfcad253ae24f8b9b05598cd2c5b59e")
+}
+
+enum RequestKind @stableId("enm_15fd74a87ba3472b86d9f81a8e050e0a") {
+  ISSUE @stableId("emv_0032cfced1f64d918096e4e5ea7b563b"),
+  PULL_REQUEST @stableId("emv_694bc41d35744819a6bf49f2a81f4316"),
+  DEPLOYMENT @stableId("emv_7407e28496c3430da0ad6f2fb339fea2"),
+  SCHEMA_MIGRATION @stableId("emv_a29f27d325c14aa9b6bc2929f9ef71dd")
+}
+
+enum ExecutionStatus @stableId("enm_0b965e59e8ac496a9615959c4f1613b5") {
+  PENDING @stableId("emv_9b2151b3cc11492f93374d592c0f9065"),
+  SUCCEEDED @stableId("emv_bc4b89591687429fbaba761df786c3a8"),
+  FAILED @stableId("emv_63fbb1d873aa4673a4d75151e7e48c8c")
 }
 
 entity Organization @tenant @stableId("ent_661a8bc41d68494eaaa82198b8354a94") {
@@ -58,8 +79,6 @@ entity Organization @tenant @stableId("ent_661a8bc41d68494eaaa82198b8354a94") {
   name: String @stableId("fld_549aa3872e244af8a95fbeeb39f9ea46");
 }
 
-// One principal entity for humans and agents. ModelLang permits exactly one
-// caller type per model, so identity kind is an attribute, not a separate entity.
 entity Principal @tenantScoped(org) @stableId("ent_197f12dacaf14992a367c5c15f895415") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_0f4346fb82a7470baa889475e5480797");
   org: Organization @immutable @stableId("fld_21bdc1e7c1a4408f8d0c56d3c73b6856");
@@ -67,116 +86,370 @@ entity Principal @tenantScoped(org) @stableId("ent_197f12dacaf14992a367c5c15f895
   displayName: String @stableId("fld_a25b3b5aefbe4466a95b26a8edf32a28");
   status: PrincipalStatus = PrincipalStatus.ACTIVE @stableId("fld_72c4a69879134905b2c62f511514143f");
   roles: Set<Role> @stableId("fld_701810bb7b774ea4877941ecd35be293");
+  responsibleOwner: Principal? @immutable @stableId("fld_eb710ade20f342e8a2115ca7e7561f0a");
+
+  invariant agent_has_human_owner @stableId("inv_9d2a1ef4ee1b4eb89823a061089a72bb"):
+    (kind == PrincipalKind.AGENT and responsibleOwner != null)
+    or (kind == PrincipalKind.HUMAN and responsibleOwner == null);
+}
+
+// Plaintext Agent Access Tokens never enter the model. The host stores only a
+// one-way hash plus lifecycle metadata, then binds a verified token to Principal.
+entity AgentCredentialMetadata @stableId("ent_bc00926c5e9b40bd9fd939ef1ebb1a11") @tenantScoped(org) {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_0319bfe549e14021b424663707e506b8");
+  org: Organization @immutable @stableId("fld_d2d64cc1c1e547e5860ca57b9e89bd40");
+  agent: Principal @immutable @stableId("fld_81fe0905512148f69ba6bf0363cc1beb");
+  label: String @immutable @stableId("fld_85192ad23f4a42a6a03a8034610cd882");
+  tokenHash: String @unique @immutable @stableId("fld_52c6b5c65d3342a1a003475262e51211");
+  expiresAt: DateTime? @immutable @stableId("fld_0f0dfaac17d5484aa43eadabb6937d20");
+  revokedAt: DateTime? @stableId("fld_5c738668ad2c40a59a88d1b6276868d5");
+  lastUsedAt: DateTime? @stableId("fld_11227fd385794b719a913ee683b8e129");
+}
+
+entity Connector @stableId("ent_d817706888f344c4a8fe2d8069d5233c") @tenantScoped(org) {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_141c97fe85534749a77e56b62861c7f8");
+  org: Organization @immutable @stableId("fld_81fe7c2870e94deb969b52b66979aa55");
+  name: String @stableId("fld_2d21a8a2b6874563a2194971eaa306ae");
+  kind: ConnectorKind @immutable @stableId("fld_f788bde6548c447da588ff89e18b9706");
+  status: ConnectorStatus = ConnectorStatus.ACTIVE @stableId("fld_db3853658ad7448a926b93f8edfdc962");
+}
+
+entity Repository @stableId("ent_c60c5d44873846c7be0fdb64bb97b43a") @tenantScoped(org) {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_757c0550ba514b8f9f42463f2e86b342");
+  org: Organization @immutable @stableId("fld_51e7ef5abc4f4dc59560e4f4d5ea3b28");
+  connector: Connector @immutable @stableId("fld_6607fa80537e46deba9dd640d2f0436f");
+  owner: String @immutable @stableId("fld_09dc4245bb994229a019b48dbd414263");
+  name: String @immutable @stableId("fld_2e17cabc902f4edd8ecb07b0e1062121");
+  defaultBranch: String @stableId("fld_6c7a36d936c445bfbfb1b601b7241140");
 }
 
 entity Environment @tenantScoped(org) @stableId("ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_9c6795a2d88d486f9e1afafc7c39b749");
   org: Organization @immutable @stableId("fld_a07af94c649f43379bb186f5d102939f");
+  repository: Repository @immutable @stableId("fld_e4609189f57a447a908833c1fd147f6b");
+  connector: Connector @immutable @stableId("fld_52304449caa54a5c8ea478cde23883a0");
   name: String @stableId("fld_d7283a03833947b99224118cac98cf46");
   tier: EnvironmentTier @immutable @stableId("fld_85e49c361751417686fab601b59b541b");
 }
 
-// Delegation is resolved by the host and passed in as a parameter. ModelLang
-// authorization cannot issue subqueries, so the boundary instead *verifies* the
-// supplied delegation belongs to the caller, the org, and the target resource.
-//
-// Cross-entity org consistency cannot be an entity invariant (E2406: invariants
-// may not dereference related entities), so it lives in policies and preconditions.
+// A delegation scopes one agent capability to one repository or environment and
+// to the exact connector that will perform the eventual external effect.
 entity Delegation @tenantScoped(org) @stableId("ent_accc8ba6b5ae4d76813eb983c3d1f8ce") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_776b40619c354d4b93a2eeec5f6cc254");
   org: Organization @immutable @stableId("fld_57535d45b9bc42ccb9b9bed2c77a8996");
   agent: Principal @immutable @stableId("fld_054b2d41511b413cb6928aa459d34e60");
   capability: Capability @immutable @stableId("fld_cc8b5256189f47279d51704215aaae8f");
-  environment: Environment @immutable @stableId("fld_5baad9f56824417b8743b7cc93b32007");
+  repository: Repository? @immutable @stableId("fld_7d35f99f78c84d67af4d094e0eea9a27");
+  environment: Environment? @immutable @stableId("fld_5baad9f56824417b8743b7cc93b32007");
+  connector: Connector @immutable @stableId("fld_a67128763ffa463b819aa6f5c8fe5729");
   status: DelegationStatus = DelegationStatus.ACTIVE @stableId("fld_3e25eaed78c54f1e893497b8af2045a1");
+
+  invariant resource_scope_matches_capability @stableId("inv_1a0e2ae84b1c4512b89871065e0b8e8d"):
+    (
+      (capability == Capability.CREATE_ISSUE or capability == Capability.OPEN_PULL_REQUEST)
+      and repository != null
+      and environment == null
+    )
+    or
+    (
+      (
+        capability == Capability.DEPLOY_STAGING
+        or capability == Capability.REQUEST_PRODUCTION_DEPLOY
+        or capability == Capability.REQUEST_SCHEMA_MIGRATION
+      )
+      and repository == null
+      and environment != null
+    );
 }
 
-// Budget without arithmetic: allowances are pre-issued consumption tokens.
+// Budget is a set of pre-issued, agent-scoped consumption tokens. Execution has
+// a unique allowance reference, so one token can never be spent twice.
 entity Allowance @tenantScoped(org) @stableId("ent_b0fd2128e94a469089ac56c643cc4e36") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_4669d240de76491f918160af4833ca73");
   org: Organization @immutable @stableId("fld_059d2ddcea884369a05e172746ce56ee");
+  agent: Principal @immutable @stableId("fld_73260390a96241b4b94137e53ed48792");
   period: String @immutable @stableId("fld_9e4882e18d894214b52e6dcde5e92efc");
   sequence: Int @immutable @stableId("fld_a87e7d4bc69d4343b5aa2e955bed21a3");
 }
 
-entity ProductionDeployRequest @tenantScoped(org) @stableId("ent_e2b5ba3cccef437796b2048fd1ff2f24") {
+entity IssueRequest @stableId("ent_d66226c7efc345ba9853df0d4abb879a") @tenantScoped(org) {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_1eea72bb397746d5a3cb2d5d9b7bef83");
+  createdAt: DateTime @generated(now) @immutable @stableId("fld_21446eda364f48bd836217199c1b1297");
+  org: Organization @immutable @stableId("fld_9cbabb6af742448e967a399cb770e8a3");
+  requestedBy: Principal @immutable @stableId("fld_bdcff79287c8490eab0028122b904f2b");
+  delegation: Delegation @immutable @stableId("fld_ebf80927e37443789e94a7de513872b5");
+  repository: Repository @immutable @stableId("fld_0940a8f0a86445fe8259b39a65ac2017");
+  connector: Connector @immutable @stableId("fld_3fa9d020d7914602a2fe039d078564e6");
+  title: String @immutable @stableId("fld_4422f07a408d4551b3ce0726c1c3d892");
+  body: String @immutable @stableId("fld_6bed1d1b707d4aef8e7c44b15720048c");
+  status: RequestStatus = RequestStatus.READY @stableId("fld_5d88e5c44ca54aef83cac25756645919");
+
+  invariant direct_request_status @stableId("inv_5fbe89ad06a4441fb6884072315e66f8"):
+    status == RequestStatus.READY or status == RequestStatus.DISPATCHED;
+}
+
+entity PullRequest @stableId("ent_44eefd913a6d40389e4b1baf02add8c4") @tenantScoped(org) {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_281160087c1a4a60abd81642ec528828");
+  createdAt: DateTime @generated(now) @immutable @stableId("fld_2f78328226a54731bc6feadcc11028db");
+  org: Organization @immutable @stableId("fld_2dca9ffcf1754ff8a8ecaa99f31b2f40");
+  requestedBy: Principal @immutable @stableId("fld_cb697ff356bc4a02a303c94240c84074");
+  delegation: Delegation @immutable @stableId("fld_9bfdbe3eb3f444e9b93ea712d87c1d9b");
+  repository: Repository @immutable @stableId("fld_7c8dd5e645bc4ae688d3f45055d5c6df");
+  connector: Connector @immutable @stableId("fld_119200b4be784b949bcb3e9e052740cf");
+  headBranch: String @immutable @stableId("fld_3eba77db78fe4ebab54a63ad9567e3b5");
+  baseBranch: String @immutable @stableId("fld_7c1085492a45441fb4cb3c332cd137b2");
+  title: String @immutable @stableId("fld_ebc39ab7424e4255b5ba1541b3b4fa83");
+  status: RequestStatus = RequestStatus.READY @stableId("fld_658bfd33302b4a6e996a88d746572ec2");
+
+  invariant direct_request_status @stableId("inv_eb91ccea513d43f4b7ae0e96f4f25ef9"):
+    status == RequestStatus.READY or status == RequestStatus.DISPATCHED;
+}
+
+// One typed request supports staging and production, with the tier snapshotted so
+// approval invariants remain local and therefore compile to PostgreSQL checks.
+entity DeploymentRequest @tenantScoped(org) @stableId("ent_e2b5ba3cccef437796b2048fd1ff2f24") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_adecbdc3c4cb4bbb8b4e528dbc7408a5");
   createdAt: DateTime @generated(now) @immutable @stableId("fld_90575438c6e94deab4c8e6948e68345b");
   org: Organization @immutable @stableId("fld_c9d0dea7ee234d18824faaed519bff81");
   requestedBy: Principal @immutable @stableId("fld_c3b2af2fa9ab4b29bfaa4e030bee1562");
+  delegation: Delegation @immutable @stableId("fld_129c498eb5ab4650aa2f5032427a5045");
   environment: Environment @immutable @stableId("fld_f70e0428ad644adc8f1ec755350ad645");
+  environmentTier: EnvironmentTier @snapshot @stableId("fld_0be25eb7ee834d4e845535e6d3c9d0fe");
+  connector: Connector @immutable @stableId("fld_a639788198e34e8694774dd0e3208d7d");
   commitSha: String @immutable @stableId("fld_dd3ada66cf6b49b5a37ab5fcba85fb85");
-  status: RequestStatus = RequestStatus.PENDING_APPROVAL @stableId("fld_d905a7f0828849ae855fbbd30aad5255");
+  status: RequestStatus @stableId("fld_d905a7f0828849ae855fbbd30aad5255");
   approvedBy: Principal? @stableId("fld_da7706d558434a06b10cfa548972efa6");
   approvedByRoles: Set<Role>? @snapshot @stableId("fld_d82dc0f1c8fc4accacdc742dd0258ac6");
 
-  // Local-only invariants. `approvedByRoles` is a @snapshot precisely because an
-  // invariant cannot reach through `approvedBy` to read live roles.
-
-  // Guarantee A, at rest: an approved or executed request can never carry an
-  // approver equal to its requester.
-  invariant approver_differs_from_requester @stableId("inv_a981bd3d01714dd489b3159dfddf6e31"):
-    (status != RequestStatus.APPROVED and status != RequestStatus.EXECUTED)
-    or approvedBy != requestedBy;
+  invariant tier_controls_lifecycle @stableId("inv_6bca35ccc0804598a347f1fe7fcc87d2"):
+    (
+      environmentTier == EnvironmentTier.STAGING
+      and (status == RequestStatus.READY or status == RequestStatus.DISPATCHED)
+    )
+    or
+    (
+      environmentTier == EnvironmentTier.PRODUCTION
+      and (
+        status == RequestStatus.PENDING_APPROVAL
+        or status == RequestStatus.APPROVED
+        or status == RequestStatus.REJECTED
+        or status == RequestStatus.DISPATCHED
+      )
+    );
 
   invariant approval_fields_match_status @stableId("inv_ff4e5164d93f4c67b0be7af34ed228d7"):
     (
-      (status == RequestStatus.APPROVED or status == RequestStatus.EXECUTED)
+      environmentTier == EnvironmentTier.PRODUCTION
+      and (status == RequestStatus.APPROVED or status == RequestStatus.DISPATCHED)
       and approvedBy != null
       and approvedByRoles != null
     )
     or
     (
-      status != RequestStatus.APPROVED
-      and status != RequestStatus.EXECUTED
+      (environmentTier == EnvironmentTier.STAGING
+        or status == RequestStatus.PENDING_APPROVAL
+        or status == RequestStatus.REJECTED)
       and approvedBy == null
       and approvedByRoles == null
     );
 
-  // Only a principal holding APPROVER may appear as the recorded approver.
+  invariant approver_differs_from_requester @stableId("inv_a981bd3d01714dd489b3159dfddf6e31"):
+    (approvedBy == null) or approvedBy != requestedBy;
+
   invariant approval_authority_recorded @stableId("inv_1be7fd43c4ab4198ab733fbeb8fd7d44"):
-    (status != RequestStatus.APPROVED and status != RequestStatus.EXECUTED)
-    or Role.APPROVER in approvedByRoles;
+    (approvedByRoles == null) or Role.APPROVER in approvedByRoles;
+}
+
+entity SchemaMigrationRequest @stableId("ent_c136762ce9794a7b92ca3c138c7c7bef") @tenantScoped(org) {
+  id: UUID @id @generated(uuid) @immutable @stableId("fld_6220c184797043188c546747a102e097");
+  createdAt: DateTime @generated(now) @immutable @stableId("fld_001992183e08454d9235ad39cc6a4f56");
+  org: Organization @immutable @stableId("fld_c7eac19396da4475916b33163d6ecd9f");
+  requestedBy: Principal @immutable @stableId("fld_4acc8ceaf7b04e0680ef41cc4d2f1267");
+  delegation: Delegation @immutable @stableId("fld_6f6a4d54c6d944069845e8f582aaf69d");
+  environment: Environment @immutable @stableId("fld_25c4ef24ca5f40608a160eaa8ce47613");
+  connector: Connector @immutable @stableId("fld_3b91f96763da4611a09ec9774b3fde7b");
+  migrationName: String @immutable @stableId("fld_2a58885ca7404655a635e2bca9379202");
+  migrationSha: String @immutable @stableId("fld_9d6644545b0d47fbbe8d2699f202160b");
+  status: RequestStatus = RequestStatus.PENDING_APPROVAL @stableId("fld_9652d13eff5e44a59f102d58156ed82d");
+  approvedBy: Principal? @stableId("fld_9228edae7b7a4368ad3deaf385872789");
+  approvedByRoles: Set<Role>? @snapshot @stableId("fld_d36093e299fc4f169da9855783368ad5");
+
+  invariant migration_lifecycle @stableId("inv_c3643a3b1ad24276a883a17ef432bc69"):
+    status == RequestStatus.PENDING_APPROVAL
+    or status == RequestStatus.APPROVED
+    or status == RequestStatus.REJECTED
+    or status == RequestStatus.DISPATCHED;
+
+  invariant approval_fields_match_status @stableId("inv_86b577f6815d4b93b563323269aa7d59"):
+    (
+      (status == RequestStatus.APPROVED or status == RequestStatus.DISPATCHED)
+      and approvedBy != null
+      and approvedByRoles != null
+    )
+    or
+    (
+      (status == RequestStatus.PENDING_APPROVAL or status == RequestStatus.REJECTED)
+      and approvedBy == null
+      and approvedByRoles == null
+    );
+
+  invariant approver_differs_from_requester @stableId("inv_d4a6e35e5ca24569b8a7d9287154d249"):
+    (approvedBy == null) or approvedBy != requestedBy;
+
+  invariant approval_authority_recorded @stableId("inv_d46ef40323b64ea1913f20ef51989bfd"):
+    (approvedByRoles == null) or Role.APPROVER in approvedByRoles;
 }
 
 entity Approval @tenantScoped(org) @stableId("ent_f6f083c592f34c07af0204bb507be013") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_d76e45f665d140d29821a79fe8cf0d57");
   decidedAt: DateTime @generated(now) @immutable @stableId("fld_a9a2a789b7d74ca2971ab753ab9e9ab3");
   org: Organization @immutable @stableId("fld_84cbfc1dead747469eff52af38e562fc");
-  request: ProductionDeployRequest @unique @stableId("fld_f64acc87201840f491d55ceb5c6bebec");
+  requestId: UUID @unique @stableId("fld_3c0b97e165a9413a8f2926a9d7b89c1c");
+  requestKind: RequestKind @immutable @stableId("fld_77178cf8f61a415e8ea207a17eeb7e6d");
+  requestedBy: Principal @immutable @stableId("fld_02cee0e10d414e308574d78fdd784e54");
   approver: Principal @immutable @stableId("fld_3cbd6c8ee8df4e4e90d1932ad237e9c2");
+  approverRoles: Set<Role> @snapshot @stableId("fld_8c4149cd900c4ec0bfdc0a63df509394");
+
+  invariant independent_approver @stableId("inv_fefea6c0eacc4527af9b15c27ba1487a"): approver != requestedBy;
+  invariant approval_authority_recorded @stableId("inv_d69a838876bf4ab89b901d191b0ec820"): Role.APPROVER in approverRoles;
 }
 
-// Guarantee B and C are storage-level: one execution per request, one per allowance.
 entity Execution @tenantScoped(org) @stableId("ent_695aab5599c84a78ac8f2ea75ccbdf1d") {
   id: UUID @id @generated(uuid) @immutable @stableId("fld_054965adb4f143f5a51c51d9449265b5");
   startedAt: DateTime @generated(now) @immutable @stableId("fld_21c95bb344a2454680073627dfd4a830");
   org: Organization @immutable @stableId("fld_38800d8c1ef74f46a314cdbf1ba6aed6");
-  request: ProductionDeployRequest @unique @stableId("fld_cbe0efca671b48e992d83664581698ba");
+  requestId: UUID @unique @stableId("fld_3bc7534978b84f1b81aad0e4cd9e629e");
+  requestKind: RequestKind @immutable @stableId("fld_425a2eb8a4694f98a1d6b8b3271733f1");
+  requestedBy: Principal @immutable @stableId("fld_00f8c8443450466f8f3491a6a4e61d8d");
+  connector: Connector @immutable @stableId("fld_06f07c78abb442e4bbeb925fe1d5cf48");
   allowance: Allowance @unique @stableId("fld_3ab113e9fda24d89818dc798b47dc0bd");
+  status: ExecutionStatus = ExecutionStatus.PENDING @stableId("fld_235cde6a26a7444582cce44bdb3e7524");
+  externalReference: String? @stableId("fld_34eddd44213045eda0988a0ebb8729f8");
+  failureMessage: String? @stableId("fld_c31f988db83b4854a999c67c86c3aea1");
+
+  invariant result_matches_status @stableId("inv_53a63cda070d479e8394eee58596d4d4"):
+    (
+      status == ExecutionStatus.PENDING
+      and externalReference == null
+      and failureMessage == null
+    )
+    or
+    (
+      status == ExecutionStatus.SUCCEEDED
+      and externalReference != null
+      and failureMessage == null
+    )
+    or
+    (
+      status == ExecutionStatus.FAILED
+      and externalReference == null
+      and failureMessage != null
+    );
 }
 
-// An agent may request a production deploy only with an active, matching delegation.
+policy IssueDelegation @stableId("pol_283b5ccf33154f469de3572557c213de")(
+  actor: Principal,
+  delegation: Delegation,
+  repository: Repository,
+  connector: Connector
+) {
+  allow active_scoped_agent @stableId("pbr_ba69b7197f1d46628c1b933973088326"):
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and delegation.agent == actor
+    and delegation.status == DelegationStatus.ACTIVE
+    and delegation.capability == Capability.CREATE_ISSUE
+    and delegation.repository == repository
+    and delegation.connector == connector
+    and repository.connector == connector
+    and delegation.org == actor.org
+    and repository.org == actor.org
+    and connector.org == actor.org;
+}
+
+policy PullRequestDelegation @stableId("pol_d216aa190a554575a6431304ff70ea3b")(
+  actor: Principal,
+  delegation: Delegation,
+  repository: Repository,
+  connector: Connector
+) {
+  allow active_scoped_agent @stableId("pbr_f405313968a34706a0b46b81eb41114e"):
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and delegation.agent == actor
+    and delegation.status == DelegationStatus.ACTIVE
+    and delegation.capability == Capability.OPEN_PULL_REQUEST
+    and delegation.repository == repository
+    and delegation.connector == connector
+    and repository.connector == connector
+    and delegation.org == actor.org
+    and repository.org == actor.org
+    and connector.org == actor.org;
+}
+
+policy StagingDeployDelegation @stableId("pol_8410bf38cec54a4ea73fd2eb23b0559c")(
+  actor: Principal,
+  delegation: Delegation,
+  environment: Environment,
+  connector: Connector
+) {
+  allow active_scoped_agent @stableId("pbr_ab4c955d5582438e87f04e1d4984b535"):
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and delegation.agent == actor
+    and delegation.status == DelegationStatus.ACTIVE
+    and delegation.capability == Capability.DEPLOY_STAGING
+    and delegation.environment == environment
+    and delegation.connector == connector
+    and environment.connector == connector
+    and delegation.org == actor.org
+    and environment.org == actor.org
+    and connector.org == actor.org;
+}
+
 policy ProductionDeployDelegation @stableId("pol_6bb7a7ee2c0040f0a4ab4197ad4ef05a")(
   actor: Principal,
   delegation: Delegation,
-  environment: Environment
+  environment: Environment,
+  connector: Connector
 ) {
-  allow delegated_agent @stableId("pbr_a1caa050a0174a1d9c9e75137153a4d0"):
+  allow active_scoped_agent @stableId("pbr_a1caa050a0174a1d9c9e75137153a4d0"):
     actor.kind == PrincipalKind.AGENT
     and actor.status == PrincipalStatus.ACTIVE
     and delegation.agent == actor
     and delegation.status == DelegationStatus.ACTIVE
     and delegation.capability == Capability.REQUEST_PRODUCTION_DEPLOY
     and delegation.environment == environment
+    and delegation.connector == connector
+    and environment.connector == connector
     and delegation.org == actor.org
-    and environment.org == actor.org;
+    and environment.org == actor.org
+    and connector.org == actor.org;
 }
 
-// Only an independent human approver may clear a production deploy.
-policy IndependentHumanApprover @stableId("pol_08ab785a8747405bbdfeb05009a9df9d")(
+policy SchemaMigrationDelegation @stableId("pol_6c92cfdbe32b49b19614dbe9ef2af933")(
   actor: Principal,
-  request: ProductionDeployRequest
+  delegation: Delegation,
+  environment: Environment,
+  connector: Connector
+) {
+  allow active_scoped_agent @stableId("pbr_412a7007281b46bbb7a2831262299e91"):
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and delegation.agent == actor
+    and delegation.status == DelegationStatus.ACTIVE
+    and delegation.capability == Capability.REQUEST_SCHEMA_MIGRATION
+    and delegation.environment == environment
+    and delegation.connector == connector
+    and environment.connector == connector
+    and delegation.org == actor.org
+    and environment.org == actor.org
+    and connector.org == actor.org;
+}
+
+policy IndependentDeploymentApprover @stableId("pol_08ab785a8747405bbdfeb05009a9df9d")(
+  actor: Principal,
+  request: DeploymentRequest
 ) {
   allow independent_approver @stableId("pbr_3c3833abc88242adb5090ed343f32057"):
     actor.kind == PrincipalKind.HUMAN
@@ -186,21 +459,132 @@ policy IndependentHumanApprover @stableId("pol_08ab785a8747405bbdfeb05009a9df9d"
     and actor != request.requestedBy;
 }
 
+policy IndependentMigrationApprover @stableId("pol_ee8441bff1214fbab3a420e3f02e899c")(actor: Principal, request: SchemaMigrationRequest) {
+  allow independent_approver @stableId("pbr_099459e0688e4de4b44b6410cbfbe3a3"):
+    actor.kind == PrincipalKind.HUMAN
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.APPROVER in actor.roles
+    and actor.org == request.org
+    and actor != request.requestedBy;
+}
+
+action requestIssueCreation @stableId("act_ea693a4d658449fbab5741b8369bc276")(
+  caller actor: Principal,
+  delegation: Delegation,
+  repository: Repository,
+  connector: Connector,
+  title: String,
+  body: String
+) -> IssueRequest {
+  authorize IssueDelegation(actor, delegation, repository, connector);
+  idempotency required;
+
+  create IssueRequest {
+    org = actor.org;
+    requestedBy = actor;
+    delegation = delegation;
+    repository = repository;
+    connector = connector;
+    title = title;
+    body = body;
+    status = RequestStatus.READY;
+  }
+}
+
+action requestPullRequest @stableId("act_c4bb8af190dd48efb9784efb9ff9030c")(
+  caller actor: Principal,
+  delegation: Delegation,
+  repository: Repository,
+  connector: Connector,
+  headBranch: String,
+  baseBranch: String,
+  title: String
+) -> PullRequest {
+  authorize PullRequestDelegation(actor, delegation, repository, connector);
+  idempotency required;
+
+  create PullRequest {
+    org = actor.org;
+    requestedBy = actor;
+    delegation = delegation;
+    repository = repository;
+    connector = connector;
+    headBranch = headBranch;
+    baseBranch = baseBranch;
+    title = title;
+    status = RequestStatus.READY;
+  }
+}
+
+action requestStagingDeployment @stableId("act_1388eb9f38684fa0830f60156cdba497")(
+  caller actor: Principal,
+  delegation: Delegation,
+  environment: Environment,
+  connector: Connector,
+  commitSha: String
+) -> DeploymentRequest {
+  authorize StagingDeployDelegation(actor, delegation, environment, connector);
+  require staging_target: environment.tier == EnvironmentTier.STAGING;
+  idempotency required;
+
+  create DeploymentRequest {
+    org = actor.org;
+    requestedBy = actor;
+    delegation = delegation;
+    environment = environment;
+    environmentTier = environment.tier;
+    connector = connector;
+    commitSha = commitSha;
+    status = RequestStatus.READY;
+    approvedBy = null;
+    approvedByRoles = null;
+  }
+}
+
 action requestProductionDeployment @stableId("act_d10d1618ed4045f396b64fc3745ce3dd")(
   caller actor: Principal,
   delegation: Delegation,
   environment: Environment,
+  connector: Connector,
   commitSha: String
-) -> ProductionDeployRequest {
-  authorize ProductionDeployDelegation(actor, delegation, environment);
+) -> DeploymentRequest {
+  authorize ProductionDeployDelegation(actor, delegation, environment, connector);
   require production_target: environment.tier == EnvironmentTier.PRODUCTION;
   idempotency required;
 
-  create ProductionDeployRequest {
+  create DeploymentRequest {
     org = actor.org;
     requestedBy = actor;
+    delegation = delegation;
     environment = environment;
+    environmentTier = environment.tier;
+    connector = connector;
     commitSha = commitSha;
+    status = RequestStatus.PENDING_APPROVAL;
+    approvedBy = null;
+    approvedByRoles = null;
+  }
+}
+
+action requestSchemaMigration @stableId("act_411bfff32560406186bd2d442f1ecf3b")(
+  caller actor: Principal,
+  delegation: Delegation,
+  environment: Environment,
+  connector: Connector,
+  migrationName: String,
+  migrationSha: String
+) -> SchemaMigrationRequest {
+  authorize SchemaMigrationDelegation(actor, delegation, environment, connector);
+  idempotency required;
+
+  create SchemaMigrationRequest {
+    org = actor.org;
+    requestedBy = actor;
+    delegation = delegation;
+    environment = environment;
+    connector = connector;
+    migrationName = migrationName;
+    migrationSha = migrationSha;
     status = RequestStatus.PENDING_APPROVAL;
     approvedBy = null;
     approvedByRoles = null;
@@ -209,9 +593,10 @@ action requestProductionDeployment @stableId("act_d10d1618ed4045f396b64fc3745ce3
 
 action approveProductionDeployment @stableId("act_047a601f15384b5ea4bfa05b5ef72676")(
   caller actor: Principal,
-  request: ProductionDeployRequest
+  request: DeploymentRequest
 ) -> Approval {
-  authorize IndependentHumanApprover(actor, request);
+  authorize IndependentDeploymentApprover(actor, request);
+  require production_request: request.environmentTier == EnvironmentTier.PRODUCTION;
   require awaiting_approval: request.status == RequestStatus.PENDING_APPROVAL;
   idempotency required;
 
@@ -222,41 +607,20 @@ action approveProductionDeployment @stableId("act_047a601f15384b5ea4bfa05b5ef726
   }
   create Approval {
     org = request.org;
-    request = request;
+    requestId = request.id;
+    requestKind = RequestKind.DEPLOYMENT;
+    requestedBy = request.requestedBy;
     approver = actor;
-  }
-}
-
-// Consumes exactly one allowance and produces exactly one execution, atomically.
-action executeApprovedDeployment @stableId("act_4a9421bfc2e744969b9f73109e6cda54")(
-  caller actor: Principal,
-  request: ProductionDeployRequest,
-  allowance: Allowance
-) -> Execution {
-  authorize
-    actor.kind == PrincipalKind.HUMAN
-    and actor.status == PrincipalStatus.ACTIVE
-    and Role.ADMIN in actor.roles
-    and actor.org == request.org;
-  require approved: request.status == RequestStatus.APPROVED;
-  require allowance_same_org: allowance.org == request.org;
-  idempotency required;
-
-  update request {
-    status = RequestStatus.EXECUTED;
-  }
-  create Execution {
-    org = request.org;
-    request = request;
-    allowance = allowance;
+    approverRoles = actor.roles;
   }
 }
 
 action rejectProductionDeployment @stableId("act_18ab026d358144dfa4d1729e40dd832e")(
   caller actor: Principal,
-  request: ProductionDeployRequest
-) -> ProductionDeployRequest {
-  authorize IndependentHumanApprover(actor, request);
+  request: DeploymentRequest
+) -> DeploymentRequest {
+  authorize IndependentDeploymentApprover(actor, request);
+  require production_request: request.environmentTier == EnvironmentTier.PRODUCTION;
   require awaiting_approval: request.status == RequestStatus.PENDING_APPROVAL;
   idempotency required;
 
@@ -265,14 +629,229 @@ action rejectProductionDeployment @stableId("act_18ab026d358144dfa4d1729e40dd832
   }
 }
 
-workflow ProductionDeployLifecycle @stableId("wfl_e439c3fe71514c98b303d21ee7937042") for ProductionDeployRequest.status {
-  initial RequestStatus.PENDING_APPROVAL;
-  transition approve @stableId("trn_71f01fea84c94edf82cd4d28255783f3"):
-    RequestStatus.PENDING_APPROVAL -> RequestStatus.APPROVED by approveProductionDeployment;
-  transition execute @stableId("trn_e8d57ac85e6745f99c7e5abd4d795209"):
-    RequestStatus.APPROVED -> RequestStatus.EXECUTED by executeApprovedDeployment;
-  transition reject @stableId("trn_70d0b557789946c9874777fc20cb27dd"):
-    RequestStatus.PENDING_APPROVAL -> RequestStatus.REJECTED by rejectProductionDeployment;
+action approveSchemaMigration @stableId("act_4c170dfcb0224cb8aaf078fe6b6ef23d")(
+  caller actor: Principal,
+  request: SchemaMigrationRequest
+) -> Approval {
+  authorize IndependentMigrationApprover(actor, request);
+  require awaiting_approval: request.status == RequestStatus.PENDING_APPROVAL;
+  idempotency required;
+
+  update request {
+    status = RequestStatus.APPROVED;
+    approvedBy = actor;
+    approvedByRoles = actor.roles;
+  }
+  create Approval {
+    org = request.org;
+    requestId = request.id;
+    requestKind = RequestKind.SCHEMA_MIGRATION;
+    requestedBy = request.requestedBy;
+    approver = actor;
+    approverRoles = actor.roles;
+  }
+}
+
+action rejectSchemaMigration @stableId("act_d3a1935e42f24e4d84d25bc05ee690ad")(
+  caller actor: Principal,
+  request: SchemaMigrationRequest
+) -> SchemaMigrationRequest {
+  authorize IndependentMigrationApprover(actor, request);
+  require awaiting_approval: request.status == RequestStatus.PENDING_APPROVAL;
+  idempotency required;
+
+  update request {
+    status = RequestStatus.REJECTED;
+  }
+}
+
+action dispatchIssueCreation @stableId("act_cbb72fd307704ab3927aa4bea8112fbf")(
+  caller actor: Principal,
+  request: IssueRequest,
+  allowance: Allowance
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.EXECUTOR in actor.roles
+    and actor.org == request.org;
+  require ready: request.status == RequestStatus.READY;
+  require allowance_scope:
+    allowance.org == request.org and allowance.agent == request.requestedBy;
+  idempotency required;
+
+  update request { status = RequestStatus.DISPATCHED; }
+  create Execution {
+    org = request.org;
+    requestId = request.id;
+    requestKind = RequestKind.ISSUE;
+    requestedBy = request.requestedBy;
+    connector = request.connector;
+    allowance = allowance;
+    status = ExecutionStatus.PENDING;
+    externalReference = null;
+    failureMessage = null;
+  }
+}
+
+action dispatchPullRequest @stableId("act_3e99da927be642efac3d1bee026ef00a")(
+  caller actor: Principal,
+  request: PullRequest,
+  allowance: Allowance
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.EXECUTOR in actor.roles
+    and actor.org == request.org;
+  require ready: request.status == RequestStatus.READY;
+  require allowance_scope:
+    allowance.org == request.org and allowance.agent == request.requestedBy;
+  idempotency required;
+
+  update request { status = RequestStatus.DISPATCHED; }
+  create Execution {
+    org = request.org;
+    requestId = request.id;
+    requestKind = RequestKind.PULL_REQUEST;
+    requestedBy = request.requestedBy;
+    connector = request.connector;
+    allowance = allowance;
+    status = ExecutionStatus.PENDING;
+    externalReference = null;
+    failureMessage = null;
+  }
+}
+
+action dispatchStagingDeployment @stableId("act_3e26a4d454634bf3a2058204146d7c45")(
+  caller actor: Principal,
+  request: DeploymentRequest,
+  allowance: Allowance
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.EXECUTOR in actor.roles
+    and actor.org == request.org;
+  require staging_request:
+    request.environmentTier == EnvironmentTier.STAGING
+    and request.status == RequestStatus.READY;
+  require allowance_scope:
+    allowance.org == request.org and allowance.agent == request.requestedBy;
+  idempotency required;
+
+  update request { status = RequestStatus.DISPATCHED; }
+  create Execution {
+    org = request.org;
+    requestId = request.id;
+    requestKind = RequestKind.DEPLOYMENT;
+    requestedBy = request.requestedBy;
+    connector = request.connector;
+    allowance = allowance;
+    status = ExecutionStatus.PENDING;
+    externalReference = null;
+    failureMessage = null;
+  }
+}
+
+action dispatchApprovedDeployment @stableId("act_4a9421bfc2e744969b9f73109e6cda54")(
+  caller actor: Principal,
+  request: DeploymentRequest,
+  allowance: Allowance
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.EXECUTOR in actor.roles
+    and actor.org == request.org;
+  require approved_production_request:
+    request.environmentTier == EnvironmentTier.PRODUCTION
+    and request.status == RequestStatus.APPROVED;
+  require allowance_scope:
+    allowance.org == request.org and allowance.agent == request.requestedBy;
+  idempotency required;
+
+  update request { status = RequestStatus.DISPATCHED; }
+  create Execution {
+    org = request.org;
+    requestId = request.id;
+    requestKind = RequestKind.DEPLOYMENT;
+    requestedBy = request.requestedBy;
+    connector = request.connector;
+    allowance = allowance;
+    status = ExecutionStatus.PENDING;
+    externalReference = null;
+    failureMessage = null;
+  }
+}
+
+action dispatchApprovedSchemaMigration @stableId("act_70d3862584094631aca61e9db664d991")(
+  caller actor: Principal,
+  request: SchemaMigrationRequest,
+  allowance: Allowance
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.EXECUTOR in actor.roles
+    and actor.org == request.org;
+  require approved: request.status == RequestStatus.APPROVED;
+  require allowance_scope:
+    allowance.org == request.org and allowance.agent == request.requestedBy;
+  idempotency required;
+
+  update request { status = RequestStatus.DISPATCHED; }
+  create Execution {
+    org = request.org;
+    requestId = request.id;
+    requestKind = RequestKind.SCHEMA_MIGRATION;
+    requestedBy = request.requestedBy;
+    connector = request.connector;
+    allowance = allowance;
+    status = ExecutionStatus.PENDING;
+    externalReference = null;
+    failureMessage = null;
+  }
+}
+
+action completeExecution @stableId("act_5be24324b68d4c2eb334732b36e1b16c")(
+  caller actor: Principal,
+  execution: Execution,
+  externalReference: String
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.EXECUTOR in actor.roles
+    and actor.org == execution.org;
+  require pending: execution.status == ExecutionStatus.PENDING;
+  idempotency required;
+
+  update execution {
+    status = ExecutionStatus.SUCCEEDED;
+    externalReference = externalReference;
+    failureMessage = null;
+  }
+}
+
+action failExecution @stableId("act_926686163a6544e79d44dea9336d2c88")(
+  caller actor: Principal,
+  execution: Execution,
+  failureMessage: String
+) -> Execution {
+  authorize
+    actor.kind == PrincipalKind.AGENT
+    and actor.status == PrincipalStatus.ACTIVE
+    and Role.EXECUTOR in actor.roles
+    and actor.org == execution.org;
+  require pending: execution.status == ExecutionStatus.PENDING;
+  idempotency required;
+
+  update execution {
+    status = ExecutionStatus.FAILED;
+    externalReference = null;
+    failureMessage = failureMessage;
+  }
 }
 
 projection PrincipalSummary @stableId("prj_a89b0acb503746ed86110f47bbe42c04") from Principal {
@@ -281,19 +860,55 @@ projection PrincipalSummary @stableId("prj_a89b0acb503746ed86110f47bbe42c04") fr
   kind @stableId("pfd_727810accbba4c598f1cc706d3ab403b");
 }
 
-projection DeployRequestSummary @stableId("prj_6d0491126ecb4d1abb14f945eb26c641") from ProductionDeployRequest {
+projection IssueRequestSummary @stableId("prj_d3a7e98e26b04b9895074d57f7ee399d") from IssueRequest {
+  id @stableId("pfd_3bb1c112d06c475cb0ccb1ca3833223a");
+  createdAt @stableId("pfd_8da87c9e5ce143e69595f9373ab8f88f");
+  title @stableId("pfd_ef371dbd977b48bab3b8eee536c16b5f");
+  status @stableId("pfd_6c1ccbc9517247739ede76a412ddac8e");
+  requestedBy: PrincipalSummary @stableId("pfd_a6da18952f4a444c80b456efe8653404");
+}
+
+projection PullRequestSummary @stableId("prj_605bd019ead94c57a21a0176a0ffd852") from PullRequest {
+  id @stableId("pfd_c43511e6aa984b9c89a463efd234c608");
+  createdAt @stableId("pfd_33ad8fbe785241ad9d78cb63faafd9ea");
+  headBranch @stableId("pfd_0638367540e8499cb88189b317f477d7");
+  baseBranch @stableId("pfd_cd59b6a4cc65493a8c01aad64f7bdeb7");
+  title @stableId("pfd_f6fa90c5f7704c54910a4a21274ccd66");
+  status @stableId("pfd_f3fff72f09fa427580dc431efaad76c9");
+  requestedBy: PrincipalSummary @stableId("pfd_fb2264c150be44fdb8fdb4795c0d8bf9");
+}
+
+projection DeploymentRequestSummary @stableId("prj_6d0491126ecb4d1abb14f945eb26c641") from DeploymentRequest {
   id @stableId("pfd_3835738ea3d74c929d37b9e48fe5621c");
   createdAt @stableId("pfd_82476ee8b87447bb890d32c0bb74da68");
   commitSha @stableId("pfd_eb55b7f4b54d45cba6b5d74ddd65f4ff");
+  environmentTier @stableId("pfd_66686eb5a6ae4907ab898785fad97b4f");
   status @stableId("pfd_a9d6406516424f5b846f165cade68203");
   requestedBy: PrincipalSummary @stableId("pfd_e2b6c3876e0f4b538de84f9aa524b5d5");
   approvedBy: PrincipalSummary @stableId("pfd_15c0e810e03d42ceb2841d637f58119e");
 }
 
-// Guarantee D: every read is constrained to the caller's organization.
-query myOrgDeployRequests @stableId("qry_60d1c5d416eb428caa385db274edcb4b")(
-  caller actor: Principal
-) returns DeployRequestSummary from ProductionDeployRequest as request {
+projection SchemaMigrationSummary @stableId("prj_e30b68bb7e874d81a4529a7d09f9954b") from SchemaMigrationRequest {
+  id @stableId("pfd_e25fc33bddfa4ed9a07a1403563202c9");
+  createdAt @stableId("pfd_12771a96d9584bc580e19beaf27bf8e1");
+  migrationName @stableId("pfd_9296c072f73d44a4bbfc06abd398681e");
+  migrationSha @stableId("pfd_10d0aff832cf40ba90922b477300d479");
+  status @stableId("pfd_8d199393a60b491f92ad5151ec7bada2");
+  requestedBy: PrincipalSummary @stableId("pfd_6c3a4295440245f88322196c4db67069");
+  approvedBy: PrincipalSummary @stableId("pfd_ce69a46f757440f48c86153296428f33");
+}
+
+projection ExecutionSummary @stableId("prj_30b82e795021448b9d4bafd05678cf20") from Execution {
+  id @stableId("pfd_4cebd6e638ff45c88775d0f16390efb5");
+  startedAt @stableId("pfd_877527d070be476ea75679424b39c6f5");
+  requestId @stableId("pfd_e831e4192ce94ca6be5f94cdae85c8ea");
+  requestKind @stableId("pfd_22fabb7fe73c48b097a08b1b3d417ce1");
+  status @stableId("pfd_ae75cf9e263d4c658912c728a557a086");
+  externalReference @stableId("pfd_a11343e52c0548548a3011f090ad8bde");
+  failureMessage @stableId("pfd_f35621674f4b4f7f866a9795874b9116");
+}
+
+query myIssueRequests @stableId("qry_22f082ad9148490eb301e04fdc6e2ce3")(caller actor: Principal) returns IssueRequestSummary from IssueRequest as request {
   authorize true;
   where request.org == actor.org;
   orderBy request.id asc;
@@ -302,9 +917,56 @@ query myOrgDeployRequests @stableId("qry_60d1c5d416eb428caa385db274edcb4b")(
   audit reads;
 }
 
-query approvalInbox @stableId("qry_21f24f72d72c4bb98df539477f0e81f2")(
+query myPullRequests @stableId("qry_a96d198b028c45f2b0ec43471cb5ba09")(caller actor: Principal) returns PullRequestSummary from PullRequest as request {
+  authorize true;
+  where request.org == actor.org;
+  orderBy request.id asc;
+  limit 50;
+  paginate cursor;
+  audit reads;
+}
+
+query myDeploymentRequests @stableId("qry_60d1c5d416eb428caa385db274edcb4b")(
   caller actor: Principal
-) returns DeployRequestSummary from ProductionDeployRequest as request {
+) returns DeploymentRequestSummary from DeploymentRequest as request {
+  authorize true;
+  where request.org == actor.org;
+  orderBy request.id asc;
+  limit 50;
+  paginate cursor;
+  audit reads;
+}
+
+query deploymentApprovalInbox @stableId("qry_21f24f72d72c4bb98df539477f0e81f2")(
+  caller actor: Principal
+) returns DeploymentRequestSummary from DeploymentRequest as request {
+  authorize
+    actor.kind == PrincipalKind.HUMAN
+    and Role.APPROVER in actor.roles;
+  where request.org == actor.org
+    and request.environmentTier == EnvironmentTier.PRODUCTION
+    and request.status == RequestStatus.PENDING_APPROVAL
+    and request.requestedBy != actor;
+  orderBy request.id asc;
+  limit 50;
+  paginate cursor;
+  audit reads;
+}
+
+query mySchemaMigrationRequests @stableId("qry_e3c9ea88ab664e96a5eaf20efc8c94a9")(
+  caller actor: Principal
+) returns SchemaMigrationSummary from SchemaMigrationRequest as request {
+  authorize true;
+  where request.org == actor.org;
+  orderBy request.id asc;
+  limit 50;
+  paginate cursor;
+  audit reads;
+}
+
+query migrationApprovalInbox @stableId("qry_8a136078ed3b4ee6893410b631ac5a04")(
+  caller actor: Principal
+) returns SchemaMigrationSummary from SchemaMigrationRequest as request {
   authorize
     actor.kind == PrincipalKind.HUMAN
     and Role.APPROVER in actor.roles;
@@ -312,6 +974,15 @@ query approvalInbox @stableId("qry_21f24f72d72c4bb98df539477f0e81f2")(
     and request.status == RequestStatus.PENDING_APPROVAL
     and request.requestedBy != actor;
   orderBy request.id asc;
+  limit 50;
+  paginate cursor;
+  audit reads;
+}
+
+query myExecutions @stableId("qry_e608c643d17c4a908f26e6a538630a51")(caller actor: Principal) returns ExecutionSummary from Execution as execution {
+  authorize true;
+  where execution.org == actor.org;
+  orderBy execution.id asc;
   limit 50;
   paginate cursor;
   audit reads;

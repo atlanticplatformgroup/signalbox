@@ -5,8 +5,8 @@
   "model": {
     "id": "model:Signalbox",
     "name": "Signalbox",
-    "version": "0.50.0",
-    "sourceHash": "sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a",
+    "version": "0.51.0",
+    "sourceHash": "sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608",
     "label": "Signalbox"
   },
   "authentication": {
@@ -67,6 +67,50 @@
           "id": "enumMember:emv_9d8ee6584f95458392c0ac62647c3453",
           "value": "ADMIN",
           "label": "Admin"
+        },
+        {
+          "id": "enumMember:emv_35c5d303f6bd42f486dddf689c14e3d9",
+          "value": "EXECUTOR",
+          "label": "Executor"
+        }
+      ]
+    },
+    {
+      "id": "enum:enm_dfbeb9b2ef654a3786eccc2ef96567ff",
+      "name": "ConnectorKind",
+      "label": "Connector kind",
+      "options": [
+        {
+          "id": "enumMember:emv_8896adf3e9524a5e96d5920347c96406",
+          "value": "GITHUB",
+          "label": "Github"
+        },
+        {
+          "id": "enumMember:emv_a3bed91bc7b9440ab27146394804ee9a",
+          "value": "STATIC_SITE",
+          "label": "Static site"
+        },
+        {
+          "id": "enumMember:emv_fdf98675d2b94e0e9ec7a25bfe35ad9b",
+          "value": "POSTGRESQL",
+          "label": "Postgresql"
+        }
+      ]
+    },
+    {
+      "id": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751",
+      "name": "ConnectorStatus",
+      "label": "Connector status",
+      "options": [
+        {
+          "id": "enumMember:emv_06806641834a4e048a4ababf906d07ad",
+          "value": "ACTIVE",
+          "label": "Active"
+        },
+        {
+          "id": "enumMember:emv_37139bd7991e42ed90815cacee1b9adc",
+          "value": "REVOKED",
+          "label": "Revoked"
         }
       ]
     },
@@ -93,6 +137,16 @@
       "label": "Capability",
       "options": [
         {
+          "id": "enumMember:emv_1d2efe651ad14d9ab7c95e7156f9dd7d",
+          "value": "CREATE_ISSUE",
+          "label": "Create issue"
+        },
+        {
+          "id": "enumMember:emv_adb9bc0c4c804c209b6a16e2c040235e",
+          "value": "OPEN_PULL_REQUEST",
+          "label": "Open pull request"
+        },
+        {
           "id": "enumMember:emv_f2c9d52d03e24e409ae47104d23b1ef5",
           "value": "DEPLOY_STAGING",
           "label": "Deploy staging"
@@ -101,6 +155,11 @@
           "id": "enumMember:emv_b6af2941a9904877944e278153abca35",
           "value": "REQUEST_PRODUCTION_DEPLOY",
           "label": "Request production deploy"
+        },
+        {
+          "id": "enumMember:emv_2311b8cbff0749938fad96ade786c16c",
+          "value": "REQUEST_SCHEMA_MIGRATION",
+          "label": "Request schema migration"
         }
       ]
     },
@@ -127,6 +186,11 @@
       "label": "Request status",
       "options": [
         {
+          "id": "enumMember:emv_d184c3fad73845198cae3b13e7648218",
+          "value": "READY",
+          "label": "Ready"
+        },
+        {
           "id": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
           "value": "PENDING_APPROVAL",
           "label": "Pending approval"
@@ -143,8 +207,57 @@
         },
         {
           "id": "enumMember:emv_7dfcad253ae24f8b9b05598cd2c5b59e",
-          "value": "EXECUTED",
-          "label": "Executed"
+          "value": "DISPATCHED",
+          "label": "Dispatched"
+        }
+      ]
+    },
+    {
+      "id": "enum:enm_15fd74a87ba3472b86d9f81a8e050e0a",
+      "name": "RequestKind",
+      "label": "Request kind",
+      "options": [
+        {
+          "id": "enumMember:emv_0032cfced1f64d918096e4e5ea7b563b",
+          "value": "ISSUE",
+          "label": "Issue"
+        },
+        {
+          "id": "enumMember:emv_694bc41d35744819a6bf49f2a81f4316",
+          "value": "PULL_REQUEST",
+          "label": "Pull request"
+        },
+        {
+          "id": "enumMember:emv_7407e28496c3430da0ad6f2fb339fea2",
+          "value": "DEPLOYMENT",
+          "label": "Deployment"
+        },
+        {
+          "id": "enumMember:emv_a29f27d325c14aa9b6bc2929f9ef71dd",
+          "value": "SCHEMA_MIGRATION",
+          "label": "Schema migration"
+        }
+      ]
+    },
+    {
+      "id": "enum:enm_0b965e59e8ac496a9615959c4f1613b5",
+      "name": "ExecutionStatus",
+      "label": "Execution status",
+      "options": [
+        {
+          "id": "enumMember:emv_9b2151b3cc11492f93374d592c0f9065",
+          "value": "PENDING",
+          "label": "Pending"
+        },
+        {
+          "id": "enumMember:emv_bc4b89591687429fbaba761df786c3a8",
+          "value": "SUCCEEDED",
+          "label": "Succeeded"
+        },
+        {
+          "id": "enumMember:emv_63fbb1d873aa4673a4d75151e7e48c8c",
+          "value": "FAILED",
+          "label": "Failed"
         }
       ]
     }
@@ -268,6 +381,261 @@
           "nullable": false,
           "immutable": false,
           "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_eb710ade20f342e8a2115ca7e7561f0a",
+          "name": "responsibleOwner",
+          "label": "Responsible owner",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": true,
+          "immutable": true,
+          "snapshot": false
+        }
+      ]
+    },
+    {
+      "id": "entity:ent_bc00926c5e9b40bd9fd939ef1ebb1a11",
+      "name": "AgentCredentialMetadata",
+      "label": "Agent credential metadata",
+      "idFieldId": "field:fld_0319bfe549e14021b424663707e506b8",
+      "fields": [
+        {
+          "fieldId": "field:fld_0319bfe549e14021b424663707e506b8",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false,
+          "generated": "uuid",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_d2d64cc1c1e547e5860ca57b9e89bd40",
+          "name": "org",
+          "label": "Org",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_81fe0905512148f69ba6bf0363cc1beb",
+          "name": "agent",
+          "label": "Agent",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_85192ad23f4a42a6a03a8034610cd882",
+          "name": "label",
+          "label": "Label",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_52c6b5c65d3342a1a003475262e51211",
+          "name": "tokenHash",
+          "label": "Token hash",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_0f0dfaac17d5484aa43eadabb6937d20",
+          "name": "expiresAt",
+          "label": "Expires at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": true,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_5c738668ad2c40a59a88d1b6276868d5",
+          "name": "revokedAt",
+          "label": "Revoked at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": true,
+          "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_11227fd385794b719a913ee683b8e129",
+          "name": "lastUsedAt",
+          "label": "Last used at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": true,
+          "immutable": false,
+          "snapshot": false
+        }
+      ]
+    },
+    {
+      "id": "entity:ent_d817706888f344c4a8fe2d8069d5233c",
+      "name": "Connector",
+      "label": "Connector",
+      "idFieldId": "field:fld_141c97fe85534749a77e56b62861c7f8",
+      "fields": [
+        {
+          "fieldId": "field:fld_141c97fe85534749a77e56b62861c7f8",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false,
+          "generated": "uuid",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_81fe7c2870e94deb969b52b66979aa55",
+          "name": "org",
+          "label": "Org",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_2d21a8a2b6874563a2194971eaa306ae",
+          "name": "name",
+          "label": "Name",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_f788bde6548c447da588ff89e18b9706",
+          "name": "kind",
+          "label": "Kind",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_dfbeb9b2ef654a3786eccc2ef96567ff"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_db3853658ad7448a926b93f8edfdc962",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_e0f0bb54bb29417aa8ad48dcc001d751"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": false
+        }
+      ]
+    },
+    {
+      "id": "entity:ent_c60c5d44873846c7be0fdb64bb97b43a",
+      "name": "Repository",
+      "label": "Repository",
+      "idFieldId": "field:fld_757c0550ba514b8f9f42463f2e86b342",
+      "fields": [
+        {
+          "fieldId": "field:fld_757c0550ba514b8f9f42463f2e86b342",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false,
+          "generated": "uuid",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_51e7ef5abc4f4dc59560e4f4d5ea3b28",
+          "name": "org",
+          "label": "Org",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_6607fa80537e46deba9dd640d2f0436f",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_09dc4245bb994229a019b48dbd414263",
+          "name": "owner",
+          "label": "Owner",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_2e17cabc902f4edd8ecb07b0e1062121",
+          "name": "name",
+          "label": "Name",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_6c7a36d936c445bfbfb1b601b7241140",
+          "name": "defaultBranch",
+          "label": "Default branch",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": false
         }
       ]
     },
@@ -296,6 +664,30 @@
           "presentation": {
             "kind": "entityReference",
             "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_e4609189f57a447a908833c1fd147f6b",
+          "name": "repository",
+          "label": "Repository",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c60c5d44873846c7be0fdb64bb97b43a"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_52304449caa54a5c8ea478cde23883a0",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           },
           "nullable": false,
           "immutable": true,
@@ -381,12 +773,36 @@
           "snapshot": false
         },
         {
+          "fieldId": "field:fld_7d35f99f78c84d67af4d094e0eea9a27",
+          "name": "repository",
+          "label": "Repository",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c60c5d44873846c7be0fdb64bb97b43a"
+          },
+          "nullable": true,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
           "fieldId": "field:fld_5baad9f56824417b8743b7cc93b32007",
           "name": "environment",
           "label": "Environment",
           "presentation": {
             "kind": "entityReference",
             "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+          },
+          "nullable": true,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_a67128763ffa463b819aa6f5c8fe5729",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           },
           "nullable": false,
           "immutable": true,
@@ -437,6 +853,18 @@
           "snapshot": false
         },
         {
+          "fieldId": "field:fld_73260390a96241b4b94137e53ed48792",
+          "name": "agent",
+          "label": "Agent",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
           "fieldId": "field:fld_9e4882e18d894214b52e6dcde5e92efc",
           "name": "period",
           "label": "Period",
@@ -461,9 +889,272 @@
       ]
     },
     {
+      "id": "entity:ent_d66226c7efc345ba9853df0d4abb879a",
+      "name": "IssueRequest",
+      "label": "Issue request",
+      "idFieldId": "field:fld_1eea72bb397746d5a3cb2d5d9b7bef83",
+      "fields": [
+        {
+          "fieldId": "field:fld_1eea72bb397746d5a3cb2d5d9b7bef83",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false,
+          "generated": "uuid",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_21446eda364f48bd836217199c1b1297",
+          "name": "createdAt",
+          "label": "Created at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": false,
+          "generated": "now",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_9cbabb6af742448e967a399cb770e8a3",
+          "name": "org",
+          "label": "Org",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_bdcff79287c8490eab0028122b904f2b",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_ebf80927e37443789e94a7de513872b5",
+          "name": "delegation",
+          "label": "Delegation",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_0940a8f0a86445fe8259b39a65ac2017",
+          "name": "repository",
+          "label": "Repository",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c60c5d44873846c7be0fdb64bb97b43a"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_3fa9d020d7914602a2fe039d078564e6",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_4422f07a408d4551b3ce0726c1c3d892",
+          "name": "title",
+          "label": "Title",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_6bed1d1b707d4aef8e7c44b15720048c",
+          "name": "body",
+          "label": "Body",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_5d88e5c44ca54aef83cac25756645919",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": false
+        }
+      ]
+    },
+    {
+      "id": "entity:ent_44eefd913a6d40389e4b1baf02add8c4",
+      "name": "PullRequest",
+      "label": "Pull request",
+      "idFieldId": "field:fld_281160087c1a4a60abd81642ec528828",
+      "fields": [
+        {
+          "fieldId": "field:fld_281160087c1a4a60abd81642ec528828",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false,
+          "generated": "uuid",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_2f78328226a54731bc6feadcc11028db",
+          "name": "createdAt",
+          "label": "Created at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": false,
+          "generated": "now",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_2dca9ffcf1754ff8a8ecaa99f31b2f40",
+          "name": "org",
+          "label": "Org",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_cb697ff356bc4a02a303c94240c84074",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_9bfdbe3eb3f444e9b93ea712d87c1d9b",
+          "name": "delegation",
+          "label": "Delegation",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_7c8dd5e645bc4ae688d3f45055d5c6df",
+          "name": "repository",
+          "label": "Repository",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c60c5d44873846c7be0fdb64bb97b43a"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_119200b4be784b949bcb3e9e052740cf",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_3eba77db78fe4ebab54a63ad9567e3b5",
+          "name": "headBranch",
+          "label": "Head branch",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_7c1085492a45441fb4cb3c332cd137b2",
+          "name": "baseBranch",
+          "label": "Base branch",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_ebc39ab7424e4255b5ba1541b3b4fa83",
+          "name": "title",
+          "label": "Title",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_658bfd33302b4a6e996a88d746572ec2",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": false
+        }
+      ]
+    },
+    {
       "id": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
-      "name": "ProductionDeployRequest",
-      "label": "Production deploy request",
+      "name": "DeploymentRequest",
+      "label": "Deployment request",
       "idFieldId": "field:fld_adecbdc3c4cb4bbb8b4e528dbc7408a5",
       "fields": [
         {
@@ -515,12 +1206,48 @@
           "snapshot": false
         },
         {
+          "fieldId": "field:fld_129c498eb5ab4650aa2f5032427a5045",
+          "name": "delegation",
+          "label": "Delegation",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
           "fieldId": "field:fld_f70e0428ad644adc8f1ec755350ad645",
           "name": "environment",
           "label": "Environment",
           "presentation": {
             "kind": "entityReference",
             "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_0be25eb7ee834d4e845535e6d3c9d0fe",
+          "name": "environmentTier",
+          "label": "Environment tier",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_380f40ed4b084a67944e5f793458621d"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": true
+        },
+        {
+          "fieldId": "field:fld_a639788198e34e8694774dd0e3208d7d",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
           },
           "nullable": false,
           "immutable": true,
@@ -576,6 +1303,156 @@
       ]
     },
     {
+      "id": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef",
+      "name": "SchemaMigrationRequest",
+      "label": "Schema migration request",
+      "idFieldId": "field:fld_6220c184797043188c546747a102e097",
+      "fields": [
+        {
+          "fieldId": "field:fld_6220c184797043188c546747a102e097",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false,
+          "generated": "uuid",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_001992183e08454d9235ad39cc6a4f56",
+          "name": "createdAt",
+          "label": "Created at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": false,
+          "generated": "now",
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_c7eac19396da4475916b33163d6ecd9f",
+          "name": "org",
+          "label": "Org",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_661a8bc41d68494eaaa82198b8354a94"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_4acc8ceaf7b04e0680ef41cc4d2f1267",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_6f6a4d54c6d944069845e8f582aaf69d",
+          "name": "delegation",
+          "label": "Delegation",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_25c4ef24ca5f40608a160eaa8ce47613",
+          "name": "environment",
+          "label": "Environment",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_3b91f96763da4611a09ec9774b3fde7b",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_2a58885ca7404655a635e2bca9379202",
+          "name": "migrationName",
+          "label": "Migration name",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_9d6644545b0d47fbbe8d2699f202160b",
+          "name": "migrationSha",
+          "label": "Migration sha",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_9652d13eff5e44a59f102d58156ed82d",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_9228edae7b7a4368ad3deaf385872789",
+          "name": "approvedBy",
+          "label": "Approved by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": true,
+          "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_d36093e299fc4f169da9855783368ad5",
+          "name": "approvedByRoles",
+          "label": "Approved by roles",
+          "presentation": {
+            "kind": "enumSet",
+            "enumId": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc"
+          },
+          "nullable": true,
+          "immutable": false,
+          "snapshot": true
+        }
+      ]
+    },
+    {
       "id": "entity:ent_f6f083c592f34c07af0204bb507be013",
       "name": "Approval",
       "label": "Approval",
@@ -618,15 +1495,38 @@
           "snapshot": false
         },
         {
-          "fieldId": "field:fld_f64acc87201840f491d55ceb5c6bebec",
-          "name": "request",
-          "label": "Request",
+          "fieldId": "field:fld_3c0b97e165a9413a8f2926a9d7b89c1c",
+          "name": "requestId",
+          "label": "Request id",
           "presentation": {
-            "kind": "entityReference",
-            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+            "kind": "uuid"
           },
           "nullable": false,
           "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_77178cf8f61a415e8ea207a17eeb7e6d",
+          "name": "requestKind",
+          "label": "Request kind",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_15fd74a87ba3472b86d9f81a8e050e0a"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_02cee0e10d414e308574d78fdd784e54",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "immutable": true,
           "snapshot": false
         },
         {
@@ -640,6 +1540,18 @@
           "nullable": false,
           "immutable": true,
           "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_8c4149cd900c4ec0bfdc0a63df509394",
+          "name": "approverRoles",
+          "label": "Approver roles",
+          "presentation": {
+            "kind": "enumSet",
+            "enumId": "enum:enm_0be4ea379dd741439ed47dcaae9dd5fc"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": true
         }
       ]
     },
@@ -686,15 +1598,50 @@
           "snapshot": false
         },
         {
-          "fieldId": "field:fld_cbe0efca671b48e992d83664581698ba",
-          "name": "request",
-          "label": "Request",
+          "fieldId": "field:fld_3bc7534978b84f1b81aad0e4cd9e629e",
+          "name": "requestId",
+          "label": "Request id",
           "presentation": {
-            "kind": "entityReference",
-            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+            "kind": "uuid"
           },
           "nullable": false,
           "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_425a2eb8a4694f98a1d6b8b3271733f1",
+          "name": "requestKind",
+          "label": "Request kind",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_15fd74a87ba3472b86d9f81a8e050e0a"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_00f8c8443450466f8f3491a6a4e61d8d",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "immutable": true,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_06f07c78abb442e4bbeb925fe1d5cf48",
+          "name": "connector",
+          "label": "Connector",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          },
+          "nullable": false,
+          "immutable": true,
           "snapshot": false
         },
         {
@@ -706,6 +1653,40 @@
             "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
           },
           "nullable": false,
+          "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_235cde6a26a7444582cce44bdb3e7524",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_0b965e59e8ac496a9615959c4f1613b5"
+          },
+          "nullable": false,
+          "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_34eddd44213045eda0988a0ebb8729f8",
+          "name": "externalReference",
+          "label": "External reference",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": true,
+          "immutable": false,
+          "snapshot": false
+        },
+        {
+          "fieldId": "field:fld_c31f988db83b4854a999c67c86c3aea1",
+          "name": "failureMessage",
+          "label": "Failure message",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": true,
           "immutable": false,
           "snapshot": false
         }
@@ -753,9 +1734,151 @@
       ]
     },
     {
+      "id": "projection:prj_d3a7e98e26b04b9895074d57f7ee399d",
+      "name": "IssueRequestSummary",
+      "label": "Issue request summary",
+      "sourceEntityId": "entity:ent_d66226c7efc345ba9853df0d4abb879a",
+      "fields": [
+        {
+          "projectionFieldId": "projectionField:pfd_3bb1c112d06c475cb0ccb1ca3833223a",
+          "sourceFieldId": "field:fld_1eea72bb397746d5a3cb2d5d9b7bef83",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_8da87c9e5ce143e69595f9373ab8f88f",
+          "sourceFieldId": "field:fld_21446eda364f48bd836217199c1b1297",
+          "name": "createdAt",
+          "label": "Created at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_ef371dbd977b48bab3b8eee536c16b5f",
+          "sourceFieldId": "field:fld_4422f07a408d4551b3ce0726c1c3d892",
+          "name": "title",
+          "label": "Title",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_6c1ccbc9517247739ede76a412ddac8e",
+          "sourceFieldId": "field:fld_5d88e5c44ca54aef83cac25756645919",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_a6da18952f4a444c80b456efe8653404",
+          "sourceFieldId": "field:fld_bdcff79287c8490eab0028122b904f2b",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04"
+        }
+      ]
+    },
+    {
+      "id": "projection:prj_605bd019ead94c57a21a0176a0ffd852",
+      "name": "PullRequestSummary",
+      "label": "Pull request summary",
+      "sourceEntityId": "entity:ent_44eefd913a6d40389e4b1baf02add8c4",
+      "fields": [
+        {
+          "projectionFieldId": "projectionField:pfd_c43511e6aa984b9c89a463efd234c608",
+          "sourceFieldId": "field:fld_281160087c1a4a60abd81642ec528828",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_33ad8fbe785241ad9d78cb63faafd9ea",
+          "sourceFieldId": "field:fld_2f78328226a54731bc6feadcc11028db",
+          "name": "createdAt",
+          "label": "Created at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_0638367540e8499cb88189b317f477d7",
+          "sourceFieldId": "field:fld_3eba77db78fe4ebab54a63ad9567e3b5",
+          "name": "headBranch",
+          "label": "Head branch",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_cd59b6a4cc65493a8c01aad64f7bdeb7",
+          "sourceFieldId": "field:fld_7c1085492a45441fb4cb3c332cd137b2",
+          "name": "baseBranch",
+          "label": "Base branch",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_f6fa90c5f7704c54910a4a21274ccd66",
+          "sourceFieldId": "field:fld_ebc39ab7424e4255b5ba1541b3b4fa83",
+          "name": "title",
+          "label": "Title",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_f3fff72f09fa427580dc431efaad76c9",
+          "sourceFieldId": "field:fld_658bfd33302b4a6e996a88d746572ec2",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_fb2264c150be44fdb8fdb4795c0d8bf9",
+          "sourceFieldId": "field:fld_cb697ff356bc4a02a303c94240c84074",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04"
+        }
+      ]
+    },
+    {
       "id": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
-      "name": "DeployRequestSummary",
-      "label": "Deploy request summary",
+      "name": "DeploymentRequestSummary",
+      "label": "Deployment request summary",
       "sourceEntityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
       "fields": [
         {
@@ -785,6 +1908,17 @@
           "label": "Commit sha",
           "presentation": {
             "kind": "text"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_66686eb5a6ae4907ab898785fad97b4f",
+          "sourceFieldId": "field:fld_0be25eb7ee834d4e845535e6d3c9d0fe",
+          "name": "environmentTier",
+          "label": "Environment tier",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_380f40ed4b084a67944e5f793458621d"
           },
           "nullable": false
         },
@@ -824,9 +1958,389 @@
           "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04"
         }
       ]
+    },
+    {
+      "id": "projection:prj_e30b68bb7e874d81a4529a7d09f9954b",
+      "name": "SchemaMigrationSummary",
+      "label": "Schema migration summary",
+      "sourceEntityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef",
+      "fields": [
+        {
+          "projectionFieldId": "projectionField:pfd_e25fc33bddfa4ed9a07a1403563202c9",
+          "sourceFieldId": "field:fld_6220c184797043188c546747a102e097",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_12771a96d9584bc580e19beaf27bf8e1",
+          "sourceFieldId": "field:fld_001992183e08454d9235ad39cc6a4f56",
+          "name": "createdAt",
+          "label": "Created at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_9296c072f73d44a4bbfc06abd398681e",
+          "sourceFieldId": "field:fld_2a58885ca7404655a635e2bca9379202",
+          "name": "migrationName",
+          "label": "Migration name",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_10d0aff832cf40ba90922b477300d479",
+          "sourceFieldId": "field:fld_9d6644545b0d47fbbe8d2699f202160b",
+          "name": "migrationSha",
+          "label": "Migration sha",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_8d199393a60b491f92ad5151ec7bada2",
+          "sourceFieldId": "field:fld_9652d13eff5e44a59f102d58156ed82d",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_6c3a4295440245f88322196c4db67069",
+          "sourceFieldId": "field:fld_4acc8ceaf7b04e0680ef41cc4d2f1267",
+          "name": "requestedBy",
+          "label": "Requested by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": false,
+          "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04"
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_ce69a46f757440f48c86153296428f33",
+          "sourceFieldId": "field:fld_9228edae7b7a4368ad3deaf385872789",
+          "name": "approvedBy",
+          "label": "Approved by",
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_197f12dacaf14992a367c5c15f895415"
+          },
+          "nullable": true,
+          "nestedProjectionId": "projection:prj_a89b0acb503746ed86110f47bbe42c04"
+        }
+      ]
+    },
+    {
+      "id": "projection:prj_30b82e795021448b9d4bafd05678cf20",
+      "name": "ExecutionSummary",
+      "label": "Execution summary",
+      "sourceEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "fields": [
+        {
+          "projectionFieldId": "projectionField:pfd_4cebd6e638ff45c88775d0f16390efb5",
+          "sourceFieldId": "field:fld_054965adb4f143f5a51c51d9449265b5",
+          "name": "id",
+          "label": "Id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_877527d070be476ea75679424b39c6f5",
+          "sourceFieldId": "field:fld_21c95bb344a2454680073627dfd4a830",
+          "name": "startedAt",
+          "label": "Started at",
+          "presentation": {
+            "kind": "dateTime"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_e831e4192ce94ca6be5f94cdae85c8ea",
+          "sourceFieldId": "field:fld_3bc7534978b84f1b81aad0e4cd9e629e",
+          "name": "requestId",
+          "label": "Request id",
+          "presentation": {
+            "kind": "uuid"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_22fabb7fe73c48b097a08b1b3d417ce1",
+          "sourceFieldId": "field:fld_425a2eb8a4694f98a1d6b8b3271733f1",
+          "name": "requestKind",
+          "label": "Request kind",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_15fd74a87ba3472b86d9f81a8e050e0a"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_ae75cf9e263d4c658912c728a557a086",
+          "sourceFieldId": "field:fld_235cde6a26a7444582cce44bdb3e7524",
+          "name": "status",
+          "label": "Status",
+          "presentation": {
+            "kind": "enum",
+            "enumId": "enum:enm_0b965e59e8ac496a9615959c4f1613b5"
+          },
+          "nullable": false
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_a11343e52c0548548a3011f090ad8bde",
+          "sourceFieldId": "field:fld_34eddd44213045eda0988a0ebb8729f8",
+          "name": "externalReference",
+          "label": "External reference",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": true
+        },
+        {
+          "projectionFieldId": "projectionField:pfd_f35621674f4b4f7f866a9795874b9116",
+          "sourceFieldId": "field:fld_c31f988db83b4854a999c67c86c3aea1",
+          "name": "failureMessage",
+          "label": "Failure message",
+          "presentation": {
+            "kind": "text"
+          },
+          "nullable": true
+        }
+      ]
     }
   ],
   "actions": [
+    {
+      "operationId": "action:act_ea693a4d658449fbab5741b8369bc276",
+      "name": "requestIssueCreation",
+      "label": "Request issue creation",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_ea693a4d658449fbab5741b8369bc276.delegation",
+          "name": "delegation",
+          "label": "Delegation",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_ea693a4d658449fbab5741b8369bc276.repository",
+          "name": "repository",
+          "label": "Repository",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c60c5d44873846c7be0fdb64bb97b43a"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_ea693a4d658449fbab5741b8369bc276.connector",
+          "name": "connector",
+          "label": "Connector",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_ea693a4d658449fbab5741b8369bc276.title",
+          "name": "title",
+          "label": "Title",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_ea693a4d658449fbab5741b8369bc276.body",
+          "name": "body",
+          "label": "Body",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_d66226c7efc345ba9853df0d4abb879a",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_c4bb8af190dd48efb9784efb9ff9030c",
+      "name": "requestPullRequest",
+      "label": "Request pull request",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.delegation",
+          "name": "delegation",
+          "label": "Delegation",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.repository",
+          "name": "repository",
+          "label": "Repository",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c60c5d44873846c7be0fdb64bb97b43a"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.connector",
+          "name": "connector",
+          "label": "Connector",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.headBranch",
+          "name": "headBranch",
+          "label": "Head branch",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.baseBranch",
+          "name": "baseBranch",
+          "label": "Base branch",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_c4bb8af190dd48efb9784efb9ff9030c.title",
+          "name": "title",
+          "label": "Title",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_44eefd913a6d40389e4b1baf02add8c4",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_1388eb9f38684fa0830f60156cdba497",
+      "name": "requestStagingDeployment",
+      "label": "Request staging deployment",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_1388eb9f38684fa0830f60156cdba497.delegation",
+          "name": "delegation",
+          "label": "Delegation",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_1388eb9f38684fa0830f60156cdba497.environment",
+          "name": "environment",
+          "label": "Environment",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_1388eb9f38684fa0830f60156cdba497.connector",
+          "name": "connector",
+          "label": "Connector",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_1388eb9f38684fa0830f60156cdba497.commitSha",
+          "name": "commitSha",
+          "label": "Commit sha",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
     {
       "operationId": "action:act_d10d1618ed4045f396b64fc3745ce3dd",
       "name": "requestProductionDeployment",
@@ -855,6 +2369,17 @@
           }
         },
         {
+          "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.connector",
+          "name": "connector",
+          "label": "Connector",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
+        },
+        {
           "parameterId": "parameter:action:act_d10d1618ed4045f396b64fc3745ce3dd.commitSha",
           "name": "commitSha",
           "label": "Commit sha",
@@ -871,6 +2396,78 @@
         "authorization",
         "idempotency",
         "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_411bfff32560406186bd2d442f1ecf3b",
+      "name": "requestSchemaMigration",
+      "label": "Request schema migration",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.delegation",
+          "name": "delegation",
+          "label": "Delegation",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_accc8ba6b5ae4d76813eb983c3d1f8ce"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.environment",
+          "name": "environment",
+          "label": "Environment",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_cd33b79c1e5a4253ac5fe7c7a0f7bd2b"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.connector",
+          "name": "connector",
+          "label": "Connector",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d817706888f344c4a8fe2d8069d5233c"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationName",
+          "name": "migrationName",
+          "label": "Migration name",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_411bfff32560406186bd2d442f1ecf3b.migrationSha",
+          "name": "migrationSha",
+          "label": "Migration sha",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
         "invariant"
       ],
       "reliability": {
@@ -902,50 +2499,6 @@
         "authorization",
         "idempotency",
         "precondition",
-        "transition",
-        "invariant"
-      ],
-      "reliability": {
-        "idempotency": "required",
-        "scope": "authenticatedPrincipal"
-      },
-      "emittedEventIds": []
-    },
-    {
-      "operationId": "action:act_4a9421bfc2e744969b9f73109e6cda54",
-      "name": "executeApprovedDeployment",
-      "label": "Execute approved deployment",
-      "fields": [
-        {
-          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-          "name": "request",
-          "label": "Request",
-          "required": true,
-          "nullable": false,
-          "presentation": {
-            "kind": "entityReference",
-            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
-          }
-        },
-        {
-          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
-          "name": "allowance",
-          "label": "Allowance",
-          "required": true,
-          "nullable": false,
-          "presentation": {
-            "kind": "entityReference",
-            "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
-          }
-        }
-      ],
-      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
-      "errors": [
-        "identityBinding",
-        "authorization",
-        "idempotency",
-        "precondition",
-        "transition",
         "invariant"
       ],
       "reliability": {
@@ -977,7 +2530,360 @@
         "authorization",
         "idempotency",
         "precondition",
-        "transition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_4c170dfcb0224cb8aaf078fe6b6ef23d",
+      "name": "approveSchemaMigration",
+      "label": "Approve schema migration",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_4c170dfcb0224cb8aaf078fe6b6ef23d.request",
+          "name": "request",
+          "label": "Request",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_f6f083c592f34c07af0204bb507be013",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_d3a1935e42f24e4d84d25bc05ee690ad",
+      "name": "rejectSchemaMigration",
+      "label": "Reject schema migration",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_d3a1935e42f24e4d84d25bc05ee690ad.request",
+          "name": "request",
+          "label": "Request",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_cbb72fd307704ab3927aa4bea8112fbf",
+      "name": "dispatchIssueCreation",
+      "label": "Dispatch issue creation",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.request",
+          "name": "request",
+          "label": "Request",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_d66226c7efc345ba9853df0d4abb879a"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_cbb72fd307704ab3927aa4bea8112fbf.allowance",
+          "name": "allowance",
+          "label": "Allowance",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_3e99da927be642efac3d1bee026ef00a",
+      "name": "dispatchPullRequest",
+      "label": "Dispatch pull request",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.request",
+          "name": "request",
+          "label": "Request",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_44eefd913a6d40389e4b1baf02add8c4"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_3e99da927be642efac3d1bee026ef00a.allowance",
+          "name": "allowance",
+          "label": "Allowance",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_3e26a4d454634bf3a2058204146d7c45",
+      "name": "dispatchStagingDeployment",
+      "label": "Dispatch staging deployment",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.request",
+          "name": "request",
+          "label": "Request",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_3e26a4d454634bf3a2058204146d7c45.allowance",
+          "name": "allowance",
+          "label": "Allowance",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_4a9421bfc2e744969b9f73109e6cda54",
+      "name": "dispatchApprovedDeployment",
+      "label": "Dispatch approved deployment",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
+          "name": "request",
+          "label": "Request",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
+          "name": "allowance",
+          "label": "Allowance",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_70d3862584094631aca61e9db664d991",
+      "name": "dispatchApprovedSchemaMigration",
+      "label": "Dispatch approved schema migration",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.request",
+          "name": "request",
+          "label": "Request",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_c136762ce9794a7b92ca3c138c7c7bef"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_70d3862584094631aca61e9db664d991.allowance",
+          "name": "allowance",
+          "label": "Allowance",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_5be24324b68d4c2eb334732b36e1b16c",
+      "name": "completeExecution",
+      "label": "Complete execution",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.execution",
+          "name": "execution",
+          "label": "Execution",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_5be24324b68d4c2eb334732b36e1b16c.externalReference",
+          "name": "externalReference",
+          "label": "External reference",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
+        "invariant"
+      ],
+      "reliability": {
+        "idempotency": "required",
+        "scope": "authenticatedPrincipal"
+      },
+      "emittedEventIds": []
+    },
+    {
+      "operationId": "action:act_926686163a6544e79d44dea9336d2c88",
+      "name": "failExecution",
+      "label": "Fail execution",
+      "fields": [
+        {
+          "parameterId": "parameter:action:act_926686163a6544e79d44dea9336d2c88.execution",
+          "name": "execution",
+          "label": "Execution",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "entityReference",
+            "entityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d"
+          }
+        },
+        {
+          "parameterId": "parameter:action:act_926686163a6544e79d44dea9336d2c88.failureMessage",
+          "name": "failureMessage",
+          "label": "Failure message",
+          "required": true,
+          "nullable": false,
+          "presentation": {
+            "kind": "text"
+          }
+        }
+      ],
+      "resultEntityId": "entity:ent_695aab5599c84a78ac8f2ea75ccbdf1d",
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "idempotency",
+        "precondition",
         "invariant"
       ],
       "reliability": {
@@ -989,9 +2895,65 @@
   ],
   "queries": [
     {
+      "operationId": "query:qry_22f082ad9148490eb301e04fdc6e2ce3",
+      "name": "myIssueRequests",
+      "label": "My issue requests",
+      "filters": [],
+      "resultProjectionId": "projection:prj_d3a7e98e26b04b9895074d57f7ee399d",
+      "maxItems": 50,
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17"
+      },
+      "pagination": {
+        "kind": "cursor",
+        "cursorInput": "cursor",
+        "queryRevision": "sha256:3082f6d79cb2df98315ab9c44872ee5148ab1152a42a464294ab22418cab4f17"
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ]
+    },
+    {
+      "operationId": "query:qry_a96d198b028c45f2b0ec43471cb5ba09",
+      "name": "myPullRequests",
+      "label": "My pull requests",
+      "filters": [],
+      "resultProjectionId": "projection:prj_605bd019ead94c57a21a0176a0ffd852",
+      "maxItems": 50,
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942"
+      },
+      "pagination": {
+        "kind": "cursor",
+        "cursorInput": "cursor",
+        "queryRevision": "sha256:324533c1a3c1903ffe8fe849de203c28c02d87e983e5c93a9a3445b8d970b942"
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ]
+    },
+    {
       "operationId": "query:qry_60d1c5d416eb428caa385db274edcb4b",
-      "name": "myOrgDeployRequests",
-      "label": "My org deploy requests",
+      "name": "myDeploymentRequests",
+      "label": "My deployment requests",
       "filters": [],
       "resultProjectionId": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
       "maxItems": 50,
@@ -1018,8 +2980,8 @@
     },
     {
       "operationId": "query:qry_21f24f72d72c4bb98df539477f0e81f2",
-      "name": "approvalInbox",
-      "label": "Approval inbox",
+      "name": "deploymentApprovalInbox",
+      "label": "Deployment approval inbox",
       "filters": [],
       "resultProjectionId": "projection:prj_6d0491126ecb4d1abb14f945eb26c641",
       "maxItems": 50,
@@ -1030,12 +2992,96 @@
         "requestBinding": "canonicalSha256",
         "responseBinding": "canonicalSha256",
         "payloadRetention": "none",
-        "revision": "sha256:1be0f20f5159288d02fcc0cc3848d32633b1c7bcad6dea570b6b61a0ed5ac15a"
+        "revision": "sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781"
       },
       "pagination": {
         "kind": "cursor",
         "cursorInput": "cursor",
-        "queryRevision": "sha256:1be0f20f5159288d02fcc0cc3848d32633b1c7bcad6dea570b6b61a0ed5ac15a"
+        "queryRevision": "sha256:9070f1678cb1f71eb83b95f582595969cd16cdbc93ded809fd142ce505a30781"
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ]
+    },
+    {
+      "operationId": "query:qry_e3c9ea88ab664e96a5eaf20efc8c94a9",
+      "name": "mySchemaMigrationRequests",
+      "label": "My schema migration requests",
+      "filters": [],
+      "resultProjectionId": "projection:prj_e30b68bb7e874d81a4529a7d09f9954b",
+      "maxItems": 50,
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3"
+      },
+      "pagination": {
+        "kind": "cursor",
+        "cursorInput": "cursor",
+        "queryRevision": "sha256:742c36adc46a7671c104af8bb56920e51cda840e691350d9cd87107232eabbd3"
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ]
+    },
+    {
+      "operationId": "query:qry_8a136078ed3b4ee6893410b631ac5a04",
+      "name": "migrationApprovalInbox",
+      "label": "Migration approval inbox",
+      "filters": [],
+      "resultProjectionId": "projection:prj_e30b68bb7e874d81a4529a7d09f9954b",
+      "maxItems": 50,
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24"
+      },
+      "pagination": {
+        "kind": "cursor",
+        "cursorInput": "cursor",
+        "queryRevision": "sha256:84e0d99c43db856909dc5c249d3295c1ad4deb79d1e091969ab4c5696f77ec24"
+      },
+      "errors": [
+        "identityBinding",
+        "authorization",
+        "validation",
+        "stale"
+      ]
+    },
+    {
+      "operationId": "query:qry_e608c643d17c4a908f26e6a538630a51",
+      "name": "myExecutions",
+      "label": "My executions",
+      "filters": [],
+      "resultProjectionId": "projection:prj_30b82e795021448b9d4bafd05678cf20",
+      "maxItems": 50,
+      "readEvidence": {
+        "mode": "transactionalAudit",
+        "scope": "successfulCommittedExecution",
+        "storage": "private",
+        "requestBinding": "canonicalSha256",
+        "responseBinding": "canonicalSha256",
+        "payloadRetention": "none",
+        "revision": "sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac"
+      },
+      "pagination": {
+        "kind": "cursor",
+        "cursorInput": "cursor",
+        "queryRevision": "sha256:32edf525315ee61c68d5f9f583145346bb9c81eb4cc8a64d7f3a676de12206ac"
       },
       "errors": [
         "identityBinding",
@@ -1045,107 +3091,5 @@
       ]
     }
   ],
-  "workflows": [
-    {
-      "workflowId": "workflow:wfl_e439c3fe71514c98b303d21ee7937042",
-      "name": "ProductionDeployLifecycle",
-      "label": "Production deploy lifecycle",
-      "entityId": "entity:ent_e2b5ba3cccef437796b2048fd1ff2f24",
-      "stateFieldId": "field:fld_d905a7f0828849ae855fbbd30aad5255",
-      "enumId": "enum:enm_62bc5aa58efc405398d2931c339c730c",
-      "initialMemberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
-      "states": [
-        {
-          "memberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
-          "value": "PENDING_APPROVAL",
-          "label": "Pending approval",
-          "initial": true,
-          "terminal": false
-        },
-        {
-          "memberId": "enumMember:emv_66537f67e79d4374a2d5dede854aed06",
-          "value": "APPROVED",
-          "label": "Approved",
-          "initial": false,
-          "terminal": false
-        },
-        {
-          "memberId": "enumMember:emv_1f9acbfbce954efbaff9c782a7e5af94",
-          "value": "REJECTED",
-          "label": "Rejected",
-          "initial": false,
-          "terminal": true
-        },
-        {
-          "memberId": "enumMember:emv_7dfcad253ae24f8b9b05598cd2c5b59e",
-          "value": "EXECUTED",
-          "label": "Executed",
-          "initial": false,
-          "terminal": true
-        }
-      ],
-      "transitions": [
-        {
-          "transitionId": "transition:trn_71f01fea84c94edf82cd4d28255783f3",
-          "name": "approve",
-          "label": "Approve",
-          "fromMemberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
-          "fromValue": "PENDING_APPROVAL",
-          "toMemberId": "enumMember:emv_66537f67e79d4374a2d5dede854aed06",
-          "toValue": "APPROVED",
-          "actionOperationId": "action:act_047a601f15384b5ea4bfa05b5ef72676",
-          "target": {
-            "source": "operationInput",
-            "parameterId": "parameter:action:act_047a601f15384b5ea4bfa05b5ef72676.request",
-            "name": "request"
-          },
-          "fields": []
-        },
-        {
-          "transitionId": "transition:trn_e8d57ac85e6745f99c7e5abd4d795209",
-          "name": "execute",
-          "label": "Execute",
-          "fromMemberId": "enumMember:emv_66537f67e79d4374a2d5dede854aed06",
-          "fromValue": "APPROVED",
-          "toMemberId": "enumMember:emv_7dfcad253ae24f8b9b05598cd2c5b59e",
-          "toValue": "EXECUTED",
-          "actionOperationId": "action:act_4a9421bfc2e744969b9f73109e6cda54",
-          "target": {
-            "source": "operationInput",
-            "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.request",
-            "name": "request"
-          },
-          "fields": [
-            {
-              "parameterId": "parameter:action:act_4a9421bfc2e744969b9f73109e6cda54.allowance",
-              "name": "allowance",
-              "label": "Allowance",
-              "required": true,
-              "nullable": false,
-              "presentation": {
-                "kind": "entityReference",
-                "entityId": "entity:ent_b0fd2128e94a469089ac56c643cc4e36"
-              }
-            }
-          ]
-        },
-        {
-          "transitionId": "transition:trn_70d0b557789946c9874777fc20cb27dd",
-          "name": "reject",
-          "label": "Reject",
-          "fromMemberId": "enumMember:emv_68cab0efe9654fce9b385cede2f85e9d",
-          "fromValue": "PENDING_APPROVAL",
-          "toMemberId": "enumMember:emv_1f9acbfbce954efbaff9c782a7e5af94",
-          "toValue": "REJECTED",
-          "actionOperationId": "action:act_18ab026d358144dfa4d1729e40dd832e",
-          "target": {
-            "source": "operationInput",
-            "parameterId": "parameter:action:act_18ab026d358144dfa4d1729e40dd832e.request",
-            "name": "request"
-          },
-          "fields": []
-        }
-      ]
-    }
-  ]
+  "workflows": []
 }

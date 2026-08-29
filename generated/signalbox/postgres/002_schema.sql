@@ -1,4 +1,4 @@
--- source sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a
+-- source sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608
 CREATE SCHEMA "model_signalbox" AUTHORIZATION modellang_owner;
 CREATE SCHEMA "model_signalbox_internal" AUTHORIZATION modellang_owner;
 SET ROLE modellang_owner;
@@ -19,14 +19,49 @@ CREATE TABLE "model_signalbox"."principal" (
   "display_name" text NOT NULL,
   "status" text NOT NULL DEFAULT 'ACTIVE',
   "roles" text[] NOT NULL,
+  "responsible_owner_id" uuid,
   CONSTRAINT "ck_principal_kind_enum" CHECK (("kind" IN ('HUMAN', 'AGENT')) IS TRUE),
   CONSTRAINT "ck_principal_status_enum" CHECK (("status" IN ('ACTIVE', 'REVOKED')) IS TRUE),
-  CONSTRAINT "ck_principal_roles_enum_set" CHECK (("roles" <@ ARRAY['MEMBER', 'APPROVER', 'ADMIN']::text[] AND pg_catalog.array_position("roles", NULL::text) IS NULL AND pg_catalog.cardinality(pg_catalog.array_positions("roles", 'MEMBER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("roles", 'APPROVER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("roles", 'ADMIN')) <= 1) IS TRUE)
+  CONSTRAINT "ck_principal_roles_enum_set" CHECK (("roles" <@ ARRAY['MEMBER', 'APPROVER', 'ADMIN', 'EXECUTOR']::text[] AND pg_catalog.array_position("roles", NULL::text) IS NULL AND pg_catalog.cardinality(pg_catalog.array_positions("roles", 'MEMBER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("roles", 'APPROVER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("roles", 'ADMIN')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("roles", 'EXECUTOR')) <= 1) IS TRUE),
+  CONSTRAINT "ck_principal_agent_has_human_owner" CHECK ((((("kind" = 'AGENT') AND ("responsible_owner_id" IS NOT NULL)) OR (("kind" = 'HUMAN') AND ("responsible_owner_id" IS NULL)))) IS TRUE)
+);
+
+CREATE TABLE "model_signalbox"."agent_credential_metadata" (
+  "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
+  "org_id" uuid NOT NULL,
+  "agent_id" uuid NOT NULL,
+  "label" text NOT NULL,
+  "token_hash" text NOT NULL,
+  "expires_at" timestamptz,
+  "revoked_at" timestamptz,
+  "last_used_at" timestamptz,
+  CONSTRAINT "uq_agent_credential_metadata_token_hash_unique" UNIQUE ("token_hash")
+);
+
+CREATE TABLE "model_signalbox"."connector" (
+  "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
+  "org_id" uuid NOT NULL,
+  "name" text NOT NULL,
+  "kind" text NOT NULL,
+  "status" text NOT NULL DEFAULT 'ACTIVE',
+  CONSTRAINT "ck_connector_kind_enum" CHECK (("kind" IN ('GITHUB', 'STATIC_SITE', 'POSTGRESQL')) IS TRUE),
+  CONSTRAINT "ck_connector_status_enum" CHECK (("status" IN ('ACTIVE', 'REVOKED')) IS TRUE)
+);
+
+CREATE TABLE "model_signalbox"."repository" (
+  "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
+  "org_id" uuid NOT NULL,
+  "connector_id" uuid NOT NULL,
+  "owner" text NOT NULL,
+  "name" text NOT NULL,
+  "default_branch" text NOT NULL
 );
 
 CREATE TABLE "model_signalbox"."environment" (
   "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
   "org_id" uuid NOT NULL,
+  "repository_id" uuid NOT NULL,
+  "connector_id" uuid NOT NULL,
   "name" text NOT NULL,
   "tier" text NOT NULL,
   CONSTRAINT "ck_environment_tier_enum" CHECK (("tier" IN ('STAGING', 'PRODUCTION')) IS TRUE)
@@ -37,34 +72,95 @@ CREATE TABLE "model_signalbox"."delegation" (
   "org_id" uuid NOT NULL,
   "agent_id" uuid NOT NULL,
   "capability" text NOT NULL,
-  "environment_id" uuid NOT NULL,
+  "repository_id" uuid,
+  "environment_id" uuid,
+  "connector_id" uuid NOT NULL,
   "status" text NOT NULL DEFAULT 'ACTIVE',
-  CONSTRAINT "ck_delegation_capability_enum" CHECK (("capability" IN ('DEPLOY_STAGING', 'REQUEST_PRODUCTION_DEPLOY')) IS TRUE),
-  CONSTRAINT "ck_delegation_status_enum" CHECK (("status" IN ('ACTIVE', 'REVOKED')) IS TRUE)
+  CONSTRAINT "ck_delegation_capability_enum" CHECK (("capability" IN ('CREATE_ISSUE', 'OPEN_PULL_REQUEST', 'DEPLOY_STAGING', 'REQUEST_PRODUCTION_DEPLOY', 'REQUEST_SCHEMA_MIGRATION')) IS TRUE),
+  CONSTRAINT "ck_delegation_status_enum" CHECK (("status" IN ('ACTIVE', 'REVOKED')) IS TRUE),
+  CONSTRAINT "ck_delegation_resource_scope_matches_capability" CHECK ((((((("capability" = 'CREATE_ISSUE') OR ("capability" = 'OPEN_PULL_REQUEST')) AND ("repository_id" IS NOT NULL)) AND ("environment_id" IS NULL)) OR ((((("capability" = 'DEPLOY_STAGING') OR ("capability" = 'REQUEST_PRODUCTION_DEPLOY')) OR ("capability" = 'REQUEST_SCHEMA_MIGRATION')) AND ("repository_id" IS NULL)) AND ("environment_id" IS NOT NULL)))) IS TRUE)
 );
 
 CREATE TABLE "model_signalbox"."allowance" (
   "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
   "org_id" uuid NOT NULL,
+  "agent_id" uuid NOT NULL,
   "period" text NOT NULL,
   "sequence" bigint NOT NULL
 );
 
-CREATE TABLE "model_signalbox"."production_deploy_request" (
+CREATE TABLE "model_signalbox"."issue_request" (
   "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
   "created_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp(),
   "org_id" uuid NOT NULL,
   "requested_by_id" uuid NOT NULL,
+  "delegation_id" uuid NOT NULL,
+  "repository_id" uuid NOT NULL,
+  "connector_id" uuid NOT NULL,
+  "title" text NOT NULL,
+  "body" text NOT NULL,
+  "status" text NOT NULL DEFAULT 'READY',
+  CONSTRAINT "ck_issue_request_status_enum" CHECK (("status" IN ('READY', 'PENDING_APPROVAL', 'APPROVED', 'REJECTED', 'DISPATCHED')) IS TRUE),
+  CONSTRAINT "ck_issue_request_direct_request_status" CHECK (((("status" = 'READY') OR ("status" = 'DISPATCHED'))) IS TRUE)
+);
+
+CREATE TABLE "model_signalbox"."pull_request" (
+  "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
+  "created_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp(),
+  "org_id" uuid NOT NULL,
+  "requested_by_id" uuid NOT NULL,
+  "delegation_id" uuid NOT NULL,
+  "repository_id" uuid NOT NULL,
+  "connector_id" uuid NOT NULL,
+  "head_branch" text NOT NULL,
+  "base_branch" text NOT NULL,
+  "title" text NOT NULL,
+  "status" text NOT NULL DEFAULT 'READY',
+  CONSTRAINT "ck_pull_request_status_enum" CHECK (("status" IN ('READY', 'PENDING_APPROVAL', 'APPROVED', 'REJECTED', 'DISPATCHED')) IS TRUE),
+  CONSTRAINT "ck_pull_request_direct_request_status" CHECK (((("status" = 'READY') OR ("status" = 'DISPATCHED'))) IS TRUE)
+);
+
+CREATE TABLE "model_signalbox"."deployment_request" (
+  "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
+  "created_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp(),
+  "org_id" uuid NOT NULL,
+  "requested_by_id" uuid NOT NULL,
+  "delegation_id" uuid NOT NULL,
   "environment_id" uuid NOT NULL,
+  "environment_tier" text NOT NULL,
+  "connector_id" uuid NOT NULL,
   "commit_sha" text NOT NULL,
+  "status" text NOT NULL,
+  "approved_by_id" uuid,
+  "approved_by_roles" text[],
+  CONSTRAINT "ck_deployment_request_environment_tier_enum" CHECK (("environment_tier" IN ('STAGING', 'PRODUCTION')) IS TRUE),
+  CONSTRAINT "ck_deployment_request_status_enum" CHECK (("status" IN ('READY', 'PENDING_APPROVAL', 'APPROVED', 'REJECTED', 'DISPATCHED')) IS TRUE),
+  CONSTRAINT "ck_deployment_request_approved_by_roles_enum_set" CHECK (("approved_by_roles" IS NULL OR ("approved_by_roles" <@ ARRAY['MEMBER', 'APPROVER', 'ADMIN', 'EXECUTOR']::text[] AND pg_catalog.array_position("approved_by_roles", NULL::text) IS NULL AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'MEMBER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'APPROVER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'ADMIN')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'EXECUTOR')) <= 1)) IS TRUE),
+  CONSTRAINT "ck_deployment_request_tier_controls_lifecycle" CHECK ((((("environment_tier" = 'STAGING') AND (("status" = 'READY') OR ("status" = 'DISPATCHED'))) OR (("environment_tier" = 'PRODUCTION') AND (((("status" = 'PENDING_APPROVAL') OR ("status" = 'APPROVED')) OR ("status" = 'REJECTED')) OR ("status" = 'DISPATCHED'))))) IS TRUE),
+  CONSTRAINT "ck_deployment_request_approval_fields_match_status" CHECK ((((((("environment_tier" = 'PRODUCTION') AND (("status" = 'APPROVED') OR ("status" = 'DISPATCHED'))) AND ("approved_by_id" IS NOT NULL)) AND ("approved_by_roles" IS NOT NULL)) OR ((((("environment_tier" = 'STAGING') OR ("status" = 'PENDING_APPROVAL')) OR ("status" = 'REJECTED')) AND ("approved_by_id" IS NULL)) AND ("approved_by_roles" IS NULL)))) IS TRUE),
+  CONSTRAINT "ck_deployment_request_approver_differs_from_requester" CHECK (((("approved_by_id" IS NULL) OR ("approved_by_id" <> "requested_by_id"))) IS TRUE),
+  CONSTRAINT "ck_deployment_request_approval_authority_recorded" CHECK (((("approved_by_roles" IS NULL) OR ('APPROVER' = ANY("approved_by_roles")))) IS TRUE)
+);
+
+CREATE TABLE "model_signalbox"."schema_migration_request" (
+  "id" uuid NOT NULL DEFAULT pg_catalog.gen_random_uuid() PRIMARY KEY,
+  "created_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp(),
+  "org_id" uuid NOT NULL,
+  "requested_by_id" uuid NOT NULL,
+  "delegation_id" uuid NOT NULL,
+  "environment_id" uuid NOT NULL,
+  "connector_id" uuid NOT NULL,
+  "migration_name" text NOT NULL,
+  "migration_sha" text NOT NULL,
   "status" text NOT NULL DEFAULT 'PENDING_APPROVAL',
   "approved_by_id" uuid,
   "approved_by_roles" text[],
-  CONSTRAINT "ck_production_deploy_request_status_enum" CHECK (("status" IN ('PENDING_APPROVAL', 'APPROVED', 'REJECTED', 'EXECUTED')) IS TRUE),
-  CONSTRAINT "ck_production_deploy_request_approved_by_roles_enum_set" CHECK (("approved_by_roles" IS NULL OR ("approved_by_roles" <@ ARRAY['MEMBER', 'APPROVER', 'ADMIN']::text[] AND pg_catalog.array_position("approved_by_roles", NULL::text) IS NULL AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'MEMBER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'APPROVER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'ADMIN')) <= 1)) IS TRUE),
-  CONSTRAINT "ck_production_deploy_request_approver_differs_from_requester" CHECK ((((("status" <> 'APPROVED') AND ("status" <> 'EXECUTED')) OR ("approved_by_id" <> "requested_by_id"))) IS TRUE),
-  CONSTRAINT "ck_production_deploy_request_approval_fields_match_status" CHECK ((((((("status" = 'APPROVED') OR ("status" = 'EXECUTED')) AND ("approved_by_id" IS NOT NULL)) AND ("approved_by_roles" IS NOT NULL)) OR (((("status" <> 'APPROVED') AND ("status" <> 'EXECUTED')) AND ("approved_by_id" IS NULL)) AND ("approved_by_roles" IS NULL)))) IS TRUE),
-  CONSTRAINT "ck_production_deploy_request_approval_authority_recorded" CHECK ((((("status" <> 'APPROVED') AND ("status" <> 'EXECUTED')) OR ('APPROVER' = ANY("approved_by_roles")))) IS TRUE)
+  CONSTRAINT "ck_schema_migration_request_status_enum" CHECK (("status" IN ('READY', 'PENDING_APPROVAL', 'APPROVED', 'REJECTED', 'DISPATCHED')) IS TRUE),
+  CONSTRAINT "ck_schema_migration_request_approved_by_roles_enum_set" CHECK (("approved_by_roles" IS NULL OR ("approved_by_roles" <@ ARRAY['MEMBER', 'APPROVER', 'ADMIN', 'EXECUTOR']::text[] AND pg_catalog.array_position("approved_by_roles", NULL::text) IS NULL AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'MEMBER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'APPROVER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'ADMIN')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approved_by_roles", 'EXECUTOR')) <= 1)) IS TRUE),
+  CONSTRAINT "ck_schema_migration_request_migration_lifecycle" CHECK (((((("status" = 'PENDING_APPROVAL') OR ("status" = 'APPROVED')) OR ("status" = 'REJECTED')) OR ("status" = 'DISPATCHED'))) IS TRUE),
+  CONSTRAINT "ck_schema_migration_request_approval_fields_match_status" CHECK ((((((("status" = 'APPROVED') OR ("status" = 'DISPATCHED')) AND ("approved_by_id" IS NOT NULL)) AND ("approved_by_roles" IS NOT NULL)) OR (((("status" = 'PENDING_APPROVAL') OR ("status" = 'REJECTED')) AND ("approved_by_id" IS NULL)) AND ("approved_by_roles" IS NULL)))) IS TRUE),
+  CONSTRAINT "ck_schema_migration_request_approver_differs_from_requester" CHECK (((("approved_by_id" IS NULL) OR ("approved_by_id" <> "requested_by_id"))) IS TRUE),
+  CONSTRAINT "ck_schema_migration_request_approval_authority_recorded" CHECK (((("approved_by_roles" IS NULL) OR ('APPROVER' = ANY("approved_by_roles")))) IS TRUE)
 );
 
 CREATE TABLE "model_signalbox"."approval" (
@@ -72,8 +168,15 @@ CREATE TABLE "model_signalbox"."approval" (
   "decided_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp(),
   "org_id" uuid NOT NULL,
   "request_id" uuid NOT NULL,
+  "request_kind" text NOT NULL,
+  "requested_by_id" uuid NOT NULL,
   "approver_id" uuid NOT NULL,
-  CONSTRAINT "uq_approval_request_id_unique" UNIQUE ("request_id")
+  "approver_roles" text[] NOT NULL,
+  CONSTRAINT "uq_approval_request_id_unique" UNIQUE ("request_id"),
+  CONSTRAINT "ck_approval_request_kind_enum" CHECK (("request_kind" IN ('ISSUE', 'PULL_REQUEST', 'DEPLOYMENT', 'SCHEMA_MIGRATION')) IS TRUE),
+  CONSTRAINT "ck_approval_approver_roles_enum_set" CHECK (("approver_roles" <@ ARRAY['MEMBER', 'APPROVER', 'ADMIN', 'EXECUTOR']::text[] AND pg_catalog.array_position("approver_roles", NULL::text) IS NULL AND pg_catalog.cardinality(pg_catalog.array_positions("approver_roles", 'MEMBER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approver_roles", 'APPROVER')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approver_roles", 'ADMIN')) <= 1 AND pg_catalog.cardinality(pg_catalog.array_positions("approver_roles", 'EXECUTOR')) <= 1) IS TRUE),
+  CONSTRAINT "ck_approval_independent_approver" CHECK ((("approver_id" <> "requested_by_id")) IS TRUE),
+  CONSTRAINT "ck_approval_approval_authority_recorded" CHECK ((('APPROVER' = ANY("approver_roles"))) IS TRUE)
 );
 
 CREATE TABLE "model_signalbox"."execution" (
@@ -81,18 +184,59 @@ CREATE TABLE "model_signalbox"."execution" (
   "started_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp(),
   "org_id" uuid NOT NULL,
   "request_id" uuid NOT NULL,
+  "request_kind" text NOT NULL,
+  "requested_by_id" uuid NOT NULL,
+  "connector_id" uuid NOT NULL,
   "allowance_id" uuid NOT NULL,
+  "status" text NOT NULL DEFAULT 'PENDING',
+  "external_reference" text,
+  "failure_message" text,
   CONSTRAINT "uq_execution_request_id_unique" UNIQUE ("request_id"),
-  CONSTRAINT "uq_execution_allowance_id_unique" UNIQUE ("allowance_id")
+  CONSTRAINT "ck_execution_request_kind_enum" CHECK (("request_kind" IN ('ISSUE', 'PULL_REQUEST', 'DEPLOYMENT', 'SCHEMA_MIGRATION')) IS TRUE),
+  CONSTRAINT "uq_execution_allowance_id_unique" UNIQUE ("allowance_id"),
+  CONSTRAINT "ck_execution_status_enum" CHECK (("status" IN ('PENDING', 'SUCCEEDED', 'FAILED')) IS TRUE),
+  CONSTRAINT "ck_execution_result_matches_status" CHECK ((((((("status" = 'PENDING') AND ("external_reference" IS NULL)) AND ("failure_message" IS NULL)) OR ((("status" = 'SUCCEEDED') AND ("external_reference" IS NOT NULL)) AND ("failure_message" IS NULL))) OR ((("status" = 'FAILED') AND ("external_reference" IS NULL)) AND ("failure_message" IS NOT NULL)))) IS TRUE)
 );
 
 ALTER TABLE "model_signalbox"."principal"
   ADD CONSTRAINT "fk_principal_org_id"
   FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
 
+ALTER TABLE "model_signalbox"."principal"
+  ADD CONSTRAINT "fk_principal_responsible_owner_id"
+  FOREIGN KEY ("responsible_owner_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."agent_credential_metadata"
+  ADD CONSTRAINT "fk_agent_credential_metadata_org_id"
+  FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
+
+ALTER TABLE "model_signalbox"."agent_credential_metadata"
+  ADD CONSTRAINT "fk_agent_credential_metadata_agent_id"
+  FOREIGN KEY ("agent_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."connector"
+  ADD CONSTRAINT "fk_connector_org_id"
+  FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
+
+ALTER TABLE "model_signalbox"."repository"
+  ADD CONSTRAINT "fk_repository_org_id"
+  FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
+
+ALTER TABLE "model_signalbox"."repository"
+  ADD CONSTRAINT "fk_repository_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
+
 ALTER TABLE "model_signalbox"."environment"
   ADD CONSTRAINT "fk_environment_org_id"
   FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
+
+ALTER TABLE "model_signalbox"."environment"
+  ADD CONSTRAINT "fk_environment_repository_id"
+  FOREIGN KEY ("repository_id") REFERENCES "model_signalbox"."repository" ("id");
+
+ALTER TABLE "model_signalbox"."environment"
+  ADD CONSTRAINT "fk_environment_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
 
 ALTER TABLE "model_signalbox"."delegation"
   ADD CONSTRAINT "fk_delegation_org_id"
@@ -103,27 +247,111 @@ ALTER TABLE "model_signalbox"."delegation"
   FOREIGN KEY ("agent_id") REFERENCES "model_signalbox"."principal" ("id");
 
 ALTER TABLE "model_signalbox"."delegation"
+  ADD CONSTRAINT "fk_delegation_repository_id"
+  FOREIGN KEY ("repository_id") REFERENCES "model_signalbox"."repository" ("id");
+
+ALTER TABLE "model_signalbox"."delegation"
   ADD CONSTRAINT "fk_delegation_environment_id"
   FOREIGN KEY ("environment_id") REFERENCES "model_signalbox"."environment" ("id");
+
+ALTER TABLE "model_signalbox"."delegation"
+  ADD CONSTRAINT "fk_delegation_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
 
 ALTER TABLE "model_signalbox"."allowance"
   ADD CONSTRAINT "fk_allowance_org_id"
   FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
 
-ALTER TABLE "model_signalbox"."production_deploy_request"
-  ADD CONSTRAINT "fk_production_deploy_request_org_id"
+ALTER TABLE "model_signalbox"."allowance"
+  ADD CONSTRAINT "fk_allowance_agent_id"
+  FOREIGN KEY ("agent_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."issue_request"
+  ADD CONSTRAINT "fk_issue_request_org_id"
   FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
 
-ALTER TABLE "model_signalbox"."production_deploy_request"
-  ADD CONSTRAINT "fk_production_deploy_request_requested_by_id"
+ALTER TABLE "model_signalbox"."issue_request"
+  ADD CONSTRAINT "fk_issue_request_requested_by_id"
   FOREIGN KEY ("requested_by_id") REFERENCES "model_signalbox"."principal" ("id");
 
-ALTER TABLE "model_signalbox"."production_deploy_request"
-  ADD CONSTRAINT "fk_production_deploy_request_environment_id"
+ALTER TABLE "model_signalbox"."issue_request"
+  ADD CONSTRAINT "fk_issue_request_delegation_id"
+  FOREIGN KEY ("delegation_id") REFERENCES "model_signalbox"."delegation" ("id");
+
+ALTER TABLE "model_signalbox"."issue_request"
+  ADD CONSTRAINT "fk_issue_request_repository_id"
+  FOREIGN KEY ("repository_id") REFERENCES "model_signalbox"."repository" ("id");
+
+ALTER TABLE "model_signalbox"."issue_request"
+  ADD CONSTRAINT "fk_issue_request_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
+
+ALTER TABLE "model_signalbox"."pull_request"
+  ADD CONSTRAINT "fk_pull_request_org_id"
+  FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
+
+ALTER TABLE "model_signalbox"."pull_request"
+  ADD CONSTRAINT "fk_pull_request_requested_by_id"
+  FOREIGN KEY ("requested_by_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."pull_request"
+  ADD CONSTRAINT "fk_pull_request_delegation_id"
+  FOREIGN KEY ("delegation_id") REFERENCES "model_signalbox"."delegation" ("id");
+
+ALTER TABLE "model_signalbox"."pull_request"
+  ADD CONSTRAINT "fk_pull_request_repository_id"
+  FOREIGN KEY ("repository_id") REFERENCES "model_signalbox"."repository" ("id");
+
+ALTER TABLE "model_signalbox"."pull_request"
+  ADD CONSTRAINT "fk_pull_request_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
+
+ALTER TABLE "model_signalbox"."deployment_request"
+  ADD CONSTRAINT "fk_deployment_request_org_id"
+  FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
+
+ALTER TABLE "model_signalbox"."deployment_request"
+  ADD CONSTRAINT "fk_deployment_request_requested_by_id"
+  FOREIGN KEY ("requested_by_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."deployment_request"
+  ADD CONSTRAINT "fk_deployment_request_delegation_id"
+  FOREIGN KEY ("delegation_id") REFERENCES "model_signalbox"."delegation" ("id");
+
+ALTER TABLE "model_signalbox"."deployment_request"
+  ADD CONSTRAINT "fk_deployment_request_environment_id"
   FOREIGN KEY ("environment_id") REFERENCES "model_signalbox"."environment" ("id");
 
-ALTER TABLE "model_signalbox"."production_deploy_request"
-  ADD CONSTRAINT "fk_production_deploy_request_approved_by_id"
+ALTER TABLE "model_signalbox"."deployment_request"
+  ADD CONSTRAINT "fk_deployment_request_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
+
+ALTER TABLE "model_signalbox"."deployment_request"
+  ADD CONSTRAINT "fk_deployment_request_approved_by_id"
+  FOREIGN KEY ("approved_by_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."schema_migration_request"
+  ADD CONSTRAINT "fk_schema_migration_request_org_id"
+  FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
+
+ALTER TABLE "model_signalbox"."schema_migration_request"
+  ADD CONSTRAINT "fk_schema_migration_request_requested_by_id"
+  FOREIGN KEY ("requested_by_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."schema_migration_request"
+  ADD CONSTRAINT "fk_schema_migration_request_delegation_id"
+  FOREIGN KEY ("delegation_id") REFERENCES "model_signalbox"."delegation" ("id");
+
+ALTER TABLE "model_signalbox"."schema_migration_request"
+  ADD CONSTRAINT "fk_schema_migration_request_environment_id"
+  FOREIGN KEY ("environment_id") REFERENCES "model_signalbox"."environment" ("id");
+
+ALTER TABLE "model_signalbox"."schema_migration_request"
+  ADD CONSTRAINT "fk_schema_migration_request_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
+
+ALTER TABLE "model_signalbox"."schema_migration_request"
+  ADD CONSTRAINT "fk_schema_migration_request_approved_by_id"
   FOREIGN KEY ("approved_by_id") REFERENCES "model_signalbox"."principal" ("id");
 
 ALTER TABLE "model_signalbox"."approval"
@@ -131,8 +359,8 @@ ALTER TABLE "model_signalbox"."approval"
   FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
 
 ALTER TABLE "model_signalbox"."approval"
-  ADD CONSTRAINT "fk_approval_request_id"
-  FOREIGN KEY ("request_id") REFERENCES "model_signalbox"."production_deploy_request" ("id");
+  ADD CONSTRAINT "fk_approval_requested_by_id"
+  FOREIGN KEY ("requested_by_id") REFERENCES "model_signalbox"."principal" ("id");
 
 ALTER TABLE "model_signalbox"."approval"
   ADD CONSTRAINT "fk_approval_approver_id"
@@ -143,48 +371,16 @@ ALTER TABLE "model_signalbox"."execution"
   FOREIGN KEY ("org_id") REFERENCES "model_signalbox"."organization" ("id");
 
 ALTER TABLE "model_signalbox"."execution"
-  ADD CONSTRAINT "fk_execution_request_id"
-  FOREIGN KEY ("request_id") REFERENCES "model_signalbox"."production_deploy_request" ("id");
+  ADD CONSTRAINT "fk_execution_requested_by_id"
+  FOREIGN KEY ("requested_by_id") REFERENCES "model_signalbox"."principal" ("id");
+
+ALTER TABLE "model_signalbox"."execution"
+  ADD CONSTRAINT "fk_execution_connector_id"
+  FOREIGN KEY ("connector_id") REFERENCES "model_signalbox"."connector" ("id");
 
 ALTER TABLE "model_signalbox"."execution"
   ADD CONSTRAINT "fk_execution_allowance_id"
   FOREIGN KEY ("allowance_id") REFERENCES "model_signalbox"."allowance" ("id");
-
-CREATE OR REPLACE FUNCTION "model_signalbox_internal"."enforce_production_deploy_lifecycle"()
-RETURNS trigger
-LANGUAGE plpgsql
-SET search_path = pg_catalog, pg_temp
-AS $modellang$
-BEGIN
-  IF TG_OP = 'INSERT' THEN
-    IF NEW."status" IS DISTINCT FROM 'PENDING_APPROVAL' THEN
-      RAISE EXCEPTION USING ERRCODE = '23514', MESSAGE = 'ML_WORKFLOW:workflow:wfl_e439c3fe71514c98b303d21ee7937042', CONSTRAINT = 'trg_production_deploy_request_status_workflow_insert';
-    END IF;
-    RETURN NEW;
-  END IF;
-
-  IF NEW."status" IS NOT DISTINCT FROM OLD."status" THEN
-    RETURN NEW;
-  END IF;
-
-  IF NOT ((OLD."status" = 'PENDING_APPROVAL' AND NEW."status" = 'APPROVED')
-    OR (OLD."status" = 'APPROVED' AND NEW."status" = 'EXECUTED')
-    OR (OLD."status" = 'PENDING_APPROVAL' AND NEW."status" = 'REJECTED')) THEN
-    RAISE EXCEPTION USING ERRCODE = '23514', MESSAGE = 'ML_WORKFLOW:workflow:wfl_e439c3fe71514c98b303d21ee7937042', CONSTRAINT = 'trg_production_deploy_request_status_workflow_update';
-  END IF;
-  RETURN NEW;
-END
-$modellang$;
-
-REVOKE ALL ON FUNCTION "model_signalbox_internal"."enforce_production_deploy_lifecycle"() FROM PUBLIC;
-
-CREATE TRIGGER "trg_production_deploy_request_status_workflow_insert"
-AFTER INSERT ON "model_signalbox"."production_deploy_request"
-FOR EACH ROW EXECUTE FUNCTION "model_signalbox_internal"."enforce_production_deploy_lifecycle"();
-
-CREATE TRIGGER "trg_production_deploy_request_status_workflow_update"
-BEFORE UPDATE OF "status" ON "model_signalbox"."production_deploy_request"
-FOR EACH ROW EXECUTE FUNCTION "model_signalbox_internal"."enforce_production_deploy_lifecycle"();
 
 CREATE TABLE "model_signalbox_internal"."principal_binding" (
   "database_principal" name PRIMARY KEY,
@@ -1215,6 +1411,6 @@ CREATE TABLE "model_signalbox_internal"."schema_migrations" (
   "applied_at" timestamptz NOT NULL DEFAULT pg_catalog.transaction_timestamp()
 );
 INSERT INTO "model_signalbox_internal"."schema_migrations" ("model_id", "version", "source_hash", "migration_kind")
-VALUES ('model:Signalbox', '0.50.0', 'sha256:30952e600e16dee04604d4d1c6be9e8712098c8b5fad4cd366f70d52abf8c85a', 'installation');
+VALUES ('model:Signalbox', '0.51.0', 'sha256:dae4db49d75c57837e7e54e3592fd4c7ab7eb8ef9ce8cfd53263d3d41fccc608', 'installation');
 RESET ROLE;
 
