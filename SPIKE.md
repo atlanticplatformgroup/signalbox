@@ -5,6 +5,7 @@
 > Identity providers prove who the agent is. Signalbox proves the action is safe to run right now — and commits the decision and the effect together, exactly once.
 
 Spike run 2026-08-29. Target: Nebius x NVIDIA Global AI Hackathon, 2026-10-30 10:00 PDT.
+Delivery plan: [PLAN.md](./PLAN.md).
 
 ## Purpose
 
