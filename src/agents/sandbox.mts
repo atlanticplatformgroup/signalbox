@@ -12,6 +12,12 @@ export interface SandboxCommand {
   readonly networking?: boolean;
   readonly timeoutSeconds?: number;
   readonly disposable?: boolean;
+  readonly files?: Readonly<Record<string, {
+    readonly uuid: string;
+    readonly uid?: number;
+    readonly gid?: number;
+    readonly mode?: string;
+  }>>;
 }
 
 export interface SandboxResult {
@@ -24,6 +30,10 @@ export interface SandboxResult {
   readonly stdoutTruncated: boolean;
   readonly stderrTruncated: boolean;
 }
+export interface SandboxRunHooks {
+  readonly started?: (operationId: string) => Promise<void>;
+}
+
 
 export interface SandboxClientOptions {
   readonly apiKey: string;
@@ -65,7 +75,16 @@ export class TokenFactorySandboxClient {
     this.#now = options.now ?? Date.now;
   }
 
-  async run(command: SandboxCommand): Promise<SandboxResult> {
+  async uploadFile(content: Uint8Array): Promise<string> {
+    const response = await this.#request("files", {
+      method: "POST",
+      headers: { "content-type": "application/octet-stream" },
+      body: new Blob([Uint8Array.from(content)]),
+    }, [201]);
+    return stringValue(objectValue(await response.json(), "Sandbox file response").uuid, "Sandbox file response.uuid");
+  }
+
+  async run(command: SandboxCommand, hooks: SandboxRunHooks = {}): Promise<SandboxResult> {
     validateImage(command.image);
     validateExecutable(command.executable);
     const timeoutSeconds = boundedInteger(command.timeoutSeconds ?? 120, 1, 3_600, "timeoutSeconds");
@@ -81,6 +100,7 @@ export class TokenFactorySandboxClient {
       networking: { enabled: command.networking ?? false },
       timeout: timeoutSeconds,
       truncate_output_at: this.#truncateOutputAt,
+      ...(command.files === undefined ? {} : { files: command.files }),
       ...(command.stdin === undefined ? {} : {
         stdin: {
           value: Buffer.from(command.stdin, "utf8").toString("base64"),
@@ -98,6 +118,7 @@ export class TokenFactorySandboxClient {
     const operationId = optionalString(startedBody.uuid, "Sandbox instance response.uuid")
       ?? operationIdFromLocation(started.headers.get("location"));
     if (!operationId) throw new Error("Sandbox instance response omitted operation UUID");
+    await hooks.started?.(operationId);
     return await this.#wait(operationId);
   }
 
@@ -150,13 +171,33 @@ export interface SandboxCheck {
   readonly args: readonly string[];
   readonly timeoutSeconds?: number;
 }
+export interface SandboxInitialization {
+  readonly executable: string;
+  readonly args: readonly string[];
+  readonly networking: "DISABLED" | "RESTRICTED_REGISTRIES";
+}
+
+export interface SandboxOperationEvent {
+  readonly sequence: number;
+  readonly command: SandboxCommand;
+  readonly operationId: string;
+}
+
+export interface SandboxOperationObserver {
+  started(event: SandboxOperationEvent): Promise<void>;
+  completed(event: SandboxOperationEvent, result: SandboxResult): Promise<void>;
+  failed(event: SandboxOperationEvent, error: unknown): Promise<void>;
+}
+
 
 export interface SandboxWorkspaceOptions {
   readonly client: TokenFactorySandboxClient;
   readonly baseImage: string;
-  readonly repositoryUrl: string;
+  readonly repositoryUrl?: string;
+  readonly repositoryBundleUuid?: string;
   readonly revision: string;
   readonly checks: readonly SandboxCheck[];
+  readonly initialization?: readonly SandboxInitialization[];
   readonly workspaceRoot?: string;
   readonly gitExecutable?: string;
   readonly catExecutable?: string;
@@ -164,6 +205,7 @@ export interface SandboxWorkspaceOptions {
   readonly mkdirExecutable?: string;
   readonly maxCommands?: number;
   readonly maxWriteBytes?: number;
+  readonly operationObserver?: SandboxOperationObserver;
 }
 
 export interface SandboxWorkspacePort {
@@ -179,7 +221,8 @@ export interface SandboxWorkspacePort {
 export class SandboxWorkspace implements SandboxWorkspacePort {
   readonly #client: TokenFactorySandboxClient;
   readonly #baseImage: string;
-  readonly #repositoryUrl: string;
+  readonly #repositoryUrl?: string;
+  readonly #repositoryBundleUuid?: string;
   readonly #revision: string;
   readonly #checks: ReadonlyMap<string, SandboxCheck>;
   readonly #workspaceRoot: string;
@@ -187,21 +230,40 @@ export class SandboxWorkspace implements SandboxWorkspacePort {
   readonly #gitExecutable: string;
   readonly #catExecutable: string;
   readonly #teeExecutable: string;
+  readonly #initialization: readonly SandboxInitialization[];
   readonly #mkdirExecutable: string;
   readonly #maxCommands: number;
   readonly #maxWriteBytes: number;
+  readonly #operationObserver?: SandboxOperationObserver;
   #image?: string;
   #commandCount = 0;
 
   constructor(options: SandboxWorkspaceOptions) {
-    validateRepositoryUrl(options.repositoryUrl);
+    if ((options.repositoryUrl === undefined) === (options.repositoryBundleUuid === undefined)) {
+      throw new Error("Sandbox workspace requires exactly one repository URL or bundle");
+    }
+    if (options.repositoryUrl !== undefined) validateRepositoryUrl(options.repositoryUrl);
     if (!/^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$/.test(options.revision)) {
       throw new Error("Sandbox repository revision is invalid");
     }
     this.#client = options.client;
     this.#baseImage = options.baseImage;
     this.#repositoryUrl = options.repositoryUrl;
+    this.#repositoryBundleUuid = options.repositoryBundleUuid;
     this.#revision = options.revision;
+    this.#initialization = (options.initialization ?? []).map((step, index) => {
+      if (step.networking !== "DISABLED" && step.networking !== "RESTRICTED_REGISTRIES") {
+        throw new TypeError(`Sandbox initialization ${index} has invalid networking`);
+      }
+      return {
+        executable: executablePath(step.executable, `initialization[${index}].executable`),
+        args: step.args.map((argument, argumentIndex) => {
+          if (typeof argument !== "string" || argument.includes("\0")) throw new TypeError(`initialization[${index}].args[${argumentIndex}] is invalid`);
+          return argument;
+        }),
+        networking: step.networking,
+      };
+    });
     this.#checks = new Map(options.checks.map((check) => [check.name, validateCheck(check)]));
     if (this.#checks.size !== options.checks.length) throw new Error("Sandbox check names must be unique");
     this.#workspaceRoot = absolutePath(options.workspaceRoot ?? "/workspace", "workspaceRoot");
@@ -211,22 +273,39 @@ export class SandboxWorkspace implements SandboxWorkspacePort {
     this.#teeExecutable = executablePath(options.teeExecutable ?? "/usr/bin/tee", "teeExecutable");
     this.#mkdirExecutable = executablePath(options.mkdirExecutable ?? "/bin/mkdir", "mkdirExecutable");
     this.#maxCommands = boundedInteger(options.maxCommands ?? 64, 1, 256, "maxCommands");
+    this.#operationObserver = options.operationObserver;
     this.#maxWriteBytes = boundedInteger(options.maxWriteBytes ?? 1_048_576, 1, 10_485_760, "maxWriteBytes");
   }
 
   async initialize(): Promise<SandboxResult> {
     if (this.#image) throw new Error("Sandbox workspace is already initialized");
+    const bundlePath = posix.join(this.#workspaceRoot, "repository.bundle");
     const result = await this.#execute({
       image: this.#baseImage,
       executable: this.#gitExecutable,
-      args: ["clone", "--depth", "1", "--branch", this.#revision, "--", this.#repositoryUrl, this.#repositoryRoot],
+      args: this.#repositoryUrl === undefined
+        ? ["clone", "--branch", this.#revision, "--", bundlePath, this.#repositoryRoot]
+        : ["clone", "--depth", "1", "--branch", this.#revision, "--", this.#repositoryUrl, this.#repositoryRoot],
       cwd: this.#workspaceRoot,
-      networking: true,
+      networking: this.#repositoryUrl !== undefined,
       timeoutSeconds: 180,
       disposable: false,
+      ...(this.#repositoryBundleUuid === undefined
+        ? {}
+        : { files: { [bundlePath]: { uuid: this.#repositoryBundleUuid, mode: "0400" } } }),
     });
     if (result.exitCode !== 0) throw new Error(`Sandbox repository clone failed: ${result.stderr || result.stdout}`);
-    return result;
+    let finalResult = result;
+    for (const [index, step] of this.#initialization.entries()) {
+      if (step.networking === "RESTRICTED_REGISTRIES") {
+        throw new Error(`Sandbox initialization ${index} requires a restricted-registry egress adapter`);
+      }
+      finalResult = await this.#runInRepository(step.executable, step.args, undefined, 180);
+      if (finalResult.exitCode !== 0 || finalResult.timedOut) {
+        throw new Error(`Sandbox initialization ${index} failed: ${finalResult.stderr || finalResult.stdout}`);
+      }
+    }
+    return finalResult;
   }
   async listFiles(pathPrefix?: string): Promise<readonly string[]> {
     const args = ["ls-files", "-z", "--", ...(pathPrefix === undefined ? [] : [this.#relativePath(pathPrefix)])];
@@ -287,8 +366,25 @@ export class SandboxWorkspace implements SandboxWorkspacePort {
   async #execute(command: SandboxCommand): Promise<SandboxResult> {
     this.#commandCount += 1;
     if (this.#commandCount > this.#maxCommands) throw new Error(`Sandbox workspace exceeded ${this.#maxCommands} commands`);
-    const result = await this.#client.run(command);
+    const sequence = this.#commandCount;
+    let event: SandboxOperationEvent | undefined;
+    let startedPersisted = false;
+    let result: SandboxResult;
+    try {
+      result = await this.#client.run(command, {
+        started: async (operationId) => {
+          event = { sequence, command, operationId };
+          await this.#operationObserver?.started(event);
+          startedPersisted = true;
+        },
+      });
+    } catch (error) {
+      if (event && startedPersisted) await this.#operationObserver?.failed(event, error);
+      throw error;
+    }
     if (!result.resultImage) throw new Error(`Sandbox operation ${result.operationId} did not return a persistent result image`);
+    if (!event) event = { sequence, command, operationId: result.operationId };
+    await this.#operationObserver?.completed(event, result);
     this.#image = result.resultImage;
     return result;
   }

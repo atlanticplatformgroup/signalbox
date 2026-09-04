@@ -13,6 +13,19 @@ export interface AgentInference extends StructuredInference {
 export interface StagingFallback {
   readonly input: Readonly<Record<string, unknown>>;
 }
+export type AgentLifecycleStage = "PLANNING" | "OPERATING" | "VERIFYING";
+
+export interface AgentLifecycleObserver {
+  transition(stage: AgentLifecycleStage, evidence: Readonly<Record<string, unknown>>): Promise<void>;
+}
+export class AgentDeadlineExceededError extends Error {
+  constructor() {
+    super("Agent run deadline has elapsed");
+    this.name = "AGENT_DEADLINE_EXCEEDED";
+  }
+}
+
+
 
 export interface GovernedCodingAgentOptions {
   readonly inference: AgentInference;
@@ -23,6 +36,8 @@ export interface GovernedCodingAgentOptions {
   readonly maxOperatorTurns?: number;
   readonly now?: () => Date;
   readonly runId?: () => string;
+  readonly lifecycle?: AgentLifecycleObserver;
+  readonly deadline?: Date;
 }
 
 export interface GovernedAgentResult {
@@ -50,6 +65,8 @@ export class GovernedCodingAgent {
   readonly #maxOperatorTurns: number;
   readonly #now: () => Date;
   readonly #runId: () => string;
+  readonly #lifecycle?: AgentLifecycleObserver;
+  readonly #deadline?: Date;
   readonly #planner: PlanningRole;
   readonly #corrector: DenialCorrectionRole;
   readonly #narrator: AuditNarrationRole;
@@ -65,6 +82,9 @@ export class GovernedCodingAgent {
     this.#maxOperatorTurns = boundedInteger(options.maxOperatorTurns ?? 24, 1, 64, "maxOperatorTurns");
     this.#now = options.now ?? (() => new Date());
     this.#runId = options.runId ?? randomUUID;
+    this.#lifecycle = options.lifecycle;
+    if (options.deadline && !Number.isFinite(options.deadline.getTime())) throw new TypeError("Agent deadline must be a valid date");
+    this.#deadline = options.deadline;
     this.#planner = new PlanningRole(options.inference);
     this.#corrector = new DenialCorrectionRole(options.inference);
     this.#narrator = new AuditNarrationRole(options.inference);
@@ -78,12 +98,16 @@ export class GovernedCodingAgent {
       timeline.push({ sequence: timeline.length + 1, timestamp: this.#now().toISOString(), category, operation, outcome, evidence });
     };
 
+    this.#assertBeforeDeadline();
     const initialized = await this.#sandbox.initialize();
     record("sandbox", "initializeWorkspace", sandboxOutcome(initialized), sandboxEvidence(initialized));
     if (initialized.exitCode !== 0 || initialized.timedOut) throw new Error("Sandbox workspace initialization did not complete successfully");
+    await this.#lifecycle?.transition("PLANNING", { sandboxOperationId: initialized.operationId, resultImage: initialized.resultImage ?? null });
 
+    this.#assertBeforeDeadline();
     const plan = await this.#planner.plan(task);
     record("model", "plan", "completed", { role: "planner", stepCount: plan.steps.length, riskCount: plan.risks.length });
+    await this.#lifecycle?.transition("OPERATING", { planSteps: plan.steps.length, risks: plan.risks.length });
 
     const governanceDefinitions = await this.#governance.definitions();
     const governanceByModelName = new Map(governanceDefinitions.map((definition) => [definition.name, definition]));
@@ -105,6 +129,7 @@ export class GovernedCodingAgent {
     let summary: string | undefined;
     let toolSequence = 0;
     for (let turn = 1; turn <= this.#maxOperatorTurns; turn += 1) {
+      this.#assertBeforeDeadline();
       const reply = await this.#inference.chat({
         role: "operator",
         messages,
@@ -127,6 +152,7 @@ export class GovernedCodingAgent {
       }
 
       for (const call of calls) {
+        this.#assertBeforeDeadline();
         const args = objectValue(jsonValue(call.function.arguments, `${call.function.name} arguments`), `${call.function.name} arguments`);
         if (call.function.name === finishTool) {
           assertKeys(args, ["summary"], "finish_coding_task arguments");
@@ -141,12 +167,21 @@ export class GovernedCodingAgent {
       if (summary) break;
     }
     if (!summary) throw new Error(`Operator did not finish within ${this.#maxOperatorTurns} turns`);
+    this.#assertBeforeDeadline();
+    await this.#lifecycle?.transition("VERIFYING", { summary });
 
+    this.#assertBeforeDeadline();
     const diff = await this.#sandbox.diff();
+    this.#assertBeforeDeadline();
     record("sandbox", "collectDiff", "completed", { bytes: Buffer.byteLength(diff, "utf8") });
     const narration = await this.#narrator.narrate(timeline);
+    this.#assertBeforeDeadline();
     record("model", "auditNarration", "completed", { role: "narration", evidenceCount: narration.evidence.length });
     return { runId, plan, summary, diff, narration, timeline };
+  }
+
+  #assertBeforeDeadline(): void {
+    if (this.#deadline && this.#now().getTime() >= this.#deadline.getTime()) throw new AgentDeadlineExceededError();
   }
 
   #sandboxTools(): ChatTool[] {
@@ -236,7 +271,7 @@ export class GovernedCodingAgent {
   ): Promise<unknown> {
     if (name === sandboxListFiles) {
       assertKeys(args, ["pathPrefix"], `${name} arguments`);
-      const pathPrefix = optionalString(args.pathPrefix, `${name}.pathPrefix`);
+      const pathPrefix = args.pathPrefix === "" ? undefined : optionalString(args.pathPrefix, `${name}.pathPrefix`);
       const files = await this.#sandbox.listFiles(pathPrefix);
       record("sandbox", "listFiles", "completed", { pathPrefix: pathPrefix ?? null, count: files.length });
       return { files };

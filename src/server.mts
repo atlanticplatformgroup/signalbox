@@ -4,6 +4,9 @@ import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { Pool } from "pg";
 import { createSignalboxBoundary, type SignalboxBoundary } from "./boundary.mjs";
+import { GovernanceBundleCompiler } from "./architecture/bundle-compiler.mjs";
+import { s3ArtifactStoreFromEnvironment } from "./architecture/object-store.mjs";
+import { ArchitectureRepository } from "./architecture/repository.mjs";
 
 async function toRequest(request: IncomingMessage, publicOrigin: string): Promise<Request> {
   const body = request.method === "GET" || request.method === "HEAD"
@@ -51,6 +54,12 @@ export async function startSignalboxServer(): Promise<{ server: Server; pool: Po
   }
 
   const pool = new Pool({ connectionString: databaseUrl });
+  const objectStore = s3ArtifactStoreFromEnvironment();
+  const architecture = new ArchitectureRepository(pool);
+  const bundleCompiler = new GovernanceBundleCompiler({
+    objectStore,
+    ...(process.env.MODELC_PATH ? { compiler: process.env.MODELC_PATH } : {}),
+  });
   const boundary = createSignalboxBoundary({
     pool,
     publicOrigin,
@@ -60,6 +69,11 @@ export async function startSignalboxServer(): Promise<{ server: Server; pool: Po
       ...(process.env.OIDC_ISSUER && process.env.OIDC_AUDIENCE
         ? { oidc: { issuer: process.env.OIDC_ISSUER, audience: process.env.OIDC_AUDIENCE } }
         : {}),
+    },
+    governanceStudio: {
+      repository: architecture,
+      compiler: bundleCompiler,
+      objectStore,
     },
   });
   const server = createSignalboxNodeServer(boundary, publicOrigin);

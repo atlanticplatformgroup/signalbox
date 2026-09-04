@@ -75,7 +75,7 @@ const roleTiers: Readonly<Record<NemotronRole, NemotronTier>> = {
   planner: "ultra",
   operator: "super",
   correction: "nano",
-  narration: "nano",
+  narration: "super",
 };
 
 export class TokenFactoryClient {
@@ -134,8 +134,8 @@ export class TokenFactoryClient {
         model,
         messages: request.messages,
         tools: request.tools,
-        tool_choice: request.toolChoice,
-        max_completion_tokens: request.maxCompletionTokens ?? 4_096,
+        tool_choice: request.toolChoice === "required" ? "auto" : request.toolChoice,
+        max_tokens: request.maxCompletionTokens ?? 4_096,
         temperature: request.temperature ?? 0,
         reasoning_effort: request.reasoningEffort,
         stream: false,
@@ -145,27 +145,39 @@ export class TokenFactoryClient {
   }
 
   async structuredTool(request: StructuredToolRequest): Promise<Record<string, unknown>> {
-    const reply = await this.chat({
-      role: request.role,
-      messages: request.messages,
-      tools: [{
-        type: "function",
-        function: {
-          name: request.name,
-          description: request.description,
-          parameters: request.parameters,
-          strict: true,
-        },
-      }],
-      toolChoice: { type: "function", function: { name: request.name } },
-      maxCompletionTokens: request.maxCompletionTokens,
-      reasoningEffort: request.reasoningEffort,
-    });
-    const calls = reply.message.tool_calls ?? [];
-    if (calls.length !== 1 || calls[0]?.function.name !== request.name) {
-      throw new Error(`Token Factory model did not call required tool '${request.name}' exactly once`);
+    let messages = request.messages;
+    for (let attempt = 1; attempt <= 2; attempt += 1) {
+      const reply = await this.chat({
+        role: request.role,
+        messages,
+        tools: [{
+          type: "function",
+          function: {
+            name: request.name,
+            description: request.description,
+            parameters: request.parameters,
+            strict: true,
+          },
+        }],
+        toolChoice: { type: "function", function: { name: request.name } },
+        maxCompletionTokens: request.maxCompletionTokens,
+        reasoningEffort: request.reasoningEffort,
+      });
+      const calls = reply.message.tool_calls ?? [];
+      let correction = `Call the required '${request.name}' tool exactly once. Return no prose.`;
+      if (calls.length === 1 && calls[0]?.function.name === request.name) {
+        try {
+          return objectValue(jsonValue(calls[0].function.arguments, `${request.name} arguments`), `${request.name} arguments`);
+        } catch (error) {
+          if (attempt === 2) throw error;
+          correction = `Call the required '${request.name}' tool exactly once with complete, valid JSON arguments. Return no prose.`;
+        }
+      } else if (attempt === 2) {
+        throw new Error(`Token Factory model did not call required tool '${request.name}' exactly once`);
+      }
+      messages = [...messages, { role: "user", content: correction }];
     }
-    return objectValue(jsonValue(calls[0].function.arguments, `${request.name} arguments`), `${request.name} arguments`);
+    throw new Error(`Token Factory model did not call required tool '${request.name}' exactly once`);
   }
 
   async #request(path: string, init: RequestInit): Promise<Response> {
@@ -204,13 +216,10 @@ function parseChatReply(value: unknown, requestedModel: string): ChatReply {
   const message = objectValue(choice.message, "Token Factory chat completion.choices[0].message");
   const role = stringValue(message.role, "Token Factory chat completion message.role");
   if (role !== "assistant") throw new Error("Token Factory chat completion message must have assistant role");
-  const content = message.content === null || message.content === undefined
+  const content = message.content === null || message.content === undefined || message.content === ""
     ? null
     : stringValue(message.content, "Token Factory chat completion message.content");
   const calls = message.tool_calls === undefined ? undefined : parseToolCalls(message.tool_calls);
-  if (content === null && (!calls || calls.length === 0)) {
-    throw new Error("Token Factory chat completion returned neither content nor tool calls");
-  }
   const finishReason = choice.finish_reason === null || choice.finish_reason === undefined
     ? null
     : stringValue(choice.finish_reason, "Token Factory chat completion finish_reason");

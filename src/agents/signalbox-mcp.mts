@@ -61,23 +61,28 @@ export interface GovernanceToolPort {
 export interface SignalboxMcpToolsOptions {
   readonly connection: McpToolConnection;
   readonly allowedActions?: readonly string[];
+  readonly executableOperationIds?: readonly string[];
 }
 
 export class SignalboxMcpTools implements GovernanceToolPort {
   readonly #connection: McpToolConnection;
   readonly #allowedActions: ReadonlySet<string>;
+  readonly #executableOperationIds?: ReadonlySet<string>;
   #definitions?: readonly GovernedActionDefinition[];
 
   constructor(options: SignalboxMcpToolsOptions) {
     this.#connection = options.connection;
     this.#allowedActions = new Set(options.allowedActions ?? defaultGovernedActions);
-    if (this.#allowedActions.size === 0) throw new Error("At least one governed Signalbox action is required");
+    this.#executableOperationIds = options.executableOperationIds === undefined
+      ? undefined
+      : new Set(options.executableOperationIds);
   }
 
   static async connect(options: {
     readonly url: string;
     readonly accessToken: string;
     readonly allowedActions?: readonly string[];
+    readonly executableOperationIds?: readonly string[];
   }): Promise<SignalboxMcpTools> {
     if (!options.accessToken) throw new Error("Signalbox MCP access token is required");
     const client = new Client({ name: "signalbox-agent", version: "0.0.1" });
@@ -85,7 +90,11 @@ export class SignalboxMcpTools implements GovernanceToolPort {
       authProvider: { token: async () => options.accessToken },
     });
     await client.connect(transport);
-    return new SignalboxMcpTools({ connection: client, allowedActions: options.allowedActions });
+    return new SignalboxMcpTools({
+      connection: client,
+      allowedActions: options.allowedActions,
+      executableOperationIds: options.executableOperationIds,
+    });
   }
 
   async definitions(): Promise<readonly GovernedActionDefinition[]> {
@@ -93,13 +102,16 @@ export class SignalboxMcpTools implements GovernanceToolPort {
     const response = objectValue(await this.#connection.listTools(), "Signalbox MCP tools response");
     const tools = arrayValue(response.tools, "Signalbox MCP tools response.tools");
     const definitions: GovernedActionDefinition[] = [];
+    const advertisedActions = new Set<string>();
     for (const [index, candidate] of tools.entries()) {
       const tool = objectValue(candidate, `Signalbox MCP tools[${index}]`);
       const title = optionalString(tool.title, `Signalbox MCP tools[${index}].title`);
       if (!title || !this.#allowedActions.has(title)) continue;
+      advertisedActions.add(title);
       const meta = objectValue(tool._meta, `Signalbox MCP tools[${index}]._meta`);
       const operationId = stringValue(meta[operationMetadataKey], `Signalbox MCP tools[${index}] operation ID`);
       if (!operationId.startsWith("action:")) throw new Error(`Signalbox MCP tool '${title}' is not an action`);
+      if (this.#executableOperationIds && !this.#executableOperationIds.has(operationId)) continue;
       definitions.push({
         name: `signalbox_${title}`,
         authoredName: title,
@@ -109,7 +121,7 @@ export class SignalboxMcpTools implements GovernanceToolPort {
         inputSchema: objectValue(tool.inputSchema, `Signalbox MCP tools[${index}].inputSchema`),
       });
     }
-    const missing = [...this.#allowedActions].filter((name) => !definitions.some((definition) => definition.authoredName === name));
+    const missing = [...this.#allowedActions].filter((name) => !advertisedActions.has(name));
     if (missing.length > 0) throw new Error(`Signalbox MCP did not advertise allowed actions: ${missing.join(", ")}`);
     this.#definitions = definitions.sort((left, right) => left.authoredName.localeCompare(right.authoredName));
     return this.#definitions;

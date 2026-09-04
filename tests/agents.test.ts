@@ -80,15 +80,19 @@ describe("Token Factory Nemotron client", () => {
           ],
         });
       }
-      const body = JSON.parse(String(init?.body)) as { model: string; tool_choice: { function: { name: string } } };
+      const body = JSON.parse(String(init?.body)) as {
+        model: string;
+        tool_choice: "auto" | { function: { name: string } };
+      };
+      const toolName = body.tool_choice === "auto" ? "submit" : body.tool_choice.function.name;
       return Response.json({
         model: body.model,
         choices: [{
           finish_reason: "tool_calls",
           message: {
             role: "assistant",
-            content: null,
-            tool_calls: [{ id: "call-1", type: "function", function: { name: body.tool_choice.function.name, arguments: "{\"answer\":\"ok\"}" } }],
+            content: "",
+            tool_calls: [{ id: "call-1", type: "function", function: { name: toolName, arguments: "{\"answer\":\"ok\"}" } }],
           },
         }],
       });
@@ -105,6 +109,7 @@ describe("Token Factory Nemotron client", () => {
       super: "nvidia/nemotron-3-super-dynamic",
       nano: "nvidia/nemotron-3-nano-30b-dynamic",
     });
+    expect(await client.modelFor("narration")).toBe("nvidia/nemotron-3-super-dynamic");
     const result = await client.structuredTool({
       role: "correction",
       name: "submit",
@@ -113,10 +118,89 @@ describe("Token Factory Nemotron client", () => {
       messages: [{ role: "user", content: "choose" }],
     });
     expect(result).toEqual({ answer: "ok" });
-    const chatBody = JSON.parse(String(requests.at(-1)?.init.body)) as { model: string };
+    await client.chat({
+      role: "operator",
+      messages: [{ role: "user", content: "inspect" }],
+      tools: [],
+      toolChoice: "required",
+      maxCompletionTokens: 8_192,
+    });
+    const operatorBody = JSON.parse(String(requests.at(-1)?.init.body)) as Record<string, unknown>;
+    expect(operatorBody.tool_choice).toBe("auto");
+    expect(operatorBody.max_tokens).toBe(8_192);
+    expect(operatorBody).not.toHaveProperty("max_completion_tokens");
+    const chatBody = JSON.parse(String(requests.at(-2)?.init.body)) as { model: string };
     expect(chatBody.model).toBe("nvidia/nemotron-3-nano-30b-dynamic");
     expect(new Headers(requests[0]?.init.headers).get("authorization")).toBe("Bearer test-key");
     expect(requests.at(-1)?.url).toContain("ai_project_id=test-project");
+  });
+
+  it("retries a required structured tool once after malformed JSON arguments", async () => {
+    let completionCount = 0;
+    const fakeFetch = (async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
+      if (String(input).includes("/models?verbose=true")) {
+        return Response.json({
+          data: [
+            { id: "nvidia/nemotron-3-nano", status: "active" },
+            { id: "nvidia/nemotron-3-super", status: "active" },
+            { id: "nvidia/nemotron-3-ultra", status: "active" },
+          ],
+        });
+      }
+      completionCount += 1;
+      if (completionCount === 1) {
+        return Response.json({
+          choices: [{
+            finish_reason: "tool_calls",
+            message: {
+              role: "assistant",
+              content: "",
+              tool_calls: [{
+                id: "call-malformed",
+                type: "function",
+                function: { name: "submit", arguments: "{\"answer\":" },
+              }],
+            },
+          }],
+        });
+      }
+      const body = JSON.parse(String(init?.body)) as {
+        messages: Array<{ role: string; content: string }>;
+        tool_choice: { function: { name: string } };
+      };
+      expect(body.messages.at(-1)?.content).toContain("valid JSON");
+      return Response.json({
+        choices: [{
+          finish_reason: "tool_calls",
+          message: {
+            role: "assistant",
+            content: "",
+            tool_calls: [{
+              id: "call-retry",
+              type: "function",
+              function: { name: body.tool_choice.function.name, arguments: "{\"answer\":\"recovered\"}" },
+            }],
+          },
+        }],
+      });
+    }) as typeof fetch;
+    const client = new TokenFactoryClient({
+      apiKey: "test-key",
+      projectId: "test-project",
+      baseUrl: "http://127.0.0.1:9000/v1",
+      fetch: fakeFetch,
+    });
+
+    const result = await client.structuredTool({
+      role: "narration",
+      name: "submit",
+      description: "submit",
+      parameters: { type: "object" },
+      messages: [{ role: "user", content: "narrate" }],
+    });
+
+    expect(result).toEqual({ answer: "recovered" });
+    expect(completionCount).toBe(2);
   });
 });
 
@@ -166,12 +250,19 @@ describe("Token Factory Sandbox workspace", () => {
       fetch: fakeFetch,
       sleep: async () => {},
     });
+    const operationEvents: string[] = [];
     const workspace = new SandboxWorkspace({
       client,
       baseImage: "tag:node:22",
       repositoryUrl: "https://github.com/example/repository.git",
       revision: "main",
       checks: [{ name: "test", executable: "/usr/bin/npm", args: ["test"] }],
+      initialization: [{ executable: "/usr/bin/npm", args: ["ci"], networking: "DISABLED" }],
+      operationObserver: {
+        started: async (event) => { operationEvents.push(`started:${event.sequence}:${event.operationId}`); },
+        completed: async (event, result) => { operationEvents.push(`completed:${event.sequence}:${result.resultImage}`); },
+        failed: async (event) => { operationEvents.push(`failed:${event.sequence}`); },
+      },
     });
 
     await workspace.initialize();
@@ -186,8 +277,67 @@ describe("Token Factory Sandbox workspace", () => {
     expect((commands[0]?.networking as { enabled: boolean }).enabled).toBe(true);
     expect(commands.slice(1).every((command) => !(command.networking as { enabled: boolean }).enabled)).toBe(true);
     expect(commands[1]?.image).toBe("10000000-0000-4000-8000-000000000001");
+    expect(commands.some((command) => command.command === "/usr/bin/npm" && (command.args as string[])[0] === "ci")).toBe(true);
     const write = commands.find((command) => command.command === "/usr/bin/tee")!;
     expect(Buffer.from((write.stdin as { value: string }).value, "base64").toString("utf8")).toBe("export const value = 2;\n");
+    expect(operationEvents).toHaveLength(commands.length * 2);
+    expect(operationEvents[0]).toBe("started:1:00000000-0000-4000-8000-000000000001");
+    expect(operationEvents[1]).toBe("completed:1:10000000-0000-4000-8000-000000000001");
+  });
+
+  it("uploads and mounts a local repository bundle without network access", async () => {
+    let uploaded = "";
+    let command: Record<string, unknown> | undefined;
+    const operationId = "00000000-0000-4000-8000-000000000001";
+    const resultImage = "10000000-0000-4000-8000-000000000001";
+    const fileUuid = "20000000-0000-4000-8000-000000000001";
+    const fakeFetch = (async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
+      const url = String(input);
+      if (url.endsWith("/files")) {
+        uploaded = await new Response(init?.body).text();
+        return Response.json({ uuid: fileUuid, sha256: "sha256", size: uploaded.length }, { status: 201 });
+      }
+      if (url.endsWith("/instances")) {
+        command = JSON.parse(String(init?.body)) as Record<string, unknown>;
+        return Response.json({ uuid: operationId }, { status: 201 });
+      }
+      return Response.json({
+        uuid: operationId,
+        status: "SUCCESS",
+        result_image_uuid: resultImage,
+        metadata: {
+          result: {
+            state: { exit_code: 0, timed_out: false },
+            stdout: { value: "", encoding: "ascii", truncated: false },
+            stderr: { value: "", encoding: "ascii", truncated: false },
+          },
+        },
+      });
+    }) as typeof fetch;
+    const client = new TokenFactorySandboxClient({
+      apiKey: "sandbox-key",
+      projectId: "project-id",
+      baseUrl: "http://127.0.0.1:9001/sandboxes/v1",
+      fetch: fakeFetch,
+      sleep: async () => {},
+    });
+    const bundleUuid = await client.uploadFile(Buffer.from("git bundle"));
+    const workspace = new SandboxWorkspace({
+      client,
+      baseImage: "tag:node:22",
+      repositoryBundleUuid: bundleUuid,
+      revision: "main",
+      checks: [],
+    });
+
+    await workspace.initialize();
+
+    expect(uploaded).toBe("git bundle");
+    expect(command?.args).toEqual(["clone", "--branch", "main", "--", "/workspace/repository.bundle", "/workspace/repository"]);
+    expect(command?.networking).toEqual({ enabled: false });
+    expect(command?.files).toEqual({
+      "/workspace/repository.bundle": { uuid: fileUuid, mode: "0400" },
+    });
   });
 });
 
@@ -211,6 +361,22 @@ describe("Signalbox governed MCP tools", () => {
       expect(result.denial.decisionEvidence.model).toMatchObject({ version: "0.52.0", sourceHash: "sha256:test" });
     }
     expect(connection.calls.map((call) => call.name)).toEqual(["modellang_public_decision_trace"]);
+  });
+
+  it("advertises only operations in the prepared capability closure", async () => {
+    const tools = new SignalboxMcpTools({
+      connection: new FakeGovernanceConnection(),
+      allowedActions: ["requestPullRequest", "requestProductionDeployment", "requestStagingDeployment"],
+      executableOperationIds: [pullRequestOperation],
+    });
+    expect(await tools.definitions()).toEqual([
+      expect.objectContaining({ authoredName: "requestPullRequest", operationId: pullRequestOperation }),
+    ]);
+    expect((await tools.modelTools()).map((tool) => tool.function.name)).toEqual(["signalbox_requestPullRequest"]);
+    await expect(tools.invoke("requestProductionDeployment", {}, {
+      idempotencyKey: "agent:run:2",
+      correlationId: "agent:run",
+    })).rejects.toThrow("not allowed");
   });
 });
 
@@ -330,7 +496,7 @@ class ScriptedInference implements AgentInference {
     this.roles.push(request.role);
     this.#operatorTurn += 1;
     const scripts: ReadonlyArray<{ name: string; arguments: Record<string, unknown> }> = [
-      { name: "sandbox_list_files", arguments: {} },
+      { name: "sandbox_list_files", arguments: { pathPrefix: "" } },
       { name: "sandbox_read_file", arguments: { path: "src/index.ts" } },
       { name: "sandbox_write_file", arguments: { path: "src/index.ts", content: "export const fixed = true;\n" } },
       { name: "sandbox_run_check", arguments: { name: "test" } },
