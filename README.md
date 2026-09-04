@@ -88,9 +88,15 @@ npm run agent
 
 ## Verify
 
-Tests use a live PostgreSQL 16 instance. With PostgreSQL available at the connection configured by the test environment:
+Tests use PostgreSQL 16 directly. Start the expected local container, then run:
 
 ```bash
+docker run -d --name sb-pg16 \
+  -e POSTGRES_USER=nebius_admin \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=sb_managed \
+  -p 55433:5432 postgres:16
+
 npm test
 npm run verify
 ```
