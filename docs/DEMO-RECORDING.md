@@ -35,3 +35,7 @@ The original model-generated narration says approval was pending. That is unsupp
 2:20–2:40 — Close on the result. “Signalbox gives agents a constrained way to act without handing them downstream credentials. The decision and the effect remain inspectable.”
 
 Record existing evidence as a walkthrough; do not fabricate terminal output or imply that prerecorded evidence is a new live inference call. Publication or upload is a separate step.
+
+## Hosted follow-up
+
+The application and worker have since been deployed and verified. [Hosted evidence](HOSTED-RELEASE-EVIDENCE.json) records a fresh staging transaction and matching public artifact, with no new model or Sandbox calls. The existing video still describes the local run; it is now also served at `/demo/recording/signalbox-evidence-walkthrough.mp4`.

@@ -15,7 +15,7 @@ Governance Studio opens on recorded actions and their policy versions. An admini
 
 Decisions and model transactions are distinct from external effects. The activity view shows a worker's recorded status and external reference when available. Idempotency and connector recovery reduce duplicate effects; this is not a universal exactly-once guarantee for arbitrary external APIs.
 
-The isolated local demonstration verified a real agent production denial, a continued Nano staging correction, and a worker filesystem effect. See the [evidence](docs/RECOVERY-EVIDENCE.json) and [submission draft](docs/SUBMISSION.md). The [hosted instance](https://143-198-185-50.sslip.io/studio/) has not yet received these changes. See [release evidence](docs/RECOVERY-EVIDENCE.json) for the verified checkpoint.
+The isolated local demonstration verified a real agent production denial, a continued Nano staging correction, and a worker filesystem effect. See the [evidence](docs/RECOVERY-EVIDENCE.json) and [submission draft](docs/SUBMISSION.md). The [hosted instance](https://143-198-185-50.sslip.io/studio/) now runs these changes. A fresh hosted staging transaction published the same verified artifact; see [hosted release evidence](docs/HOSTED-RELEASE-EVIDENCE.json). See [release evidence](docs/RECOVERY-EVIDENCE.json) for the verified checkpoint.
 
 ## Nebius and NVIDIA
 
@@ -50,6 +50,7 @@ Configure the server:
 
 ```bash
 export DATABASE_URL=postgresql://...
+export SIGNALBOX_POLICY_DATABASE_URL=postgresql://...
 export PUBLIC_ORIGIN=http://127.0.0.1:4310
 export SIGNALBOX_OBJECT_BUCKET=signalbox
 export SIGNALBOX_OBJECT_REGION=auto

@@ -35,12 +35,11 @@
     "fullSuitePassed": 77,
     "affectedSuitesPassedAfterEvidenceChange": 17
   },
-  "remaining": [
-    "Hosted deployment and publication require a separate release step."
-  ],
+  "remaining": [],
   "artifact": {
     "requestId": "92ad7a9c-622b-4b3a-946e-eec8bee29040",
     "executionId": "52ef4a98-122b-4abc-ac86-a3af010bea77",
     "artifactSha256": "sha256:23c86238ff779a959a572ee024f15463e501052d6ef034d2d8ca160deac14b90"
-  }
+  },
+  "subsequentHostedVerification": "HOSTED-RELEASE-EVIDENCE.json"
 }
