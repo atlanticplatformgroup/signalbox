@@ -25,7 +25,8 @@
     "@modelcontextprotocol/client": "^2.0.0",
     "@modelcontextprotocol/server": "^2.0.0",
     "jose": "^6.2.10",
-    "pg": "^8.23.0"
+    "pg": "^8.23.0",
+    "pgsql-parser": "^18.2.6"
   },
   "devDependencies": {
     "@atlanticplatformgroup/modellang": "0.51.0",

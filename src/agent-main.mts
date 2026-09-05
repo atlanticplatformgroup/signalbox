@@ -22,6 +22,13 @@ if (manifest.pins.signalboxRuntime.version !== "0.0.1") {
 const apiKey = requiredEnvironment("NEBIUS_API_KEY");
 const projectId = requiredEnvironment("NEBIUS_AI_PROJECT");
 const pool = new Pool({ connectionString: requiredEnvironment("DATABASE_URL") });
+try {
+  const baseline = JSON.parse(await readFile("generated/signalbox/model.ir.json", "utf8"));
+  await pool.query("SELECT signalbox_architecture.assert_policy_runtime($1)", [baseline.model.sourceHash]);
+} catch (error) {
+  await pool.end();
+  throw error;
+}
 const objectStore = s3ArtifactStoreFromEnvironment();
 const repository = new ArchitectureRepository(pool);
 const bundleRecord = await repository.governanceBundle(manifest.orgId, manifest.pins.governanceBundle.id);

@@ -1,29 +1,21 @@
 # Signalbox
 
-Signalbox is a control plane for AI agents that take real actions. Agents receive only the operations they are authorized to use—not raw credentials—and every request, decision, approval, execution, and result is recorded.
+Signalbox puts an independently enforced boundary between an AI agent and the systems it acts on. An agent proposes an action; Signalbox checks the current policy, returns a structured decision, and lets a worker execute authorized requests through controlled connectors.
 
-Governance rules are written once in [ModelLang](https://github.com/atlanticplatformgroup/ModelLang) and compiled into the PostgreSQL authorization boundary and the MCP tools exposed to agents. A denied action returns a structured reason, allowing an agent to request approval, choose a permitted resource, or stop safely.
+Agents hold scoped Signalbox tokens rather than downstream connector credentials. Their tool catalog is constrained, and each invocation is assessed against its actual input. A denial lets the host and agent choose a permitted alternative or stop for human review; it never grants additional authority.
 
-```modellang
-policy ApiDelegation(actor: Agent, resource: ApiResource) {
-  allow active_nonproduction_agent: actor.active and not resource.production;
-}
-
-action callApi(caller actor: Agent, resource: ApiResource) -> ApiRequest {
-  authorize ApiDelegation(actor, resource);
-  idempotency required;
-  create ApiRequest { resource = resource; requestedBy = actor; }
-}
-```
+Governance Studio opens on recorded actions and their policy versions. An administrator can inspect, compile, activate, and roll back additional restrictions on Signalbox's existing operations. [ModelLang](https://github.com/atlanticplatformgroup/ModelLang) declares those rules and generates the PostgreSQL authorization boundary. Tenant isolation and baseline safety rules remain mandatory.
 
 ## How it works
 
-1. A human defines and activates a versioned ModelLang policy in Governance Studio.
+1. An authorized human administrator activates a versioned policy in Governance Studio. Permission to approve an action is separate from permission to publish policy.
 2. Signalbox stores the source and compiled governance bundle as content-addressed objects, with PostgreSQL as the transactional authority.
-3. An agent connects over MCP and sees only its currently authorized operations.
-4. A worker executes approved requests through controlled connectors for GitHub, static-site deployment, and PostgreSQL migrations.
+3. An agent connects over MCP. Every invocation checks the current active policy, including requests from agents that started before a policy change.
+4. A worker executes authorized requests through controlled connectors for GitHub, static-site deployment, and PostgreSQL migrations. Stale queued work is rejected; publication waits while a worker holds the policy lock during an effect.
 
-The hosted demo is available at [143-198-185-50.sslip.io/studio](https://143-198-185-50.sslip.io/studio/). A reviewer credential is provided with the submission.
+Decisions and model transactions are distinct from external effects. The activity view shows a worker's recorded status and external reference when available. Idempotency and connector recovery reduce duplicate effects; this is not a universal exactly-once guarantee for arbitrary external APIs.
+
+The isolated local demonstration verified a real agent production denial, a continued Nano staging correction, and a worker filesystem effect. See the [evidence](docs/RECOVERY-EVIDENCE.json) and [submission draft](docs/SUBMISSION.md). The [hosted instance](https://143-198-185-50.sslip.io/studio/) has not yet received these changes. See [release evidence](docs/RECOVERY-EVIDENCE.json) for the verified checkpoint.
 
 ## Nebius and NVIDIA
 

@@ -343,7 +343,9 @@ export class SandboxWorkspace implements SandboxWorkspacePort {
   }
 
   async diff(): Promise<string> {
-    const result = await this.#runInRepository(this.#gitExecutable, ["diff", "--no-ext-diff", "--binary", "--"], undefined, 30);
+    const indexed = await this.#runInRepository(this.#gitExecutable, ["add", "--intent-to-add", "--all", "--"], undefined, 30);
+    if (indexed.exitCode !== 0 || indexed.timedOut) throw new Error(`Sandbox git indexing failed: ${indexed.stderr || indexed.stdout}`);
+    const result = await this.#runInRepository(this.#gitExecutable, ["diff", "--no-ext-diff", "--binary", "HEAD", "--"], undefined, 30);
     if (result.exitCode !== 0) throw new Error(`Sandbox git diff failed: ${result.stderr || result.stdout}`);
     if (result.stdoutTruncated) throw new Error("Sandbox git diff exceeded the output limit");
     return result.stdout;

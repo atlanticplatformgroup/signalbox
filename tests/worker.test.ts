@@ -263,6 +263,52 @@ describe.sequential("Phase 3 connector execution", () => {
     expect(ownerSql(`SELECT status FROM model_signalbox.execution WHERE id='${executionId}';`)).toBe("SUCCEEDED");
   });
 
+  it("recovers instead of repeating an effect when its ledger transaction fails", async () => {
+    const { executionId } = await dispatchIssue();
+    await targetPool.query("CREATE TABLE public.remote_effect(id serial PRIMARY KEY, execution_id uuid NOT NULL)");
+    const connector: ExecutionConnector = {
+      kind: "GITHUB",
+      async execute(claim) {
+        const result = await targetPool.query<{ id: number }>(
+          "INSERT INTO public.remote_effect(execution_id) VALUES ($1) RETURNING id",
+          [claim.executionId],
+        );
+        return `effect:${result.rows[0]!.id}`;
+      },
+      async recover(claim) {
+        const result = await targetPool.query<{ id: number }>(
+          "SELECT id FROM public.remote_effect WHERE execution_id=$1 ORDER BY id LIMIT 1",
+          [claim.executionId],
+        );
+        return result.rows[0] ? `effect:${result.rows[0].id}` : undefined;
+      },
+    };
+    const runner = worker(new Map([[CONNECTOR_GITHUB, connector]]), "worker-ledger-gap");
+    ownerSql(`
+      CREATE FUNCTION model_signalbox_worker.reject_effect_record() RETURNS trigger
+      LANGUAGE plpgsql AS $body$ BEGIN RAISE EXCEPTION 'ledger unavailable'; END $body$;
+      CREATE TRIGGER reject_effect_record BEFORE UPDATE OF effect_reference
+      ON model_signalbox_worker.execution_claim FOR EACH ROW
+      EXECUTE FUNCTION model_signalbox_worker.reject_effect_record();
+    `);
+    try {
+      await runner.runOnce();
+      expect((await targetPool.query("SELECT count(*)::int AS count FROM public.remote_effect")).rows[0]?.count).toBe(1);
+      expect(ownerSql(`SELECT last_error_code || ':' || COALESCE(effect_reference, 'none')
+        FROM model_signalbox_worker.execution_claim WHERE execution_id='${executionId}';`)).toBe("RECOVERY_REQUIRED:none");
+      expect(ownerSql(`SELECT status FROM model_signalbox.execution WHERE id='${executionId}';`)).toBe("PENDING");
+    } finally {
+      ownerSql(`
+        DROP TRIGGER reject_effect_record ON model_signalbox_worker.execution_claim;
+        DROP FUNCTION model_signalbox_worker.reject_effect_record();
+      `);
+    }
+    ownerSql(`UPDATE model_signalbox_worker.execution_claim SET leased_until=now(), next_attempt_at=now() WHERE execution_id='${executionId}';`);
+    await runner.runOnce();
+    expect((await targetPool.query("SELECT count(*)::int AS count FROM public.remote_effect")).rows[0]?.count).toBe(1);
+    expect(ownerSql(`SELECT status || ':' || external_reference FROM model_signalbox.execution WHERE id='${executionId}';`)).toBe("SUCCEEDED:effect:1");
+  });
+
   it("publishes a static release atomically and completes the deployment", async () => {
     const root = await mkdtemp(join(tmpdir(), "signalbox-static-"));
     temporaryDirectories.push(root);

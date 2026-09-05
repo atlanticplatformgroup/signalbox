@@ -1,0 +1,11 @@
+file '01-actions.png'
+duration 15
+file '04-denial.png'
+duration 19
+file '02-policy.png'
+duration 16
+file '01-actions.png'
+duration 20
+file '03-artifact.png'
+duration 10
+file '03-artifact.png'

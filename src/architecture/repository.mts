@@ -1,14 +1,16 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import type { Pool, PoolClient } from "pg";
 import type { CompiledGovernanceBundle } from "./bundle-compiler.mjs";
 import {
+  governanceBundleFormat,
+  sha256Json,
   withExecutionProfileHash,
   type CapabilityBindingState,
   type GovernanceBundle,
   type RunManifest,
   type VersionedExecutionProfile,
 } from "./contracts.mjs";
-import type { ArtifactKind, StoredObject } from "./object-store.mjs";
+import type { ArtifactKind, ObjectArtifactStore, StoredObject } from "./object-store.mjs";
 
 export type RunState =
   | "QUEUED"
@@ -42,6 +44,8 @@ export interface GovernanceBundleRecord {
   readonly status: "COMPILED" | "ACTIVE" | "RETIRED";
   readonly model: GovernanceBundle["model"];
   readonly bundleHash: string;
+  readonly compilerVersion: string;
+  readonly runtimeCompatibility: string;
   readonly sourceObjectKey: string;
   readonly bundleObjectKey: string;
   readonly previousBundleId: string | null;
@@ -85,17 +89,21 @@ const transitions: Readonly<Record<RunState, ReadonlySet<RunState>>> = {
 export class ArchitectureRepository {
   constructor(private readonly pool: Pool) {}
 
+  async canAdministerGovernance(orgId: string, principalId: string): Promise<boolean> {
+    const result = await this.pool.query<{ allowed: boolean }>(
+      "SELECT signalbox_architecture.can_administer_governance($1,$2) AS allowed",
+      [orgId, principalId],
+    );
+    return result.rows[0]?.allowed === true;
+  }
+
   async saveCompiledBundle(orgId: string, createdBy: string, compiled: CompiledGovernanceBundle): Promise<string> {
     return this.#transaction(async (client) => {
+      await client.query("SELECT signalbox_architecture.assert_governance_admin($1,$2)", [orgId, createdBy]);
       const sourceArtifactId = await this.#saveArtifact(client, orgId, "MODEL_SOURCE", compiled.sourceObject);
       const bundleArtifactId = await this.#saveArtifact(client, orgId, "GOVERNANCE_BUNDLE", compiled.bundleObject);
       const result = await client.query<{ id: string }>(
-        `INSERT INTO signalbox_architecture.governance_bundle (
-          id, org_id, model_name, model_version, source_hash, bundle_hash, compiler_version,
-          runtime_compatibility, source_artifact_id, bundle_artifact_id, operation_ids, status, created_by
-        ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,'COMPILED',$12)
-        ON CONFLICT (org_id, source_hash) DO UPDATE SET source_hash = EXCLUDED.source_hash
-        RETURNING id`,
+        "SELECT signalbox_architecture.save_compiled_bundle($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,$12) AS id",
         [compiled.id, orgId, compiled.bundle.model.name, compiled.bundle.model.version, compiled.bundle.model.sourceHash,
           compiled.bundle.bundleHash, compiled.bundle.compilerVersion, compiled.bundle.runtimeCompatibility,
           sourceArtifactId, bundleArtifactId, JSON.stringify(compiled.bundle.operations.map((operation) => operation.operationId)), createdBy],
@@ -104,38 +112,37 @@ export class ArchitectureRepository {
     });
   }
 
-  async activateBundle(orgId: string, bundleId: string, activatedBy: string): Promise<{ id: string; previousBundleId: string | null }> {
+  async activateBundle(
+    orgId: string,
+    bundleId: string,
+    activatedBy: string,
+    objectStore: ObjectArtifactStore,
+  ): Promise<{ id: string; previousBundleId: string | null }> {
     return this.#transaction(async (client) => {
-      const candidate = await client.query<{ id: string; status: string }>(
-        "SELECT id, status FROM signalbox_architecture.governance_bundle WHERE org_id=$1 AND id=$2 FOR UPDATE",
-        [orgId, bundleId],
+      await client.query("SELECT pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended($1::uuid::text,0))", [orgId]);
+      await client.query("SELECT signalbox_architecture.assert_governance_admin($1,$2)", [orgId, activatedBy]);
+      const candidate = await this.#governanceBundle(client, orgId, bundleId);
+      if (!candidate) throw new Error("Governance bundle does not exist");
+      await verifyGovernanceBundleArtifacts(candidate, objectStore);
+      const result = await client.query<{ id: string; previous_bundle_id: string | null }>(
+        "SELECT * FROM signalbox_architecture.activate_bundle($1,$2,$3,$4,$5)",
+        [orgId, bundleId, activatedBy, candidate.bundleHash, candidate.model.sourceHash],
       );
-      if (!candidate.rows[0]) throw new Error("Governance bundle does not exist");
-      const current = await client.query<{ id: string }>(
-        "SELECT id FROM signalbox_architecture.governance_bundle WHERE org_id=$1 AND status='ACTIVE' FOR UPDATE",
-        [orgId],
-      );
-      const previousBundleId = current.rows[0]?.id ?? null;
-      if (previousBundleId === bundleId) return { id: bundleId, previousBundleId: null };
-      if (previousBundleId) {
-        await client.query("UPDATE signalbox_architecture.governance_bundle SET status='RETIRED' WHERE org_id=$1 AND id=$2", [orgId, previousBundleId]);
-      }
-      await client.query(
-        `UPDATE signalbox_architecture.governance_bundle
-         SET status='ACTIVE',previous_bundle_id=$3,activated_by=$4,activated_at=transaction_timestamp()
-         WHERE org_id=$1 AND id=$2`,
-        [orgId, bundleId, previousBundleId, activatedBy],
-      );
-      return { id: bundleId, previousBundleId };
+      const active = result.rows[0]!;
+      return { id: active.id, previousBundleId: active.previous_bundle_id };
     });
   }
 
   async governanceBundle(orgId: string, bundleId: string): Promise<GovernanceBundleRecord | null> {
-    const result = await this.pool.query<Record<string, unknown>>(
+    return this.#governanceBundle(this.pool, orgId, bundleId);
+  }
+
+  async #governanceBundle(client: Pick<PoolClient, "query">, orgId: string, bundleId: string): Promise<GovernanceBundleRecord | null> {
+    const result = await client.query<Record<string, unknown>>(
       `SELECT bundle.*,source.object_key AS source_object_key,artifact.object_key AS bundle_object_key
        FROM signalbox_architecture.governance_bundle bundle
-       JOIN signalbox_architecture.object_artifact source ON source.id=bundle.source_artifact_id
-       JOIN signalbox_architecture.object_artifact artifact ON artifact.id=bundle.bundle_artifact_id
+       JOIN signalbox_architecture.object_artifact source ON source.id=bundle.source_artifact_id AND source.org_id=bundle.org_id
+       JOIN signalbox_architecture.object_artifact artifact ON artifact.id=bundle.bundle_artifact_id AND artifact.org_id=bundle.org_id
        WHERE bundle.org_id=$1 AND bundle.id=$2`,
       [orgId, bundleId],
     );
@@ -146,8 +153,8 @@ export class ArchitectureRepository {
     const result = await this.pool.query<Record<string, unknown>>(
       `SELECT bundle.*,source.object_key AS source_object_key,artifact.object_key AS bundle_object_key
        FROM signalbox_architecture.governance_bundle bundle
-       JOIN signalbox_architecture.object_artifact source ON source.id=bundle.source_artifact_id
-       JOIN signalbox_architecture.object_artifact artifact ON artifact.id=bundle.bundle_artifact_id
+       JOIN signalbox_architecture.object_artifact source ON source.id=bundle.source_artifact_id AND source.org_id=bundle.org_id
+       JOIN signalbox_architecture.object_artifact artifact ON artifact.id=bundle.bundle_artifact_id AND artifact.org_id=bundle.org_id
        WHERE bundle.org_id=$1 AND bundle.status='ACTIVE'`,
       [orgId],
     );
@@ -441,11 +448,18 @@ export class ArchitectureRepository {
       `INSERT INTO signalbox_architecture.object_artifact
         (id,org_id,kind,object_key,sha256,size_bytes,content_type)
        VALUES ($1,$2,$3,$4,$5,$6,$7)
-       ON CONFLICT (org_id,kind,sha256) DO UPDATE SET object_key=EXCLUDED.object_key
+       ON CONFLICT (org_id,kind,sha256) DO NOTHING
        RETURNING id`,
       [id, orgId, kind, object.key, object.sha256, object.sizeBytes, object.contentType],
     );
-    return result.rows[0]!.id;
+    if (result.rows[0]) return result.rows[0].id;
+    const existing = await client.query<{ id: string }>(
+      `SELECT id FROM signalbox_architecture.object_artifact
+       WHERE org_id=$1 AND kind=$2 AND sha256=$3 AND object_key=$4 AND size_bytes=$5 AND content_type=$6`,
+      [orgId, kind, object.sha256, object.key, object.sizeBytes, object.contentType],
+    );
+    if (!existing.rows[0]) throw new Error("Artifact metadata conflicts with an immutable stored object");
+    return existing.rows[0].id;
   }
 
 
@@ -458,6 +472,10 @@ export class ArchitectureRepository {
       return result;
     } catch (error) {
       await client.query("ROLLBACK");
+      if (error instanceof Error && "code" in error
+        && error.code === "42501" && error.message === "SB_GOVERNANCE_ADMIN_REQUIRED") {
+        throw new GovernanceAdministrationError();
+      }
       throw error;
     } finally {
       client.release();
@@ -494,6 +512,8 @@ function governanceBundleRecord(row: Record<string, unknown>): GovernanceBundleR
       version: String(row.model_version),
       sourceHash: String(row.source_hash),
     },
+    compilerVersion: String(row.compiler_version),
+    runtimeCompatibility: String(row.runtime_compatibility),
     bundleHash: String(row.bundle_hash),
     sourceObjectKey: String(row.source_object_key),
     bundleObjectKey: String(row.bundle_object_key),
@@ -503,4 +523,36 @@ function governanceBundleRecord(row: Record<string, unknown>): GovernanceBundleR
     activatedBy: row.activated_by === null ? null : String(row.activated_by),
     activatedAt: timestamp(row.activated_at),
   };
+}
+
+export class GovernanceAdministrationError extends Error {
+  readonly code = "SB_GOVERNANCE_ADMIN_REQUIRED";
+
+  constructor() {
+    super("Governance changes require a current active human administrator in this organization.");
+  }
+}
+
+export async function verifyGovernanceBundleArtifacts(
+  record: GovernanceBundleRecord,
+  objectStore: ObjectArtifactStore,
+): Promise<GovernanceBundle> {
+  const [source, bundleBytes] = await Promise.all([
+    objectStore.get(record.sourceObjectKey),
+    objectStore.get(record.bundleObjectKey),
+  ]);
+  const sourceHash = `sha256:${createHash("sha256").update(source).digest("hex")}`;
+  const value = JSON.parse(new TextDecoder().decode(bundleBytes)) as GovernanceBundle;
+  const { bundleHash, ...unsigned } = value;
+  if (sourceHash !== record.model.sourceHash
+    || bundleHash !== record.bundleHash
+    || sha256Json(unsigned) !== record.bundleHash
+    || sha256Json(value.model) !== sha256Json(record.model)
+    || value.compilerVersion !== record.compilerVersion
+    || value.runtimeCompatibility !== record.runtimeCompatibility
+    || value.format !== governanceBundleFormat
+    || value.runtimeCompatibility !== "signalbox-governance-runtime/2") {
+    throw new Error("Stored governance artifacts do not match compatible immutable database metadata");
+  }
+  return value;
 }

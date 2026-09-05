@@ -7,20 +7,20 @@
   <link rel="stylesheet" href="/studio/studio.css">
 </head>
 <body>
-  <a class="skip" href="#workspace">Skip to editor</a>
+  <a class="skip" href="#activity">Skip to governed actions</a>
   <header class="topbar">
     <a class="brand" href="/studio/" aria-label="Signalbox home"><span class="brand-mark">S/B</span><span>Signalbox</span></a>
-    <div class="route"><span class="route-dot"></span> Governance Studio <span class="branch">customer/main</span></div>
+    <nav class="route" aria-label="Studio views"><button class="button view-button" id="show-actions" aria-pressed="true">Governed actions</button><button class="button view-button" id="show-policy" aria-pressed="false">Policy editor</button></nav>
     <div class="top-actions"><span id="save-state">Saved locally</span><button class="button quiet" id="configure-token">Access token</button></div>
   </header>
 
-  <main id="workspace" class="workspace">
+  <main id="workspace" class="workspace" data-mode="activity">
 
     <section class="editor-shell" data-view="model">
       <div class="editor-toolbar">
-        <div class="document-title"><p class="eyebrow">Model source</p><strong>customer.model</strong><span id="document-state" class="state-badge">Draft</span></div>
+        <div class="document-title"><p class="eyebrow">Policy source</p><strong>signalbox.model</strong><span id="document-state" class="state-badge">Draft</span></div>
         <div class="toolbar-actions">
-          <select id="template" aria-label="Create a new model"><option value="" selected>New model…</option><option value="blank">Blank model</option><option value="github">GitHub governance</option><option value="api">Governed API</option><option value="database">Governed database</option></select>
+          <button class="button quiet" id="reset-baseline" hidden>Reset to deployed baseline</button>
           <span class="toolbar-divider" aria-hidden="true"></span>
           <button class="button quiet" id="format">Format</button>
           <button class="button primary" id="validate">Validate</button>
@@ -29,25 +29,38 @@
       </div>
       <div class="editor-wrap">
         <pre id="highlight" aria-hidden="true"></pre>
-        <textarea id="source" spellcheck="false" aria-label="ModelLang source editor"></textarea>
+        <textarea id="source" spellcheck="false" aria-label="Signalbox policy source editor" aria-describedby="policy-scope" disabled></textarea>
       </div>
       <footer class="statusbar"><span id="cursor">Ln 1, Col 1</span><span>ModelLang</span><span>UTF-8</span><span id="validation-state" class="status-idle">Validation not run</span></footer>
     </section>
 
-    <aside class="inspector" aria-label="Model inspection">
+    <aside class="inspector" aria-label="Policy inspection">
       <div class="inspector-tabs"><button class="active" data-tab="structure">Structure</button><button data-tab="diagnostics">Diagnostics <span id="diagnostic-count">—</span></button><button class="inspector-close" id="toggle-inspector" aria-label="Collapse inspector" title="Collapse inspector">×</button></div>
       <div id="structure" class="tab-panel active">
         <div class="metric"><span>Governed surface</span><strong id="surface-count">—</strong></div>
-        <div id="preview-groups" class="preview-groups empty-state"><p>Validate this model to inspect resources, operations, approval boundaries, and generated tools.</p><button class="text-button" id="validate-empty">Run validation</button></div>
+        <p id="policy-scope" class="policy-scope">Edit policies for Signalbox’s fixed actions. Tenant isolation and baseline safety remain enforced.</p>
+        <div id="preview-groups" class="preview-groups empty-state"><p>Validate to inspect the governed surface and approval boundaries.</p></div>
+        <button class="text-button" id="validate-empty">Run validation</button>
       </div>
       <div id="diagnostics" class="tab-panel"><ol id="diagnostic-list" class="diagnostics"><li class="empty">Validation has not run.</li></ol></div>
       <div class="activation">
-        <div class="version-block"><p class="eyebrow">Active version</p><strong id="active-version">No active model</strong><code id="active-hash">Activate a compiled candidate to publish it.</code></div>
+        <div class="version-block"><p class="eyebrow">Active policy version</p><strong id="active-version">No active policy</strong><code id="active-hash">Load your tenant’s active policy.</code></div>
         <div id="candidate-state" class="candidate-state"><span>Candidate</span><strong>Not compiled</strong><small>Validate first, then compile an isolated candidate.</small></div>
+        <p id="governance-permission" class="permission-note" role="status">Checking publication permissions…</p>
         <button class="button activate" id="activate" disabled>Activate candidate</button>
         <button class="text-button" id="rollback" disabled>Rollback prior version</button>
       </div>
     </aside>
+
+    <section id="activity" class="activity" aria-labelledby="activity-title" aria-busy="false">
+      <header class="activity-header">
+        <div><p class="eyebrow">Live tenant evidence</p><h2 id="activity-title">Governed action activity</h2></div>
+        <button class="button quiet" id="refresh-activity">Refresh activity</button>
+      </header>
+      <p class="activity-explainer">Follow each action from its authorization decision to its recorded result. Open the policy editor to inspect the rules behind a decision.</p>
+      <p id="activity-status" class="activity-status" role="status" aria-live="polite">Connect to load recorded activity.</p>
+      <ol id="activity-list" class="activity-list" aria-label="Recorded governed actions"></ol>
+    </section>
   </main>
 
   <dialog id="token-dialog"><form method="dialog"><p class="eyebrow">Human authorization</p><h2>Connect to Signalbox</h2><p>The token stays in this browser session and is sent only to this origin.</p><label>Bearer token<input id="token" type="password" autocomplete="off"></label><div class="dialog-actions"><button class="button quiet" value="cancel">Cancel</button><button class="button primary" id="save-token" value="default">Use token</button></div></form></dialog>

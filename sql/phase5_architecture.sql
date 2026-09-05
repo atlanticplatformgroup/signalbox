@@ -151,7 +151,136 @@ CREATE TABLE IF NOT EXISTS signalbox_architecture.run_artifact (
   PRIMARY KEY (run_id, kind, sequence)
 );
 
+-- Governance writes use current kernel roles, never action-approval authority.
+CREATE OR REPLACE FUNCTION signalbox_architecture.can_administer_governance(p_org_id uuid, p_principal_id uuid)
+RETURNS boolean
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, pg_temp
+AS $signalbox$
+BEGIN
+  PERFORM model_signalbox_auth.assert_gateway();
+  RETURN EXISTS (
+    SELECT 1 FROM model_signalbox.principal
+    WHERE id = p_principal_id AND org_id = p_org_id
+      AND kind = 'HUMAN' AND status = 'ACTIVE' AND 'ADMIN' = ANY(roles)
+  );
+END
+$signalbox$;
+
+CREATE OR REPLACE FUNCTION signalbox_architecture.assert_governance_admin(p_org_id uuid, p_principal_id uuid)
+RETURNS void
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, pg_temp
+AS $signalbox$
+BEGIN
+  PERFORM model_signalbox_auth.assert_gateway();
+  -- Hold permission until commit, serializing concurrent role/status revocation.
+  PERFORM 1 FROM model_signalbox.principal
+  WHERE id = p_principal_id AND org_id = p_org_id
+    AND kind = 'HUMAN' AND status = 'ACTIVE' AND 'ADMIN' = ANY(roles)
+  FOR SHARE;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = '42501', MESSAGE = 'SB_GOVERNANCE_ADMIN_REQUIRED';
+  END IF;
+END
+$signalbox$;
+
+CREATE OR REPLACE FUNCTION signalbox_architecture.save_compiled_bundle(
+  p_id uuid, p_org_id uuid, p_model_name text, p_model_version text,
+  p_source_hash text, p_bundle_hash text, p_compiler_version text, p_runtime_compatibility text,
+  p_source_artifact_id uuid, p_bundle_artifact_id uuid, p_operation_ids jsonb, p_created_by uuid
+)
+RETURNS uuid
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, pg_temp
+AS $signalbox$
+DECLARE
+  v_id uuid;
+BEGIN
+  PERFORM signalbox_architecture.assert_governance_admin(p_org_id, p_created_by);
+  IF NOT EXISTS (
+    SELECT 1 FROM signalbox_architecture.object_artifact
+    WHERE id = p_source_artifact_id AND org_id = p_org_id AND kind = 'MODEL_SOURCE' AND sha256 = p_source_hash
+  ) OR NOT EXISTS (
+    SELECT 1 FROM signalbox_architecture.object_artifact
+    WHERE id = p_bundle_artifact_id AND org_id = p_org_id AND kind = 'GOVERNANCE_BUNDLE'
+  ) THEN
+    RAISE EXCEPTION USING ERRCODE = '23514', MESSAGE = 'SB_GOVERNANCE_ARTIFACT_MISMATCH';
+  END IF;
+  INSERT INTO signalbox_architecture.governance_bundle (
+    id, org_id, model_name, model_version, source_hash, bundle_hash, compiler_version,
+    runtime_compatibility, source_artifact_id, bundle_artifact_id, operation_ids, status, created_by
+  ) VALUES (
+    p_id, p_org_id, p_model_name, p_model_version, p_source_hash, p_bundle_hash, p_compiler_version,
+    p_runtime_compatibility, p_source_artifact_id, p_bundle_artifact_id, p_operation_ids, 'COMPILED', p_created_by
+  )
+  ON CONFLICT (org_id, source_hash) DO NOTHING
+  RETURNING id INTO v_id;
+  IF v_id IS NULL THEN
+    SELECT id INTO v_id FROM signalbox_architecture.governance_bundle
+    WHERE org_id = p_org_id AND source_hash = p_source_hash AND bundle_hash = p_bundle_hash
+      AND compiler_version = p_compiler_version AND runtime_compatibility = p_runtime_compatibility;
+    IF NOT FOUND THEN
+      RAISE EXCEPTION USING ERRCODE = '23514', MESSAGE = 'SB_GOVERNANCE_IMMUTABLE_CONFLICT';
+    END IF;
+  END IF;
+  RETURN v_id;
+END
+$signalbox$;
+
+CREATE OR REPLACE FUNCTION signalbox_architecture.activate_bundle(
+  p_org_id uuid, p_bundle_id uuid, p_activated_by uuid, p_bundle_hash text, p_source_hash text
+)
+RETURNS TABLE (id uuid, previous_bundle_id uuid)
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, pg_temp
+AS $signalbox$
+DECLARE
+  v_candidate signalbox_architecture.governance_bundle%ROWTYPE;
+  v_previous_id uuid;
+BEGIN
+  -- Serialize first activation as well as replacements within one tenant.
+  PERFORM pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(p_org_id::text, 0));
+  PERFORM signalbox_architecture.assert_governance_admin(p_org_id, p_activated_by);
+  SELECT bundle.* INTO v_candidate FROM signalbox_architecture.governance_bundle AS bundle
+  WHERE bundle.org_id = p_org_id AND bundle.id = p_bundle_id FOR UPDATE;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION USING ERRCODE = 'P0002', MESSAGE = 'SB_GOVERNANCE_BUNDLE_NOT_FOUND';
+  END IF;
+  IF v_candidate.bundle_hash IS DISTINCT FROM p_bundle_hash OR v_candidate.source_hash IS DISTINCT FROM p_source_hash THEN
+    RAISE EXCEPTION USING ERRCODE = '23514', MESSAGE = 'SB_GOVERNANCE_ARTIFACT_MISMATCH';
+  END IF;
+  IF v_candidate.status = 'ACTIVE' THEN
+    RETURN QUERY SELECT v_candidate.id, v_candidate.previous_bundle_id;
+    RETURN;
+  END IF;
+  SELECT bundle.id INTO v_previous_id FROM signalbox_architecture.governance_bundle AS bundle
+  WHERE bundle.org_id = p_org_id AND bundle.status = 'ACTIVE' FOR UPDATE;
+  UPDATE signalbox_architecture.governance_bundle AS bundle SET status = 'RETIRED'
+  WHERE bundle.org_id = p_org_id AND bundle.id = v_previous_id;
+  UPDATE signalbox_architecture.governance_bundle AS bundle
+  SET status = 'ACTIVE', previous_bundle_id = v_previous_id,
+      activated_by = p_activated_by, activated_at = pg_catalog.transaction_timestamp()
+  WHERE bundle.org_id = p_org_id AND bundle.id = p_bundle_id;
+  RETURN QUERY SELECT p_bundle_id, v_previous_id;
+END
+$signalbox$;
+
 GRANT USAGE ON SCHEMA signalbox_architecture TO modellang_gateway;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA signalbox_architecture TO modellang_gateway;
+REVOKE INSERT, UPDATE, DELETE ON signalbox_architecture.governance_bundle FROM modellang_gateway;
+REVOKE UPDATE, DELETE ON signalbox_architecture.object_artifact FROM modellang_gateway;
+REVOKE ALL ON FUNCTION signalbox_architecture.can_administer_governance(uuid, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION signalbox_architecture.assert_governance_admin(uuid, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION signalbox_architecture.save_compiled_bundle(uuid, uuid, text, text, text, text, text, text, uuid, uuid, jsonb, uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION signalbox_architecture.activate_bundle(uuid, uuid, uuid, text, text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION signalbox_architecture.can_administer_governance(uuid, uuid) TO modellang_gateway;
+GRANT EXECUTE ON FUNCTION signalbox_architecture.assert_governance_admin(uuid, uuid) TO modellang_gateway;
+GRANT EXECUTE ON FUNCTION signalbox_architecture.save_compiled_bundle(uuid, uuid, text, text, text, text, text, text, uuid, uuid, jsonb, uuid) TO modellang_gateway;
+GRANT EXECUTE ON FUNCTION signalbox_architecture.activate_bundle(uuid, uuid, uuid, text, text) TO modellang_gateway;
 
 COMMIT;

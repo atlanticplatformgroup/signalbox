@@ -17,6 +17,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
 import pg from "pg";
+import { installPolicyGuards } from "../dist/architecture/policy-guard.mjs";
 
 const GENERATED = "generated/signalbox/postgres";
 const PHASES = ["sql/phase2_auth.sql", "sql/phase3_worker.sql", "sql/phase5_architecture.sql"];
@@ -56,8 +57,10 @@ try {
       throw new Error(`${file} failed: ${error.message}`, { cause: error });
     }
   }
-  process.stdout.write(`\n${files.length} files applied.\n`);
-  if (!seed) process.stdout.write("Run again with --seed, or apply seed.sql, to load the demo organization.\n");
+  await installPolicyGuards(client);
+  process.stdout.write("sql/phase6_policy_enforcement.sql                 OK\n");
+  process.stdout.write(`\n${files.length + 1} migrations applied. Actions fail closed until an administrator activates an installed policy bundle.\n`);
+  if (!seed) process.stdout.write("Apply seed.sql separately to load the demo organization; do not rerun this fresh installer against an installed database.\n");
 } finally {
   await client.end();
 }

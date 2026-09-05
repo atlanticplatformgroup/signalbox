@@ -335,6 +335,8 @@ export class GovernedCodingAgent {
       deniedOperationId: invocation.denial.operationId,
       ruleId: invocation.denial.ruleId,
       rationale: correction.rationale,
+      recommendationOnly: correction.action !== "retryStaging",
+      approvalRequestCreated: false,
     });
     if (correction.action !== "retryStaging") return { ...invocation, correction };
     if (!this.#stagingFallback) throw new Error("Nano selected retryStaging without a configured fallback");

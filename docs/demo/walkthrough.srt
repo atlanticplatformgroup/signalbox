@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:07,000
+Signalbox: governed actions for AI agents.
+A walkthrough of saved, real local evidence.
+
+2
+00:00:07,000 --> 00:00:15,000
+The agent proposes an action. Signalbox authorizes it.
+A separate worker records the resulting effect.
+
+3
+00:00:15,000 --> 00:00:24,000
+Nemotron Ultra and Super edited a disposable website
+and passed its check in Nebius Sandbox.
+
+4
+00:00:24,000 --> 00:00:34,000
+Production was denied. Nano first recommended human review.
+That recommendation did not create an approval request.
+
+5
+00:00:34,000 --> 00:00:43,000
+Studio separates action evidence from policy editing.
+This reviewer cannot activate or roll back policy.
+
+6
+00:00:43,000 --> 00:00:50,000
+A separate same-input proof verified allowed, denied,
+and allowed again after policy rollback.
+
+7
+00:00:50,000 --> 00:01:00,000
+We continued the saved run with an explicit staging alternative.
+One additional Nano request selected retryStaging.
+
+8
+00:01:00,000 --> 00:01:10,000
+Signalbox authorized staging. After fixing a missing dispatch input,
+the worker succeeded without another model or Sandbox call.
+
+9
+00:01:10,000 --> 00:01:20,000
+This is the actual published file, with its digest verified.
+The effect is local staging; the hosted instance is unchanged.

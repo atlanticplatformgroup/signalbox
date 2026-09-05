@@ -1,4 +1,5 @@
 import { execFileSync } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { Pool } from "pg";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -14,7 +15,7 @@ import {
 } from "../src/architecture/contracts.mjs";
 import { MemoryArtifactStore } from "../src/architecture/object-store.mjs";
 import { DurableAgentOrchestrator } from "../src/architecture/orchestrator.mjs";
-import { ArchitectureRepository, RunTransitionConflictError } from "../src/architecture/repository.mjs";
+import { ArchitectureRepository, GovernanceAdministrationError, RunTransitionConflictError } from "../src/architecture/repository.mjs";
 import { closedOperations, missingPreparation, resolveBundleReadiness } from "../src/architecture/readiness.mjs";
 
 const ORG = "00000000-0000-4000-8000-0000000000a1";
@@ -26,33 +27,18 @@ const databaseUrl = "postgresql://sb_gateway_login:gw@127.0.0.1:55433/sb_managed
 const migration = readFileSync(new URL("../sql/phase5_architecture.sql", import.meta.url), "utf8");
 const pool = new Pool({ connectionString: databaseUrl });
 
-const source = `model GovernedAPI version "0.1.0";
-entity Agent @stableId("ent_20000000000000000000000000000001") {
-  id: UUID @id @stableId("fld_20000000000000000000000000000001");
-  active: Boolean = true @stableId("fld_20000000000000000000000000000002");
-}
-entity ApiResource @stableId("ent_20000000000000000000000000000002") {
-  id: UUID @id @stableId("fld_20000000000000000000000000000003");
-  path: String @unique @stableId("fld_20000000000000000000000000000004");
-}
-entity ApiRequest @stableId("ent_20000000000000000000000000000003") {
-  id: UUID @id @generated(uuid) @stableId("fld_20000000000000000000000000000005");
-  resource: ApiResource @stableId("fld_20000000000000000000000000000006");
-  requestedBy: Agent @stableId("fld_20000000000000000000000000000007");
-}
-policy ApiDelegation @stableId("pol_20000000000000000000000000000001")(actor: Agent) {
-  allow active_agent @stableId("pbr_20000000000000000000000000000001"): actor.active;
-}
-action callApi @stableId("act_20000000000000000000000000000001")(caller actor: Agent, resource: ApiResource) -> ApiRequest {
-  authorize ApiDelegation(actor);
-  idempotency required;
-  create ApiRequest { resource = resource; requestedBy = actor; }
-}
-`;
+const source = readFileSync(new URL("../signalbox.model", import.meta.url), "utf8");
 
 function applyArchitectureSchema(): void {
   execFileSync("docker", ["exec", "-i", "sb-pg16", "psql", "-U", "nebius_admin", "-d", "sb_managed", "-v", "ON_ERROR_STOP=1", "-f", "-"], {
     input: `DROP SCHEMA IF EXISTS signalbox_architecture CASCADE;\n${migration}`,
+    encoding: "utf8",
+  });
+}
+
+function administrativeSql(statement: string): void {
+  execFileSync("docker", ["exec", "-i", "sb-pg16", "psql", "-U", "nebius_admin", "-d", "sb_managed", "-v", "ON_ERROR_STOP=1", "-f", "-"], {
+    input: statement,
     encoding: "utf8",
   });
 }
@@ -97,37 +83,35 @@ beforeAll(() => applyArchitectureSchema());
 afterAll(async () => { await pool.end(); });
 
 describe("architecture contracts", () => {
-  it("compiles source into a data-only immutable governance bundle in object storage", async () => {
+  it("compiles the fixed Signalbox source into an immutable governance bundle in object storage", async () => {
     const objects = new MemoryArtifactStore();
     const compiler = new GovernanceBundleCompiler({ objectStore: objects });
     const compiled = await compiler.compile(ORG, source);
-    expect(compiled.bundle).toMatchObject({
-      format: "signalbox-governance-bundle/1",
-      model: { name: "GovernedAPI", version: "0.1.0", sourceHash: expect.stringMatching(/^sha256:/) },
-      runtimeCompatibility: "signalbox-governance-runtime/1",
-    });
-    expect(compiled.bundle.operations).toHaveLength(1);
-    expect(compiled.bundle.operations[0]).toMatchObject({ name: "callApi", requiredBindings: ["DELEGATION", "QUOTA", "RESOURCE"] });
     expect(new TextDecoder().decode(await objects.get(compiled.sourceObject.key))).toBe(source);
     const storedBundle = JSON.parse(new TextDecoder().decode(await objects.get(compiled.bundleObject.key)));
-    expect(storedBundle.bundleHash).toBe(compiled.bundle.bundleHash);
-    expect(Object.isFrozen(compiled.bundle)).toBe(true);
+    const { bundleHash, ...content } = storedBundle;
+    expect(sha256Json(content)).toBe(bundleHash);
+    expect(bundleHash).toBe(compiled.bundle.bundleHash);
+    const rebuilt = await compiler.compile(ORG, source);
+    expect(rebuilt.bundle.bundleHash).toBe(bundleHash);
+    expect(rebuilt.bundleObject.key).toBe(compiled.bundleObject.key);
   });
 
   it("closes only fully prepared capabilities and returns a stop outcome for missing preparation", async () => {
     const compiled = await new GovernanceBundleCompiler({ objectStore: new MemoryArtifactStore() }).compile(ORG, source);
-    const operationId = compiled.bundle.operations[0]!.operationId;
+    const operationId = compiled.bundle.operations.find((operation) => operation.name === "requestIssueCreation")!.operationId;
     const states = [binding(operationId, {
       credentialReady: false,
       details: [{ code: "CREDENTIAL_UNAVAILABLE", message: "GitHub App installation credential is absent.", requirement: "github-app" }],
     })];
     const readiness = resolveBundleReadiness(compiled.bundle, states, "2026-08-31T00:00:00.000Z");
     expect(closedOperations(compiled.bundle, states).operations).toHaveLength(0);
-    expect(readiness[0]).toMatchObject({ ready: false, missing: [{ code: "CREDENTIAL_UNAVAILABLE", requirement: "github-app" }] });
+    const selected = readiness.find((operation) => operation.operationId === operationId)!;
+    expect(selected).toMatchObject({ ready: false, missing: [{ code: "CREDENTIAL_UNAVAILABLE", requirement: "github-app" }] });
     expect(missingPreparation(readiness, operationId)).toEqual({
       outcome: "MISSING_PREPARATION",
       operationId,
-      missing: readiness[0]!.missing,
+      missing: selected.missing,
       instruction: "STOP_AND_REPORT",
     });
   });
@@ -165,6 +149,58 @@ describe("architecture contracts", () => {
 });
 
 describe("durable architecture repository", () => {
+  it("requires current tenant administration at persistence and leaves active policy unchanged on corrupt activation or rollback", async () => {
+    const adminId = randomUUID();
+    const reviewerId = randomUUID();
+    administrativeSql(`
+      INSERT INTO model_signalbox.principal (id,org_id,kind,display_name,status,roles)
+      VALUES ('${adminId}','${ORG}','HUMAN','Policy admin regression','ACTIVE','{ADMIN}'),
+             ('${reviewerId}','${ORG}','HUMAN','Policy reviewer regression','ACTIVE','{MEMBER,APPROVER}');
+    `);
+    try {
+      const objects = new MemoryArtifactStore();
+      const compiler = new GovernanceBundleCompiler({ objectStore: objects });
+      const compiled = await compiler.compile(ORG, source.replace(/(model Signalbox version )"[^"]+"/, '$1"0.8.0"'));
+      const repository = new ArchitectureRepository(pool);
+      await expect(repository.saveCompiledBundle(ORG, reviewerId, compiled)).rejects.toBeInstanceOf(GovernanceAdministrationError);
+      await expect(repository.saveCompiledBundle(ORG, AGENT, compiled)).rejects.toBeInstanceOf(GovernanceAdministrationError);
+      await expect(repository.saveCompiledBundle("00000000-0000-4000-8000-0000000000a2", adminId, compiled)).rejects.toBeInstanceOf(GovernanceAdministrationError);
+      const firstId = await repository.saveCompiledBundle(ORG, adminId, compiled);
+      await expect(repository.activateBundle(ORG, firstId, reviewerId, objects)).rejects.toBeInstanceOf(GovernanceAdministrationError);
+      await repository.activateBundle(ORG, firstId, adminId, objects);
+      expect((await repository.activeGovernanceBundle(ORG))?.id).toBe(firstId);
+      await expect(pool.query("UPDATE signalbox_architecture.governance_bundle SET status='RETIRED' WHERE id=$1", [firstId])).rejects.toMatchObject({ code: "42501" });
+
+      const next = await compiler.compile(ORG, source.replace(/(model Signalbox version )"[^"]+"/, '$1"0.9.0"'));
+      const nextId = await repository.saveCompiledBundle(ORG, adminId, next);
+      administrativeSql(`UPDATE model_signalbox.principal SET roles='{MEMBER,APPROVER}' WHERE id='${adminId}';`);
+      await expect(repository.activateBundle(ORG, nextId, adminId, objects)).rejects.toBeInstanceOf(GovernanceAdministrationError);
+      administrativeSql(`UPDATE model_signalbox.principal SET roles='{ADMIN}',status='REVOKED' WHERE id='${adminId}';`);
+      await expect(repository.saveCompiledBundle(ORG, adminId, next)).rejects.toBeInstanceOf(GovernanceAdministrationError);
+      await expect(repository.activateBundle(ORG, nextId, adminId, objects)).rejects.toBeInstanceOf(GovernanceAdministrationError);
+      expect((await repository.activeGovernanceBundle(ORG))?.id).toBe(firstId);
+      administrativeSql(`UPDATE model_signalbox.principal SET status='ACTIVE' WHERE id='${adminId}';`);
+
+      const corruptSource = {
+        put: objects.put.bind(objects),
+        get: async (key: string) => key === next.sourceObject.key ? Buffer.from("tampered policy") : objects.get(key),
+      };
+      await expect(repository.activateBundle(ORG, nextId, adminId, corruptSource)).rejects.toThrow();
+      expect((await repository.activeGovernanceBundle(ORG))?.id).toBe(firstId);
+      await repository.activateBundle(ORG, nextId, adminId, objects);
+      const corruptRollback = {
+        put: objects.put.bind(objects),
+        get: async (key: string) => key === compiled.bundleObject.key
+          ? Buffer.from(JSON.stringify({ ...compiled.bundle, preview: {} }))
+          : objects.get(key),
+      };
+      await expect(repository.activateBundle(ORG, firstId, adminId, corruptRollback)).rejects.toThrow();
+      expect(await repository.activeGovernanceBundle(ORG)).toMatchObject({ id: nextId, previousBundleId: firstId });
+    } finally {
+      administrativeSql(`DELETE FROM model_signalbox.principal WHERE id IN ('${adminId}','${reviewerId}');`);
+    }
+  });
+
   it("persists bundle/profile pins, enforces readiness, and records run and sandbox transitions", async () => {
     const objects = new MemoryArtifactStore();
     const compiled = await new GovernanceBundleCompiler({ objectStore: objects }).compile(ORG, source);
@@ -172,8 +208,8 @@ describe("durable architecture repository", () => {
     const bundleId = await repository.saveCompiledBundle(ORG, ADMIN, compiled);
     const executionProfile = profile();
     await repository.saveExecutionProfile(executionProfile, ADMIN);
-    await repository.activateBundle(ORG, bundleId, ADMIN);
-    const operationId = compiled.bundle.operations[0]!.operationId;
+    await repository.activateBundle(ORG, bundleId, ADMIN, objects);
+    const operationId = compiled.bundle.operations.find((operation) => operation.name === "requestIssueCreation")!.operationId;
 
     const manifestBase = {
       format: runManifestFormat,

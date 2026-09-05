@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const governanceBundleFormat = "signalbox-governance-bundle/1" as const;
+export const governanceBundleFormat = "signalbox-governance-bundle/2" as const;
 export const runManifestFormat = "signalbox-run-manifest/1" as const;
 export const executionProfileFormat = "signalbox-execution-profile/1" as const;
 
@@ -36,6 +36,10 @@ export interface GovernanceBundle {
   readonly operations: readonly GovernanceOperation[];
   readonly preview: GovernanceBundlePreview;
   readonly decisionGraph: Readonly<Record<string, unknown>>;
+  readonly enforcement: {
+    readonly decisionSql: string;
+    readonly structureHash: string;
+  };
   readonly provenance: Readonly<Record<string, unknown>>;
   readonly bundleHash: string;
 }

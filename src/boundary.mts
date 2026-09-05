@@ -8,6 +8,7 @@ import { createAgentTokenHttpHandler } from "./agent-token-http.mjs";
 import { AgentTokenService } from "./agent-tokens.mjs";
 import { IdentityAuthenticator, type BoundIdentity, type IdentityOptions } from "./identity.mjs";
 import { GovernanceStudio, type GovernanceStudioOptions } from "./governance-studio.mjs";
+import { publicDecisionExecutor } from "./architecture/public-decisions.mjs";
 
 export interface SignalboxBoundaryOptions {
   readonly pool: Pool;
@@ -42,7 +43,7 @@ export function createSignalboxBoundary(options: SignalboxBoundaryOptions): Sign
     if (!identity) return null;
     return {
       identity,
-      executor: createSignalboxGatewayExecutor(options.pool, identity),
+      executor: publicDecisionExecutor(createSignalboxGatewayExecutor(options.pool, identity)),
     };
   };
 

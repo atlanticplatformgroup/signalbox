@@ -219,7 +219,7 @@ function parseChatReply(value: unknown, requestedModel: string): ChatReply {
   const content = message.content === null || message.content === undefined || message.content === ""
     ? null
     : stringValue(message.content, "Token Factory chat completion message.content");
-  const calls = message.tool_calls === undefined ? undefined : parseToolCalls(message.tool_calls);
+  const calls = message.tool_calls === undefined || message.tool_calls === null ? undefined : parseToolCalls(message.tool_calls);
   const finishReason = choice.finish_reason === null || choice.finish_reason === undefined
     ? null
     : stringValue(choice.finish_reason, "Token Factory chat completion finish_reason");

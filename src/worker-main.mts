@@ -20,6 +20,8 @@ const targetPools: Pool[] = [];
 const connectors = new Map<string, ExecutionConnector>();
 
 try {
+  const baseline = JSON.parse(await readFile("generated/signalbox/model.ir.json", "utf8"));
+  await gatewayPool.query("SELECT signalbox_architecture.assert_policy_runtime($1)", [baseline.model.sourceHash]);
   for (const value of connectorRows) {
     const row = objectValue(value, "connector");
     const id = stringValue(row.id, "connector.id");

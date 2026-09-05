@@ -155,7 +155,7 @@ export class AuditNarrationRole {
       messages: [
         {
           role: "system",
-          content: "You are an audit narrator. State only facts present in the immutable timeline. Distinguish assessment from execution and pending approval from approval. Never infer hidden policy, private evidence, or successful effects.",
+          content: "You are an audit narrator. State only facts present in the immutable timeline. Distinguish assessment from execution and pending approval from approval. A requestApproval correction is a recommendation to seek human review; it does not create an approval request. Do not report approval as pending without a separate recorded request. Never infer hidden policy, private evidence, or successful effects.",
         },
         { role: "user", content: JSON.stringify(entries) },
       ],

@@ -1,16 +1,16 @@
 import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
 import type { BoundIdentity } from "./identity.mjs";
 import { GovernanceBundleCompileError, GovernanceBundleCompiler } from "./architecture/bundle-compiler.mjs";
-import { sha256Json, type GovernanceBundle, type GovernanceBundlePreview } from "./architecture/contracts.mjs";
+import type { GovernanceBundle, GovernanceBundlePreview } from "./architecture/contracts.mjs";
 import type { ObjectArtifactStore } from "./architecture/object-store.mjs";
-import type { ArchitectureRepository, GovernanceBundleRecord } from "./architecture/repository.mjs";
+import { GovernanceAdministrationError, type ArchitectureRepository, type GovernanceBundleRecord } from "./architecture/repository.mjs";
+import type { PolicyInstaller } from "./architecture/policy-installer.mjs";
 
 const MAX_SOURCE_BYTES = 512 * 1024;
-const FRESH_MODEL = `// Define governed resources, operations, constraints, and approval rules.
-model CustomerGovernance version "0.1.0";
-`;
 
 export interface GovernanceStudioRepository {
+  canAdministerGovernance: ArchitectureRepository["canAdministerGovernance"];
   saveCompiledBundle: ArchitectureRepository["saveCompiledBundle"];
   governanceBundle: ArchitectureRepository["governanceBundle"];
   activeGovernanceBundle: ArchitectureRepository["activeGovernanceBundle"];
@@ -21,6 +21,8 @@ export interface GovernanceStudioOptions {
   readonly repository: GovernanceStudioRepository;
   readonly compiler: GovernanceBundleCompiler;
   readonly objectStore: ObjectArtifactStore;
+  readonly installer: PolicyInstaller;
+  readonly activity?: (identity: BoundIdentity) => Promise<unknown[]>;
 }
 interface VersionRecord {
   readonly id: string;
@@ -76,25 +78,30 @@ export class GovernanceStudio {
   readonly #repository: GovernanceStudioRepository;
   readonly #compiler: GovernanceBundleCompiler;
   readonly #objectStore: ObjectArtifactStore;
+  readonly #installer: PolicyInstaller;
+  readonly #activity?: (identity: BoundIdentity) => Promise<unknown[]>;
 
   constructor(options: GovernanceStudioOptions) {
     this.#repository = options.repository;
     this.#compiler = options.compiler;
     this.#objectStore = options.objectStore;
+    this.#installer = options.installer;
+    this.#activity = options.activity;
   }
 
   async #compile(source: string, retain: boolean, identity: BoundIdentity): Promise<CompileResult> {
     try {
-      const compiled = await this.#compiler.compile(identity.orgId, source);
-      const candidateId = retain
+      const compiled = retain ? await this.#compiler.compile(identity.orgId, source) : null;
+      const bundle = compiled?.bundle ?? (await this.#compiler.validate(identity.orgId, source)).bundle;
+      const candidateId = compiled
         ? await this.#repository.saveCompiledBundle(identity.orgId, identity.principalId, compiled)
         : undefined;
       return {
         ok: true,
         diagnostics: [],
-        preview: compiled.bundle.preview,
+        preview: bundle.preview,
         artifacts: ["customer.model", "governance-bundle.json"],
-        model: compiled.bundle.model,
+        model: bundle.model,
         ...(candidateId ? { candidateId } : {}),
       };
     } catch (error) {
@@ -105,16 +112,6 @@ export class GovernanceStudio {
     }
   }
 
-  async #bundle(record: GovernanceBundleRecord): Promise<GovernanceBundle> {
-    const value = JSON.parse(new TextDecoder().decode(await this.#objectStore.get(record.bundleObjectKey))) as GovernanceBundle;
-    const { bundleHash, ...unsigned } = value;
-    if (bundleHash !== record.bundleHash
-      || sha256Json(unsigned) !== record.bundleHash
-      || value.model.sourceHash !== record.model.sourceHash) {
-      throw new Error("Stored governance bundle does not match immutable database metadata");
-    }
-    return value;
-  }
 
   async #version(record: GovernanceBundleRecord): Promise<VersionRecord> {
     if (!record.activatedAt || !record.activatedBy) throw new Error("Active governance bundle omitted activation evidence");
@@ -133,9 +130,15 @@ export class GovernanceStudio {
     if (identity.kind !== "HUMAN") return json({ code: "SB_HUMAN_REQUIRED", message: "Governance authoring requires a human identity." }, 403);
     const url = new URL(request.url);
     try {
+      const mutation = request.method === "POST"
+        && ["/studio/api/compile", "/studio/api/activate", "/studio/api/rollback"].includes(url.pathname);
+      if (mutation && !await this.#repository.canAdministerGovernance(identity.orgId, identity.principalId)) {
+        throw new GovernanceAdministrationError();
+      }
       if (request.method === "GET" && url.pathname === "/studio/api/bootstrap") {
         const activeRecord = await this.#repository.activeGovernanceBundle(identity.orgId);
-        let source = FRESH_MODEL;
+        const baselineSource = await readFile("signalbox.model", "utf8");
+        let source = baselineSource;
         if (activeRecord) {
           source = new TextDecoder().decode(await this.#objectStore.get(activeRecord.sourceObjectKey));
           const hash = `sha256:${createHash("sha256").update(source).digest("hex")}`;
@@ -143,12 +146,19 @@ export class GovernanceStudio {
         }
         return json({
           source,
+          baselineSource,
           active: activeRecord ? await this.#version(activeRecord) : null,
+          permissions: { canAdministerGovernance: await this.#repository.canAdministerGovernance(identity.orgId, identity.principalId) },
           boundary: {
-            signalboxOwned: ["identity", "credentials", "audit", "approvals", "execution lifecycle"],
-            customerOwned: ["governed resources", "operations", "constraints", "approval rules"],
+            signalboxOwned: ["identity", "credentials", "tenant isolation", "data schema", "actions and effects", "audit", "execution lifecycle"],
+            customerOwned: ["additional action policies", "action preconditions", "approval restrictions"],
           },
         });
+      }
+      if (request.method === "GET" && url.pathname === "/studio/api/activity") {
+        if (!this.#activity) return json({ code: "SB_ACTIVITY_UNAVAILABLE", message: "Action evidence storage is not configured." }, 503);
+        const catalog = JSON.parse(await readFile("generated/signalbox/operations.json", "utf8")) as { operations: { id: string; name: string }[] };
+        return json({ items: await this.#activity(identity), operationNames: Object.fromEntries(catalog.operations.map((operation) => [operation.id, operation.name])) });
       }
       if (request.method === "POST" && url.pathname === "/studio/api/validate") {
         return json(await this.#compile(await bodySource(request), false, identity));
@@ -161,10 +171,10 @@ export class GovernanceStudio {
         if (typeof body.candidateId !== "string" || !/^[0-9a-f-]{36}$/.test(body.candidateId)) throw new TypeError("candidateId is required");
         const candidate = await this.#repository.governanceBundle(identity.orgId, body.candidateId);
         if (!candidate) throw new CandidateNotFoundError();
-        await this.#repository.activateBundle(identity.orgId, candidate.id, identity.principalId);
+        await this.#installer.install(identity.orgId, candidate.id, identity.principalId);
+        await this.#repository.activateBundle(identity.orgId, candidate.id, identity.principalId, this.#objectStore);
         const active = await this.#repository.activeGovernanceBundle(identity.orgId);
         if (!active) throw new Error("Activated governance bundle was not persisted");
-        await this.#bundle(active);
         return json({ ok: true, active: await this.#version(active) });
       }
       if (request.method === "POST" && url.pathname === "/studio/api/rollback") {
@@ -172,13 +182,15 @@ export class GovernanceStudio {
         if (!current?.previousBundleId) return json({ code: "SB_NO_ROLLBACK", message: "No prior active model is available." }, 409);
         const previous = await this.#repository.governanceBundle(identity.orgId, current.previousBundleId);
         if (!previous) throw new Error("Previous immutable governance bundle is unavailable");
-        await this.#repository.activateBundle(identity.orgId, previous.id, identity.principalId);
+        await this.#installer.install(identity.orgId, previous.id, identity.principalId);
+        await this.#repository.activateBundle(identity.orgId, previous.id, identity.principalId, this.#objectStore);
         const active = await this.#repository.activeGovernanceBundle(identity.orgId);
         if (!active) throw new Error("Rolled-back governance bundle was not persisted");
         return json({ ok: true, active: await this.#version(active) });
       }
       return json({ code: "SB_NOT_FOUND", message: "Not found." }, 404);
     } catch (error) {
+      if (error instanceof GovernanceAdministrationError) return json({ code: error.code, message: error.message }, 403);
       if (error instanceof SyntaxError || error instanceof TypeError || error instanceof RangeError) return json({ code: "SB_INVALID_REQUEST", message: error.message }, 400);
       if (error instanceof CandidateNotFoundError) return json({ code: "SB_CANDIDATE_NOT_FOUND", message: "The compiled candidate does not exist." }, 404);
       throw error;

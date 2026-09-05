@@ -12,6 +12,7 @@ import {
   type GovernanceBundlePreview,
 } from "./contracts.mjs";
 import type { ObjectArtifactStore, StoredObject } from "./object-store.mjs";
+import { verifyPolicyCompatibility } from "./policy-compatibility.mjs";
 
 const maximumSourceBytes = 512 * 1024;
 const compilerTimeoutMs = 30_000;
@@ -62,10 +63,10 @@ export class GovernanceBundleCompiler {
   constructor(options: GovernanceBundleCompilerOptions) {
     this.#objectStore = options.objectStore;
     this.#compiler = resolve(options.compiler ?? "node_modules/.bin/modelc");
-    this.#runtimeCompatibility = options.runtimeCompatibility ?? "signalbox-governance-runtime/1";
+    this.#runtimeCompatibility = options.runtimeCompatibility ?? "signalbox-governance-runtime/2";
   }
 
-  async compile(orgId: string, source: string): Promise<CompiledGovernanceBundle> {
+  async validate(_orgId: string, source: string): Promise<{ bundle: GovernanceBundle }> {
     const normalized = source.replace(/\r\n?/g, "\n");
     if (!normalized.trim()) throw new TypeError("Governance source is required");
     if (Buffer.byteLength(normalized) > maximumSourceBytes) throw new RangeError("Governance source exceeds 512 KiB");
@@ -74,7 +75,7 @@ export class GovernanceBundleCompiler {
       const modelPath = join(directory, "customer.model");
       const output = join(directory, "generated");
       await writeFile(modelPath, normalized, { encoding: "utf8", mode: 0o600 });
-      const compile = await runCompiler(this.#compiler, ["build", modelPath, "--out", output]);
+      const compile = await runCompiler(this.#compiler, ["build", "customer.model", "--out", "generated"], directory);
       if (compile.code !== 0) throw new GovernanceBundleCompileError(compile.stderr || "The compiler returned no diagnostic");
 
       const tools = parseJson<ToolCatalog>(await readFile(join(output, "agent-tools.json"), "utf8"), "agent tool catalog");
@@ -84,6 +85,8 @@ export class GovernanceBundleCompiler {
       const model = parseModel(tools);
       const expectedSourceHash = `sha256:${createHash("sha256").update(normalized).digest("hex")}`;
       if (model.sourceHash !== expectedSourceHash) throw new Error("Compiler source hash does not match the submitted governance source");
+      const structureHash = await verifyPolicyCompatibility(ir as Record<string, unknown>);
+      const decisionSql = await readFile(join(output, "postgres/003_decisions.sql"), "utf8");
       const operations = parseOperations(tools.tools);
       const bundle = withBundleHash({
         format: governanceBundleFormat,
@@ -93,18 +96,24 @@ export class GovernanceBundleCompiler {
         operations,
         preview: parsePreview(ir, operations),
         decisionGraph: decisions,
+        enforcement: { decisionSql, structureHash },
         provenance,
       });
-      const sourceBytes = Buffer.from(normalized, "utf8");
-      const bundleBytes = Buffer.from(JSON.stringify(bundle), "utf8");
-      const [sourceObject, bundleObject] = await Promise.all([
-        this.#objectStore.put(orgId, "MODEL_SOURCE", sourceBytes, "text/plain; charset=utf-8"),
-        this.#objectStore.put(orgId, "GOVERNANCE_BUNDLE", bundleBytes, "application/vnd.signalbox.governance-bundle+json"),
-      ]);
-      return { id: randomUUID(), bundle, sourceObject, bundleObject };
+      return { bundle };
     } finally {
       await rm(directory, { recursive: true, force: true });
     }
+  }
+
+  async compile(orgId: string, source: string): Promise<CompiledGovernanceBundle> {
+    const { bundle } = await this.validate(orgId, source);
+    const sourceBytes = Buffer.from(source.replace(/\r\n?/g, "\n"), "utf8");
+    const bundleBytes = Buffer.from(JSON.stringify(bundle), "utf8");
+    const [sourceObject, bundleObject] = await Promise.all([
+      this.#objectStore.put(orgId, "MODEL_SOURCE", sourceBytes, "text/plain; charset=utf-8"),
+      this.#objectStore.put(orgId, "GOVERNANCE_BUNDLE", bundleBytes, "application/vnd.signalbox.governance-bundle+json"),
+    ]);
+    return { id: randomUUID(), bundle, sourceObject, bundleObject };
   }
 }
 
@@ -164,9 +173,9 @@ function inferredBindings(schema: Readonly<Record<string, unknown>>): readonly B
   return [...bindings].sort();
 }
 
-async function runCompiler(executable: string, args: readonly string[]): Promise<{ code: number; stderr: string }> {
+async function runCompiler(executable: string, args: readonly string[], cwd: string): Promise<{ code: number; stderr: string }> {
   return await new Promise((resolvePromise) => {
-    const child = spawn(executable, args, { stdio: ["ignore", "ignore", "pipe"] });
+    const child = spawn(executable, args, { cwd, stdio: ["ignore", "ignore", "pipe"] });
     let stderr = "";
     child.stderr.setEncoding("utf8");
     child.stderr.on("data", (chunk: string) => { if (stderr.length < 64 * 1024) stderr += chunk; });

@@ -1,4 +1,4 @@
-import type { Pool } from "pg";
+import type { Pool, PoolClient } from "pg";
 import { createSignalboxGatewayExecutor } from "../generated/signalbox/dist/gateway.js";
 import {
   ConnectorFailure,
@@ -72,17 +72,13 @@ export class SignalboxWorker {
       return true;
     }
     if (claim.effectReference) {
-      await this.completeEffect(claim, claim.effectReference, true);
+      await this.completeEffect(claim, claim.effectReference);
       return true;
     }
 
     const connector = this.options.connectors.get(claim.connectorId);
     if (!connector || connector.kind !== claim.connectorKind) {
       await this.failPermanently(claim, "CONNECTOR_NOT_CONFIGURED");
-      return true;
-    }
-    if (!await this.confirm(claim)) {
-      await this.finish(claim);
       return true;
     }
 
@@ -92,45 +88,71 @@ export class SignalboxWorker {
       return true;
     }
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(new Error("connector timeout")), this.connectorTimeoutMs);
-    timeout.unref?.();
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+    let connection: PoolClient | undefined;
+    let transactionOpen = false;
+    let recordingEffect = false;
+    let failure: ConnectorFailure | undefined;
     let externalReference: string | undefined;
     try {
-      if (recoveryOnly) {
-        if (!connector.recover) throw new ConnectorFailure("RETRY_EXHAUSTED", false);
-        externalReference = await connector.recover(claim, controller.signal);
+      connection = await this.options.pool.connect();
+      await connection.query("BEGIN ISOLATION LEVEL READ COMMITTED");
+      transactionOpen = true;
+      if (await this.confirm(connection, claim)) {
+        timeout = setTimeout(() => controller.abort(new Error("connector timeout")), this.connectorTimeoutMs);
+        timeout.unref?.();
+        externalReference = recoveryOnly
+          ? await connector.recover!(claim, controller.signal)
+          : await connector.execute(claim, controller.signal);
+        if (!externalReference) throw new ConnectorFailure("RETRY_EXHAUSTED", false);
+        if (externalReference.length > 2_048) throw new ConnectorFailure("INVALID_EXTERNAL_REFERENCE", false);
+        recordingEffect = true;
+        if (!await this.recordEffect(connection, claim, externalReference)) {
+          throw new ConnectorFailure("EFFECT_RECORDING_FAILED", true);
+        }
+        await connection.query("COMMIT");
       } else {
-        externalReference = await connector.execute(claim, controller.signal);
+        await connection.query("ROLLBACK");
       }
+      transactionOpen = false;
     } catch (error) {
-      const failure = normalizeFailure(error, controller.signal);
+      failure = recordingEffect
+        ? new ConnectorFailure("RECOVERY_REQUIRED", true, { cause: error })
+        : normalizeFailure(error, controller.signal);
+      if (transactionOpen && connection) {
+        try {
+          await connection.query("ROLLBACK");
+        } catch {
+          connection.release(true);
+          connection = undefined;
+        }
+      }
+    } finally {
+      clearTimeout(timeout);
+      connection?.release();
+    }
+
+    if (failure) {
       if (!failure.retryable) {
         await this.failPermanently(claim, failure.code);
       } else if (recoveryOnly && claim.attemptCount >= this.maxAttempts + 2) {
         await this.failPermanently(claim, "OUTCOME_UNKNOWN");
-      } else if (claim.attemptCount >= this.maxAttempts) {
-        await this.release(claim, "RECOVERY_REQUIRED", retryDelaySeconds(
-          claim.attemptCount,
-          this.retryBaseMs,
-          this.retryMaxMs,
-        ));
       } else {
-        await this.release(claim, failure.code, retryDelaySeconds(
-          claim.attemptCount,
-          this.retryBaseMs,
-          this.retryMaxMs,
-        ));
+        await this.release(
+          claim,
+          recordingEffect || claim.attemptCount >= this.maxAttempts ? "RECOVERY_REQUIRED" : failure.code,
+          retryDelaySeconds(claim.attemptCount, this.retryBaseMs, this.retryMaxMs),
+        );
       }
       return true;
-    } finally {
-      clearTimeout(timeout);
     }
-
     if (!externalReference) {
-      await this.failPermanently(claim, "RETRY_EXHAUSTED");
+      await this.finish(claim);
       return true;
     }
-    await this.completeEffect(claim, externalReference, false);
+    // The policy lock and effect ledger commit together before the terminal action
+    // opens its own transaction, so completion cannot deadlock on this worker.
+    await this.completeEffect(claim, externalReference);
     return true;
   }
 
@@ -166,29 +188,28 @@ export class SignalboxWorker {
     });
   }
 
-  private async confirm(claim: ExecutionClaim): Promise<boolean> {
-    const result = await this.options.pool.query<{ confirmed: boolean }>(
+  private async confirm(connection: PoolClient, claim: ExecutionClaim): Promise<boolean> {
+    const result = await connection.query<{ confirmed: boolean }>(
       `SELECT model_signalbox_worker.confirm_execution_claim($1, $2, $3, $4, $5) AS confirmed`,
       [this.options.identity.issuer, this.options.identity.subject, this.options.workerId, claim.executionId, claim.claimToken],
     );
     return result.rows[0]?.confirmed === true;
   }
 
-  private async recordEffect(claim: ExecutionClaim, externalReference: string): Promise<boolean> {
-    const result = await this.options.pool.query<{ recorded: boolean }>(
+  private async recordEffect(connection: PoolClient, claim: ExecutionClaim, externalReference: string): Promise<boolean> {
+    const result = await connection.query<{ recorded: boolean }>(
       `SELECT model_signalbox_worker.record_execution_effect($1, $2, $3, $4) AS recorded`,
       [this.options.workerId, claim.executionId, claim.claimToken, externalReference],
     );
     return result.rows[0]?.recorded === true;
   }
 
-  private async completeEffect(claim: ExecutionClaim, externalReference: string, alreadyRecorded: boolean): Promise<void> {
+  private async completeEffect(claim: ExecutionClaim, externalReference: string): Promise<void> {
     if (externalReference.length === 0 || externalReference.length > 2_048) {
       await this.failPermanently(claim, "INVALID_EXTERNAL_REFERENCE");
       return;
     }
     try {
-      if (!alreadyRecorded && !await this.recordEffect(claim, externalReference)) return;
       await this.executor.execute(
         COMPLETE_EXECUTION,
         { execution: claim.executionId, externalReference },
